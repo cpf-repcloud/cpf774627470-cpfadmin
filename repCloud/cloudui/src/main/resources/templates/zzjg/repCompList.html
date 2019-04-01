@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+    <title>目录数据结果</title>
+    <!--public-->
+    <style>
+        @import "../../static/public/css/commons.css";
+        .ivu-modal{top: 20px;}
+    </style>
+    <script type="text/javascript" src="../../static/public/js/common.js"></script>
+    <!--repModularList-->
+    <script type="text/javascript" src="../../static/js/zzjg/repCompList.js"></script>
+</head>
+<body class="bodyClass">
+    <div id="app" v-cloak>
+        <div class="tree" id="my-box" >
+            <i-form ref="queryForm" :inline="false" :model="iquery" :rules="formRule" :show-message="false" @keydown.native.enter.prevent ="keyDownEvent">
+                <Row>
+                    <i-col :sm="20" :md="20" :lg="20">
+                        <i-input class="sreach" type="text" icon="ios-search"  ></i-input>
+                    </i-col>
+                </Row>
+                <div class="tree-box">
+                    <Tree ref="tree4"></Tree>
+                </div>
+            </i-form>
+        </div>
+        <div class="content">
+            <i-form ref="queryForm" :inline="false" :model="iquery" :show-message="false" @keydown.native.enter.prevent ="keyDownEvent">
+                <div class="pb10">
+                    <i-button type="primary" @click="saveComp">新增</i-button>
+                    <i-input placeholder="请输入..." icon="ios-search" style="max-width: 200px;"></i-input>
+                </div>
+            </i-form>
+            <i-table :columns="columns1" :data="pagedata" height="400" :loading="igrid.loading"></i-table>
+            <Page class="pt20" :current="1" :page-size="ipage.size" :total="ipage.total" show-total @on-change="search" ></Page>
+            <Modal title="新增菜单" v-model="addComp" :mask-closable="false" @on-ok="save">
+                <i-form ref="saveData" :model="saveData" :inline="false" :label-width="80" :rules="formRule" :show-message="true">
+                    <Row>
+                        <i-col :sm="24">
+                            <Form-item label="公司名称" prop="compmc">
+                                <i-input v-model="saveData.compmc" clearable type="text" placeholder="请输入"></i-input>
+                            </Form-item>
+                        </i-col>
+                        <i-col :sm="24">
+                            <Form-item label="公司简称" prop="compjc">
+                                <i-input v-model="saveData.compjc" clearable type="text" placeholder="请输入"></i-input>
+                            </Form-item>
+                        </i-col>
+                        <i-col :sm="24">
+                            <Form-item label="公司地址" prop="compaddress">
+                                <i-input v-model="saveData.compaddress" clearable type="text" placeholder="请输入"></i-input>
+                            </Form-item>
+                        </i-col>
+                        <i-col :sm="24">
+                            <Form-item label="总公司" prop="zgs">
+                                <i-input v-model="saveData.zgs"  clearable type="text" placeholder="请输入"></i-input>
+                            </Form-item>
+                        </i-col>
+                        <i-col :sm="24">
+                            <Form-item label="公司电话" prop="phonenumber">
+                                <i-input v-model="saveData.phonenumber"  :maxlength="11" clearable type="text" placeholder="请输入"></i-input>
+                            </Form-item>
+                        </i-col>
+                        <i-col :sm="24">
+                            <Form-item label="公司邮件" prop="email">
+                                <i-input v-model="saveData.email"  clearable type="text" placeholder="请输入"></i-input>
+                            </Form-item>
+                        </i-col>
+                        <i-col :sm="24">
+                            <Form-item label="公司首页" prop="homepage">
+                                <i-input v-model="saveData.homepage" clearable type="text" placeholder="请输入"></i-input>
+                            </Form-item>
+                        </i-col>
+                        <i-col :sm="24">
+                            <Form-item label="公司主营" prop="business">
+                                <i-input v-model="saveData.business" clearable type="text" placeholder="请输入"></i-input>
+                            </Form-item>
+                        </i-col>
+                    </Row>
+                </i-form>
+            </Modal>
+        </div>
+    </div>
+</body>
+</html>

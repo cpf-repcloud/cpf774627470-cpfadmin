@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.rep.cloud.custom.zzjg.mapper.RepEmployeeMapper">
+
+    <select id="getEmpByLonginName" parameterType="String" resultType="cn.rep.cloud.custom.zzjg.entity.RepEmployee">
+      SELECT * FROM rep_employee r WHERE r.loginName=#{loginName}
+    </select>
+
+	<!--<select id="getMrzxById" parameterType="String" resultType="cn.creative.coupon.entity.Yhq_mrzx">
+		SELECT * FROM yhq_mrzx y WHERE y.id=#{id}
+	</select>
+
+	<select id="getSplbById" parameterType="String" resultType="cn.creative.coupon.entity.Sptplb">
+		SELECT * FROM sptplb y WHERE y.id=#{id}
+	</select>
+
+	<sql id="sql_where">
+		<where>
+			<if test="_parameter.spfl != null">
+				and spfl=#{_parameter.spfl}
+			</if>
+			<if test="_parameter.spmc != null and _parameter.spmc != ''">
+                <bind name="spmc" value="'%' + _parameter.spmc + '%'" />
+                and spmc LIKE #{spmc}
+            </if>
+		</where>
+		ORDER BY spyxl desc
+	</sql>
+
+    <insert id="insertAll" parameterType="cn.creative.coupon.entity.Yhq_sp">
+        insert into yhq_sp (id, spmc,sptp,spxqdz, spyjfl, tbklj,spjg,spyxl,srpl,spyj,
+		mjww, mjid,dpmc,ptlx,yhqid,yhqzxl,yhqsyl,yhqme,yhqksrq,yhqjsrq,yhqlj,yhqtglj,spfl)
+		values (#{id}, #{spmc},#{sptp},
+		#{spxqdz},#{spyjfl},#{tbklj},
+		#{spjg}, #{spyxl},#{srpl},
+		#{spyj}, #{mjww},#{mjid},
+		#{dpmc},#{ptlx},#{yhqid},
+		#{yhqzxl},#{yhqsyl},#{yhqme},
+		#{yhqksrq},#{yhqjsrq},#{yhqlj},
+		#{yhqtglj},#{spfl}
+		)
+    </insert>
+
+	<insert id="insertZxsp" parameterType="cn.creative.coupon.entity.Yhq_mrzx">
+		insert into yhq_mrzx (id, spmc,sptp,spxqdz, spyjfl, tbklj,spjg,spyxl,srpl,spyj,
+		mjww, mjid,dpmc,ptlx,yhqid,yhqzxl,yhqsyl,yhqme,yhqksrq,yhqjsrq,yhqlj,yhqtglj,spfl)
+		values (#{id}, #{spmc},#{sptp},
+		#{spxqdz},#{spyjfl},#{tbklj},
+		#{spjg}, #{spyxl},#{srpl},
+		#{spyj}, #{mjww},#{mjid},
+		#{dpmc},#{ptlx},#{yhqid},
+		#{yhqzxl},#{yhqsyl},#{yhqme},
+		#{yhqksrq},#{yhqjsrq},#{yhqlj},
+		#{yhqtglj},#{spfl}
+		)
+	</insert>
+
+	<insert id="insertSplbt" parameterType="cn.creative.coupon.entity.Sptplb">
+		insert into sptplb (id, sptp,yhqlj,sxh) values (#{id},#{sptp},#{yhqlj},#{sxh})
+	</insert>
+
+	<select id="selectAll" resultType="cn.creative.coupon.entity.Yhq_sp">
+		SELECT * from yhq_sp
+		<include refid="sql_where"></include>
+	</select>
+
+	<select id="pageCount" resultType="Integer">
+		SELECT COUNT(1) FROM yhq_sp
+        <include refid="sql_where"></include>
+	</select>
+
+	<select id="selectMrzx" resultType="cn.creative.coupon.entity.Yhq_mrzx">
+		select * from yhq_mrzx
+	</select>
+
+	<select id="selectSplb" resultType="cn.creative.coupon.entity.Sptplb">
+		select * from sptplb
+	</select>
+
+	<delete id="deleMrzx" parameterType="string">
+		delete from yhq_mrzx
+	</delete>
+
+	<delete id="deleSplb" parameterType="string">
+		delete from sptplb
+	</delete>
+
+	<delete id="deleteByYhqjssj" parameterType="string">
+		delete from yhq_sp
+		<where>
+			<if test="_parameter != null">
+				<![CDATA[
+			 		DATE_FORMAT(yhqjsrq, '%Y-%m-%d') < DATE_FORMAT(#{_parameter}, '%Y-%m-%d')
+    			]]>
+			</if>
+		</where>
+	</delete>-->
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.rep.cloud.custom.basecommon.mapper.VeXmMapper">
+
+    <!--基础数据列表分页查询-->
+    <select id="selectVeXmPage" resultType="cn.rep.cloud.custom.basecommon.service.vo.ProDataVo">
+        select j.id
+        from ve_xm j
+     <include refid="sql_where"/>
+    </select>
+    <sql id="sql_where">
+        <where>
+            <if test="dto.sjbh!=null and dto.sjbh!=''">
+              and    (j.sjbh=#{dto.sjbh} or j.xmbh=#{dto.sjbh})
+            </if>
+            <if test="dto.xmbh!=null and dto.xmbh!=''">
+              and   j.xmbh=#{dto.xmbh}
+            </if>
+            <if test="dto.xmmc!=null and dto.xmmc!=''">
+                <bind name="xm" value="'%'+dto.xmmc+'%'"/>
+               and  ( j.xmmc like #{xm} or j.xmbh like  #{xm})
+            </if>
+            <if test="dto.ksrqStrq !=null and dto.ksrqStrq !='' and dto.ksrqStrz !=null and dto.ksrqStrz !=''">
+                <bind name="starttime" value="dto.ksrqStrq"></bind>
+                <bind name="endtime" value="dto.ksrqStrz"></bind>
+                <![CDATA[
+                      and j.ksrq >= #{starttime} AND j.ksrq <= #{endtime}
+                    ]]>
+            </if>
+        </where>
+
+    </sql>
+</mapper>

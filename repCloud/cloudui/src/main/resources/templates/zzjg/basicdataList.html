@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <meta charset="UTF-8">
+    <title>基础数据列表</title>
+    <style type="text/css">
+        @import "../../static/public/css/commons.css";
+        ::-ms-clear,::-ms-reveal{display:none;}
+    </style>
+    <script type="text/javascript">
+    </script>
+</head>
+<body class="bodyClass">
+    <div id="app" layout:fragment="content" v-cloak >
+
+        <div class="tree" id="my-box" >
+            <i-form ref="queryForm" :inline="false" :model="iquery" :rules="formRule" :show-message="false" @keydown.native.enter.prevent ="keyDownEvent">
+                <Row>
+                    <i-col :sm="20" :md="20" :lg="20">
+                            <i-input class="sreach" type="text" icon="ios-search"  :placeholder="this.$options.i18n.ve_jcsj.qsrsjlb"></i-input>
+                    </i-col>
+                </Row>
+                <div class="tree-box">
+                    <Tree ref="tree4"></Tree>
+                </div>
+            </i-form>
+        </div>
+        <div class="content">
+            <div v-if="jcsj">
+                <div class="iview-grid">
+                    <i-table stripe :columns="igrid.columns" :data="igrid.datas" width="100%" height="520" size="small" :loading="igrid.loading"></i-table>
+                </div>
+                <div class="iview-pager">
+                    <Page style="padding-top: 20px;" :current="1" :page-size="ipage.size" :total="ipage.total" show-total @on-change="search" ></Page>
+                </div>
+            </div>
+            <!--<modal v-model="sj.isSave" :title="this.$options.i18n.ve_jcsj.xjjcsj" width="600" >-->
+                <!--<div class="iview-query-box">-->
+                    <!--<i-form ref="sf" :model="xzjcsj" :inline="false" :rules="formRule" :show-message="true">-->
+                        <!--<Row>-->
+                            <!--<i-col :sm="24">-->
+                                <!--<form-item :label="this.$options.i18n.ve_jcsj.mc" :label-width="100" prop="mc">-->
+                                    <!--<i-input :placeholder="this.$options.i18n.ve_jcsj.qsrsjmc" :maxlength="20" clearable type="text" v-model="xzjcsj.mc" :element-id="'mc'"></i-input>-->
+                                <!--</form-item>-->
+                            <!--</i-col>-->
+                            <!--<i-col :sm="24">-->
+                                <!--<form-item :label="this.$options.i18n.ve_jcsj.sjdh"  :label-width="100" prop="bh">-->
+                                    <!--<i-input :placeholder="this.$options.i18n.ve_jcsj.qsrsjdh" clearable type="text" v-model="xzjcsj.bh" :element-id="'bh'"></i-input>-->
+                                <!--</form-item>-->
+                            <!--</i-col>-->
+                            <!--<i-col :sm="24">-->
+                                <!--<form-item :label="this.$options.i18n.ve_jcsj.sxh"  :label-width="100" prop="sxh">-->
+                                    <!--<i-input :placeholder="this.$options.i18n.ve_jcsj.qsrsxh" clearable type="text" v-model="xzjcsj.sxh" :element-id="'sxh'"></i-input>-->
+                                <!--</form-item>-->
+                            <!--</i-col>-->
+                        <!--</Row>-->
+                    <!--</i-form>-->
+                <!--</div>-->
+                <!--<div slot="footer">-->
+                    <!--<i-button @click="cancel" type="text">取消</i-button>-->
+                    <!--<i-button @click="submit" type="primary">提交</i-button>-->
+                <!--</div>-->
+            <!--</modal>-->
+            <!--<spin size="large" fix v-if="spinShow"></spin>-->
+            <!--<modal v-model="md.isEdit" :title="this.$options.i18n.ve_jcsj.bjjcsj" width="600">-->
+                <!--<div class="iview-query-box">-->
+                    <!--<i-form ref="mf" :model="mfd" :inline="false" :rules="formRule" :show-message="true">-->
+                        <!--<Row>-->
+                            <!--<i-col :sm="24">-->
+                                <!--<form-item :label="this.$options.i18n.ve_jcsj.mc" :label-width="100" prop="mc">-->
+                                    <!--<i-input :placeholder="this.$options.i18n.ve_jcsj.qsrsjmc" :maxlength="20" clearable type="text" v-model="mfd.mc" :element-id="'mc'"></i-input>-->
+                                <!--</form-item>-->
+                            <!--</i-col>-->
+                            <!--<i-col :sm="24">-->
+                                <!--<form-item :label="this.$options.i18n.ve_jcsj.sjdh" :label-width="100" prop="bh">-->
+                                    <!--<i-input :placeholder="this.$options.i18n.ve_jcsj.qsrsjdh" clearable type="text" v-model="mfd.bh" :element-id="'bh'"></i-input>-->
+                                <!--</form-item>-->
+                            <!--</i-col>-->
+                            <!--<i-col :sm="24">-->
+                                <!--<form-item :label="this.$options.i18n.ve_jcsj.sxh"  :label-width="100" prop="sxh">-->
+                                    <!--<i-input :placeholder="this.$options.i18n.ve_jcsj.qsrsxh" clearable type="text" v-model="mfd.sxh" :element-id="'sxh'"></i-input>-->
+                                <!--</form-item>-->
+                            <!--</i-col>-->
+                        <!--</Row>-->
+                    <!--</i-form>-->
+                <!--</div>-->
+                <!--<div slot="footer">-->
+                    <!--<i-button @click="cancel" type="text">取消</i-button>-->
+                    <!--<i-button @click="saves" type="primary">保存</i-button>-->
+                <!--</div>-->
+            <!--</modal>-->
+            <!--<modal v-model="de.isDel" @on-ok="mydel"  :title="this.$options.i18n.ymggsj.sc" width="300">-->
+                <!--<div class="iview-query-box de-box">-->
+                    <!--<i-form ref="de" :model="mfd"><p>{{this.$options.i18n.rep_yy_mx.qrsc}}</p></i-form>-->
+                <!--</div>-->
+            <!--</modal>-->
+
+            <!--<div v-if="!jcsj" style="margin-top: 5%;">-->
+                <!--<p style="text-align: center;">-->
+                    <!--<img src="/static/base/company/css/wxgsicon.png">-->
+                <!--</p>-->
+                <!--<p style="text-align: center;color: #464c5b;margin-top: 20px;">-->
+                    <!--<b>{{this.$options.i18n.ve_jcsj.qxzsjlb}}</b>-->
+                <!--</p>-->
+                <!--<p style="text-align: center;color: #9ea7b4;margin-bottom: 10px; margin-top: 10px;">-->
+                    <!--{{this.$options.i18n.ve_jcsj.qxzlb}}-->
+                <!--</p>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    </div>
+</body>
+</html>

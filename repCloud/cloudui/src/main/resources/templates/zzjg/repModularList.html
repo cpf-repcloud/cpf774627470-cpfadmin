@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+    <title>目录数据结果</title>
+    <!--public-->
+    <style>
+        @import "../../static/public/css/commons.css";
+        .ivu-modal{top: 20px;}
+    </style>
+    <script type="text/javascript" src="../../static/public/js/common.js"></script>
+    <!--repModularList-->
+    <script type="text/javascript" src="../../static/js/zzjg/repModularList.js"></script>
+</head>
+<body class="bodyClass">
+    <div id="app" v-cloak>
+        <div class="content">
+            <i-form ref="queryForm" :inline="false" :model="iquery" :show-message="false" @keydown.native.enter.prevent ="keyDownEvent">
+                <div class="pb10">
+                    <i-button type="primary" @click="saveMenu">新增</i-button>
+                    <i-input placeholder="请输入..." icon="ios-search" style="max-width: 200px;"></i-input>
+                </div>
+            </i-form>
+            <i-table :columns="columns1" :data="pagedata" height="400" :loading="igrid.loading"></i-table>
+            <Page class="pt20" :current="1" :page-size="ipage.size" :total="ipage.total" show-total @on-change="search" ></Page>
+            <Modal title="新增菜单" v-model="addMenu" :mask-closable="false" @on-ok="save">
+                <i-form ref="saveData" :model="saveData" :inline="false" :label-width="80" :rules="formRule" :show-message="true">
+                    <Row>
+                        <i-col :sm="24">
+                            <Form-item label="菜单名称" prop="name">
+                                <i-input :maxlength="20" v-model="saveData.name" clearable type="text" placeholder="请输入"></i-input>
+                            </Form-item>
+                        </i-col>
+                        <i-col :sm="24">
+                            <Form-item label="上级菜单" prop="parentid">
+                                <i-select v-model="saveData.parentid">
+                                    <i-option v-for="item in parentList" :value="item.value">{{ item.label }}</i-option>
+                                </i-select>
+                            </Form-item>
+                        </i-col>
+                        <i-col :sm="24">
+                            <Form-item label="菜单url" prop="url">
+                                <i-input v-model="saveData.url" clearable type="text" placeholder="请输入"></i-input>
+                            </Form-item>
+                        </i-col>
+                        <i-col :sm="24">
+                            <Form-item label="顺序号" prop="sxh">
+                                <i-input v-model="saveData.sxh"  :maxlength="20" clearable type="text" placeholder="请输入"></i-input>
+                            </Form-item>
+                        </i-col>
+                    </Row>
+                </i-form>
+            </Modal>
+        </div>
+    </div>
+</body>
+</html>

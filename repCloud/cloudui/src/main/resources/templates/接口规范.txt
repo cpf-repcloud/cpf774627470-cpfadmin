@@ -1,0 +1,10 @@
+/**
+ * 示例:
+ * custom工程下入口前缀一定是/custom/入口名/功能名
+ * url: /custom/repModular/list 具体要看 RepModularController.java
+ * 列表命名 repModularList.html, 详情页命名 repModularDetail.html,新增页命名 repModularAdd.html
+ * 修改页命名 repModularEdit.html
+ */
+
+1.repModular: 菜单模块入口
+2.repEmployee: 员工入口

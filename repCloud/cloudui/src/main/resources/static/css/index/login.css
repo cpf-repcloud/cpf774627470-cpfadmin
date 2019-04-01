@@ -1,0 +1,184 @@
+.content_Box{
+    min-width: 1200px;
+    max-width: 1920px;
+}
+.content_Box> .swiper_box{
+    width: 100%;
+    height: 100%;
+    min-width: 1200px;
+    position: absolute;
+    overflow: hidden;
+    left: 0;
+}
+.content_Box> .swiper_box .swiper img{
+    display: block;
+    float: left;
+    height: 100%;
+}
+.content_Box> .swiper_box .slide{
+    position: absolute;
+    bottom: 20px;
+    z-index: 99;
+    width: 100%;
+    text-align: center;
+}
+.content_Box> .swiper_box .slide span{
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 8px;
+    margin-left: 20px;
+    background: #FFFFFF;
+}
+.content_Box> .swiper_box .slide div{
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    cursor: pointer;
+    vertical-align: middle;
+}
+.content_Box> .swiper_box .slide .prev{
+    background:url("../../public/image/index/left.png") no-repeat center ;
+    margin-right: 5px;
+}
+.content_Box> .swiper_box .slide .next{
+    background:url("../../public/image/index/right.png") no-repeat center;
+    margin-left: 25px;
+}
+
+
+
+.swiper_box .slide .slid_bg{
+    width: 40px !important;
+}
+.content_Box>.head{
+    height: 100px;
+    min-width: 1200px;
+    width: 100%;
+    background: #FFFFFF;
+    position: relative;
+    z-index: 1;
+    box-shadow: 1px 1px 1px #eeeeee;
+}
+.content_Box .head .head_left,.content_Box .head .head_right{
+    width: 40%;
+    height: 100px;
+    position: relative;
+}
+.content_Box .head .head_left{
+    float: left;
+    background: url("../../public/image/index/logo.png") no-repeat left center;
+}
+.content_Box .head .head_right{
+    float: right;
+    text-align: right;
+    margin-right: 20px;
+}
+.content_Box .head .head_right>div{
+    display: inline-block;
+    margin-top: 29px;
+}
+.content_Box .head .head_right .ewm{
+    width: 100px;
+    height: 100px;
+    padding: 5px;
+    background: #FFFFFF;
+    position: absolute;
+    right: 40px;
+    top:110%;
+    z-index: 100;
+    display: none;
+}
+.content_Box .head .head_right .ewm:after{
+    position: absolute;
+    left: 0;
+    top: -8px;
+    left: 12px;
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 8px solid #fff;
+
+}
+.content_Box .head .head_right .ewm img{
+    width: 100%;
+    height: 100%;
+}
+.content_Box .head .head_right span{
+    display: inline-block;
+    color: #3161b6;
+    font-size: 16px;
+    padding-left: 58px;
+    cursor: pointer;
+}
+.content_Box .head .head_right .phone{
+    background: url("../../public/image/index/kefu.png") no-repeat left;
+}
+.content_Box .head .head_right .app{
+    background: url("../../public/image/index/shouji.png") no-repeat left;
+    margin-left: 76px;
+}
+.content_Box>.login_content{
+    background: transparent;
+    position: relative;
+    z-index: 0;
+    height: 100%;
+    margin-top: -100px;
+}
+.content_Box>.login_content .logins_box{
+    width: 400px;
+    border-radius: 10px;
+    background: #FFFFFF;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    margin-top: -180px;
+
+    box-shadow: 1px 1px 8px #083e86;
+}
+.content_Box>.login_content .logins_box .logins{
+    width: 354px;
+    margin: 50px auto;
+    border-top: 2px solid #E8EBED;
+    padding-top: 20px;
+}
+.logins_box .logins>input{
+    display: block;
+    width: 300px;
+    height: 45px;
+    margin: 20px auto 0 auto;
+    background: #E8EBED;
+    border: none;
+    border-radius: 5px;
+    padding-left: 15px;
+    font-size: 16px;
+    color: #9C9C9D;
+    box-sizing: inherit;
+}
+.logins_box .logins .bj{
+    color: #175199;
+    font-size: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    width: 300px;
+    margin:15px auto 0 auto;
+}
+.logins_box .logins .bj span{
+    display: inline-block;
+    float: right;
+}
+.logins_box .logins .login_btn{
+    width: 300px;
+    height: 45px;
+    background: #4686dc;
+    box-shadow: 1px 2px 5px #083e86;
+    text-align: center;
+    line-height: 45px;
+    margin-top: 30px;
+    font-size: 25px;
+    color: #FFFFFF;
+    cursor: pointer;
+    margin: 30px auto 0 auto;
+}

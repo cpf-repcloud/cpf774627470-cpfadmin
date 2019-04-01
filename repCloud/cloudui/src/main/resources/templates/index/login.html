@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+    <title>登录</title>
+    <!--public-->
+        <style>
+        @import "../../static/public/css/commons.css";
+    </style>
+    <script type="text/javascript" src="../../static/public/js/jquery.min.js"></script>
+    <!--logins-->
+    <link href="../../static/css/index/login.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <header class="content_Box">
+        <!--轮播-->
+        <div class="swiper_box">
+            <div class="swiper">
+                <img src="../../static/public/image/index/BJ.jpg" alt="">
+                <img src="../../static/public/image/index/BJ3.png" alt="">
+                <img src="../../static/public/image/index/bj2.png" alt="">
+            </div>
+            <div class="slide">
+                <div class="prev"></div>
+                <span class="slid_bg"></span>
+                <span></span>
+                <span></span>
+                <div class="next"></div>
+            </div>
+        </div>
+        <!--轮播结束-->
+        <!--头部-->
+        <div class="head">
+            <div class="w1200">
+                <div class="head_left">
+                    <!--存放logo的区域-->
+                </div>
+                <div class="head_right">
+                    <div>
+                        <span class="phone">
+                            全国免费服务电话 <br>
+                            400 - 163 - 5818
+                        </span>
+                        <span class="app">
+                            扫一扫下载VIP差 <br>
+                            旅平台APP客户端
+                        </span>
+                    </div>
+                    <!--二维码展示-->
+                    <b class="ewm">
+                        <img src="../../static/public/image/index/ewm2.jpg" alt="">
+                    </b>
+                </div>
+            </div>
+        </div>
+        <!--头部结束-->
+        <!--登录模块-->
+        <div class="login_content w1200">
+            <div class="logins_box">
+                <div class="logins">
+                    <input type="text" id="longinname" placeholder="请输入您的用户名">
+                    <input type="password" id="password"  placeholder="请输入您的密码">
+                    <p style="color: red;" id="ret"></p>
+                    <div class="bj">
+                        <label>
+                            <input type="checkbox">七天免登录
+                        </label>
+                        <span>
+                            忘记密码？
+                        </span>
+                    </div>
+                    <div class="login_btn">登 &nbsp; 录</div>
+                </div>
+            </div>
+        </div>
+    </header>
+<script>
+    $(document).on('click','.login_btn',function (){
+        var dataT={};
+            var longinname = $("#longinname").val();
+            var password = $("#password").val();
+            dataT.username = longinname;
+            dataT.password = password;
+            $.ajax({
+                url: '/login/login'
+                , type: 'POST'
+                , data: JSON.stringify(dataT)
+                , contentType: 'application/json;charset=utf-8'
+                , success: function (data) {
+                    console.log(data);
+                    var result = data[1];
+                    var id = data[0];
+                    if (result == "1"){
+                        window.location.href="/index?id="+id
+                    }else{
+                        $("#ret").text(result);
+                    }
+                },
+                error:function (datas) {
+                    $("#ret").text("系统出错,请联系管理员!");
+                }
+            })
+    })
+$(function(){
+    function lbt() {
+        var h = window.innerHeight
+                        || document.documentElement.clientHeight
+                        || document.body.clientHeight,
+                w = window.innerWidth
+                        || document.documentElement.clientWidth
+                        || document.body.clientWidth,
+                swiper = $(".content_Box .swiper_box .swiper"),
+                img = $(".content_Box .swiper_box .swiper img"),
+                slideSpan = $(".content_Box .swiper_box .slide span"),
+                slideDiv = $(".content_Box .swiper_box .slide div"),
+                slidePrev = $(".content_Box .swiper_box .slide .prev"),
+                slideNext = $(".content_Box .swiper_box .slide .next"),
+                nowIndex = 0,//动态设置小圆点样式
+                csfClick= true, //防止多次点击，动画效果变乱
+                timer = 5000;  //设置每一张图片的轮播时间
+        //当数据请求成功，执行一次即销毁，设置图片的大小，导航圆点个数，以及切换的图片
+        (function () {
+            $(".content_Box").height(h);
+            img.width(w);
+            if (img.length > 1) {
+                var $first = img.eq(0).clone(),
+                        $last = img.eq(img.length - 1).clone();
+                swiper.append($first);
+                swiper.prepend($last);
+                swiper.width(w * (img.length + 2));
+                swiper.css('marginLeft', -w + "px");
+            }
+            return;
+        })()
+        function animates() {  //小圆点和图片的轮播  和左按钮的点击事件
+            var left = swiper.css('marginLeft');
+            var lefts = parseInt(left.replace('px', ''));
+            nowIndex++;
+            if ( nowIndex>(slideSpan.length - 1)) {
+                nowIndex = 0;
+            }
+            slideSpan.siblings('span').removeClass("slid_bg");
+            slideSpan.eq(nowIndex).addClass("slid_bg");
+            if ((w - (img.length + 2) * w) == lefts) {
+                swiper.css('marginLeft', -w + "px");
+                lefts = -w;
+            }
+            swiper.animate({
+                marginLeft: lefts - w + 'px',
+            },function(){
+                csfClick=true;
+            })
+        }
+        function slidAnimate(fx){ //右按钮的点击事件
+            csfClick=false;
+            if(fx==='prev'){
+                var left = swiper.css('marginLeft');
+                var lefts = parseInt(left.replace('px', ''));
+                nowIndex--;
+                if ( nowIndex < 0) {
+                    nowIndex = slideSpan.length-1;
+                }
+                slideSpan.siblings('span').removeClass("slid_bg");
+                slideSpan.eq(nowIndex).addClass("slid_bg");
+                if ((-w) == lefts) {
+                    swiper.css('marginLeft', w - (img.length + 2) * w + "px");
+                    lefts = w - (img.length + 2) * w;
+                }
+                swiper.animate({
+                    marginLeft: lefts + w + 'px',
+                },function(){
+                    csfClick=true;
+                })
+            }else {
+                animates();
+            }
+        }
+        var timers = setInterval(function () {
+            animates();
+        }, timer);
+        slideDiv.mouseenter(function () {  //鼠标移入轮播停止
+            clearInterval(timers);
+        })
+        slideDiv.mouseleave(function () {// 鼠标移除继续
+            timers = setInterval(function () {
+                animates();
+            }, timer)
+        })
+        slidePrev.click(function(){  //鼠标点击(左右切换)事件
+            if(csfClick){
+                slidAnimate("prev");
+            }
+        })
+        slideNext.click(function(){
+            if(csfClick){
+                slidAnimate("next");
+            }
+        })
+        $('.head_right .app').hover(function(){
+            $('.ewm').fadeToggle();
+        })
+    }
+    lbt();
+
+
+
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+*,blockquote, body, button, dd, div, dl, dt, form, h1, h2, h3, h4, h5, h6, input, li, ol, p, pre, td, textarea, th, ul{
+    padding: 0;margin: 0;box-sizing: border-box;color: #333333;font-size: 14px;
+    font-family:Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,\\5FAE\8F6F\96C5\9ED1,Arial,sans-serif;
+}
+a{text-decoration: none;}
+li{list-style: none;}
+i{display: inline !important;}
+.i_input{padding: 10px;}
+.i_input{text-align: center !important;line-height: 50px !important;}
