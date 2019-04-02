@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 @EnableZuulProxy
 @EnableFeignClients
 /**
- * cscs
+ * hyg测试git提交
  */
 public class ClouduiApplication {
 
