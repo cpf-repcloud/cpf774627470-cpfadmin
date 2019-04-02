@@ -8,6 +8,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 import javax.servlet.MultipartConfigElement;
 
+/**
+ * cpf提交测试
+ */
 @SpringBootApplication
 @EnableScheduling
 //@EnableFeignClients("cn.rep.cloud.cloudui.feignclient")
