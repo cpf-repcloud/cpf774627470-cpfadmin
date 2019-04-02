@@ -459,4 +459,16 @@ textarea{
     width: 98%;
 }
 
+.tree-content {
+    position: absolute;
+    left: 220px;
+    top: 10px;
+    background: #fff;
+    height: 96%;
+    border-radius: 5px;
+    overflow-x: auto;
+    padding:10px;
+    width: 81%;
+}
+
 .bodyClass {background: #f0f2f5;}
