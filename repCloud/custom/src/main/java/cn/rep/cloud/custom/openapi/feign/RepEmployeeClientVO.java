@@ -1,4 +1,4 @@
-package cn.rep.cloud.custom.feign;
+package cn.rep.cloud.custom.openapi.feign;
 
 
 public class RepEmployeeClientVO {

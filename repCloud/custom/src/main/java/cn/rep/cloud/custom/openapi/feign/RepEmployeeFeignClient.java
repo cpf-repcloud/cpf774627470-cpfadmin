@@ -1,4 +1,4 @@
-package cn.rep.cloud.custom.feign;
+package cn.rep.cloud.custom.openapi.feign;
 
 import cn.rep.cloud.custom.organizationa.business.RepEmployeeServiceImpl;
 import cn.rep.cloud.custom.organizationa.entity.RepEmployee;
