@@ -13,6 +13,9 @@ import org.springframework.web.client.RestTemplate;
 @EnableScheduling
 @EnableZuulProxy
 @EnableFeignClients
+/**
+ * cscs
+ */
 public class ClouduiApplication {
 
 	public static void main(String[] args) {
