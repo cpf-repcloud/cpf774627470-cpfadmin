@@ -1,5 +1,8 @@
 package cn.rep.cloud.custom.organizationa.service;
 
+import cn.rep.cloud.custom.coreutils.common.PageCopyUtil;
+import cn.rep.cloud.custom.coreutils.common.PageDTO;
+import cn.rep.cloud.custom.coreutils.common.RepConstants;
 import cn.rep.cloud.custom.coreutils.utils.BeanMapper;
 import cn.rep.cloud.custom.organizationa.dto.RepModularDTO;
 import cn.rep.cloud.custom.organizationa.entity.RepModular;
@@ -40,7 +43,7 @@ public class RepModularService {
     public List<RepModularVO> getParentModular(){
         List<RepModularVO> voList = new ArrayList<>();
         EntityWrapper<RepModular> ew = new EntityWrapper<>();
-        ew.eq("isdisabled",RepConstants.SFYX_YX);
+        ew.eq("isdisabled", RepConstants.SFYX_YX);
         ew.eq("parentid","none");
         ew.orderBy("sxh");
         List<RepModular> modularList = repModularMapper.selectList(ew);

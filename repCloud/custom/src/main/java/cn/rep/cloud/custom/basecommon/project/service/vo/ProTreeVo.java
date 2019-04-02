@@ -1,5 +1,6 @@
 package cn.rep.cloud.custom.basecommon.project.service.vo;
 
+import cn.rep.cloud.custom.coreutils.utils.DateUtils;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -161,7 +162,7 @@ public class ProTreeVo {
      */
     public String getJsrqStr() {
         if(this.jsrq!=null){
-            jsrqStr= VeDate.formatToStr(this.ksrq,"yyyy-MM-dd");
+            jsrqStr= DateUtils.formatToStr(this.ksrq,"yyyy-MM-dd");
         }else{
             jsrqStr="";
         }
@@ -237,7 +238,7 @@ public class ProTreeVo {
      */
     public String getKsrqStr() {
         if(null!=ksrq){
-            ksrqStr= VeDate.formatToStr(ksrq,"yyyy-MM-dd");
+            ksrqStr= DateUtils.formatToStr(ksrq,"yyyy-MM-dd");
         }else{
             ksrqStr="";
         }
