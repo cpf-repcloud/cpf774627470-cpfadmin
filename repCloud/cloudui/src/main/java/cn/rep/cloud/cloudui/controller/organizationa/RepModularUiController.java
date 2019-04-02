@@ -1,4 +1,4 @@
-package cn.rep.cloud.cloudui.controller.zjjg;
+package cn.rep.cloud.cloudui.controller.organizationa;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +11,7 @@ public class RepModularUiController {
      */
     @RequestMapping(value = "repModularList", method = RequestMethod.GET)
     public String repModularList() {
-        return "/zzjg/repModularList";
+        return "/organizationa/repModularList";
     }
 
     /**
@@ -19,6 +19,6 @@ public class RepModularUiController {
      */
     @RequestMapping(value = "test", method = RequestMethod.GET)
     public String test() {
-        return "/zzjg/basicdataList";
+        return "/organizationa/basicdataList";
     }
 }

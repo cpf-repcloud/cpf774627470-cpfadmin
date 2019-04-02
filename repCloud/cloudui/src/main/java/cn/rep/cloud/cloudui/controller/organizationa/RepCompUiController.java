@@ -1,4 +1,4 @@
-package cn.rep.cloud.cloudui.controller.zjjg;
+package cn.rep.cloud.cloudui.controller.organizationa;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +12,7 @@ public class RepCompUiController {
      */
     @RequestMapping(value = "repRepCompList", method = RequestMethod.GET)
     public String repRepCompList() {
-        return "/zzjg/repCompList";
+        return "/organizationa/repCompList";
     }
 
 }
