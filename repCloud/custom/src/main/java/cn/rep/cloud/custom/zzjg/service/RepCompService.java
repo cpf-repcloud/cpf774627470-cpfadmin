@@ -1,10 +1,9 @@
 package cn.rep.cloud.custom.zzjg.service;
 
-import cn.rep.cloud.custom.common.PageCopyUtil;
-import cn.rep.cloud.custom.common.PageDTO;
-import cn.rep.cloud.custom.utils.BeanMapper;
+import cn.rep.cloud.custom.coreutils.common.PageCopyUtil;
+import cn.rep.cloud.custom.coreutils.common.PageDTO;
+import cn.rep.cloud.custom.coreutils.utils.BeanMapper;
 import cn.rep.cloud.custom.zzjg.dto.RepCompDTO;
-import cn.rep.cloud.custom.zzjg.dto.RepModularDTO;
 import cn.rep.cloud.custom.zzjg.entity.RepComp;
 import cn.rep.cloud.custom.zzjg.mapper.RepCompMapper;
 import com.baomidou.mybatisplus.plugins.Page;

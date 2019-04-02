@@ -1,8 +1,8 @@
 package cn.rep.cloud.custom.zzjg.controller;
 
-import cn.rep.cloud.custom.common.PageDTO;
-import cn.rep.cloud.custom.common.RestResponse;
-import cn.rep.cloud.custom.utils.BeanMapper;
+import cn.rep.cloud.custom.coreutils.common.PageDTO;
+import cn.rep.cloud.custom.coreutils.common.RestResponse;
+import cn.rep.cloud.custom.coreutils.utils.BeanMapper;
 import cn.rep.cloud.custom.zzjg.business.RepEmployeeServiceImpl;
 import cn.rep.cloud.custom.zzjg.business.RepModularServiceImpl;
 import cn.rep.cloud.custom.zzjg.dto.RepModularDTO;

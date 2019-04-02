@@ -1,8 +1,8 @@
 package cn.rep.cloud.custom.zzjg.business;
 
-import cn.rep.cloud.custom.common.PageDTO;
-import cn.rep.cloud.custom.common.RepConstants;
-import cn.rep.cloud.custom.utils.DateUtils;
+import cn.rep.cloud.custom.coreutils.common.PageDTO;
+import cn.rep.cloud.custom.coreutils.common.RepConstants;
+import cn.rep.cloud.custom.coreutils.utils.DateUtils;
 import cn.rep.cloud.custom.zzjg.dto.RepCompDTO;
 import cn.rep.cloud.custom.zzjg.entity.RepComp;
 import cn.rep.cloud.custom.zzjg.service.RepCompService;

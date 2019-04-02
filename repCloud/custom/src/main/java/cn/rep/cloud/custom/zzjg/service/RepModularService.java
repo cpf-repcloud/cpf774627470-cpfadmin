@@ -1,7 +1,6 @@
 package cn.rep.cloud.custom.zzjg.service;
 
-import cn.rep.cloud.custom.common.*;
-import cn.rep.cloud.custom.utils.BeanMapper;
+import cn.rep.cloud.custom.coreutils.utils.BeanMapper;
 import cn.rep.cloud.custom.zzjg.dto.RepModularDTO;
 import cn.rep.cloud.custom.zzjg.entity.RepModular;
 import cn.rep.cloud.custom.zzjg.mapper.RepModularMapper;

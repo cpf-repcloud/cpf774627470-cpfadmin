@@ -1,6 +1,6 @@
 package cn.rep.cloud.custom.basecommon.service.vo;
 
-import cn.rep.cloud.custom.utils.DateUtils;
+import cn.rep.cloud.custom.coreutils.utils.DateUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;

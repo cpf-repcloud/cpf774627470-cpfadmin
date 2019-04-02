@@ -1,7 +1,7 @@
 package cn.rep.cloud.custom.zzjg.controller;
 
-import cn.rep.cloud.custom.common.PageDTO;
-import cn.rep.cloud.custom.common.RestResponse;
+import cn.rep.cloud.custom.coreutils.common.PageDTO;
+import cn.rep.cloud.custom.coreutils.common.RestResponse;
 import cn.rep.cloud.custom.zzjg.business.RepCompServiceImpl;
 import cn.rep.cloud.custom.zzjg.dto.RepCompDTO;
 import cn.rep.cloud.custom.zzjg.entity.RepComp;

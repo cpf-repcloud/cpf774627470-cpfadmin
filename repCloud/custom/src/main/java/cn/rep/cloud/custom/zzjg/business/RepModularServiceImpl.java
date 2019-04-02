@@ -1,16 +1,14 @@
 package cn.rep.cloud.custom.zzjg.business;
 
-import cn.rep.cloud.custom.common.PageDTO;
-import cn.rep.cloud.custom.common.PageNew;
-import cn.rep.cloud.custom.common.RepConstants;
-import cn.rep.cloud.custom.utils.BeanMapper;
-import cn.rep.cloud.custom.utils.DateUtils;
+import cn.rep.cloud.custom.coreutils.common.PageDTO;
+import cn.rep.cloud.custom.coreutils.common.RepConstants;
+import cn.rep.cloud.custom.coreutils.utils.BeanMapper;
+import cn.rep.cloud.custom.coreutils.utils.DateUtils;
 import cn.rep.cloud.custom.zzjg.dto.RepModularDTO;
 import cn.rep.cloud.custom.zzjg.entity.RepModular;
 import cn.rep.cloud.custom.zzjg.service.RepModularService;
 import cn.rep.cloud.custom.zzjg.vo.RepModularVO;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Service
