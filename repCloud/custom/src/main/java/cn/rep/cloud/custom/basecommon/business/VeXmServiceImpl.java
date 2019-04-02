@@ -8,8 +8,8 @@ import cn.rep.cloud.custom.basecommon.service.dto.SearchDataDTO;
 import cn.rep.cloud.custom.basecommon.service.vo.ProDataVo;
 import cn.rep.cloud.custom.common.PageCopyUtil;
 import cn.rep.cloud.custom.common.PageDTO;
-import cn.rep.cloud.custom.common.VeDate;
 import cn.rep.cloud.custom.utils.BeanMapper;
+import cn.rep.cloud.custom.utils.DateUtils;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
@@ -56,7 +56,7 @@ public class VeXmServiceImpl {
             for (ProDataVo datavo : ids) {
                 VeXm xm = veXmMapper.selectById(datavo.getId());
                 ProDataVo vo = BeanMapper.map(xm, ProDataVo.class);
-                vo.setKsrqStr(VeDate.formatToStr(vo.getKsrq(), "yyyy-MM-dd"));
+                vo.setKsrqStr(DateUtils.formatToStr(vo.getKsrq(), "yyyy-MM-dd"));
                 vos.add(vo);
             }
             resultPage.setRecords(vos);

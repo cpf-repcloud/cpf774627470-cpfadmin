@@ -10,7 +10,7 @@ import cn.rep.cloud.custom.basecommon.service.vo.ProMembersVO;
 import cn.rep.cloud.custom.basecommon.service.vo.ProTreeVo;
 import cn.rep.cloud.custom.common.PageDTO;
 import cn.rep.cloud.custom.common.RestResponse;
-import cn.rep.cloud.custom.common.VeDate;
+import cn.rep.cloud.custom.utils.DateUtils;
 import com.baomidou.mybatisplus.plugins.Page;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -81,7 +81,7 @@ public class VeXmController {
         } else {
             dto.setSfyx("1");
            // dto.setCjr(loginUser.getXm());
-            dto.setCjsj(VeDate.getNow());
+            dto.setCjsj(DateUtils.getNow());
             num = service.addPro(dto);
         }
         return new RestResponse(num);

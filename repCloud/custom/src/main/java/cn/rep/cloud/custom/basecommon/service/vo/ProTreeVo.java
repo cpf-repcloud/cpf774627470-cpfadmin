@@ -1,6 +1,5 @@
 package cn.rep.cloud.custom.basecommon.service.vo;
 
-import cn.rep.cloud.custom.common.VeDate;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 

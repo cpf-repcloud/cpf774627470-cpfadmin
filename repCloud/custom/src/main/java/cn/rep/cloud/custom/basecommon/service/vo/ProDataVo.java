@@ -1,6 +1,6 @@
 package cn.rep.cloud.custom.basecommon.service.vo;
 
-import cn.rep.cloud.custom.common.VeDate;
+import cn.rep.cloud.custom.utils.DateUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;
@@ -215,7 +215,7 @@ public class ProDataVo {
     private String sjcbzx;
 
     public String getJsrqStr() {
-        this.jsrqStr = VeDate.formatToStr(this.getJsrq(), "yyyy-MM-dd");
+        this.jsrqStr = DateUtils.formatToStr(this.getJsrq(), "yyyy-MM-dd");
         return jsrqStr;
     }
 
@@ -281,7 +281,7 @@ public class ProDataVo {
 
     public String getKsrqStr() {
 
-        this.ksrqStr = VeDate.formatToStr(this.getKsrq(), "yyyy-MM-dd");
+        this.ksrqStr = DateUtils.formatToStr(this.getKsrq(), "yyyy-MM-dd");
         return ksrqStr;
 
     }

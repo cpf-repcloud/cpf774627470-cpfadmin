@@ -11,7 +11,7 @@ import cn.rep.cloud.custom.basecommon.service.vo.ProTreeVo;
 import cn.rep.cloud.custom.common.IdGenerator;
 import cn.rep.cloud.custom.common.PageDTO;
 import cn.rep.cloud.custom.common.VeCollectionUtils;
-import cn.rep.cloud.custom.common.VeDate;
+import cn.rep.cloud.custom.utils.DateUtils;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -20,8 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.plugins.Page;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.metamodel.Type;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -63,8 +61,8 @@ public class ProjectManageService {
              //  throw new Exception(BaseExceptionEnum.BASE_PROJECT_0000_04_0140);
         }
         dto.setId(IdGenerator.getHexId());
-        dto.setKsrq(VeDate.strToDate(dto.getKsrqStr()));
-        dto.setJsrq(VeDate.strToDate(dto.getJsrqStr()));
+        dto.setKsrq(DateUtils.strToDate(dto.getKsrqStr()));
+        dto.setJsrq(DateUtils.strToDate(dto.getJsrqStr()));
         if (CollectionUtils.isNotEmpty(dto.getXmbhcy())) {
             //新增项目成员
             addXmCy(dto.getXmbhcy(), dto);

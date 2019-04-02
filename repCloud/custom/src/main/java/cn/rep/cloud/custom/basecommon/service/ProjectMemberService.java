@@ -9,7 +9,7 @@ import cn.rep.cloud.custom.basecommon.service.dto.SearchProMemberDTO;
 import cn.rep.cloud.custom.basecommon.service.vo.ProMembersVO;
 import cn.rep.cloud.custom.common.IdGenerator;
 import cn.rep.cloud.custom.common.PageDTO;
-import cn.rep.cloud.custom.common.VeDate;
+import cn.rep.cloud.custom.utils.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -53,7 +53,7 @@ public class ProjectMemberService {
         memberDTO.setIp(dto.getIp());
         memberDTO.setQybh(dto.getQybh());
         memberDTO.setXmid(dto.getId());
-        memberDTO.setJrsj(VeDate.getNow());
+        memberDTO.setJrsj(DateUtils.getNow());
         memberDTO.setZhxgr(dto.getZhxgr());
         memberDTO.setZhxgsj(dto.getZhxgsj());
         // 新加成员项目状态为1
