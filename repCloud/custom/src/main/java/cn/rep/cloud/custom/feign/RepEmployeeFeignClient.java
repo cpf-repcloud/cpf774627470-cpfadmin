@@ -1,7 +1,7 @@
 package cn.rep.cloud.custom.feign;
 
-import cn.rep.cloud.custom.zzjg.business.RepEmployeeServiceImpl;
-import cn.rep.cloud.custom.zzjg.entity.RepEmployee;
+import cn.rep.cloud.custom.organizationa.business.RepEmployeeServiceImpl;
+import cn.rep.cloud.custom.organizationa.entity.RepEmployee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

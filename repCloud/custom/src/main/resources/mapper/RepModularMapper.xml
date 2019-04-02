@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.rep.cloud.custom.zzjg.mapper.RepModularMapper">
+<mapper namespace="cn.rep.cloud.custom.organizationa.mapper.RepModularMapper">
 
-    <select id="pagelist" parameterType="cn.rep.cloud.custom.zzjg.dto.RepModularDTO" resultType="cn.rep.cloud.custom.zzjg.entity.RepModular">
+    <select id="pagelist" parameterType="cn.rep.cloud.custom.organizationa.dto.RepModularDTO" resultType="cn.rep.cloud.custom.organizationa.entity.RepModular">
         select * from rep_modular
         <where>
 
