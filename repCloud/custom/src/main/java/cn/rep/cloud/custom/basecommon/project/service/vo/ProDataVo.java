@@ -1,20 +1,16 @@
-package cn.rep.cloud.custom.basecommon.service.dto;
+package cn.rep.cloud.custom.basecommon.project.service.vo;
 
+import cn.rep.cloud.custom.coreutils.utils.DateUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 /**
- * 项目管理新增页面
  * Created by vetech on 2018/8/4.
  */
-public class AddProDTO {
+public class ProDataVo {
 
-    /**
-     * ID(主键)
-     */
 
     private String id;
     /**
@@ -49,12 +45,12 @@ public class AddProDTO {
     /**
      * 开始日期
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date ksrq;
     /**
      * 项目结束日期
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date jsrq;
     /**
      * 项目经理
@@ -103,7 +99,7 @@ public class AddProDTO {
     /**
      * 创建时间
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date cjsj;
     /**
      * 最后修改人
@@ -112,7 +108,7 @@ public class AddProDTO {
     /**
      * 最后修改时间
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date zhxgsj;
     /**
      * 最后修改IP
@@ -124,50 +120,107 @@ public class AddProDTO {
      */
     private String sfyx;
 
+
     /**
-     * 项目包含成员
+     * 项目经理名称
      */
-    private List<ProDetailDTO> xmbhcy;
-
-
-    /**
-     * 上级成本中心
-     * */
-    private String sjcbzx;
+    private String xmjlmc;
 
     /**
-     * 是否开启成本中心
+     * 项目总监名称
      */
-    private Boolean sfkqcbzx;
+    private String xmzjmc;
+
+    /**
+     * 项目总监工号
+     */
+    private String xmzjgh;
+
+    /**
+     * 项目联系人名称
+     */
+    private String xmlxrmc;
+
+    /**
+     * 项目联系人工号
+     */
+    private String xmlxrgh;
+
+    /**
+     * 项目经理所在公司
+     */
+    private String xmjlszgs;
+
+
+    /**
+     * 项目经理 所在部门
+     *
+     * @return
+     */
+    private String xmjlszbm;
+
+    /**
+     * 项目总监所在公司
+     *
+     * @return
+     */
+    private String xmzjszgs;
+
+    /**
+     * 项目经所在部门
+     *
+     * @return
+     */
+    private String xmzjszbm;
+
+
+    /**
+     * 项目联系人所在公司
+     *
+     * @return
+     */
+    private String xmlxrszgs;
+
+    /**
+     * 项目联系人所在部门
+     *
+     * @return
+     */
+    private String xmlxrszbm;
+
+    /**
+     * 项目经理工号
+     */
+    private String xmjlgh;
 
     /**
      * 结束日期
-     * @return
      */
     private String jsrqStr;
 
 
     /**
+     * 是否开启成本中心
+     */
+    private Boolean  sfkqcbzx;
+
+    /**
      * 成本中心编号
-     * @return
      */
     private String cbzxbh;
 
+    /**
+     * 上级成本中心编号
+     */
+    private String sjcbzx;
 
-    public String getCbzxbh() {
-        return cbzxbh;
+    public String getJsrqStr() {
+        this.jsrqStr = DateUtils.formatToStr(this.getJsrq(), "yyyy-MM-dd");
+        return jsrqStr;
     }
 
-    public void setCbzxbh(String cbzxbh) {
-        this.cbzxbh = cbzxbh;
-    }
-
-    public String getSfyx() {
-        return sfyx;
-    }
-
-    public void setSfyx(String sfyx) {
-        this.sfyx = sfyx;
+    public void setJsrqStr(String jsrqStr) {
+        this.jsrqStr = jsrqStr;
     }
 
     public String getId() {
@@ -186,11 +239,11 @@ public class AddProDTO {
         this.qybh = qybh;
     }
 
-    public String getGsbh() {
+    public String getGsid() {
         return gsid;
     }
 
-    public void setGsbh(String gsid) {
+    public void setGsid(String gsid) {
         this.gsid = gsid;
     }
 
@@ -227,7 +280,10 @@ public class AddProDTO {
     }
 
     public String getKsrqStr() {
+
+        this.ksrqStr = DateUtils.formatToStr(this.getKsrq(), "yyyy-MM-dd");
         return ksrqStr;
+
     }
 
     public void setKsrqStr(String ksrqStr) {
@@ -370,28 +426,110 @@ public class AddProDTO {
         this.ip = ip;
     }
 
-    public List<ProDetailDTO> getXmbhcy() {
-        return xmbhcy;
+    public String getSfyx() {
+        return sfyx;
     }
 
-    public void setXmbhcy(List<ProDetailDTO> xmbhcy) {
-        this.xmbhcy = xmbhcy;
+    public void setSfyx(String sfyx) {
+        this.sfyx = sfyx;
     }
 
-    public String getGsid() {
-        return gsid;
+    public String getXmjlgh() {
+        return xmjlgh;
     }
 
-    public void setGsid(String gsid) {
-        this.gsid = gsid;
+    public void setXmjlgh(String xmjlgh) {
+        this.xmjlgh = xmjlgh;
     }
 
-    public String getSjcbzx() {
-        return sjcbzx;
+
+    public String getXmjlmc() {
+        return xmjlmc;
     }
 
-    public void setSjcbzx(String sjcbzx) {
-        this.sjcbzx = sjcbzx;
+    public void setXmjlmc(String xmjlmc) {
+        this.xmjlmc = xmjlmc;
+    }
+
+    public String getXmzjmc() {
+        return xmzjmc;
+    }
+
+    public void setXmzjmc(String xmzjmc) {
+        this.xmzjmc = xmzjmc;
+    }
+
+    public String getXmzjgh() {
+        return xmzjgh;
+    }
+
+    public void setXmzjgh(String xmzjgh) {
+        this.xmzjgh = xmzjgh;
+    }
+
+    public String getXmlxrmc() {
+        return xmlxrmc;
+    }
+
+    public void setXmlxrmc(String xmlxrmc) {
+        this.xmlxrmc = xmlxrmc;
+    }
+
+    public String getXmlxrgh() {
+        return xmlxrgh;
+    }
+
+    public void setXmlxrgh(String xmlxrgh) {
+        this.xmlxrgh = xmlxrgh;
+    }
+
+
+    public String getXmjlszgs() {
+        return xmjlszgs;
+    }
+
+    public void setXmjlszgs(String xmjlszgs) {
+        this.xmjlszgs = xmjlszgs;
+    }
+
+    public String getXmjlszbm() {
+        return xmjlszbm;
+    }
+
+    public void setXmjlszbm(String xmjlszbm) {
+        this.xmjlszbm = xmjlszbm;
+    }
+
+    public String getXmzjszgs() {
+        return xmzjszgs;
+    }
+
+    public void setXmzjszgs(String xmzjszgs) {
+        this.xmzjszgs = xmzjszgs;
+    }
+
+    public String getXmzjszbm() {
+        return xmzjszbm;
+    }
+
+    public void setXmzjszbm(String xmzjszbm) {
+        this.xmzjszbm = xmzjszbm;
+    }
+
+    public String getXmlxrszgs() {
+        return xmlxrszgs;
+    }
+
+    public void setXmlxrszgs(String xmlxrszgs) {
+        this.xmlxrszgs = xmlxrszgs;
+    }
+
+    public String getXmlxrszbm() {
+        return xmlxrszbm;
+    }
+
+    public void setXmlxrszbm(String xmlxrszbm) {
+        this.xmlxrszbm = xmlxrszbm;
     }
 
     public Boolean getSfkqcbzx() {
@@ -402,12 +540,20 @@ public class AddProDTO {
         this.sfkqcbzx = sfkqcbzx;
     }
 
-    public String getJsrqStr() {
-        return jsrqStr;
+    public String getCbzxbh() {
+        return cbzxbh;
     }
 
-    public void setJsrqStr(String jsrqStr) {
-        this.jsrqStr = jsrqStr;
+    public void setCbzxbh(String cbzxbh) {
+        this.cbzxbh = cbzxbh;
+    }
+
+    public String getSjcbzx() {
+        return sjcbzx;
+    }
+
+    public void setSjcbzx(String sjcbzx) {
+        this.sjcbzx = sjcbzx;
     }
 
 

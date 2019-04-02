@@ -1,16 +1,25 @@
-package cn.rep.cloud.custom.basecommon.service.vo;
+package cn.rep.cloud.custom.basecommon.project.entity;
 
 import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 /**
- * Created by vetech on 2018/8/6.
+ * <p>
+ * 项目表
+ * </p>
+ *
+ * @author chenyong
+ * @since 2018-08-04
  */
-public class ProTreeVo {
+@TableName("ve_xm")
+public class VeXm implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * ID(主键)
@@ -45,23 +54,13 @@ public class ProTreeVo {
     /**
      * 项目开始日期
      */
-    private String ksrqStr;
-
-    /**
-     * 开始日期
-     */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date ksrq;
     /**
      * 项目结束日期
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date jsrq;
-
-    /**
-     * 结束日期Str类型
-     * */
-    private String jsrqStr;
     /**
      * 项目经理
      */
@@ -109,7 +108,7 @@ public class ProTreeVo {
     /**
      * 创建时间
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date cjsj;
     /**
      * 最后修改人
@@ -118,62 +117,17 @@ public class ProTreeVo {
     /**
      * 最后修改时间
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date zhxgsj;
     /**
      * 最后修改IP
      */
     private String ip;
 
-
-    /**
-     * 节点名称
-     */
-    private String title;
-
-    /**
-     * 是否展开
-     */
-    private String expand;
-
     /**
      * 是否有效
      */
     private String sfyx;
-
-    /**
-     * 项目经理名称
-     */
-    private String xmjlmc;
-
-    /**
-     * 项目经理工号
-     */
-    private String xmjlgh;
-
-    /**
-     *字节点
-     */
-    private List<ProTreeVo> children;
-    /**
-     * 结束日期的str方法
-     * @return
-     */
-    public String getJsrqStr() {
-        if(this.jsrq!=null){
-            jsrqStr= VeDate.formatToStr(this.ksrq,"yyyy-MM-dd");
-        }else{
-            jsrqStr="";
-        }
-        return jsrqStr;
-    }
-
-    public void setJsrqStr(String jsrqStr) {
-        this.jsrqStr = jsrqStr;
-    }
-
-
-
 
     public String getId() {
         return id;
@@ -229,23 +183,6 @@ public class ProTreeVo {
 
     public void setXmms(String xmms) {
         this.xmms = xmms;
-    }
-
-    /**
-     * 获取开始日期的str类型
-     * @return
-     */
-    public String getKsrqStr() {
-        if(null!=ksrq){
-            ksrqStr= VeDate.formatToStr(ksrq,"yyyy-MM-dd");
-        }else{
-            ksrqStr="";
-        }
-        return ksrqStr;
-    }
-
-    public void setKsrqStr(String ksrqStr) {
-        this.ksrqStr = ksrqStr;
     }
 
     public Date getKsrq() {
@@ -384,30 +321,6 @@ public class ProTreeVo {
         this.ip = ip;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getExpand() {
-        return expand;
-    }
-
-    public void setExpand(String expand) {
-        this.expand = expand;
-    }
-
-    public List<ProTreeVo> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<ProTreeVo> children) {
-        this.children = children;
-    }
-
     public String getSfyx() {
         return sfyx;
     }
@@ -416,19 +329,5 @@ public class ProTreeVo {
         this.sfyx = sfyx;
     }
 
-    public String getXmjlmc() {
-        return xmjlmc;
-    }
 
-    public void setXmjlmc(String xmjlmc) {
-        this.xmjlmc = xmjlmc;
-    }
-
-    public String getXmjlgh() {
-        return xmjlgh;
-    }
-
-    public void setXmjlgh(String xmjlgh) {
-        this.xmjlgh = xmjlgh;
-    }
 }

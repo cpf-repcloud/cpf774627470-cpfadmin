@@ -1,13 +1,13 @@
-package cn.rep.cloud.custom.basecommon.service;
+package cn.rep.cloud.custom.basecommon.project.service;
 
 
-import cn.rep.cloud.custom.basecommon.business.VeXmServiceImpl;
-import cn.rep.cloud.custom.basecommon.entity.VeXm;
-import cn.rep.cloud.custom.basecommon.service.dto.AddProDTO;
-import cn.rep.cloud.custom.basecommon.service.dto.ProDetailDTO;
-import cn.rep.cloud.custom.basecommon.service.dto.SearchDataDTO;
-import cn.rep.cloud.custom.basecommon.service.vo.ProDataVo;
-import cn.rep.cloud.custom.basecommon.service.vo.ProTreeVo;
+import cn.rep.cloud.custom.basecommon.project.business.VeXmServiceImpl;
+import cn.rep.cloud.custom.basecommon.project.entity.VeXm;
+import cn.rep.cloud.custom.basecommon.project.service.dto.AddProDTO;
+import cn.rep.cloud.custom.basecommon.project.service.dto.ProDetailDTO;
+import cn.rep.cloud.custom.basecommon.project.service.dto.SearchDataDTO;
+import cn.rep.cloud.custom.basecommon.project.service.vo.ProDataVo;
+import cn.rep.cloud.custom.basecommon.project.service.vo.ProTreeVo;
 
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;

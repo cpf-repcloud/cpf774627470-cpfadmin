@@ -1,7 +1,7 @@
 package cn.rep.cloud.custom.coreutils.systemexception;
 
 
-public class SystemException  extends Exception{
+public class SystemException  extends RuntimeException{
 
 
     /**

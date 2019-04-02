@@ -1,4 +1,4 @@
-package cn.rep.cloud.custom.basecommon.service.dto;
+package cn.rep.cloud.custom.basecommon.project.service.dto;
 
 
 /**

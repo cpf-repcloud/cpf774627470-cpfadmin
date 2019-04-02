@@ -1,12 +1,12 @@
-package cn.rep.cloud.custom.basecommon.service;
+package cn.rep.cloud.custom.basecommon.project.service;
 
-import cn.rep.cloud.custom.basecommon.business.VeXmServiceImpl;
-import cn.rep.cloud.custom.basecommon.entity.VeXm;
-import cn.rep.cloud.custom.basecommon.service.dto.AddProDTO;
-import cn.rep.cloud.custom.basecommon.service.dto.AddProMemberDTO;
-import cn.rep.cloud.custom.basecommon.service.dto.ProDetailDTO;
-import cn.rep.cloud.custom.basecommon.service.dto.SearchProMemberDTO;
-import cn.rep.cloud.custom.basecommon.service.vo.ProMembersVO;
+import cn.rep.cloud.custom.basecommon.project.business.VeXmServiceImpl;
+import cn.rep.cloud.custom.basecommon.project.entity.VeXm;
+import cn.rep.cloud.custom.basecommon.project.service.dto.AddProDTO;
+import cn.rep.cloud.custom.basecommon.project.service.dto.AddProMemberDTO;
+import cn.rep.cloud.custom.basecommon.project.service.dto.ProDetailDTO;
+import cn.rep.cloud.custom.basecommon.project.service.dto.SearchProMemberDTO;
+import cn.rep.cloud.custom.basecommon.project.service.vo.ProMembersVO;
 import cn.rep.cloud.custom.coreutils.common.IdGenerator;
 import cn.rep.cloud.custom.coreutils.common.PageDTO;
 import cn.rep.cloud.custom.coreutils.utils.DateUtils;

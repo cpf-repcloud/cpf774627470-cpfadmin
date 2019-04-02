@@ -1,14 +1,13 @@
-package cn.rep.cloud.custom.basecommon.service.vo;
+package cn.rep.cloud.custom.basecommon.project.service.dto;
 
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
 
 /**
- * Created by vetech on 2018/8/13.
+ * Created by vetech on 2018/8/9.
  */
-public class ProMembersVO {
+public class AddProMemberDTO {
 
     /**
      * ID(主键)
@@ -28,7 +27,14 @@ public class ProMembersVO {
      * 项目成员(员工ID)
      */
     private String xmcy;
-
+    /**
+     * 所属公司(成员所在公司)
+     */
+    private String ssgsid;
+    /**
+     * 所属部门(成员所在部门)
+     */
+    private String ssbmid;
     /**
      * 状态(0 离开项目，1 在项目中)
      */
@@ -36,7 +42,7 @@ public class ProMembersVO {
     /**
      * 进入项目时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date jrsj;
     /**
      * 最后修改人
@@ -45,29 +51,17 @@ public class ProMembersVO {
     /**
      * 最后修改时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date zhxgsj;
     /**
      * 最后修改IP
      */
     private String ip;
 
-
     /**
-     * 成员姓名
-     */
-    private String xm;
-
-    /**
-     * 项目角色
+     * 成员角色
      */
     private String cyjs;
-
-    /**
-     * 工号
-     * @return
-     */
-    private String gh;
 
     public String getId() {
         return id;
@@ -99,6 +93,22 @@ public class ProMembersVO {
 
     public void setXmcy(String xmcy) {
         this.xmcy = xmcy;
+    }
+
+    public String getSsgsid() {
+        return ssgsid;
+    }
+
+    public void setSsgsid(String ssgsid) {
+        this.ssgsid = ssgsid;
+    }
+
+    public String getSsbmid() {
+        return ssbmid;
+    }
+
+    public void setSsbmid(String ssbmid) {
+        this.ssbmid = ssbmid;
     }
 
     public String getZt() {
@@ -141,14 +151,6 @@ public class ProMembersVO {
         this.ip = ip;
     }
 
-    public String getXm() {
-        return xm;
-    }
-
-    public void setXm(String xm) {
-        this.xm = xm;
-    }
-
     public String getCyjs() {
         return cyjs;
     }
@@ -157,13 +159,5 @@ public class ProMembersVO {
         this.cyjs = cyjs;
     }
 
-    public String getGh() {
-        return gh;
-    }
 
-    public void setGh(String gh) {
-        this.gh = gh;
-    }
 }
-
-

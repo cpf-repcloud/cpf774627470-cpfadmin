@@ -1,11 +1,11 @@
-package cn.rep.cloud.custom.basecommon.business;
+package cn.rep.cloud.custom.basecommon.project.business;
 
 
-import cn.rep.cloud.custom.basecommon.entity.VeXm;
-import cn.rep.cloud.custom.basecommon.mapper.VeXmMapper;
-import cn.rep.cloud.custom.basecommon.service.dto.AddProDTO;
-import cn.rep.cloud.custom.basecommon.service.dto.SearchDataDTO;
-import cn.rep.cloud.custom.basecommon.service.vo.ProDataVo;
+import cn.rep.cloud.custom.basecommon.project.entity.VeXm;
+import cn.rep.cloud.custom.basecommon.project.mapper.VeXmMapper;
+import cn.rep.cloud.custom.basecommon.project.service.dto.AddProDTO;
+import cn.rep.cloud.custom.basecommon.project.service.dto.SearchDataDTO;
+import cn.rep.cloud.custom.basecommon.project.service.vo.ProDataVo;
 import cn.rep.cloud.custom.coreutils.common.PageCopyUtil;
 import cn.rep.cloud.custom.coreutils.common.PageDTO;
 import cn.rep.cloud.custom.coreutils.utils.BeanMapper;

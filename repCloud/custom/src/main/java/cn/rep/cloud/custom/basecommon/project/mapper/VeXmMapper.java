@@ -1,9 +1,9 @@
-package cn.rep.cloud.custom.basecommon.mapper;
+package cn.rep.cloud.custom.basecommon.project.mapper;
 
 
-import cn.rep.cloud.custom.basecommon.entity.VeXm;
-import cn.rep.cloud.custom.basecommon.service.dto.SearchDataDTO;
-import cn.rep.cloud.custom.basecommon.service.vo.ProDataVo;
+import cn.rep.cloud.custom.basecommon.project.entity.VeXm;
+import cn.rep.cloud.custom.basecommon.project.service.dto.SearchDataDTO;
+import cn.rep.cloud.custom.basecommon.project.service.vo.ProDataVo;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import org.apache.ibatis.annotations.Mapper;
