@@ -1,6 +1,5 @@
 package cn.rep.cloud.custom.coreutils.systemexception;
 
-import cn.vetech.charge.cloud.api.Code;
 
 /**
  * 响应码枚举，参考HTTP状态码的语义

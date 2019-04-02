@@ -5,4 +5,5 @@ package cn.rep.cloud.custom.coreutils.constants;
  *
  */
 public class ErrorCodeConstants {
+
 }
