@@ -82,20 +82,13 @@
 		</dependency>
 
 
+		
+
 		<!-- 引入热部署(修改代码或配置文件或pom等文件后,会restart) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
-
-
-
-		<dependency>
-			<groupId>cn.hutool</groupId>
-			<artifactId>hutool-all</artifactId>
-			<version>4.4.1</version>
-		</dependency>
-
 	</dependencies>
 
 	<dependencyManagement>
