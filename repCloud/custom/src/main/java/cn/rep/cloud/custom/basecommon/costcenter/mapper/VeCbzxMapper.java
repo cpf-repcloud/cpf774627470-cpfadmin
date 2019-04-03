@@ -5,7 +5,9 @@ import cn.rep.cloud.custom.basecommon.costcenter.service.dto.CostCenterListDTO;
 import cn.rep.cloud.custom.basecommon.costcenter.service.vo.CostCenterPageListVO;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -17,6 +19,8 @@ import java.util.List;
  * @author chenyong
  * @since 2018-08-06
  */
+@Mapper
+@Component(value = "veCbzxMapper")
 public interface VeCbzxMapper extends BaseMapper<VeCbzx> {
     /**
      *  成本中心分页列表
