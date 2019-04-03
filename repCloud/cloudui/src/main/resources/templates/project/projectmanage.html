@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+    <title>项目管理</title>
+    <!--public-->
+    <style>
+        @import "../../static/public/css/commons.css";
+        .searchdemo {
+            width: 230px;
+        }
+
+        .w500 {
+            width: 680px;
+        }
+
+        .serwid80 {
+            width: 98%;
+        }
+
+        .dispin {
+            width: 60%;
+            display: inline-block;
+            margin-left: 20px;
+        }
+
+        ::-ms-clear, ::-ms-reveal {
+            display: none;
+        }
+
+        .marginTop10 {
+            margin-top: 15px;
+        }
+
+        .m-l12 {
+            margin-left: 12px;
+        }
+
+        .margintop20 {
+            margin-top: 17px;
+        }
+
+        .demlo1 {
+            display: inline-block;
+            margin-top: 10px;
+            width: 80%;
+        }
+
+        .left20 {
+            width: 30%;
+            display: inline-block;
+            margin-left: 20%;
+            white-space: nowrap;
+        }
+
+        .w20 {
+            width: 40%;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .w45 {
+            width: 50%;
+            display: inline-block;
+        }
+
+        .fonts {
+            font-size: 15px;
+            font-weight: 900;
+        }
+
+        .demoer {
+            height: 1px;
+            margin-top: 20px;
+            background: #dcdee2;
+            width: 99%;
+        }
+
+        .laofs {
+            float: right;
+        }
+
+        .demo22 {
+            height: 1px;
+            background: #dcdee2;
+            margin-top: 20px;
+            width: 100%;;
+        }
+
+        .demo223 {
+            height: 1px;
+            background: #dcdee2;
+        }
+
+        .demo33 {
+            color: #9ea7b4;
+            width: 150px;
+            display: inline-block
+        }
+
+        .demol {
+            font-size: 12px;
+            float: right;
+            color: #808695;
+            margin-right: 20px;
+            margin-top: 20%;
+        }
+
+        .demol1 {
+            margin-top: 7px;
+        }
+
+        .maeg20 {
+            margin-top: 20px;
+        }
+
+        .marginleft10 {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .wit300demo {
+            width: 420px;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .wit200demo {
+            width: 230px;
+        }
+
+        .ivu-form-item-label {
+            text-align: right;
+            vertical-align: middle;
+            float: left;
+            font-size: 12px;
+            color: #495060;
+            line-height: 1;
+            padding: 10px 12px 10px 0;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            width: 160px;
+        }
+
+        /*  .ivu-modal {
+              width: auto;
+              margin: 0 auto;
+              position: relative;
+              outline: 0;
+              top: 10px;
+          }*/
+
+        .demo234 {
+            overflow-y: auto;
+            overflow-x: auto;
+            margin-left: 20px;
+            margin-right: 20px;
+            height: 600px;
+        }
+
+        html, body {
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .tree {
+            width: 200px;
+            position: fixed;
+            left: 10px;
+            top: 10px;
+            height: 97%;
+            padding: 10px;
+            background: #fff;
+            border-radius: 5px;
+        }
+
+        .content {
+            position: absolute;
+            left: 220px;
+            right: 10px;
+            bottom: 10px;
+            top: 10px;
+            background: #fff;
+            height: 97%;
+            border-radius: 5px;
+            overflow-y: auto;
+            overflow-x: auto
+        }
+
+        .demo2344 {
+            margin-left: 1%;
+        }
+
+        .marginRi1 {
+            margin-right: 1%;
+        }
+
+        .ivu-modal {
+            width: auto;
+            margin: 0 auto;
+            position: relative;
+            outline: 0;
+            top: 0px;
+        }
+
+        .vertical-center-modal {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .vetech-modal .ivu-modal {
+            height: 95%;
+            top: 0%;
+        }
+        .ivu-form-item-error-tip {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            line-height: 1;
+            padding-top: 6px;
+            color: #ed3f14;
+            margin-left: 160px;
+        }
+
+        .widt230 {
+            width: 230px;
+        }
+
+        .ivu-modal-body {
+            font-size: 12px;
+            line-height: 1.5;
+            height: 540px;
+            padding: 0px;
+            overflow-y: auto;
+        }
+
+        .demodele {
+            width: 250px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: inline-block;
+        }
+    </style>
+    <script type="text/javascript" src="../../static/public/js/common.js"></script>
+    <script type="text/javascript" src="../../static/js/project/projectmanage.js"></script>
+
+
+</head>
+<body style="background: #f0f2f5;">
+<div id="app" class="admin-main" v-cloak>
+    <div>
+        <div class="tree">
+            <div class="marginTop10">
+                <i-input   placeholder="" v-model="xmmc" icon="ios-search" class="serwid80"></i-input>
+            </div>
+            <Tree :data="data" class="marginTop10" @on-select-change="getProData"
+                  empty-text="暂无项目数据"></Tree>
+        </div>
+        <div class="content">
+            <div class="demo2344" v-if="proListDetail.xmmc!=null">
+                <div class="dispin" id="shsk">
+                    <div class="demlo1">
+                        <span class="fonts">{{proListDetail.xmmc}}</span>
+                        <!--<Icon type="md-create" size="18" @click="editProData" class="marginleft10"></Icon>
+                        <Dropdown class="marginleft10" size="large" trigger="hover">
+                        <span>
+                            <Icon type="ios-more" size="20"></Icon>
+                        </span>
+                            <Dropdown-Menu slot="list">
+                                <Dropdown-Item>{{ve_xm.xgzt}}</Dropdown-Item>
+                                <Dropdown-Item>{{ve_xm.glbm}}</Dropdown-Item>
+                                <Dropdown-Item>{{ve_xm.glcbzx}}</Dropdown-Item>
+                            </Dropdown-Menu>
+                        </Dropdown>
+                        <i-switch class="marginleft10" @on-change="enabledPro" v-model="proListDetail.sfyx"
+                                  style="width: 75px;"
+                                  size="large">
+                            <span slot="open">{{ymggsj.qy}}</span>
+                            <span slot="close">{{ymggsj.jy}}</span>
+                        </i-switch>-->
+                    </div>
+                    <div class="demlo1">
+                        <div class="w20">
+                            <div class="w45">项目编号：</div>
+                            <div class="w45"> {{proListDetail.xmbh}}</div>
+                        </div>
+                        <div class="left20">
+                            <div class="w45">项目状态：</div>
+                            <div v-if="proListDetail.zt=='0'" class="w45">
+                                <Icon type="ios-radio-button-on" size="1" color="#2b85e4"></Icon>
+                                未开始
+                            </div>
+                            <div v-if="proListDetail.zt=='1'" class="w45">
+                                <Icon type="ios-radio-button-on" size="1" color="#2b85e4"></Icon>
+                                进行中
+                            </div>
+                            <div v-if="proListDetail.zt=='2'" class="w45">
+                                <Icon type="ios-radio-button-on" size="1" color="#2b85e4"></Icon>
+                                已完成
+                            </div>
+                        </div>
+                    </div>
+                    <div class="demlo1">
+                        <div class="w20">
+                            <div class="w45">项目类型：</div>
+                            <div class="w45"> 研发项目</div>
+                        </div>
+                        <div class="left20">
+                            <div class="w45"> 项目经理：</div>
+                            <div class="w45">{{proListDetail.xmjlmc}}({{proListDetail.xmjlgh}})</div>
+                        </div>
+                    </div>
+                    <div class="demlo1">
+                        <div class="w20">
+                            <div class="w45">开始日期：</div>
+                            <div class="w45">{{proListDetail.ksrqStr}}</div>
+                        </div>
+                        <div class="left20">
+                            <div class="w45">项目描述：</div>
+                            <div class="w45">{{proListDetail.xmms}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="demoer"></div>
+
+                <div class="marginTop10">
+                    <i-form ref="queryForm" :inline="false" :model="iquery">
+                        <i-button icon="ios-add" type="primary" @click="addFun">新建
+                        </i-button>
+                        <Button-Group style="margin-left: 20px;">
+                            <i-Button>导入</i-Button>
+                            <i-Button>导出</i-Button>
+                        </Button-Group>
+                        <i-input clearable  class="searchdemo laofs marginRi1" placeholder=""
+                                 @on-click="searchProData" v-model="iquery.xmmc" icon="ios-search"/>
+                    </i-form>
+                </div>
+
+
+                <div class="iview-grid marginTop10" style="width: 99%;">
+                    <i-table  stripe  :columns="igrid.columns" :data="igrid.datas" width="100%" height="400"
+                             size="small"
+                             :loading="igrid.loading"></i-table>
+                </div>
+                <div class="iview-pager">
+                    <Page :current="ipage.current" :total="ipage.total" show-sizer show-total :page-size="ipage.size"
+                          @on-change="changePage" @on-page-size-change="changePageSize"></Page>
+                    <!-- <Page :current="ipage.pageIndex" :total="ipage.total" show-sizer show-total
+                           :page-size="ipage.pageSize"
+                           @on-change="changePage" @on-page-size-change="changePageSize"></Page>-->
+                </div>
+            </div>
+            <div v-else style="margin-top: 5%;margin-left: -10%;">
+                <p style="text-align: center;">
+                    <img src="/static/public/image/common/wxgsicon.png">
+                </p>
+                <p style="text-align: center;color: #464c5b;margin-top: 20px;">
+                    <b>还未选择项目</b>
+                </p>
+                <p style="text-align: center;color: #9ea7b4;margin-bottom: 10px; margin-top: 10px;">
+                    选择项目
+                </p>
+                <p style="text-align: center;">
+                    <i-button type="primary" @click="addFun">
+                        <Icon type="md-add"></Icon>
+                        新建
+                    </i-button>
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!--新增页面-->
+    <Modal
+            v-model="addModel"
+            title="新建"
+            @on-ok="okAdd"
+            width="900"
+            height="500"
+            ok-text="提交"
+            :loading="addload"
+            :mask-closable="false"
+            class-name="vertical-center-modal"
+            class="vetech-modal"
+            @on-cancel="cancel">
+        <i-form :model="addData" ref="formValidateAdd" :rules="ruleValidate">
+            <i-col :sm="24" :md="24" :lg="24">
+                <form-Item class="wit300demo maeg20" prop="sjbh" label="上级编号">
+                    <i-input  clearable  placeholder="请输入" class="wit200demo"
+                             v-model="addData.sjbh"/>
+                </form-Item>
+            </i-col>
+            <i-col :sm="12" :md="12" :lg="12">
+                <form-item class="wit300demo" prop="xmmc" label="项目名称">
+                    <i-input  clearable  placeholder="请输入" class="wit200demo"
+                             v-model="addData.xmmc"/>
+                </form-item>
+            </i-col>
+            <i-col :sm="12" :md="12" :lg="12">
+                <form-item class="wit300demo" prop="xmbh" label="项目编号">
+                    <i-input  clearable placeholder="请输入" class="wit200demo"
+                             v-model="addData.xmbh"/>
+                </form-item>
+            </i-col>
+            <!--<form-Item class="wit300demo" prop="xmgs" label="xmgs">
+                <i-select v-model="addData.xmgs" class="wit200demo">
+                    <i-option value="0">公司项目</i-option>
+                </i-select>
+            </form-Item>-->
+            <i-col :sm="12" :md="12" :lg="12">
+                <form-Item class="wit300demo" prop="zt" label="状态">
+                    <i-select v-model="addData.zt" class="wit200demo">
+                        <i-option value="0">未开始</i-option>
+                        <i-option value="1">进行中</i-option>
+                        <i-option value="2">已完成</i-option>
+                    </i-select>
+                </form-Item>
+            </i-col>
+            <i-col :sm="12" :md="12" :lg="12">
+                <form-Item class="wit300demo" prop="xmlx" label="项目类型">
+                    <i-select v-model="addData.xmlx" class="wit200demo">
+                        <i-option value="0">公司项目</i-option>
+                        <i-option value="1">集团项目</i-option>
+                    </i-select>
+                </form-Item>
+            </i-col>
+            <i-col :sm="12" :md="12" :lg="12">
+                <form-item class="wit300demo" prop="ksrqData" label="开始日期">
+                    <Date-Picker type="date" v-model="addData.ksrqData" @on-change="ksrqFunDemo"
+                                 placeholder="项目开始时间" class="wit200demo"></Date-Picker>
+                </form-item>
+            </i-col>
+            <i-col :sm="12" :md="12" :lg="12">
+                <form-item class="wit300demo" prop="jsrqData" label="结束日期">
+                    <Date-Picker type="date" v-model="addData.jsrqData" @on-change="jssjFunDemo"
+                                 placeholder="项目结束时间" class="wit200demo"></Date-Picker>
+                </form-item>
+            </i-col>
+
+            <i-col :sm="24" :md="24" :lg="24">
+                <form-item class="wit300demo" prop="bzbz" label="备注">
+                    <i-input clearable  placeholder="请输入"
+                             class="wit200demo" v-model="addData.bzbz"/>
+                </form-item>
+            </i-col>
+
+           <!-- <div class="demo223"></div>-->
+
+
+
+            <i-col :sm="12" :md="12" :lg="12">
+                <form-Item class="wit300demo" prop="xmjl" label="项目经理">
+                    <div class="wit200demo">
+                        <Employee v-model="kjAddData.xmjl" @on-emp="selectXmjl"></Employee>
+                    </div>
+                </form-Item>
+            </i-col>
+            <i-col :sm="12" :md="12" :lg="12">
+                <form-item class="wit300demo" prop="xmzj" label="项目总监">
+                    <div class="wit200demo">
+                        <Employee v-model="kjAddData.xmzj" @on-emp="selectXmzj"></Employee>
+                    </div>
+                </form-item>
+            </i-col>
+            <i-col :sm="12" :md="12" :lg="12">
+                <form-Item class="wit300demo" prop="xmlxr" label="项目联系人">
+                    <div class="wit200demo">
+                        <Employee v-model="kjAddData.xmlxr" @on-emp="selectXmlxr"></Employee>
+                    </div>
+                </form-Item>
+            </i-col>
+            <i-col :sm="12" :md="12" :lg="12">
+                <form-item class="wit300demo" prop="glbm" label="关联部门">
+                    <i-select v-model="addData.glbm" class="wit200demo">
+                        <i-option value="1">研发部</i-option>
+                    </i-select>
+                </form-item>
+            </i-col>
+
+            <!--  <div>
+                  <form-Item class="wit300demo" label="xmbhcy">
+                      <div class="wit200demo">
+                          <Employee v-model="kjAddData.xmbhcy" @on-emp="selectXmbhcy"></Employee>
+                      </div>
+                  </form-Item>
+              </div>-->
+            <!--  <i-col :sm="12" :md="12" :lg="12">
+                  <form-item class="wit300demo" prop="xmys" label="ysje">
+                      <i- placeholder="请输入" class="wit200demo"
+                               v-model="addData.xmys"/>
+                  </form-item>
+              </i-col>
+              <i-col :sm="12" :md="12" :lg="12">
+                  <Form-Item class="wit300demo" label="dlys">
+                      <i-switch v-model="addData.sfdlyszt" size="large">
+                          <span slot="open">{{ymggsj.kq}}</span>
+                          <span slot="close">{{ymggsj.gb}}</span>
+                      </i-switch>
+                  </Form-Item>
+              </i-col>-->
+            <i-col :sm="12" :md="12" :lg="12">
+                <Form-Item class="wit300demo" label="生成成本中心">
+                    <i-switch size="large" v-model="addData.sfkqcbzx">
+                        <span slot="open">开启</span>
+                        <span slot="close">关闭</span>
+                    </i-switch>
+                </Form-Item>
+            </i-col>
+            <i-col :sm="12" :md="12" :lg="12" v-if="addData.sfkqcbzx">
+                <form-item class="wit300demo" prop="cbzxbh" label="成本中心编号">
+                    <i-input clearable  placeholder="请输入"
+                             class="wit200demo" v-model="addData.cbzxbh"/>
+                </form-item>
+            </i-col>
+            <i-col :sm="12" :md="12" :lg="12" v-if="addData.sfkqcbzx">
+                <form-item label="关联成本中心">
+                    <tree-input clearable  :ajaxvalue="bmsdata" :simple-data="simpleData1"
+                                placeholder="选择成本中心" class="wit200demo"
+                                v-model="kjAddData.cbzxData" @on-select-change="selectCbzxFun"></tree-input>
+                </form-item><!--show-icon表示是否显示图标，默认不显示-->
+            </i-col>
+        </i-form>
+    </Modal>
+
+
+    <!--编辑页面-->
+    <Modal
+            v-model="editModel"
+            title="编辑"
+            @on-ok="okEdit()"
+            width="900"
+            :mask-closable="false"
+            :loading="editload"
+            ok-text="提交"
+            class-name="vertical-center-modal"
+            class="vetech-modal"
+            @on-cancel="cancel">
+        <i-form ref="formValidateEdit" :rules="ruleValidateEdit" :model="editData">
+            <i-col :sm="24" :md="24" :lg="24">
+                <form-Item class="wit300demo maeg20" prop="sjbh" label="sjbm">
+                    <i-input clearable  placeholder="请输入" class="wit200demo"
+                             v-model="editData.sjbh"/>
+                </form-Item>
+            </i-col>
+            <i-col :sm="12" :md="12" :lg="12">
+                <form-item class="wit300demo" prop="xmmc" label="xmmc">
+                    <i-input clearable  placeholder="请输入" class="wit200demo"
+                             v-model="editData.xmmc"/>
+                </form-item>
+            </i-col>
+            <i-col :sm="12" :md="12" :lg="12">
+                <form-item class="wit300demo" prop="xmbh" label="xmbh">
+                    <i-input clearable  placeholder="请输入" class="wit200demo"
+                             v-model="editData.xmbh"/>
+                </form-item>
+            </i-col>
+            <i-col :sm="12" :md="12" :lg="12">
+                <form-Item class="wit300demo" prop="zt" label="zt">
+                    <i-select v-model="editData.zt" class="wit200demo">
+                        <i-option value="0">未开始</i-option>
+                        <i-option value="1">进行中</i-option>
+                        <i-option value="2">已完成</i-option>
+                    </i-select>
+                </form-Item>
+            </i-col>
+            <!-- <form-Item class="wit300demo" prop="xmgs" label="xmgs">
+                 <i-select v-model="editData.xmgs" class="wit200demo">
+                     <i-option value="0">公司项目</i-option>
+                 </i-select>
+             </form-Item>-->
+            <i-col :sm="12" :md="12" :lg="12">
+                <form-Item class="wit300demo" prop="xmlx" label="xmlx">
+                    <i-select v-model="editData.xmlx" class="wit200demo">
+                        <i-option value="0">公司项目</i-option>
+                        <i-option value="1">集团项目</i-option>
+                    </i-select>
+                </form-Item>
+
+            </i-col>
+            <i-col :sm="12" :md="12" :lg="12">
+                <form-item class="wit300demo" prop="ksrqData" label="ksrq">
+                    <Date-Picker type="date" v-model="editData.ksrqData" @on-change="ksrqFunDemo"
+                                 placeholder="项目开始日期" class="wit200demo"></Date-Picker>
+                </form-item>
+            </i-col>
+            <i-col :sm="12" :md="12" :lg="12">
+                <form-item class="wit300demo" prop="jsrqData" label="jssj">
+                    <Date-Picker type="date" v-model="editData.jsrqData" @on-change="jssjFunDemo"
+                                 placeholder="项目结束日期" class="wit200demo"></Date-Picker>
+                </form-item>
+            </i-col>
+
+            <i-col :sm="24" :md="24" :lg="24">
+                <form-item class="wit300demo" prop="bzbz" label=ymggsj.bz">
+                    <i-input clearable  placeholder="请输入"
+                             class="wit200demo" v-model="editData.bzbz"/>
+                </form-item>
+            </i-col>
+
+            <div class="demo223"></div>
+            <i-col :sm="12" :md="12" :lg="12">
+                <form-Item class="wit300demo" prop="xmjl" label="xmjl">
+                    <div class="wit200demo">
+                        <Employee v-model="kjEditData.xmjl" @on-emp="selectXmjl"></Employee>
+                    </div>
+                </form-Item>
+            </i-col>
+            <i-col :sm="12" :md="12" :lg="12">
+                <form-item class="wit300demo" prop="xmzj" label="xmzj">
+                    <div class="wit200demo">
+                        <Employee v-model="kjEditData.xmzj" @on-emp="selectXmzj"></Employee>
+                    </div>
+                </form-item>
+            </i-col>
+            <i-col :sm="12" :md="12" :lg="12">
+                <form-Item class="wit300demo" prop="xmlxr" label="xmlxr">
+                    <div class="wit200demo">
+                        <Employee v-model="kjEditData.xmlxr" @on-emp="selectXmlxr"></Employee>
+                    </div>
+                </form-Item>
+            </i-col>
+            <i-col :sm="12" :md="12" :lg="12">
+                <form-item class="wit300demo" prop="glbm" label="glbm">
+                    <i-select v-model="editData.glbm" class="wit200demo">
+                        <i-option value="1">研发部</i-option>
+                    </i-select>
+                </form-item>
+            </i-col>
+            <!--   <i-col :sm="12" :md="12" :lg="12">
+                   <form-item class="wit300demo" prop="xmys" label="ysje">
+                       <i-input placeholder="请输入" class="wit200demo"
+                                v-model="editData.xmys"/>
+                   </form-item>
+               </i-col>
+               <i-col :sm="12" :md="12" :lg="12">
+               <Form-Item class="wit300demo" label="dlys">
+                   <i-switch v-model="editData.sfdlyszt" size="large">
+                       <span slot="open">{{ymggsj.kq}}</span>
+                       <span slot="close">{{ymggsj.gb}}</span>
+                   </i-switch>
+               </Form-Item>
+                   </i-col>-->
+            <!--编辑时取消成本中心编辑-->
+            <!-- <i-col :sm="12" :md="12" :lg="12">
+                 <Form-Item class="wit300demo" label="sccbzx">
+                     <i-switch size="large" v-model="editData.sfkqcbzx">
+                         <span slot="open">{{ymggsj.kq}}</span>
+                         <span slot="close">{{ymggsj.gb}}</span>
+                     </i-switch>
+                 </Form-Item>
+             </i-col>
+             <i-col :sm="12" :md="12" :lg="12" v-if="editData.sfkqcbzx">
+                 <form-item class="wit300demo"  prop="cbzxbh" label="cbzxbh">
+                     <i-input placeholder="请输入" v-model="editData.cbzxbh" class="wit200demo"/>
+                 </form-item>
+             </i-col>
+
+             <i-col :sm="12" :md="12" :lg="12" v-if="editData.sfkqcbzx">
+                 <form-item label="glcbzx">
+                     <tree-input :ajaxvalue="bmsdata" :simple-data="simpleData1"
+                                 placeholder="ve_xm.xzcbzx" class="wit200demo"
+                                 v-model="kjEditData.cbzxData" @on-select-change="selectCbzxFun"></tree-input>
+                 </form-item>&lt;!&ndash;show-icon表示是否显示图标，默认不显示&ndash;&gt;
+             </i-col>-->
+        </i-form>
+    </Modal>
+
+    <Drawer title="Basic Drawer" :closable="false" v-model="fter" width="500">
+        <div style="margin-top: 20px;margin-right: 25px;margin-left: 25px;height: 100%">
+            <Tabs :value="tabValue" style="margin-top: 20px;margin-left: 5px;" @on-click="changeTab">
+                <Tab-Pane label=项目详情" name="1">
+                    <div v-if="changeTabData=='1'" class="demo234">
+                        <div>
+                            <div class="fonts">{{proDetail.xmmc}}</div>
+                            <div class="margintop20">
+                                <div class="margintop20">
+                                    <div class="demo33">项目编号：</div>
+                                    <span> {{proDetail.xmbh}}  </span>
+                                </div>
+                                <div class="margintop20">
+                                    <div class="demo33">项目状态：</div>
+                                    <span v-if="proDetail.zt=='0'">
+                                          <Icon type="record" size="1" color="#2b85e4"></Icon>
+                                          <span>未开始</span>
+                                     </span>
+                                     <span v-if="proDetail.zt=='1'">
+                                         <Icon type="record" color="#2b85e4" size="1"></Icon>
+                                        <span>进行中</span>
+                                     </span>
+                                    <span v-if="proDetail.zt=='2'">
+                                        <Icon type="record" size="1" color="#2b85e4"></Icon>
+                                      <span>已完成</span>
+                                    </span>
+                                </div>
+                                <!-- <div class="margintop20">
+                                     <div class="demo33">{{ve_xm.xmgs}}：</div>
+                                     <span> {{proDetail.xmgs}}</span>
+                                 </div>-->
+                                <div class="margintop20">
+                                    <div class="demo33">项目类型：</div>
+                                    <span v-if="proDetail.xmlx==0"> 公司项目</span>
+                                    <span v-if="proDetail.xmlx==1"> 集团项目</span>
+                                </div>
+                                <div class="margintop20">
+                                    <div class="demo33">项目描述：</div>
+                                  <div style="  display: inline-block;white-space: normal;">
+                                      <template>
+                                          <Tooltip  :content="proDetail.xmms" :transfer="true">
+                                              <div class="demodele">{{proDetail.xmms}}</div>
+                                          </Tooltip>
+                                      </template>
+
+                                  </div>
+
+                                </div>
+                                <div class="margintop20">
+                                    <div class="demo33">开始日期：</div>
+                                    <span> {{proDetail.ksrqStr}}</span></div>
+                                <div class="margintop20">
+                                    <div class="demo33">结束日期：</div>
+                                    <span> {{proDetail.jsrqStr}}</span>
+                                </div>
+
+                                <div class="demo22"></div>
+
+                                <div class="margintop20">
+                                    <div class="demo33">项目经理：</div>
+                                    <span> {{proDetail.xmjlmc}}</span>
+                                </div>
+                                <div class="margintop20">
+                                    <div class="demo33">项目职级：</div>
+                                    <span> {{proDetail.xmzjmc}}</span>
+                                </div>
+                                <div class="margintop20">
+                                    <div class="demo33">项目联系人：</div>
+                                    <span> {{proDetail.xmlxrmc}}</span>
+                                </div>
+                                <!--<div class="margintop20">
+                                    <div class="demo33">{{ve_xm.glbm}}：</div>
+                                    <span> {{proDetail.glbm}}</span>
+                                </div>-->
+                                <!-- <div class="margintop20">
+                                     <div class="demo33">{{ve_xm.dlys}}：</div>
+
+                                     <span v-if="proDetail.sfdlyszt">已开启</span>
+                                     <span v-if="proDetail.sfdlyszt==false">未开启</span>
+                                 </div>-->
+                                <!--  <div class="margintop20">
+                                      <div class="demo33">{{ve_xm.ysje}}：</div>
+                                      <span>{{proDetail.ysje}}</span>
+                                  </div>-->
+                                <!--<div class="margintop20">
+                                    <div class="demo33">{{ve_xm.cbzx}}：</div>
+                                    <span>{{proDetail.cbzx}}</span>
+                                </div>-->
+                            </div>
+                        </div>
+                        <div class="demol">
+                            <div class="demol1"><span>{{proDetail.cjr}}</span>于<span> {{proDetail.cjsj}}</span>编辑
+                            </div>
+                            <div class="demol1"><span>{{proDetail.zhxgr}}</span>于<span> {{proDetail.zhxgsj}}</span>新建
+                            </div>
+                        </div>
+                    </div>
+                </Tab-Pane>
+                <Tab-Pane label=项目成员" name="2">
+                    <div style="width: 100%" v-if="changeTabData=='2'">
+                        <div>
+                            <i-input clearable  placeholder="项目所属成员名称" v-model="iquery.cymc"
+                                     icon="ios-search"
+                                     @on-click="searchCyData" class="searchdemo"
+                                     style="margin-left: 303px;"/>
+                        </div>
+                        <div>
+                            <div class="iview-grid marginTop10 m-l12">
+                                <i-table stripe  :columns="igrids.columns" :data="igrids.datas" width="100%"
+                                         height="500"
+                                         size="small"
+                                         :loading="igrids.loading"></i-table>
+                            </div>
+                            <div class="iview-pager">
+                                <Page :current="ipage.pageIndex" :total="ipage.total" show-sizer show-total
+                                      :page-size="ipage.pageSize"
+                                      @on-change="changePage" @on-page-size-change="changePageSize"></Page>
+                            </div>
+                        </div>
+                    </div>
+                </Tab-Pane>
+
+            </Tabs>
+        </div>
+    </Drawer>
+</div>
+
+
+</body>
+
+
+</html>
