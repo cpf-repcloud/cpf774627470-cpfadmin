@@ -125,7 +125,7 @@
     position: relative;
     z-index: 0;
     height: 100%;
-    margin-top: -100px;
+    /*margin-top: -100px;*/
 }
 .content_Box>.login_content .logins_box{
     width: 400px;
