@@ -20,12 +20,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *项目管理
  * /controller
  */
-@Controller
+@RestController
 @RequestMapping("vexm")
 public class VeXmController {
 
@@ -96,7 +97,8 @@ public class VeXmController {
     @PostMapping(value = "/getTreeList")
     public RestResponse getTreeList() {
         //String qybh = loginUser.getQybh();
-        ProTreeVo treeVo = service.getTreeList(null);
+        String gsid="123456789";
+        ProTreeVo treeVo = service.getTreeList(gsid);
         return new RestResponse(treeVo);
     }
 

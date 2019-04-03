@@ -80,12 +80,14 @@ public class VeXmServiceImpl {
     /**
      * 查询该企业下的所有项目集合
      *
-     * @param qybh 企业编号
+     * @param gsid 公司id
      * @return
      */
-    public List<VeXm> getAllList(String qybh) {
+    public List<VeXm> getAllList(String gsid) {
         EntityWrapper ew = new EntityWrapper();
-        ew.eq("qybh", qybh);
+        if(StringUtils.isNotBlank(gsid)){
+            ew.eq("gsid", gsid);
+        }
         return veXmMapper.selectList(ew);
     }
 
