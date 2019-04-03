@@ -114,6 +114,12 @@
 			<version>1.2.6.RELEASE</version>
 		</dependency>
 
+		<!--使用Feign进行服务调用-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+
 		<!-- 引入热部署(修改代码或配置文件或pom等文件后,会restart) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

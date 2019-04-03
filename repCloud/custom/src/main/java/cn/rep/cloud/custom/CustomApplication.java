@@ -3,6 +3,7 @@ package cn.rep.cloud.custom;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
@@ -13,7 +14,7 @@ import javax.servlet.MultipartConfigElement;
  */
 @SpringBootApplication
 @EnableScheduling
-//@EnableFeignClients("cn.rep.cloud.cloudui.feignclient")
+@EnableFeignClients
 public class CustomApplication {
 
 	public static void main(String[] args) {

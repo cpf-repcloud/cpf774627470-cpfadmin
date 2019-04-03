@@ -1,5 +1,7 @@
-package cn.rep.cloud.custom.openapi.feignclient;
+package cn.rep.cloud.custom.openapi.feign.repemployee;
 
+import cn.rep.cloud.custom.openapi.feign.repemployee.dto.RepEmployeeClientDTO;
+import cn.rep.cloud.custom.openapi.feign.repemployee.vo.RepEmployeeClientVO;
 import cn.rep.cloud.custom.organizationa.business.RepEmployeeServiceImpl;
 import cn.rep.cloud.custom.organizationa.entity.RepEmployee;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,7 @@
-package cn.rep.cloud.custom.openapi.feignclient;
+package cn.rep.cloud.custom.openapi.feign.repemployee;
 
+import cn.rep.cloud.custom.openapi.feign.repemployee.dto.RepEmployeeClientDTO;
+import cn.rep.cloud.custom.openapi.feign.repemployee.vo.RepEmployeeClientVO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 

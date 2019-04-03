@@ -1,4 +1,4 @@
-package cn.rep.cloud.custom.openapi.feignclient;
+package cn.rep.cloud.custom.openapi.feign.repemployee.dto;
 
 public class RepEmployeeClientDTO {
     private String id;
