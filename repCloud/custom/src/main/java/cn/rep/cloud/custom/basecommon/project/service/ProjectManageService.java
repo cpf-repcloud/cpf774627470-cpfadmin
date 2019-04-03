@@ -170,13 +170,13 @@ public class ProjectManageService {
     /**
      * 查询
      *
-     * @param qybh 企业编号
+     * @param gsid 公司id
      * @return 树形结构
      */
-    public ProTreeVo getTreeList(String qybh) {
+    public ProTreeVo getTreeList(String gsid) {
         ProTreeVo proTreeVo = new ProTreeVo();
         /**查询该企业下面的所有项目list*/
-        List<VeXm> veList = veXmService.getAllList(qybh);
+        List<VeXm> veList = veXmService.getAllList(gsid);
         if (CollectionUtils.isEmpty(veList)) {
             return null;
         }
@@ -202,7 +202,7 @@ public class ProjectManageService {
      * @param proTreeVo 树形结构出参
      */
     private void getTreeData(List<VeXm> veList, Map<String, List<VeXm>> veXmMap, ProTreeVo proTreeVo) {
-        /*if (CollectionUtils.isNotEmpty(veList)) {
+       /* if (CollectionUtils.isNotEmpty(veList)) {
             List<ProTreeVo> proTreeVoList = new ArrayList<>();
             for (VeXm xm : veList) {
                 ProTreeVo treeVo = new ProTreeVo();
