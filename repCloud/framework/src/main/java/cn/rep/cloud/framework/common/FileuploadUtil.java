@@ -117,8 +117,8 @@ public class FileuploadUtil {
      * @param extName   后缀名
      */
     private static String getDestPath(String childFile, String extName) {
-        //规则：  子目录/年月日_随机数.后缀名
-        String sb = childFile + "/"+"1321322323." + extName;
+        //规则：  uuid + 后缀名
+        String sb = childFile + "/"+IdGenerator.uuid()+"." + extName;
         return sb;
     }
 
