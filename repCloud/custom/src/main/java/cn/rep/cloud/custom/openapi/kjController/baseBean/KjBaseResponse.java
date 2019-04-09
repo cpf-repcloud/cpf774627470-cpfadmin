@@ -12,8 +12,6 @@ public class KjBaseResponse {
     private String label;
 
 
-
-
     public String getValue() {
         return value;
     }
@@ -29,5 +27,6 @@ public class KjBaseResponse {
     public void setLabel(String label) {
         this.label = label;
     }
+
 
 }
