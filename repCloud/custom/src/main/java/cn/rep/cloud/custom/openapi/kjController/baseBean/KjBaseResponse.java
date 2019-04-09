@@ -11,7 +11,7 @@ public class KjBaseResponse {
 
     private String label;
 
-    private List<KjBaseResponse> children;
+
 
 
     public String getValue() {
@@ -30,11 +30,4 @@ public class KjBaseResponse {
         this.label = label;
     }
 
-    public List<KjBaseResponse> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<KjBaseResponse> children) {
-        this.children = children;
-    }
 }
