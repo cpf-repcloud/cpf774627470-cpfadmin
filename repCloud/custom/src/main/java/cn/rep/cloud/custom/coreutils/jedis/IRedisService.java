@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-public abstract class IRedisService<T> {
+public abstract class IRedisService {
     @Autowired
     protected RedisTemplate<String, Object> redisTemplate;
     @Resource
-    protected HashOperations<String, String, T> hashOperations;
+    protected HashOperations<String, String, byte[]> hashOperations;
     /**
      * 存入redis中的key
      *
@@ -28,7 +28,7 @@ public abstract class IRedisService<T> {
      * @param doamin 对象
      * @param expire 过期时间(单位:秒),传入 -1 时表示不设置过期时间
      */
-    public void put(String key, T doamin, long expire) {
+    public void put(String key, byte[] doamin, long expire) {
         hashOperations.put(getRedisKey(), key, doamin);
         if (expire != -1) {
             redisTemplate.expire(getRedisKey(), expire, TimeUnit.SECONDS);
@@ -50,7 +50,7 @@ public abstract class IRedisService<T> {
      * @param key 查询的key
      * @return
      */
-    public T getByKey(String key) {
+    public byte[] getByKey(String key) {
         return hashOperations.get(getRedisKey(), key);
     }
 
@@ -59,7 +59,7 @@ public abstract class IRedisService<T> {
      *
      * @return
      */
-    public List<T> getAll() {
+    public List<byte[]> getAll() {
         return hashOperations.values(getRedisKey());
     }
 

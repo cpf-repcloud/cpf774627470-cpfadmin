@@ -27,7 +27,8 @@ window.onload= function (){
                 , contentType: 'application/json;charset=utf-8'
                 , success: function (data) {
                     console.log(JSON.stringify(data));
-                    _this.employee = data.result;
+                    debugger
+                    _this.employee = data.result.repYg;
                     console.log(_this.employee);
                     _this.leftMenu=data.result.menuList;
                 }
@@ -71,6 +72,10 @@ window.onload= function (){
                 this.nowId=this.topMenu[i-1].id;
             }
         }
+    })
+
+    $(".login-out").click(function () {
+        alert(111);
     })
     // 展开与收缩左侧边栏
     var slidleft=true;

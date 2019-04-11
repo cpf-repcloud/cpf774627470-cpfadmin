@@ -1,5 +1,7 @@
 package cn.rep.cloud.custom.organizationa.entity;
 
+import cn.rep.cloud.custom.coreutils.jedis.RedisModel;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,7 +17,7 @@ import java.util.Date;
 
 @Entity
 @Table ( name ="rep_yg" )
-public class RepYg  implements Serializable {
+public class RepYg implements Serializable {
 
 	private static final long serialVersionUID =  7830729778526719356L;
 

@@ -18,6 +18,10 @@ public class RepEmployee  implements Serializable {
 	@Id
 	private String id;
 	/**
+	 * 员工id
+	 */
+	private String ygid;
+	/**
 	 * 姓名
 	 */
 	private String name;
@@ -119,6 +123,13 @@ public class RepEmployee  implements Serializable {
 	private String updateuser;
 
 
+	public String getYgid() {
+		return ygid;
+	}
+
+	public void setYgid(String ygid) {
+		this.ygid = ygid;
+	}
 
 	public String getSexy() {
 		return sexy;

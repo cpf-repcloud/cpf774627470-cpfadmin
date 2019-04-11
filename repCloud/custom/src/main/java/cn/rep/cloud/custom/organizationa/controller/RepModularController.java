@@ -1,13 +1,15 @@
 package cn.rep.cloud.custom.organizationa.controller;
 
+import cn.rep.cloud.custom.coreutils.common.BaseController;
 import cn.rep.cloud.custom.coreutils.common.PageDTO;
 import cn.rep.cloud.custom.coreutils.common.RestResponse;
-import cn.rep.cloud.custom.coreutils.utils.BeanMapper;
 import cn.rep.cloud.custom.organizationa.business.RepEmployeeServiceImpl;
 import cn.rep.cloud.custom.organizationa.business.RepModularServiceImpl;
+import cn.rep.cloud.custom.organizationa.business.RepYgServiceImpl;
 import cn.rep.cloud.custom.organizationa.dto.RepModularDTO;
 import cn.rep.cloud.custom.organizationa.entity.RepEmployee;
 import cn.rep.cloud.custom.organizationa.entity.RepModular;
+import cn.rep.cloud.custom.organizationa.entity.RepYg;
 import cn.rep.cloud.custom.organizationa.vo.RepEmployeeBean;
 import cn.rep.cloud.custom.organizationa.vo.RepModularVO;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -18,11 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
 @RequestMapping("repModular")
-public class RepModularController {
+public class RepModularController extends BaseController {
     /**
      * 系统模块服务
      */
@@ -33,14 +36,20 @@ public class RepModularController {
      */
     @Autowired
     private RepEmployeeServiceImpl repEmployeeService;
+    /**
+     * 当前登录员工
+     */
+    @Autowired
+    private RepYgServiceImpl repYgService;
 
     @RequestMapping("getRepModular")
     public RestResponse<RepEmployeeBean> getRepModular(@RequestParam("id") String id){
         RepEmployeeBean repEmp = new RepEmployeeBean();
         RepEmployee repEmployee = repEmployeeService.queryRepEmployee(id);
-        repEmp = BeanMapper.map(repEmployee,RepEmployeeBean.class);
+        RepYg repYg = repYgService.queryRepYg(repEmployee.getYgid(),request);
         List<RepModularVO> lists = repModularService.getModular();
         repEmp.setMenuList(lists);
+        repEmp.setRepYg(repYg);
         return new RestResponse(repEmp);
     }
 

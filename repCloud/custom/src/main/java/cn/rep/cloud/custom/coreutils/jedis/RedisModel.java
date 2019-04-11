@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class RedisModel implements Serializable {
+public class RedisModel<T> implements Serializable {
     /**
      * redis key
      */

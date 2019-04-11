@@ -1,5 +1,6 @@
 package cn.rep.cloud.custom.organizationa.controller;
 
+import cn.rep.cloud.custom.coreutils.common.BaseController;
 import cn.rep.cloud.custom.coreutils.common.PageDTO;
 import cn.rep.cloud.custom.coreutils.common.RestResponse;
 import cn.rep.cloud.custom.organizationa.business.RepCompServiceImpl;
@@ -14,12 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("repComp")
-public class RepCompController {
+public class RepCompController  extends BaseController {
     @Autowired
     private RepCompServiceImpl repCompService;
 
     @RequestMapping("list")
     public RestResponse<Page<RepComp>> list(@RequestBody PageDTO<RepCompDTO> pageDTO){//
+        String cjr = loginUser.getCjr();
         Page<RepComp> pageNew = repCompService.seletPage(pageDTO);
         return new RestResponse(pageNew);
     }
@@ -28,6 +30,7 @@ public class RepCompController {
     public RestResponse addRepComp(@RequestBody RepCompDTO dto){//
         boolean result;
         if (StringUtils.isBlank(dto.getId())){
+            dto.setCreatuser(loginUser.getCjr());
             result = repCompService.insertRepComp(dto);
         }else{
             result =  repCompService.updateRepComp(dto);
