@@ -1,6 +1,6 @@
 package cn.rep.cloud.custom.organizationa.service;
 
-import cn.rep.cloud.custom.organizationa.entity.RepEmployee;
+import cn.rep.cloud.custom.organizationa.entity.RepLogin;
 import cn.rep.cloud.custom.organizationa.mapper.RepEmployeeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class RepEmployeeService {
      * @param id
      * @return
      */
-    public RepEmployee queryRepEmployee(String id){
+    public RepLogin queryRepEmployee(String id){
         return repEmployeeMapper.selectById(id);
     }
 
@@ -24,7 +24,7 @@ public class RepEmployeeService {
      * @param loginName
      * @return
      */
-    public RepEmployee getEmpByLonginName(String loginName){
+    public RepLogin getEmpByLonginName(String loginName){
         return repEmployeeMapper.getEmpByLonginName(loginName);
     }
 }

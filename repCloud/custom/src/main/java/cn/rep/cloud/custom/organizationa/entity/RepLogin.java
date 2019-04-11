@@ -9,8 +9,8 @@ import java.util.Date;
  * 员工表
  */
 @Entity
-@Table(name = "rep_employee")
-public class RepEmployee  implements Serializable {
+@Table(name = "rep_login")
+public class RepLogin implements Serializable {
 
 	/**
 	 * 主键id

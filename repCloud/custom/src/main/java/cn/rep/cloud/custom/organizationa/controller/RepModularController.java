@@ -7,7 +7,7 @@ import cn.rep.cloud.custom.organizationa.business.RepEmployeeServiceImpl;
 import cn.rep.cloud.custom.organizationa.business.RepModularServiceImpl;
 import cn.rep.cloud.custom.organizationa.business.RepYgServiceImpl;
 import cn.rep.cloud.custom.organizationa.dto.RepModularDTO;
-import cn.rep.cloud.custom.organizationa.entity.RepEmployee;
+import cn.rep.cloud.custom.organizationa.entity.RepLogin;
 import cn.rep.cloud.custom.organizationa.entity.RepModular;
 import cn.rep.cloud.custom.organizationa.entity.RepYg;
 import cn.rep.cloud.custom.organizationa.vo.RepEmployeeBean;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -45,7 +44,7 @@ public class RepModularController extends BaseController {
     @RequestMapping("getRepModular")
     public RestResponse<RepEmployeeBean> getRepModular(@RequestParam("id") String id){
         RepEmployeeBean repEmp = new RepEmployeeBean();
-        RepEmployee repEmployee = repEmployeeService.queryRepEmployee(id);
+        RepLogin repEmployee = repEmployeeService.queryRepEmployee(id);
         RepYg repYg = repYgService.queryRepYg(repEmployee.getYgid(),request);
         List<RepModularVO> lists = repModularService.getModular();
         repEmp.setMenuList(lists);

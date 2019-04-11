@@ -1,7 +1,7 @@
 package cn.rep.cloud.custom.organizationa.controller;
 
 import cn.rep.cloud.custom.organizationa.business.RepEmployeeServiceImpl;
-import cn.rep.cloud.custom.organizationa.entity.RepEmployee;
+import cn.rep.cloud.custom.organizationa.entity.RepLogin;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,13 +16,13 @@ public class RepEmployeeController {
     private RepEmployeeServiceImpl repEmployeeService;
 
     @RequestMapping("/detail")
-    public RepEmployee queryRepEmployee(@RequestParam("id") String id){
-        RepEmployee repEmployee = repEmployeeService.queryRepEmployee(id);
+    public RepLogin queryRepEmployee(@RequestParam("id") String id){
+        RepLogin repEmployee = repEmployeeService.queryRepEmployee(id);
         return repEmployee;
     }
 
     @RequestMapping("/login")
-    public boolean queryRepEmployee(@RequestBody RepEmployee repEmployee){
+    public boolean queryRepEmployee(@RequestBody RepLogin repEmployee){
         String loginname = repEmployee.getLoginname();
         String passwrod = repEmployee.getPassword();
         boolean result = false;
