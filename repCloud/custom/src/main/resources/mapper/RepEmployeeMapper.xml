@@ -3,7 +3,7 @@
 <mapper namespace="cn.rep.cloud.custom.organizationa.mapper.RepEmployeeMapper">
 
     <select id="getEmpByLonginName" parameterType="String" resultType="cn.rep.cloud.custom.organizationa.entity.RepLogin">
-      SELECT * FROM rep_employee r WHERE r.loginName=#{loginName}
+      SELECT * FROM rep_login r WHERE r.loginName=#{loginName}
     </select>
 
 	<!--<select id="getMrzxById" parameterType="String" resultType="cn.creative.coupon.entity.Yhq_mrzx">
