@@ -1,0 +1,151 @@
+*{padding: 0;margin: 0;}
+ul,li{list-style: none;}
+
+.clearfix {display: block;}
+.clearfix:after{display:block; visibility:hidden; clear:both; height:0; content:"."}
+
+.ve-container{max-width: 1200px;min-width: 1004px;margin: 0 auto;}
+.ve-overflow{overflow: hidden;}
+.iconfont{display: inline-block; font-style: normal;  font-weight: 400;  font-variant: normal;  text-transform: none;  text-rendering: auto;  line-height: 1;  -webkit-font-smoothing: antialiased;  -moz-osx-font-smoothing: grayscale;  vertical-align: middle;}
+
+/*主题色*/
+.ve-primary{color:#2d8cf0;}/*主色*/
+.ve-light-primary{color:#5cadff;}/*浅蓝*/
+.ve-dark-primary{color:#2b85e4;}/*深蓝*/
+.ve-success{color:#19be6b;}/*成功*/
+.ve-warning{color:#ff9900;}/*警示*/
+.ve-error{color:#ed3f14;}/*错误/危险*/
+.ve-title{color:#17233d;}/*主标题*/
+.ve-content{color:#515a6e;}/*正文*/
+.ve-subcolor{color:#808695;}/*辅助颜色*/
+.ve-disabled{color:#c5c8ce;}/*失效或者禁止点击*/
+.ve-border{color:#dcdee2;}/*边框颜色*/
+.ve-divider{color:#e8eaec;}/*分割线颜色*/
+.ve-background{background:#f8f8f9;}/*主背景颜色*/
+
+
+
+/*margin，padding值*/
+.ve-m0{margin: 0px;}
+.ve-m5{margin:5px;}
+.ve-m10{margin:10px;}
+.ve-m15{margin:15px;}
+.ve-m20{margin:20px;}
+.ve-ml0{margin-left: 0px;}
+.ve-ml5{margin-left:5px;}
+.ve-ml10{margin-left:10px;}
+.ve-ml15{margin-left:15px;}
+.ve-ml20{margin-left:20px;}
+.ve-mr0{margin-right: 0px;}
+.ve-mr5{margin-right:5px;}
+.ve-mr10{margin-right:10px;}
+.ve-mr15{margin-right:15px;}
+.ve-mr20{margin-right:20px;}
+.ve-mt0{margin-top: 0px;}
+.ve-mt5{margin-top:5px;}
+.ve-mt10{margin-top:10px;}
+.ve-mt15{margin-top:15px;}
+.ve-mt20{margin-top:20px;}
+.ve-mb0{margin-bottom: 0px;}
+.ve-mb5{margin-bottom:5px;}
+.ve-mb10{margin-bottom:10px;}
+.ve-mb15{margin-bottom:15px;}
+.ve-mb20{margin-bottom:20px;}
+.ve-p0{padding: 0px;}
+.ve-p5{padding:5px;}
+.ve-p10{padding:10px;}
+.ve-p15{padding:15px;}
+.ve-p20{padding:20px;}
+.ve-pl0{padding-left: 0px;}
+.ve-pl5{padding-left:5px;}
+.ve-pl10{padding-left:10px;}
+.ve-pl15{padding-left:15px;}
+.ve-pl20{padding-left:20px;}
+.ve-pr0{padding-right: 0px;}
+.ve-pr5{padding-right:5px;}
+.ve-pr10{padding-right:10px;}
+.ve-pr15{padding-right:15px;}
+.ve-pr20{padding-right:20px;}
+.ve-pt0{padding-top: 0px;}
+.ve-pt5{padding-top:5px;}
+.ve-pt10{padding-top:10px;}
+.ve-pt15{padding-top:15px;}
+.ve-pt20{padding-top:20px;}
+.ve-pb0{padding-bottom: 0px;}
+.ve-pb5{padding-bottom:5px;}
+.ve-pb10{padding-bottom:10px;}
+.ve-pb15{padding-bottom:15px;}
+.ve-pb20{padding-bottom:20px;}
+
+/*font值大小,line-height*/
+.ve-f12{font-size: 12px;}
+.ve-f13{font-size: 13px;}
+.ve-f14{font-size: 14px;}
+.ve-f15{font-size: 15px;}
+.ve-f16{font-size: 16px;}
+.ve-f17{font-size: 17px;}
+.ve-f18{font-size: 18px;}
+.ve-f20{font-size: 20px;}
+.ve-f24{font-size: 24px;}
+.ve-lh1{line-height: 1;}
+.ve-lh16{line-height: 16px;}
+.ve-lh20{line-height: 20px;}
+.ve-lh24{line-height: 24px;}
+.ve-lh30{line-height: 30px;}
+
+/*文本方向*/
+.ve-tl{text-align: left;}
+.ve-tc{text-align: center;}
+.ve-tr{text-align: right;}
+
+
+/*垂直方向*/
+.ve-va-m{vertical-align: middle;}
+
+/*浮动方向*/
+.ve-fl{float: left;}
+.ve-fc{float: inherit;}
+.ve-fr{float: right;}
+/*定位*/
+.pr{position: relative;}
+.pa{position: absolute;}
+.pf{position: fixed;}
+
+
+/*重新定义iview相关css*/
+[v-cloak] {
+    display: none !important;
+}
+.iview-pager{padding: 10px;}
+
+/*左右布局*/
+html{width: 100%;height: 100%;}
+.full-body{width: 100%;height: 100%;background: #f0f2f5;padding: 0px;}
+.lr-container{width: 100%;height:100%;box-sizing: border-box;padding: 10px;}
+.lr-container #main{width: 100%;height: 100%;background: #fff;border-radius: 5px;position: relative;overflow: hidden;}
+.lr-container .tree{width: 220px;position: absolute;left: 10px;top: 10px;bottom:10px;border-right: 1px solid #eee;overflow: auto;padding-right: 10px;}
+.lr-container .tree .ivu-tree{margin-top: 10px;}
+.lr-container .content{position: absolute;left:230px;right:0;bottom:0; top:0;padding:0px}
+
+
+/*修改滚动条样式*/
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar{ width: 8px; height:8px;background-color: #fff; }
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track{ -webkit-box-shadow: none; border-radius: 10px; background-color: #fff; }
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb { border-radius: 10px; -webkit-box-shadow:none; background-color: #dedede; }
+/*定义最上方和最下方的按钮*/
+::-webkit-scrollbar-button{ width:0px; height: 0px;  }
+
+
+.ve-order-list{  width: 100%;  border: 1px solid #e6e6e6;  border-collapse: collapse;  }
+.ve-order-list>tbody>tr>th{  width: 13.5%;  background-color: #f2f2f2;  border: 1px solid #e6e6e6;  text-align: center;  vertical-align: middle;  font-size: 14px;  padding: 6px 10px;  vertical-align: middle;  }
+.ve-order-list>tbody>tr>td{  width: 86.5%;  border: 1px solid #e6e6e6;  text-align: left; vertical-align: middle;  padding: 10px;  }
+
+
+.ve-table-small{ width: 100%;  border: 1px solid #e6e6e6;  border-collapse: collapse;text-align: center;}
+.ve-table-small>thead>tr>th{background: #f9f9fb;padding: 5px 10px;font-size: 13px;font-weight: normal;line-height: 20px;}
+.ve-table-small>tbody>tr>td{border: 1px solid #e6e6e6;padding: 5px 10px;font-size: 12px;line-height: 18px;}
+
+.ve-text-overflow{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}

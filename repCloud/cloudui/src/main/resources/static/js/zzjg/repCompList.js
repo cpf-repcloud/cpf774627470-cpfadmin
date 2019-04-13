@@ -132,10 +132,6 @@ window.onload=function (){
             _this.parentMenu();
         },
         methods:{
-            changeHandler:function(val,data){
-                /*val隐藏域的值*/
-                /*data返回已选择数据的集合*/
-            },
             search: function (){
                 var _this=this;
                 apps.pagedata=[];

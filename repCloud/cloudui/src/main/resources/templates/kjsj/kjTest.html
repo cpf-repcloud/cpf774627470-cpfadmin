@@ -1,24 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+    <title>控件示例</title>
+    <!--public-->
+    <style>
+        @import "../../static/public/css/commons.css";
+        .kjms{
+            height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+    </style>
+    <script type="text/javascript" src="../../static/public/js/common.js"></script>
+    <!--repModularList-->
+    <script type="text/javascript" src="../../static/js/kjsj/kjTest.js"></script>
 </head>
-<style>
-    @import "../../static/public/css/commons.css";
-</style>
-<script type="text/javascript" src="../../static/public/js/common.js"></script>
-<!--index-->
-<link rel="stylesheet" href="../../static/css/index/index.css">
-<script type="text/javascript" src="../../static/js/kjsj/kjTest.js"></script>
-<body>
-
-<div id="app">
-
-    <div style="width: 300px;margin-left: 10%;">
-        <Cascader :data="data" trigger="hover" filterable   :render-format="format"></Cascader>
+<body class="bodyClass">
+<div id="app" v-cloak>
+    <div class="content">
+        <div>
+            <i-form :inline="false" :label-width="100" :show-message="true">
+                <Row>
+                    <i-col :sm="12">
+                        <Form-item label="下拉单选控件">
+                            <pulldown v-model="xlValue" class="demo-input" data-type="1" :data-source="xlList" @on-change="changeHandler"></pulldown>
+                            <a @click="ckyf(0)">展开描述</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a @click="sqyf(0)">收起描述</a>
+                            <div id="kjms0" class="kjms">
+                                <h2 class="ve-mt10 ve-mb10">基本用法<span class="ve-warning ve-f14">必须严格按照参数类型传值，否则报错</span></h2>
+                                <p style="margin: 10px;">value:String, //数据双向绑定</p>
+                                <p>data-type:String,//设置DataSource数据类型,1为数组,2为api接口</p>
+                                <p>elementId: String,//给表单元素input框设置 id</p>
+                                <p>hiddenName:String, //给隐藏域绑定的id值</p>
+                                <p>disabled: Boolean,//设置输入框为禁用状态,默认false</p>
+                                <p>clearable:Boolean,//否显示清空按钮,默认true</p>
+                                <p>size: String,//输入框的尺寸,默认defalut['large','small']</p>
+                                <p>transfer:  Boolean,//是否将下拉弹层置于 body 内，默认放在父级元素下为false</p>
+                                <p>dataSource:[String,Oobject],//根据data-type的值判断,数据源为数组或接口地址</p>
+                                <p>pageSize:Number,//设置每页显示个数，默认10条</p>
+                                <p>simpleData:Object,//自定义显示的id和name,默认{id:'id',name:'name'}</p>
+                                <p>titleTips:String,//下拉列表检索标题提示语，国际化必传</p>
+                            </div>
+                        </Form-item>
+                    </i-col>
+                    <i-col :sm="12">
+                        <Form-item label="城市单选控件">
+                            <ve-citycard :search="true" placeholder="search..." :all-datas="csxz" :title-menu="titleMenu" transfer=""></ve-citycard></br>
+                            <a @click="ckyf(1)">展开描述</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a @click="sqyf(1)">收起描述</a>
+                            <div id="kjms1" class="kjms">
+                                <h2 class="ve-mt10">属性</h2>
+                                <p>search :是否支持搜索 , 默认值<span class="orange"> (false) 不支持 </span>  ,  数据类型<span class="red">(Booblean)</span></p>
+                                <p>placeholder :input框提示语 , 默认值<span class="orange"> (空) </span>  ,  数据类型<span class="red">(String)</span></p>
+                                <p>datas: 传入数据回填的id ,  默认值<span class="orange"> (空) </span>    , 数据类型<span class="red">(以逗号分隔开的id String 字符串)</span> </p>
+                                <p>multiple:是否支持多选 , 默认值<span class="orange"> ( false：不支持多选，true：支持多选) </span>  , 数据类型  <span class="red">(Boolean)</span></p>
+                                <p>inputsize:input框的大小 , 默认值<span class="orange">(空)</span>   ,  数据类型 <span class="red">(String 和style的行内样式写法一样)</span></p>
+                                <p>slideUrl:展示数据的请求地址 , 默认值<span class="orange">(空)</span>    , 数据类型 <span class="red">(String )</span></p>
+                                <p>searchUrl:搜索数据的请求地址 , 默认值<span class="orange">(空)</span>    , 数据类型 <span class="red">(String )</span></p>
+                                <p>pageSize:分页每页展示条数 , 默认值<span class="orange">(10)</span>    , 数据类型 <span class="red">(Number)</span></p>
+                                <p>allDatas:支持外部传数据,当没有传输数据的时候默认执行ajax请求（ajax方法已封装到组件中）， 默认值<span class="orange">(空数组)</span>    , 数据类型 <span class="red">(Array)</span></p>
+                                <p>titleMenu:1： 不传值或者传数组时 为特殊的头部信息（适用于酒店城市控件类）。2：设置为布尔值时，为固定的数据结构 。 , 默认值: <span class="orange">
+                                <h2 class="ve-mt10">事件</h2>
+                                <p>1:on-change:数据发生改变的时候触发 ,  返回值<span class="red">(input框内的数据)</span></p>
+                                <p>2:data-change:数据改变事件（选中或者删除数据的时候触发）,
+                                    返回值<span class="red">(1：当为多选时（multiple:true），返回2个参数，参数1：所有选中数据（Array），参数2：为当前选中或者是当前删除数据(Object)
+                    。2: 当为单选时(multiple:false)，返回1个参数，此参数为当前选中或者当前删除的数据)</span>
+                                </p>
+                                <p>3:on-focus:原生的on-focus事件 , 返回值<span class="red">(event)</span></p>
+                                <p>4:on-blur:原生的on-blur事件 ,  返回值<span class="red">(event)</span></p>
+                            </div>
+                        </Form-item>
+                    </i-col>
+                </Row>
+            </i-form>
+        </div>
     </div>
 </div>
-
 </body>
 </html>
