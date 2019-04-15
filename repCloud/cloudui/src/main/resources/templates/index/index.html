@@ -20,7 +20,7 @@
             <!--logo-->
             <div class="logo">
                 <a href="#">
-                    差旅1.0
+                    企业费控平台
                 </a>
             </div>
             <!--展开收缩左侧边栏-->
@@ -38,14 +38,15 @@
         <article>
             <layout>
                 <sider hide-trigger width="220px">
-                    <i-menu active-name="1-2" theme="light" width="220px">
-                        <submenu :name="index+1" v-for="(item,index) in leftMenu" :key="index">
+                    <i-menu theme="light" width="220px">
+                        <submenu :name="item.id" v-for="(item,index) in leftMenu" :key="index">
                             <template slot="title">
                                 <!--<icon :type="item.type"></icon>-->
                                {{item.name}}
                             </template>
                             <menu-item :name="index+1+'-'+menuindex+1"
                                        v-for="(list,menuindex) in item.children"
+                                       :class="{'ivu-menu-item-active':nowId===list.id}"
                                        :key="list.id"
                                        v-text="list.name"
                                        @click.native="menuFunc(list)"
@@ -57,26 +58,42 @@
         </article>
         <!--内容栏-->
         <section>
-            <ul class="slide_page">
-                <li v-for="(topmenu,index) in topMenu"
-                    :key="index"
-                    :class="{'topMwnu':(topmenu.id==nowId)}"
-                    @click="topMenuFun(topmenu)"
+            <div class="overflow_hide">
+                <div class="left_top" @click="leftWards">
+                    <span><i class="ivu-icon ivu-icon-ios-arrow-back" style="font-size: 18px;margin: 12px 0px 0px 6px;"></i></span>
+                </div>
+                <div class="index_dropdown">
+                    <span><i class="ivu-icon ivu-icon-ios-close-circle-outline" style="font-size: 18px;margin: 11px 0px 0px 6px;"></i></span>
+                </div>
+                <div class="right_top" @click="rightWards">
+                    <span><i class="ivu-icon ivu-icon-ios-arrow-forward" style="font-size: 18px;margin: 12px 0px 0px 6px;"></i></span>
+                </div>
+                <div class="caidan_top" id="mouseScroll">
+                    <ul class="slide_page">
+                        <li v-for="(topmenu,index) in topMenu"
+                            :key="index"
+                            @click.self="topMenuFun(topmenu,index,$event)"
+                        >
+                            <span class="index_unchecked" :class="{'index_checked':topmenu.id==nowId}"></span>
+                            <span v-text="topmenu.name"></span>
+                            <span @click.stop="closeMenu(index)">
+                                <Icon v-if="index!=0" type="ios-close" class="section_icon_close"></Icon>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <span class="right_top"></span>
+            </div>
+            <div class="index_footer">
+                <iframe v-show="ifr.id==nowId"
+                        v-for="(ifr,index) in topMenu"
+                        :key="ifr.id"
+                        :src="ifr.url"
+                        frameborder="0"
+                        class="content_page"
                 >
-                    <span v-text="topmenu.name"></span>
-                    <span @click.stop="closeMenu(index)">
-                        <Icon v-if="index!=0" type="ios-close" class="section_icon_close"></Icon>
-                    </span>
-                </li>
-            </ul>
-            <iframe v-show="ifr.id==nowId"
-                    v-for="(ifr,index) in topMenu"
-                    :key="ifr.id"
-                    :src="ifr.url"
-                    frameborder="0"
-                    class="content_page"
-            >
-            </iframe>
+                </iframe>
+            </div>
         </section>
     </div>
 </body>
