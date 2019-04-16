@@ -10,13 +10,12 @@ html,body{
 /*头部*/
 header{
     width: 100%;
-    height: 45px;
-    background-color: #172049;
+    height: 55px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 header .logo{
     width: 221px;
-    height: 100%;
+    height: 30px;
     padding-left: 20px;
     line-height: 45px;
 }
@@ -29,15 +28,12 @@ header .logo, header .slide_left,header .page_info{
 }
 header .slide_left{
     display: inline-block;
-    width: 30px;
-    height: 30px;
-    background: rgba(255,255,255,0.1);
-    text-align: center;
-    margin-top: 8px;
-    border-radius: 3px;
+    margin-top: 13.5px;
+    margin-left: 10px;
     cursor: pointer;
-    transition:transform .1s;
-    -webkit-transition:transform .1s; /* Safari */
+    width: 40px;
+    text-align: center;
+    color: #5c6b77;
 }
 .slide_rotate{
     transform:rotate(-90deg);
@@ -45,8 +41,10 @@ header .slide_left{
     -webkit-transform:rotate(-90deg); /* Safari and Chrome */
 }
 header .slide_left i{
-    color: #ffffff;
     font-size: 28px;
+}
+header .slide_left i:hover{
+    color: #2d8cf0;;
 }
 header .page_info{
     display: inline-block;
@@ -65,40 +63,40 @@ header .page_info i, header .user_info i header{
 header .user_info{
     cursor: pointer;
     float: right;
-    color: #ffffff;
-    line-height: 45px;
+    line-height: 55px;
     margin-right: 30px;
 }
 /*左侧菜单*/
 article{
     position: absolute;
-    top: 46px;
+    top: 0px;
     bottom: 0;
     left: 0px;
     z-index: 2;
-    padding-top: 10px;
-    background-color: rgb(238, 238, 238);
+    /*padding-top: 10px;*/
+    background-color: rgb(48, 65, 86);
     width: 220px;
     max-width: 220px;
     overflow: hidden auto;
     border-right: 1px solid rgb(229, 229, 229);
 }
 article .ivu-menu-light{
-    background-color: rgb(238, 238, 238) !important;
+    background-color: rgb(48, 65, 86) !important;
 }
 article .ivu-menu.ivu-menu-light.ivu-menu-vertical>li{
-    border-bottom: 1px solid #e5e5e5;
+    /*background-color: #1f2d3d!important*/
+    /*border-bottom: 1px solid #e5e5e5;*/
 }
 /*内容区*/
 section{
     position: absolute;
-    top: 45px;
+    top: 0px;
     right: 0px;
     bottom: 0;
     left: 220px;
     z-index: 1;
     overflow: hidden;
-    padding-top: 40px;
+    /*padding-top: 40px;*/
 }
 section iframe{
     width: 100%;
@@ -116,7 +114,6 @@ section .slide_page li{
     background: #fff;
     padding: 0 10px;
     cursor: pointer;
-    color: #3e618a;
     border-radius: 2px;
     margin-left: 7px;
     box-shadow: 1px 0px 5px #c1cbda;
@@ -142,12 +139,10 @@ section .slide_page .section_icon_close{
     display: inline-block;
     height: 40px;
     overflow: hidden;
-    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     background: #e5e5e5;
-    box-shadow: 1px 0px 5px #c1cbda;
 }
 
 .left_top{
@@ -168,10 +163,6 @@ section .slide_page .section_icon_close{
     box-shadow: -2px 0px 5px #c1cbda;
     float: right;
     cursor:pointer;
-}
-
-.index_footer{
-    height: 100%;
 }
 
 .index_top{
@@ -213,4 +204,34 @@ section .slide_page .section_icon_close{
     top: 1px;
 }
 
+.logo{
+    color: rgb(191, 203, 217);
+    height: 55px;
+    border-bottom: 1px solid #e5e5e5;
+    background-color: rgb(48, 65, 86);
+    text-align: center;
+}
+
+.logo_contest{
+    margin: 14px;
+    text-align: center;
+    display: inline-block;
+    font-size: 18px;
+}
+
+.ivu-menu{
+    color: rgb(191, 203, 217);
+    background-color: #1f2d3d;
+}
+
+.ivu-menu-item-active:not(.ivu-menu-submenu) {
+    background-color : #001528 !important;
+}
+
+.index_notice{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin-left: 10%;
+}
 

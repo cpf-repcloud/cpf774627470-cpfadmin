@@ -2,6 +2,13 @@ window.onload= function (){
     var leftMenu=[];
     var h = 0;
 
+    function contentsH() {
+        var contentsH = $("section").height();
+        var footerh = contentsH - 55 - 40 - 8;
+        debugger
+        $(".index_footer").height(footerh);
+    }
+
     function mouseScroll() {
         var outDiv = document.getElementById('mouseScroll');
         outDiv.onwheel = function(event){
@@ -32,9 +39,11 @@ window.onload= function (){
                 }
                 ],
             nowId:'000',
-            menuDh:''
+            menuDh:'',
+            topMenuId:""
         },
         mounted:function(){
+            contentsH();
             mouseScroll();
             this.leftMenu=leftMenu;
             var _this=this;
@@ -70,12 +79,14 @@ window.onload= function (){
                     })
             },
             topMenuFun:function(item,index,e){
-                debugger
                 var _this= this;
-                var ml = $(e.target).offset().left;
-                var nowWidth = e.target.offsetWidth;
+                debugger
+                var this_li = e.target;
+                if (this_li.tagName != "LI"){
+                    var pp = $(this_li).parent();
+                    this_li = pp[0];
+                }
 
-                $('.ivu-menu').find('.ivu-menu-item-active').removeClass('ivu-menu-item-active');
                 this.menuDhFn(item);
                 this.nowId=item.id;
                 setTimeout(function(){
@@ -129,6 +140,16 @@ window.onload= function (){
                     }
                 },400)
 
+            },
+            closeMenuAll:function (name) {
+                var _this = this;
+                var topMenuList = _this.topMenu;
+                if(name == '1'){
+
+                }else{
+
+                }
+                alert(name);
             }
         }
     })
