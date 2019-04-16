@@ -1,6 +1,6 @@
 package cn.rep.cloud.custom.openapi.kjController.basecommon;
 
-import cn.rep.cloud.custom.basecommon.project.business.VeXmServiceImpl;
+import cn.rep.cloud.custom.basecommon.project.business.RepXmServiceImpl;
 import cn.rep.cloud.custom.coreutils.common.RestResponse;
 import cn.rep.cloud.custom.openapi.kjController.basecommon.bean.KjXmRequest;
 import cn.rep.cloud.custom.openapi.kjController.basecommon.bean.KjXmResponse;
@@ -18,7 +18,7 @@ import java.util.List;
 public class XmKjController  {
 
     @Autowired
-    private VeXmServiceImpl veXmServicel;
+    private RepXmServiceImpl veXmServicel;
 
     @RequestMapping("getProjectList")
     public RestResponse<List<KjXmResponse>> excute(@RequestBody KjXmRequest data) {

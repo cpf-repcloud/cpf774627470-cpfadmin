@@ -16,8 +16,8 @@ import java.util.Date;
  * @author chenyong
  * @since 2018-08-04
  */
-@TableName("ve_xm")
-public class VeXm implements Serializable {
+@TableName("rep_xm")
+public class RepXm implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

@@ -1,6 +1,6 @@
 package cn.rep.cloud.custom.basecommon.costcenter.mapper;
 
-import cn.rep.cloud.custom.basecommon.costcenter.entity.VeCbzx;
+import cn.rep.cloud.custom.basecommon.costcenter.entity.RepCbzx;
 import cn.rep.cloud.custom.basecommon.costcenter.service.dto.CostCenterListDTO;
 import cn.rep.cloud.custom.basecommon.costcenter.service.vo.CostCenterPageListVO;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Mapper
 @Component(value = "veCbzxMapper")
-public interface VeCbzxMapper extends BaseMapper<VeCbzx> {
+public interface RepCbzxMapper extends BaseMapper<RepCbzx> {
     /**
      *  成本中心分页列表
      * @param dto 查询条件

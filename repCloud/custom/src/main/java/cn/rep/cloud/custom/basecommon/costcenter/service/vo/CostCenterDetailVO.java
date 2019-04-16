@@ -1,8 +1,8 @@
 package cn.rep.cloud.custom.basecommon.costcenter.service.vo;
 
 
-import cn.rep.cloud.custom.basecommon.costcenter.entity.VeCbzxBm;
-import cn.rep.cloud.custom.basecommon.costcenter.entity.VeXmCbzx;
+import cn.rep.cloud.custom.basecommon.costcenter.entity.RepCbzxBm;
+import cn.rep.cloud.custom.basecommon.costcenter.entity.RepXmCbzx;
 import cn.rep.cloud.custom.coreutils.utils.DateUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -66,11 +66,11 @@ public class CostCenterDetailVO {
     /**
      * 关联部门id集合
      */
-    private List<VeCbzxBm> bmList;
+    private List<RepCbzxBm> bmList;
     /**
      * 关联项目id集合
      */
-    private List<VeXmCbzx> xmList;
+    private List<RepXmCbzx> xmList;
 
 
 
@@ -170,19 +170,19 @@ public class CostCenterDetailVO {
         this.ip = ip;
     }
 
-    public List<VeCbzxBm> getBmList() {
+    public List<RepCbzxBm> getBmList() {
         return bmList;
     }
 
-    public void setBmList(List<VeCbzxBm> bmList) {
+    public void setBmList(List<RepCbzxBm> bmList) {
         this.bmList = bmList;
     }
 
-    public List<VeXmCbzx> getXmList() {
+    public List<RepXmCbzx> getXmList() {
         return xmList;
     }
 
-    public void setXmList(List<VeXmCbzx> xmList) {
+    public void setXmList(List<RepXmCbzx> xmList) {
         this.xmList = xmList;
     }
 

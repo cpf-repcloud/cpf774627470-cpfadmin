@@ -24,12 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(value = "/costcenter")
-public class VeCbzxController {
+public class RepCbzxController {
 
     /**
      * 日志记录
      */
-   private  Logger logger= LoggerFactory.getLogger(VeCbzxController.class);
+   private  Logger logger= LoggerFactory.getLogger(RepCbzxController.class);
 
 
     /***

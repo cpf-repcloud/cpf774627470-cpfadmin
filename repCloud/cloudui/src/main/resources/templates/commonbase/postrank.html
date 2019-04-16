@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+    <title>岗位职级列表</title>
+    <style>
+        @import "../../static/public/css/commons.css";
+        .ivu-form {
+            border: 0px solid #dddee1
+        }
+
+        .searchdemo {
+            width: 300px;
+            float: right;
+        }
+
+        .margintop {
+            margin-top: 25px;
+
+        }
+
+        .marginre {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .margintop10 {
+            margin-top: 10px;
+        }
+
+        .wit300demo {
+            width: 330px;
+        }
+
+        .heit75 {
+            height: 75px;
+        }
+
+        .ivu-form-item-label {
+            text-align: right;
+            vertical-align: middle;
+            float: left;
+            font-size: 12px;
+            color: #495060;
+            line-height: 1;
+            padding: 10px 12px 10px 0;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            width: 100px;
+        }
+
+        .content {
+            position: absolute;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            top: 10px;
+            background: #fff;
+            height: 97%;
+            border-radius: 5px;
+        }
+
+
+    </style>
+
+    <script type="text/javascript" src="../../static/public/js/common.js"></script>
+    <script type="text/javascript" src="../../static/js/commonbase/postrank/postrank.js"></script>
+</head>
+<body style="background: #f0f2f5;">
+<div id="app" class="admin-main" v-cloak>
+    <template>
+        <div class="content">
+            <div class="marginre margintop10">
+                <i-button type="primary" icon="md-add" @click="addRole">新建</i-button>
+                <i-input clearable  v-model="searchData.gwmc" placeholder="搜索岗位编号和名称" class="searchdemo"
+                         @on-click="selectRank" icon="ios-search"/>
+            </div>
+            <div class="margintop marginre">
+                <i-table stripe ref="selection"  :columns="columns6" height="500" :data="data5"></i-table>
+            </div>
+        </div>
+
+    </template>
+    <!--编辑页面  1模板-->
+    <Modal
+            v-model="editModel"
+            title="编辑岗位"
+            @on-ok="okEdit"
+            width="600"
+            :loading="editload"
+            ok-text="提交"
+            :mask-closable="false"
+
+            @on-cancel="cancel">
+        <i-form :model="rankEdit" ref="rankEdit" :rules="ruleRankEdit" label-width="100">
+            <div class="roleFrom">
+                <form-item label="岗位编号" prop="gwbh">
+                    <i-input clearable  placeholder="请输入" class="wit300demo" v-model="rankEdit.gwbh"/>
+                </form-item>
+            </div>
+            <div class="roleFrom">
+                <form-Item label="岗位名称" prop="gwmc">
+                    <i-input  clearable  placeholder="请输入" class="wit300demo" v-model="rankEdit.gwmc"/>
+                </form-Item>
+            </div>
+
+            <div class="roleFrom" style="line-height: 0px">
+                <form-Item label="岗位级别" prop="gwjb">
+                    <i-select v-model="rankEdit.gwjb" class="wit300demo">
+                        <i-option value="1">1级</i-option>
+                        <i-option value="2">2级</i-option>
+                        <i-option value="3">3级</i-option>
+                        <i-option value="4">4级</i-option>
+                        <i-option value="5">5级</i-option>
+                        <i-option value="6">6级</i-option>
+                        <i-option value="7">7级</i-option>
+                        <i-option value="8">8级</i-option>
+                        <i-option value="9">9级</i-option>
+                    </i-select>
+                </form-Item>
+            </div>
+            <form-Item label="岗位描述" prop="gwms">
+                <i-input clearable  type="textarea" v-model="rankEdit.gwms" class="wit300demo"
+                         placeholder="请输入"/>
+            </form-Item>
+        </i-form>
+    </Modal>
+
+    <!--添加页面 模板-->
+    <Modal
+            v-model="addModel"
+            title="新建岗位"
+            @on-ok="okAdd"
+            width="600"
+            :loading="addload"
+            ok-text="提交"
+            :mask-closable="false"
+            @on-cancel="cancel">
+        <i-form :model="rankAdd" ref="rankAdd" :rules="ruleRankAdd">
+            <div class="roleFrom">
+                <form-item label="岗位编号" prop="gwbh">
+                    <i-input  clearable  placeholder="请输入" class="wit300demo" v-model="rankAdd.gwbh"/>
+                </form-item>
+            </div>
+            <div class="roleFrom">
+                <form-Item label="岗位名称" prop="gwmc">
+                    <i-input  clearable  placeholder="请输入" class="wit300demo" v-model="rankAdd.gwmc"/>
+                </form-Item>
+            </div>
+
+            <div class="roleFrom" style="line-height: 0px">
+                <form-Item label="岗位级别" prop="gwjb">
+                    <i-select v-model="rankAdd.gwjb" class="wit300demo">
+                        <i-option value="1">1级</i-option>
+                        <i-option value="2">2级</i-option>
+                        <i-option value="3">3级</i-option>
+                        <i-option value="4">4级</i-option>
+                        <i-option value="5">5级</i-option>
+                        <i-option value="6">6级</i-option>
+                        <i-option value="7">7级</i-option>
+                        <i-option value="8">8级</i-option>
+                        <i-option value="9">9级</i-option>
+                    </i-select>
+                </form-Item>
+            </div>
+            <form-Item label="岗位描述" prop="gwms">
+                <i-input  clearable  type="textarea" v-model="rankAdd.gwms"
+                         class="wit300demo" placeholder=""/>
+            </form-Item>
+        </i-form>
+    </Modal>
+
+</div>
+
+</body>
+</html>

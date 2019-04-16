@@ -1,8 +1,8 @@
 package cn.rep.cloud.custom.basecommon.costcenter.business;
 
 
-import cn.rep.cloud.custom.basecommon.costcenter.entity.VeXmCbzx;
-import cn.rep.cloud.custom.basecommon.costcenter.mapper.VeXmCbzxMapper;
+import cn.rep.cloud.custom.basecommon.costcenter.entity.RepXmCbzx;
+import cn.rep.cloud.custom.basecommon.costcenter.mapper.RepXmCbzxMapper;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +19,11 @@ import java.util.List;
  * @since 2018-08-08
  */
 @Service
-public class VeXmCbzxServiceImpl  {
+public class RepXmCbzxServiceImpl {
 
     
     @Autowired
-    private VeXmCbzxMapper veXmCbzxMapper;
+    private RepXmCbzxMapper repXmCbzxMapper;
     /**
      * 新增成本中心项目数据
      *
@@ -32,9 +32,9 @@ public class VeXmCbzxServiceImpl  {
      * @author yangxianglin
      * @date 2018-08-06 11:35:36
      */
-    public Boolean insertVeXmCbzxList(List<VeXmCbzx> list) {
-        for(VeXmCbzx cbzx:list){
-            veXmCbzxMapper.insert(cbzx);
+    public Boolean insertVeXmCbzxList(List<RepXmCbzx> list) {
+        for(RepXmCbzx cbzx:list){
+            repXmCbzxMapper.insert(cbzx);
         }
         return Boolean.TRUE;
     }
@@ -48,34 +48,34 @@ public class VeXmCbzxServiceImpl  {
      * @date 2018-08-06 11:35:36
      */
     public Boolean deleteVeXmCbzxList(List<String> list) {
-        return veXmCbzxMapper.deleteBatchIds(list) >0 ? Boolean.TRUE : Boolean.FALSE;
+        return repXmCbzxMapper.deleteBatchIds(list) >0 ? Boolean.TRUE : Boolean.FALSE;
     }
 
     /**
      * 查询成本中心项目数据
      *
-     * @param   veXmCbzx 成本中心项目对象
-     * @return  List<VeXmCbzx>
+     * @param   repXmCbzx 成本中心项目对象
+     * @return  List<RepXmCbzx>
      * @author  yangxianglin
      * @date    2018-08-06 11:35:36
      */
-    public List<VeXmCbzx> getVeXmCbzxListByCbzxid(VeXmCbzx veXmCbzx) {
-        EntityWrapper<VeXmCbzx> ew = new EntityWrapper<VeXmCbzx>();
-        ew.setEntity(veXmCbzx);
-        return veXmCbzxMapper.selectList(ew);
+    public List<RepXmCbzx> getVeXmCbzxListByCbzxid(RepXmCbzx repXmCbzx) {
+        EntityWrapper<RepXmCbzx> ew = new EntityWrapper<RepXmCbzx>();
+        ew.setEntity(repXmCbzx);
+        return repXmCbzxMapper.selectList(ew);
     }
 
     /**
      * 插入成本中心数据
-     * @param veXmCbzx
+     * @param repXmCbzx
      * @return
      */
-    public int insertVeXmCbzx(VeXmCbzx veXmCbzx){
-        return veXmCbzxMapper.insert(veXmCbzx);
+    public int insertVeXmCbzx(RepXmCbzx repXmCbzx){
+        return repXmCbzxMapper.insert(repXmCbzx);
     }
 
 
-    public List<VeXmCbzx> getCbzxByBean(VeXmCbzx cbzx){
+    public List<RepXmCbzx> getCbzxByBean(RepXmCbzx cbzx){
         EntityWrapper ew=new EntityWrapper();
         if(StringUtils.isNotBlank(cbzx.getXmid())){
             ew.eq("xmid",cbzx.getXmid());
@@ -83,7 +83,7 @@ public class VeXmCbzxServiceImpl  {
         if(StringUtils.isNotBlank(cbzx.getCbzxid())){
             ew.eq("cbzxid",cbzx.getCbzxid());
         }
-        return veXmCbzxMapper.selectList(ew);
+        return repXmCbzxMapper.selectList(ew);
 
     }
     /**
@@ -95,7 +95,7 @@ public class VeXmCbzxServiceImpl  {
      * @date    2018-08-06 11:35:36
      */
     public List<String> getVeXmCbzxMcListByCbzxid(String cbzxid) {
-        return veXmCbzxMapper.getVeXmCbzxMcListByCbzxid(cbzxid);
+        return repXmCbzxMapper.getVeXmCbzxMcListByCbzxid(cbzxid);
     }
 
 

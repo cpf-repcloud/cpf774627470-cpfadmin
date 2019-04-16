@@ -1,10 +1,10 @@
 
 
 -- ----------------------------
--- Table structure for `ve_xm`
+-- Table structure for `rep_xm`
 -- ----------------------------
-DROP TABLE IF EXISTS `ve_xm`;
-CREATE TABLE `ve_xm` (
+DROP TABLE IF EXISTS `rep_xm`;
+CREATE TABLE `rep_xm` (
 `id`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ID(主键)' ,
 `qybh`  varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '企业编号' ,
 `gsid`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '公司ID' ,
@@ -39,8 +39,8 @@ COMMENT='项目表'
 #4.3号上传 新建项目表
 
 
-DROP TABLE IF EXISTS `ve_xm_bm`;
-CREATE TABLE `ve_xm_bm` (
+DROP TABLE IF EXISTS `rep_xm_bm`;
+CREATE TABLE `rep_xm_bm` (
 `id`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ID(主键)' ,
 `qybh`  varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '企业编号' ,
 `xmid`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '项目ID' ,
@@ -56,8 +56,8 @@ COMMENT='项目部门表'
 
 ;
 
-DROP TABLE IF EXISTS `ve_xm_cbzx`;
-CREATE TABLE `ve_xm_cbzx` (
+DROP TABLE IF EXISTS `rep_xm_cbzx`;
+CREATE TABLE `rep_xm_cbzx` (
 `id`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ID(主键)' ,
 `qybh`  varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '企业编号' ,
 `xmid`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '项目ID' ,
@@ -74,8 +74,8 @@ COMMENT='项目成本中心表'
 ;
 
 
-DROP TABLE IF EXISTS `ve_xm_cy`;
-CREATE TABLE `ve_xm_cy` (
+DROP TABLE IF EXISTS `rep_xm_cy`;
+CREATE TABLE `rep_xm_cy` (
 `id`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ID(主键)' ,
 `qybh`  varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '企业编号' ,
 `xmid`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '项目ID' ,
@@ -97,8 +97,8 @@ COMMENT='项目成员表'
 ;
 
 
-DROP TABLE IF EXISTS `ve_cbzx`;
-CREATE TABLE `ve_cbzx` (
+DROP TABLE IF EXISTS `rep_cbzx`;
+CREATE TABLE `rep_cbzx` (
 `id`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ID(主键)' ,
 `qybh`  varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '企业编号' ,
 `gsid`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '公司ID' ,
@@ -123,8 +123,8 @@ COMMENT='成本中心表'
 ;
 
 
-DROP TABLE IF EXISTS `ve_gw`;
-CREATE TABLE `ve_gw` (
+DROP TABLE IF EXISTS `rep_gw`;
+CREATE TABLE `rep_gw` (
 `id`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ID(主键)' ,
 `qybh`  varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '企业编号' ,
 `gsid`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,

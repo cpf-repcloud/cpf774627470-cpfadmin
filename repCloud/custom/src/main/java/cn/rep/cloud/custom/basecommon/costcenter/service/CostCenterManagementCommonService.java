@@ -1,8 +1,8 @@
 package cn.rep.cloud.custom.basecommon.costcenter.service;
 
 
-import cn.rep.cloud.custom.basecommon.costcenter.business.VeCbzxServiceImpl;
-import cn.rep.cloud.custom.basecommon.costcenter.entity.VeCbzx;
+import cn.rep.cloud.custom.basecommon.costcenter.business.RepCbzxServiceImpl;
+import cn.rep.cloud.custom.basecommon.costcenter.entity.RepCbzx;
 import cn.rep.cloud.custom.basecommon.costcenter.service.dto.CostCenterBaseDTO;
 import cn.rep.cloud.custom.basecommon.costcenter.service.vo.*;
 import cn.rep.cloud.custom.coreutils.common.VeCollectionUtils;
@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.metamodel.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +34,7 @@ public class CostCenterManagementCommonService {
      * 成本中心管理Dao
      */
     @Autowired
-    private VeCbzxServiceImpl veCbzxService;
+    private RepCbzxServiceImpl veCbzxService;
     /**
      * 公司管理服务
      */
@@ -49,20 +48,20 @@ public class CostCenterManagementCommonService {
      * @param costCenterMap 成本中心分组MAP
      * @param treeVO        成本中心树形结构出参
      */
-    public void costCenterListTreeRecursive(List<VeCbzx> list, Map<String, List<VeCbzx>> costCenterMap, CostCenterTreeVO treeVO) {
+    public void costCenterListTreeRecursive(List<RepCbzx> list, Map<String, List<RepCbzx>> costCenterMap, CostCenterTreeVO treeVO) {
         /**递归跳出的条件**/
         if (CollectionUtils.isNotEmpty(list)) {
             List<CostCenterTreeVO> costCenterList = new ArrayList<CostCenterTreeVO>();
-            for (VeCbzx veCbzx : list) {
+            for (RepCbzx repCbzx : list) {
                 /**将成本中心对象保存到输出页面VO对象**/
-                CostCenterTreeVO costCenterTreeVO = BeanMapper.map(veCbzx,CostCenterTreeVO.class);
-                costCenterTreeVO.setTitle(veCbzx.getCbzxmc());
+                CostCenterTreeVO costCenterTreeVO = BeanMapper.map(repCbzx,CostCenterTreeVO.class);
+                costCenterTreeVO.setTitle(repCbzx.getCbzxmc());
                 costCenterTreeVO.setExpand("false");
                 costCenterList.add(costCenterTreeVO);
                 /**继续递归筛选下级成本中心信息并填充到VO对象**/
-                String id = veCbzx.getId();
-                List<VeCbzx> veCbzxList = costCenterMap.get(id);
-                costCenterListTreeRecursive(veCbzxList, costCenterMap, costCenterTreeVO);
+                String id = repCbzx.getId();
+                List<RepCbzx> repCbzxList = costCenterMap.get(id);
+                costCenterListTreeRecursive(repCbzxList, costCenterMap, costCenterTreeVO);
             }
             treeVO.setChildren(costCenterList); //子节点集合数据
         }
@@ -96,11 +95,11 @@ public class CostCenterManagementCommonService {
      */
     public List<CostCenterBaseVO> selectVeCbzxListByQybh(CostCenterBaseDTO costCenterBaseDTO) {
         List<CostCenterBaseVO> targetList = new ArrayList<CostCenterBaseVO>();
-        VeCbzx veCbzx = new VeCbzx();
-        veCbzx.setQybh(costCenterBaseDTO.getQybh());
-        veCbzx.setGsid(costCenterBaseDTO.getGsid());
-        List<VeCbzx> veCbzxList = veCbzxService.selectVeCbzxListByQybh(veCbzx);
-        targetList = BeanMapper.mapList(veCbzxList,  CostCenterBaseVO.class);
+        RepCbzx repCbzx = new RepCbzx();
+        repCbzx.setQybh(costCenterBaseDTO.getQybh());
+        repCbzx.setGsid(costCenterBaseDTO.getGsid());
+        List<RepCbzx> repCbzxList = veCbzxService.selectVeCbzxListByQybh(repCbzx);
+        targetList = BeanMapper.mapList(repCbzxList,  CostCenterBaseVO.class);
         return targetList;
     }
 
@@ -111,20 +110,20 @@ public class CostCenterManagementCommonService {
      * @return CostCenterControlVO 成本中心
      */
     public CostCenterControlVO selectVeCbzxTreeListToControl(CostCenterBaseDTO costCenterBaseDTO) {
-        VeCbzx veCbzx = new VeCbzx();
+        RepCbzx repCbzx = new RepCbzx();
         List<CostCenterBaseVO> targetList = new ArrayList<CostCenterBaseVO>();
-        veCbzx.setQybh(costCenterBaseDTO.getQybh());
-        veCbzx.setGsid(costCenterBaseDTO.getGsid());
-        List<VeCbzx> veCbzxList = veCbzxService.selectVeCbzxListByQybh(veCbzx);
+        repCbzx.setQybh(costCenterBaseDTO.getQybh());
+        repCbzx.setGsid(costCenterBaseDTO.getGsid());
+        List<RepCbzx> repCbzxList = veCbzxService.selectVeCbzxListByQybh(repCbzx);
         CostCenterControlVO treeVO = new CostCenterControlVO();
         /**根据上级编号进行分组**/
-        Map<String, List<VeCbzx>> costCenterMap = null;
+        Map<String, List<RepCbzx>> costCenterMap = null;
         try {
-            costCenterMap = VeCollectionUtils.group(veCbzxList, "sjbh");
+            costCenterMap = VeCollectionUtils.group(repCbzxList, "sjbh");
         } catch (Exception e) {
             logger.error("成本中心分组异常：", e);
         }
-        List<VeCbzx> vecbzxlist = new ArrayList<VeCbzx>();
+        List<RepCbzx> vecbzxlist = new ArrayList<RepCbzx>();
         vecbzxlist = costCenterMap.get("none");
         /**调用递归方法筛选下级成本中心数据**/
         costCenterListTreeRecursiveToControl(vecbzxlist, costCenterMap, treeVO);
@@ -138,22 +137,22 @@ public class CostCenterManagementCommonService {
      * @param costCenterMap 成本中心分组MAP
      * @param treeVO        成本中心树形结构出参
      */
-    public void costCenterListTreeRecursiveToControl(List<VeCbzx> list, Map<String, List<VeCbzx>> costCenterMap, CostCenterControlVO treeVO) {
+    public void costCenterListTreeRecursiveToControl(List<RepCbzx> list, Map<String, List<RepCbzx>> costCenterMap, CostCenterControlVO treeVO) {
         /**递归跳出的条件**/
         if (CollectionUtils.isNotEmpty(list)) {
             List<CostCenterControlVO> costCenterList = new ArrayList<CostCenterControlVO>();
-            for (VeCbzx veCbzx : list) {
+            for (RepCbzx repCbzx : list) {
                 /**将成本中心对象保存到输出页面VO对象**/
                 CostCenterControlVO costCenterTreeVO = new CostCenterControlVO();
-                costCenterTreeVO.setId(veCbzx.getId());
-                costCenterTreeVO.setLabel(veCbzx.getCbzxmc());
-                costCenterTreeVO.setValue(veCbzx.getCbzxbh());
+                costCenterTreeVO.setId(repCbzx.getId());
+                costCenterTreeVO.setLabel(repCbzx.getCbzxmc());
+                costCenterTreeVO.setValue(repCbzx.getCbzxbh());
                 costCenterList.add(costCenterTreeVO);
 
                 /**继续递归筛选下级成本中心信息并填充到VO对象**/
-                String cbzxbh = veCbzx.getCbzxbh();
-                List<VeCbzx> veCbzxList = costCenterMap.get(cbzxbh);
-                costCenterListTreeRecursiveToControl(veCbzxList, costCenterMap, costCenterTreeVO);
+                String cbzxbh = repCbzx.getCbzxbh();
+                List<RepCbzx> repCbzxList = costCenterMap.get(cbzxbh);
+                costCenterListTreeRecursiveToControl(repCbzxList, costCenterMap, costCenterTreeVO);
             }
             treeVO.setChildren(costCenterList); //子节点集合数据
         }
@@ -180,14 +179,14 @@ public class CostCenterManagementCommonService {
                 companyVO.setId(veGs.getId());  //公司主键id
                 companyVO.setLabel(veGs.getMc()); //公司名称
                 companyVO.setValue(veGs.getBh()); //公司编号
-                VeCbzx veCbzx = new VeCbzx();
+                RepCbzx veCbzx = new RepCbzx();
                 veCbzx.setQybh(dto.getQybh());
                 veCbzx.setGsid(veGs.getId());
                 veCbzx.setZt(CostCenterConstants.COSTCENTER_XMZT_ZC);
-                List<VeCbzx> veCbzxList = veCbzxService.selectVeCbzxListByQybh(veCbzx);
+                List<RepCbzx> veCbzxList = veCbzxService.selectVeCbzxListByQybh(veCbzx);
                 if (CollectionUtils.isNotEmpty(veCbzxList)) {
                     List<CostCenterVO> cbzxList = new ArrayList<>();
-                    for (VeCbzx cbzx : veCbzxList) {
+                    for (RepCbzx cbzx : veCbzxList) {
                         CostCenterVO costCenterVO = new CostCenterVO();
                         costCenterVO.setId(cbzx.getId()); //成本中心主键id
                         costCenterVO.setLabel(cbzx.getCbzxmc());//成本中心名称

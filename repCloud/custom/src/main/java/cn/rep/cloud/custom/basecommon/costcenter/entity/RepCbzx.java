@@ -15,8 +15,8 @@ import com.baomidou.mybatisplus.annotations.TableName;
  * @author chenyong
  * @since 2018-08-06
  */
-@TableName("ve_cbzx")
-public class VeCbzx implements Serializable {
+@TableName("rep_cbzx")
+public class RepCbzx implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

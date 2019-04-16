@@ -25,6 +25,7 @@ public class RepYgServiceImpl {
         RepYg repYg = repYgService.queryRepYg(id);
         if (null != repYg && StringUtils.isNotBlank(repYg.getId())){
             HttpSession session = request.getSession();
+            System.out.println(session.getId());
             session.setAttribute(session.getId(),repYg);
         }
         return repYg;

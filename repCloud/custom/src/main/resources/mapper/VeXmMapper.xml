@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.rep.cloud.custom.basecommon.project.mapper.VeXmMapper">
+<mapper namespace="cn.rep.cloud.custom.basecommon.project.mapper.RepXmMapper">
 
     <!--基础数据列表分页查询-->
     <select id="selectVeXmPage" resultType="cn.rep.cloud.custom.basecommon.project.service.vo.ProDataVo">

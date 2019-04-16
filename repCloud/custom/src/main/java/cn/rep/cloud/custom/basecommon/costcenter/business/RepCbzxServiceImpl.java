@@ -1,8 +1,8 @@
 package cn.rep.cloud.custom.basecommon.costcenter.business;
 
 
-import cn.rep.cloud.custom.basecommon.costcenter.entity.VeCbzx;
-import cn.rep.cloud.custom.basecommon.costcenter.mapper.VeCbzxMapper;
+import cn.rep.cloud.custom.basecommon.costcenter.entity.RepCbzx;
+import cn.rep.cloud.custom.basecommon.costcenter.mapper.RepCbzxMapper;
 import cn.rep.cloud.custom.basecommon.costcenter.service.dto.CostCenterListDTO;
 import cn.rep.cloud.custom.basecommon.costcenter.service.dto.CostCenterManagementDTO;
 import cn.rep.cloud.custom.basecommon.costcenter.service.dto.DataSendsDTO;
@@ -12,7 +12,6 @@ import cn.rep.cloud.custom.coreutils.common.PageDTO;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,10 +27,10 @@ import java.util.List;
  * @since 2018-08-06
  */
 @Service
-public class VeCbzxServiceImpl {
+public class RepCbzxServiceImpl {
     
     @Autowired
-    private VeCbzxMapper veCbzxMapper;
+    private RepCbzxMapper repCbzxMapper;
     /**
      * 成本中心分页列表
      *
@@ -42,7 +41,7 @@ public class VeCbzxServiceImpl {
      */
     public Page<CostCenterPageListVO> selectCostCenterPageList(PageDTO<CostCenterListDTO> pageDTO) {
         Page<CostCenterPageListVO> page = PageCopyUtil.genPage(pageDTO);
-        List<CostCenterPageListVO> list = veCbzxMapper.selectCostCenterPageList(page, pageDTO.getData());
+        List<CostCenterPageListVO> list = repCbzxMapper.selectCostCenterPageList(page, pageDTO.getData());
         page.setRecords(list);
         return page;
     }
@@ -51,60 +50,60 @@ public class VeCbzxServiceImpl {
      * 根据成本中心id查询详情
      *
      * @param id 成本中心主键id
-     * @return VeCbzx
+     * @return RepCbzx
      * @author yangxianglin
      * @date 2018-08-06 11:35:36
      */
-    public VeCbzx selectVeCbzxById(String id) {
-        return veCbzxMapper.selectById(id);
+    public RepCbzx selectVeCbzxById(String id) {
+        return repCbzxMapper.selectById(id);
     }
 
     /**
      * 根据企业编号查询成本中心数据
      *
-     * @param veCbzx 成本中心对象
-     * @return List<VeCbzx>
+     * @param repCbzx 成本中心对象
+     * @return List<RepCbzx>
      * @author yangxianglin
      * @date 2018-08-06 11:35:36
      */
-    public List<VeCbzx> selectVeCbzxListByQybh(VeCbzx veCbzx) {
-        EntityWrapper<VeCbzx> ew = new EntityWrapper<VeCbzx>();
-        ew.setEntity(veCbzx);
-        return veCbzxMapper.selectList(ew);
+    public List<RepCbzx> selectVeCbzxListByQybh(RepCbzx repCbzx) {
+        EntityWrapper<RepCbzx> ew = new EntityWrapper<RepCbzx>();
+        ew.setEntity(repCbzx);
+        return repCbzxMapper.selectList(ew);
     }
 
     /**
      * 根据成本中心编号查询成本中心信息
      *
-     * @param veCbzx 成本中心对象
+     * @param repCbzx 成本中心对象
      * @return 成本中心对象
      */
-    public VeCbzx getVeCbzxByCbzxbh(VeCbzx veCbzx) {
-        return veCbzxMapper.selectOne(veCbzx);
+    public RepCbzx getVeCbzxByCbzxbh(RepCbzx repCbzx) {
+        return repCbzxMapper.selectOne(repCbzx);
     }
 
     /**
      * 新增成本中心数据
      *
-     * @param veCbzx 成本中心
+     * @param repCbzx 成本中心
      * @return Boolean
      * @author yangxianglin
      * @date 2018-08-06 11:35:36
      */
-    public Boolean insertCostCenter(VeCbzx veCbzx) {
-        return veCbzxMapper.insert(veCbzx) >0 ? Boolean.TRUE : Boolean.FALSE;
+    public Boolean insertCostCenter(RepCbzx repCbzx) {
+        return repCbzxMapper.insert(repCbzx) >0 ? Boolean.TRUE : Boolean.FALSE;
     }
 
     /**
      * 编辑成本中心数据
      *
-     * @param veCbzx 成本中心
+     * @param repCbzx 成本中心
      * @return Boolean
      * @author yangxianglin
      * @date 2018-08-06 11:35:36
      */
-    public Boolean updateCostCenter(VeCbzx veCbzx) {
-        return veCbzxMapper.updateById(veCbzx)>0 ? Boolean.TRUE : Boolean.FALSE;
+    public Boolean updateCostCenter(RepCbzx repCbzx) {
+        return repCbzxMapper.updateById(repCbzx)>0 ? Boolean.TRUE : Boolean.FALSE;
     }
 
 
@@ -114,31 +113,31 @@ public class VeCbzxServiceImpl {
      * @param listDTO 成本中心列表Dto
      * @return 成本中心
      */
-    public List<VeCbzx> getVeCbzxList(CostCenterManagementDTO listDTO) {
-        EntityWrapper<VeCbzx> ew = new EntityWrapper<VeCbzx>();
-        VeCbzx veCbzx = new VeCbzx();
+    public List<RepCbzx> getVeCbzxList(CostCenterManagementDTO listDTO) {
+        EntityWrapper<RepCbzx> ew = new EntityWrapper<RepCbzx>();
+        RepCbzx repCbzx = new RepCbzx();
         if (StringUtils.isNotBlank(listDTO.getQybh())) {
-            veCbzx.setQybh(listDTO.getQybh());
+            repCbzx.setQybh(listDTO.getQybh());
         }
         if (StringUtils.isNotBlank(listDTO.getGsid())) {
-            veCbzx.setGsid(listDTO.getGsid());
+            repCbzx.setGsid(listDTO.getGsid());
         }
-        ew.setEntity(veCbzx);
+        ew.setEntity(repCbzx);
         if (StringUtils.isNotBlank(listDTO.getCbzxmc())) {
             ew.like("cbzxmc", listDTO.getCbzxmc());
         }
-        return veCbzxMapper.selectList(ew);
+        return repCbzxMapper.selectList(ew);
     }
 
     /**
      * 成本中心分类查询
-     * @param veCbzx 成本中心对象
+     * @param repCbzx 成本中心对象
      * @return 成本中心集合
      */
-    public List<VeCbzx> queryVecbzxList(VeCbzx veCbzx){
-        EntityWrapper<VeCbzx> ew = new EntityWrapper<VeCbzx>();
-        ew.setEntity(veCbzx);
-        return veCbzxMapper.selectList(ew);
+    public List<RepCbzx> queryVecbzxList(RepCbzx repCbzx){
+        EntityWrapper<RepCbzx> ew = new EntityWrapper<RepCbzx>();
+        ew.setEntity(repCbzx);
+        return repCbzxMapper.selectList(ew);
     }
 
     /**
@@ -146,35 +145,35 @@ public class VeCbzxServiceImpl {
      * @param dto 入参对象
      * @return 成本中心集合
      */
-    public List<VeCbzx> queryVecbzxLists(DataSendsDTO dto){
-        EntityWrapper<VeCbzx> ew = new EntityWrapper<VeCbzx>();
-        VeCbzx veCbzx = new VeCbzx();
-        veCbzx.setQybh(dto.getQybh());
+    public List<RepCbzx> queryVecbzxLists(DataSendsDTO dto){
+        EntityWrapper<RepCbzx> ew = new EntityWrapper<RepCbzx>();
+        RepCbzx repCbzx = new RepCbzx();
+        repCbzx.setQybh(dto.getQybh());
         if(StringUtils.isNotBlank(dto.getGsid())){
-            veCbzx.setGsid(dto.getGsid());
+            repCbzx.setGsid(dto.getGsid());
         }
-        veCbzx.setZt("1");
-        ew.setEntity(veCbzx);
+        repCbzx.setZt("1");
+        ew.setEntity(repCbzx);
         if(CollectionUtils.isNotEmpty(dto.getGsdxflids())){
             ew.in("cbzxbh",dto.getGsdxflids());
         }
         if(CollectionUtils.isNotEmpty(dto.getGsids())){
             ew.in("gsid",dto.getGsids());
         }
-        return veCbzxMapper.selectList(ew);
+        return repCbzxMapper.selectList(ew);
     }
 
     /**
      * 批量新增或修改成本中心数据
-     * @param veCbzxes 成本中心数据集合
+     * @param repCbzxes 成本中心数据集合
      * @return 是否成功
      */
-    public boolean createOrUpdateBatch(List<VeCbzx> veCbzxes){
-        for(VeCbzx czx: veCbzxes){
+    public boolean createOrUpdateBatch(List<RepCbzx> repCbzxes){
+        for(RepCbzx czx: repCbzxes){
             if(StringUtils.isNotBlank(czx.getId())){
-                veCbzxMapper.updateById(czx);
+                repCbzxMapper.updateById(czx);
             }else{
-                veCbzxMapper.insert(czx);
+                repCbzxMapper.insert(czx);
             }
 
         }

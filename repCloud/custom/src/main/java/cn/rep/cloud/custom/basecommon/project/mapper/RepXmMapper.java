@@ -1,7 +1,7 @@
 package cn.rep.cloud.custom.basecommon.project.mapper;
 
 
-import cn.rep.cloud.custom.basecommon.project.entity.VeXm;
+import cn.rep.cloud.custom.basecommon.project.entity.RepXm;
 import cn.rep.cloud.custom.basecommon.project.service.dto.SearchDataDTO;
 import cn.rep.cloud.custom.basecommon.project.service.vo.ProDataVo;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Mapper
 @Component(value = "veXmMapper")
-public interface VeXmMapper extends BaseMapper<VeXm> {
+public interface RepXmMapper extends BaseMapper<RepXm> {
 
     List<ProDataVo> selectVeXmPage(Page page, @Param("dto") SearchDataDTO dto);
 

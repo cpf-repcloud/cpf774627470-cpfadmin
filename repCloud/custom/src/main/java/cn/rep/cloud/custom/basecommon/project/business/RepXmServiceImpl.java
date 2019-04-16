@@ -1,8 +1,8 @@
 package cn.rep.cloud.custom.basecommon.project.business;
 
 
-import cn.rep.cloud.custom.basecommon.project.entity.VeXm;
-import cn.rep.cloud.custom.basecommon.project.mapper.VeXmMapper;
+import cn.rep.cloud.custom.basecommon.project.entity.RepXm;
+import cn.rep.cloud.custom.basecommon.project.mapper.RepXmMapper;
 import cn.rep.cloud.custom.basecommon.project.service.dto.AddProDTO;
 import cn.rep.cloud.custom.basecommon.project.service.dto.SearchDataDTO;
 import cn.rep.cloud.custom.basecommon.project.service.vo.ProDataVo;
@@ -26,10 +26,10 @@ import java.util.List;
  * Created by vetech on 2018/8/4.
  */
 @Service
-public class VeXmServiceImpl {
+public class RepXmServiceImpl {
 
     @Autowired
-   private VeXmMapper veXmMapper;
+   private RepXmMapper repXmMapper;
 
     /***
      * 添加项目方法
@@ -38,8 +38,8 @@ public class VeXmServiceImpl {
      * @return
      */
     public int addPro(AddProDTO dto) {
-        VeXm xm = BeanMapper.map(dto, VeXm.class);
-        return veXmMapper.insert(xm);
+        RepXm xm = BeanMapper.map(dto, RepXm.class);
+        return repXmMapper.insert(xm);
     }
 
     /**
@@ -50,11 +50,11 @@ public class VeXmServiceImpl {
      */
     public Page<ProDataVo> selectPage(PageDTO<SearchDataDTO> dto) {
         Page<ProDataVo> resultPage = PageCopyUtil.genPage(dto);
-        List<ProDataVo> ids = veXmMapper.selectVeXmPage(resultPage, dto.getData());
+        List<ProDataVo> ids = repXmMapper.selectVeXmPage(resultPage, dto.getData());
         if (CollectionUtils.isNotEmpty(ids)) {
             List<ProDataVo> vos = new ArrayList<>();
             for (ProDataVo datavo : ids) {
-                VeXm xm = veXmMapper.selectById(datavo.getId());
+                RepXm xm = repXmMapper.selectById(datavo.getId());
                 ProDataVo vo = BeanMapper.map(xm, ProDataVo.class);
                 vo.setKsrqStr(DateUtils.formatToStr(vo.getKsrq(), "yyyy-MM-dd"));
                 vos.add(vo);
@@ -73,8 +73,8 @@ public class VeXmServiceImpl {
      * @return
      */
     public int editPro(AddProDTO dto) {
-        VeXm xm = BeanMapper.map(dto, VeXm.class);
-        return veXmMapper.updateById(xm);
+        RepXm xm = BeanMapper.map(dto, RepXm.class);
+        return repXmMapper.updateById(xm);
     }
 
     /**
@@ -83,12 +83,12 @@ public class VeXmServiceImpl {
      * @param gsid 公司id
      * @return
      */
-    public List<VeXm> getAllList(String gsid) {
+    public List<RepXm> getAllList(String gsid) {
         EntityWrapper ew = new EntityWrapper();
         if(StringUtils.isNotBlank(gsid)){
             ew.eq("gsid", gsid);
         }
-        return veXmMapper.selectList(ew);
+        return repXmMapper.selectList(ew);
     }
 
 
@@ -98,8 +98,8 @@ public class VeXmServiceImpl {
      * @param id
      * @return
      */
-    public VeXm getXmByDto(String id) {
-        return veXmMapper.selectById(id);
+    public RepXm getXmByDto(String id) {
+        return repXmMapper.selectById(id);
     }
 
     /**
@@ -108,7 +108,7 @@ public class VeXmServiceImpl {
      * @param dto
      * @return
      */
-    public List<VeXm> getXmListByDto(SearchDataDTO dto) {
+    public List<RepXm> getXmListByDto(SearchDataDTO dto) {
         EntityWrapper ew = new EntityWrapper();
         if (StringUtils.isNotBlank(dto.getXmbh())) {
             ew.eq("xmbh", dto.getXmbh());
@@ -116,7 +116,7 @@ public class VeXmServiceImpl {
         if (StringUtils.isNotBlank(dto.getXmmc())) {
             ew.eq("xmmc", dto.getXmmc());
         }
-        return veXmMapper.selectList(ew);
+        return repXmMapper.selectList(ew);
     }
 
     /**
@@ -125,11 +125,11 @@ public class VeXmServiceImpl {
      * @return int
      */
     public int updateState(AddProDTO dto) {
-        VeXm vexm = BeanMapper.map(dto, VeXm.class);
-        return veXmMapper.updateById(vexm);
+        RepXm vexm = BeanMapper.map(dto, RepXm.class);
+        return repXmMapper.updateById(vexm);
     }
 
-    public int updateById(VeXm veXm){
-        return veXmMapper.updateById(veXm);
+    public int updateById(RepXm repXm){
+        return repXmMapper.updateById(repXm);
     }
 }

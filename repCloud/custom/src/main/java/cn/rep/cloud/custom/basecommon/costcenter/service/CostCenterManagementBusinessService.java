@@ -1,12 +1,12 @@
 package cn.rep.cloud.custom.basecommon.costcenter.service;
 
 
-import cn.rep.cloud.custom.basecommon.costcenter.business.VeCbzxBmServiceImpl;
-import cn.rep.cloud.custom.basecommon.costcenter.business.VeCbzxServiceImpl;
-import cn.rep.cloud.custom.basecommon.costcenter.business.VeXmCbzxServiceImpl;
-import cn.rep.cloud.custom.basecommon.costcenter.entity.VeCbzx;
-import cn.rep.cloud.custom.basecommon.costcenter.entity.VeCbzxBm;
-import cn.rep.cloud.custom.basecommon.costcenter.entity.VeXmCbzx;
+import cn.rep.cloud.custom.basecommon.costcenter.business.RepCbzxBmServiceImpl;
+import cn.rep.cloud.custom.basecommon.costcenter.business.RepCbzxServiceImpl;
+import cn.rep.cloud.custom.basecommon.costcenter.business.RepXmCbzxServiceImpl;
+import cn.rep.cloud.custom.basecommon.costcenter.entity.RepCbzx;
+import cn.rep.cloud.custom.basecommon.costcenter.entity.RepCbzxBm;
+import cn.rep.cloud.custom.basecommon.costcenter.entity.RepXmCbzx;
 import cn.rep.cloud.custom.basecommon.costcenter.service.dto.CostCenterListDTO;
 import cn.rep.cloud.custom.basecommon.costcenter.service.dto.CostCenterManagementDTO;
 import cn.rep.cloud.custom.basecommon.costcenter.service.dto.CostCenterOperationDTO;
@@ -49,7 +49,7 @@ public class CostCenterManagementBusinessService {
      * 成本中心管理Dao
      */
     @Autowired
-    private VeCbzxServiceImpl veCbzxService;
+    private RepCbzxServiceImpl veCbzxService;
 
     /**
      * 成本中心管理公共service
@@ -60,12 +60,12 @@ public class CostCenterManagementBusinessService {
      * 成本中心项目service
      */
     @Autowired
-    private VeXmCbzxServiceImpl veXmCbzxService;
+    private RepXmCbzxServiceImpl veXmCbzxService;
     /**
      * 成本中心部门service
      */
     @Autowired
-    private VeCbzxBmServiceImpl veCbzxBmService;
+    private RepCbzxBmServiceImpl veCbzxBmService;
 
     /**
      * 成本中心分页列表
@@ -87,10 +87,10 @@ public class CostCenterManagementBusinessService {
         List<String> cbzxidList = new ArrayList<String>();
         CostCenterListVO listVO = new CostCenterListVO();
         logger.info("点击查询成本中心列表数据入参：" + pageDTO.getData());
-        VeCbzx param = new VeCbzx();
+        RepCbzx param = new RepCbzx();
         param.setQybh(pageDTO.getData().getQybh());
         param.setGsid(pageDTO.getData().getGsid());
-        List<VeCbzx> paramList = veCbzxService.selectVeCbzxListByQybh(param);
+        List<RepCbzx> paramList = veCbzxService.selectVeCbzxListByQybh(param);
         List<CostCenterPageListVO> veCbzxList = BeanMapper.mapList(paramList,CostCenterPageListVO.class);
         /**获取当前成本中心信息并加到输出对象中**/
         if (CollectionUtils.isNotEmpty(veCbzxList)) {
@@ -127,23 +127,23 @@ public class CostCenterManagementBusinessService {
         /**根据企业编号获取该企业下所有的成本中心分页数据**/
         Page<CostCenterPageListVO> listVOPage = veCbzxService.selectCostCenterPageList(pageDTO);
         //列表上面详情信息
-        VeCbzx veCbzx = veCbzxService.selectVeCbzxById(pageDTO.getData().getId());
-        if (veCbzx == null) {
+        RepCbzx repCbzx = veCbzxService.selectVeCbzxById(pageDTO.getData().getId());
+        if (repCbzx == null) {
            // throw new SystemException(BaseExceptionEnum.BASE_COSTCENTER_0000_04_0125);
         }
-        if (veCbzx != null) {
-            listVO.setId(veCbzx.getId());         //成本中心主键id
-            listVO.setCbzxbh(veCbzx.getCbzxbh()); //成本中心编号
-            listVO.setCbzxmc(veCbzx.getCbzxmc()); //成本中心名称
-            listVO.setZt(veCbzx.getZt());         //状态
+        if (repCbzx != null) {
+            listVO.setId(repCbzx.getId());         //成本中心主键id
+            listVO.setCbzxbh(repCbzx.getCbzxbh()); //成本中心编号
+            listVO.setCbzxmc(repCbzx.getCbzxmc()); //成本中心名称
+            listVO.setZt(repCbzx.getZt());         //状态
             /****查询关联部门名称********/
-            List<String> cbzxBmList = veCbzxBmService.getVeCbzxBmMcListByCbzxid(veCbzx.getId());
+            List<String> cbzxBmList = veCbzxBmService.getVeCbzxBmMcListByCbzxid(repCbzx.getId());
             if (CollectionUtils.isNotEmpty(cbzxBmList)) {
                 String bmmcStr = this.getGlbmmc(cbzxBmList);
                 listVO.setGlbmmc(bmmcStr);
             }
             /****查询关联项目名称********/
-            List<String> cbzxXmList = veXmCbzxService.getVeXmCbzxMcListByCbzxid(veCbzx.getId());
+            List<String> cbzxXmList = veXmCbzxService.getVeXmCbzxMcListByCbzxid(repCbzx.getId());
             if (CollectionUtils.isNotEmpty(cbzxXmList)) {
                 String xmmcStr = this.getGlxmmc(cbzxXmList);
                 listVO.setGlxmmc(xmmcStr);
@@ -216,24 +216,24 @@ public class CostCenterManagementBusinessService {
         logger.info("成本中心管理-树形接口入参：【" + costCenterManagementDTO + "】");
         CostCenterTreeVO treeVO = new CostCenterTreeVO();
         /**根据企业编号获取该企业下所有的成本中心**/
-        List<VeCbzx> veCbzxList = veCbzxService.getVeCbzxList(costCenterManagementDTO);
-        if (CollectionUtils.isEmpty(veCbzxList)) {
+        List<RepCbzx> repCbzxList = veCbzxService.getVeCbzxList(costCenterManagementDTO);
+        if (CollectionUtils.isEmpty(repCbzxList)) {
             logger.info("成本中心管理-企业公司查询为空");
             return null;
         }
         /**根据上级编号进行分组**/
-        Map<String, List<VeCbzx>> costCenterMap = null;
+        Map<String, List<RepCbzx>> costCenterMap = null;
         try {
-            costCenterMap = VeCollectionUtils.group(veCbzxList, "sjbh");
+            costCenterMap = VeCollectionUtils.group(repCbzxList, "sjbh");
         } catch (Exception e) {
             logger.error("成本中心分组异常：", e);
         }
-        List<VeCbzx> vecbzxlist = null;
+        List<RepCbzx> vecbzxlist = null;
         if (costCenterMap != null) {
             vecbzxlist = costCenterMap.get("none");
         }
         if(CollectionUtils.isEmpty(vecbzxlist)){
-             vecbzxlist = BeanMapper.mapList(veCbzxList,VeCbzx.class);
+             vecbzxlist = BeanMapper.mapList(repCbzxList,RepCbzx.class);
         }
         /**调用递归方法筛选下级成本中心数据**/
         costCenterManagementCommonService.costCenterListTreeRecursive(vecbzxlist, costCenterMap, treeVO);
@@ -255,16 +255,16 @@ public class CostCenterManagementBusinessService {
             logger.info("成本中心主键id不能为空");
            // throw new SystemException(BaseExceptionEnum.BASE_COSTCENTER_0000_04_0074);
         }
-        VeCbzx veCbzx = veCbzxService.selectVeCbzxById(operationDTO.getId());
-        CostCenterDetailVO costCenterDetailVO = BeanMapper.map(veCbzx, CostCenterDetailVO.class);
+        RepCbzx repCbzx = veCbzxService.selectVeCbzxById(operationDTO.getId());
+        CostCenterDetailVO costCenterDetailVO = BeanMapper.map(repCbzx, CostCenterDetailVO.class);
         /****查询关联部门********/
-        VeCbzxBm veCbzxBm = new VeCbzxBm();
-        veCbzxBm.setCbzxid(veCbzx.getId());
-        List<VeCbzxBm> cbzxBmList = veCbzxBmService.getVeCbzxBmListByCbzxid(veCbzxBm);
+        RepCbzxBm repCbzxBm = new RepCbzxBm();
+        repCbzxBm.setCbzxid(repCbzx.getId());
+        List<RepCbzxBm> cbzxBmList = veCbzxBmService.getVeCbzxBmListByCbzxid(repCbzxBm);
         /****查询关联项目********/
-        VeXmCbzx veXmCbzx = new VeXmCbzx();
-        veXmCbzx.setCbzxid(veCbzx.getId());
-        List<VeXmCbzx> cbzxXmList = veXmCbzxService.getVeXmCbzxListByCbzxid(veXmCbzx);
+        RepXmCbzx repXmCbzx = new RepXmCbzx();
+        repXmCbzx.setCbzxid(repCbzx.getId());
+        List<RepXmCbzx> cbzxXmList = veXmCbzxService.getVeXmCbzxListByCbzxid(repXmCbzx);
         if (costCenterDetailVO != null) {
             costCenterDetailVO.setBmList(cbzxBmList); //部门集合
             costCenterDetailVO.setXmList(cbzxXmList); //项目集合
@@ -300,33 +300,33 @@ public class CostCenterManagementBusinessService {
             logger.info("成本中心编号不能重复");
            // throw new SystemException(BaseExceptionEnum.BASE_COSTCENTER_0000_04_0078);
         }
-        VeCbzx veCbzx = new VeCbzx();
-        veCbzx.setId(IdGenerator.getHexId());
-        veCbzx.setQybh(operationDTO.getQybh());
-        veCbzx.setGsid(operationDTO.getGsid());
-        veCbzx.setCbzxbh(operationDTO.getCbzxbh());
-        veCbzx.setCbzxmc(operationDTO.getCbzxmc());
-        veCbzx.setSjbh(operationDTO.getSjbh());
-        veCbzx.setZt("");
-        veCbzx.setSfdlys(operationDTO.getSfdlys());
-        veCbzx.setZhxgr(operationDTO.getCzr());
-        veCbzx.setZhxgsj(DateUtils.getNow());
-        flag = veCbzxService.insertCostCenter(veCbzx);
+        RepCbzx repCbzx = new RepCbzx();
+        repCbzx.setId(IdGenerator.getHexId());
+        repCbzx.setQybh(operationDTO.getQybh());
+        repCbzx.setGsid(operationDTO.getGsid());
+        repCbzx.setCbzxbh(operationDTO.getCbzxbh());
+        repCbzx.setCbzxmc(operationDTO.getCbzxmc());
+        repCbzx.setSjbh(operationDTO.getSjbh());
+        repCbzx.setZt("");
+        repCbzx.setSfdlys(operationDTO.getSfdlys());
+        repCbzx.setZhxgr(operationDTO.getCzr());
+        repCbzx.setZhxgsj(DateUtils.getNow());
+        flag = veCbzxService.insertCostCenter(repCbzx);
         if(!flag){
            // throw new SystemException(BaseExceptionEnum.BASE_COSTCENTER_0000_04_0146);
         }
         /******入库关联部门************/
         if (flag && CollectionUtils.isNotEmpty(operationDTO.getBmidList())) {
-            List<VeCbzxBm> cbzxBmList = new ArrayList<VeCbzxBm>();
+            List<RepCbzxBm> cbzxBmList = new ArrayList<RepCbzxBm>();
             for (String bmid : operationDTO.getBmidList()) {
-                VeCbzxBm veCbzxBm = new VeCbzxBm();
-                veCbzxBm.setId(IdGenerator.getHexId());
-                veCbzxBm.setQybh(operationDTO.getQybh());
-                veCbzxBm.setCbzxid(veCbzx.getId());
-                veCbzxBm.setBmid(bmid);
-                veCbzxBm.setZhxgr(operationDTO.getCzr());
-                veCbzxBm.setZhxgsj(DateUtils.getNow());
-                cbzxBmList.add(veCbzxBm);
+                RepCbzxBm repCbzxBm = new RepCbzxBm();
+                repCbzxBm.setId(IdGenerator.getHexId());
+                repCbzxBm.setQybh(operationDTO.getQybh());
+                repCbzxBm.setCbzxid(repCbzx.getId());
+                repCbzxBm.setBmid(bmid);
+                repCbzxBm.setZhxgr(operationDTO.getCzr());
+                repCbzxBm.setZhxgsj(DateUtils.getNow());
+                cbzxBmList.add(repCbzxBm);
             }
             flag = veCbzxBmService.insertVeCbzxBmList(cbzxBmList);
             if(!flag){
@@ -336,16 +336,16 @@ public class CostCenterManagementBusinessService {
         }
         /******入库关联项目************/
         if (flag && CollectionUtils.isNotEmpty(operationDTO.getXmidList())) {
-            List<VeXmCbzx> xmCbzxList = new ArrayList<VeXmCbzx>();
+            List<RepXmCbzx> xmCbzxList = new ArrayList<RepXmCbzx>();
             for (String xmid : operationDTO.getXmidList()) {
-                VeXmCbzx veXmCbzx = new VeXmCbzx();
-                veXmCbzx.setId(IdGenerator.getHexId());
-                veXmCbzx.setQybh(operationDTO.getQybh());
-                veXmCbzx.setCbzxid(veCbzx.getId());
-                veXmCbzx.setXmid(xmid);
-                veXmCbzx.setZhxgr(operationDTO.getCzr());
-                veXmCbzx.setZhxgsj(DateUtils.getNow());
-                xmCbzxList.add(veXmCbzx);
+                RepXmCbzx repXmCbzx = new RepXmCbzx();
+                repXmCbzx.setId(IdGenerator.getHexId());
+                repXmCbzx.setQybh(operationDTO.getQybh());
+                repXmCbzx.setCbzxid(repCbzx.getId());
+                repXmCbzx.setXmid(xmid);
+                repXmCbzx.setZhxgr(operationDTO.getCzr());
+                repXmCbzx.setZhxgsj(DateUtils.getNow());
+                xmCbzxList.add(repXmCbzx);
             }
             flag = veXmCbzxService.insertVeXmCbzxList(xmCbzxList);
             logger.info("批量插入成本中心项目数据返回结果：" + flag);
@@ -373,10 +373,10 @@ public class CostCenterManagementBusinessService {
             //throw new SystemException(BaseExceptionEnum.BASE_COSTCENTER_0000_04_0075);
         }
         //同一个公司下面成本中心编号不允许重复
-        VeCbzx veCbzx = new VeCbzx();
-        veCbzx.setCbzxbh(operationDTO.getCbzxbh());
-        veCbzx.setGsid(operationDTO.getGsid());
-        VeCbzx vebm = veCbzxService.getVeCbzxByCbzxbh(veCbzx);
+        RepCbzx repCbzx = new RepCbzx();
+        repCbzx.setCbzxbh(operationDTO.getCbzxbh());
+        repCbzx.setGsid(operationDTO.getGsid());
+        RepCbzx vebm = veCbzxService.getVeCbzxByCbzxbh(repCbzx);
         if (vebm != null) {
             flag = Boolean.TRUE;
         }
@@ -399,13 +399,13 @@ public class CostCenterManagementBusinessService {
             logger.info("成本中心主键id不能为空");
           //  throw new SystemException(BaseExceptionEnum.BASE_COMPANY_1001);
         }
-        VeCbzx veCbzx = veCbzxService.selectVeCbzxById(operationDTO.getId());
-        if (veCbzx != null) {
-            veCbzx.setCbzxmc(operationDTO.getCbzxmc());
-            veCbzx.setSfdlys(operationDTO.getSfdlys());
-            veCbzx.setZhxgr(operationDTO.getCzr());
-            veCbzx.setZhxgsj(DateUtils.getNow());
-            flag = veCbzxService.updateCostCenter(veCbzx);
+        RepCbzx repCbzx = veCbzxService.selectVeCbzxById(operationDTO.getId());
+        if (repCbzx != null) {
+            repCbzx.setCbzxmc(operationDTO.getCbzxmc());
+            repCbzx.setSfdlys(operationDTO.getSfdlys());
+            repCbzx.setZhxgr(operationDTO.getCzr());
+            repCbzx.setZhxgsj(DateUtils.getNow());
+            flag = veCbzxService.updateCostCenter(repCbzx);
             if(!flag){
                 //throw new SystemException(BaseExceptionEnum.BASE_COSTCENTER_0000_04_0147);
             }
@@ -413,13 +413,13 @@ public class CostCenterManagementBusinessService {
             /****处理关联部门数据**********/
             if (flag && CollectionUtils.isNotEmpty(operationDTO.getBmidList())) {
                 /******编辑进来先做删除**********/
-                VeCbzxBm veCbzxBm = new VeCbzxBm();
-                veCbzxBm.setCbzxid(veCbzx.getId());
-                veCbzxBm.setQybh(veCbzx.getQybh());
-                List<VeCbzxBm> veCbzxBmList = veCbzxBmService.getVeCbzxBmListByCbzxid(veCbzxBm);
+                RepCbzxBm repCbzxBm = new RepCbzxBm();
+                repCbzxBm.setCbzxid(repCbzx.getId());
+                repCbzxBm.setQybh(repCbzx.getQybh());
+                List<RepCbzxBm> repCbzxBmList = veCbzxBmService.getVeCbzxBmListByCbzxid(repCbzxBm);
                 List<String> ids = new ArrayList<String>();
-                if (CollectionUtils.isNotEmpty(veCbzxBmList)) {
-                    for (VeCbzxBm bm : veCbzxBmList) {
+                if (CollectionUtils.isNotEmpty(repCbzxBmList)) {
+                    for (RepCbzxBm bm : repCbzxBmList) {
                         ids.add(bm.getId());
                     }
                     flag = veCbzxBmService.deleteVeCbzxBmList(ids);
@@ -428,13 +428,13 @@ public class CostCenterManagementBusinessService {
                     }
                 }
                 /******再来做新增**********/
-                List<VeCbzxBm> zxbmList = new ArrayList<VeCbzxBm>();
+                List<RepCbzxBm> zxbmList = new ArrayList<RepCbzxBm>();
                 for (String bmid : operationDTO.getBmidList()) {
-                    VeCbzxBm bm = new VeCbzxBm();
+                    RepCbzxBm bm = new RepCbzxBm();
                     bm.setId(IdGenerator.getHexId());
                     bm.setQybh(operationDTO.getQybh());
                     bm.setBmid(bmid);
-                    bm.setCbzxid(veCbzx.getId());
+                    bm.setCbzxid(repCbzx.getId());
                     bm.setZhxgr(operationDTO.getCzr());
                     bm.setZhxgsj(DateUtils.getNow());
                     zxbmList.add(bm);
@@ -448,13 +448,13 @@ public class CostCenterManagementBusinessService {
             /****处理关联项目数据**********/
             if (flag && CollectionUtils.isNotEmpty(operationDTO.getXmidList())) {
                 /******编辑进来先做删除**********/
-                VeXmCbzx veXmCbzx = new VeXmCbzx();
-                veXmCbzx.setCbzxid(veCbzx.getId());
-                veXmCbzx.setQybh(veCbzx.getQybh());
-                List<VeXmCbzx> veXmCbzxList = veXmCbzxService.getVeXmCbzxListByCbzxid(veXmCbzx);
+                RepXmCbzx repXmCbzx = new RepXmCbzx();
+                repXmCbzx.setCbzxid(repCbzx.getId());
+                repXmCbzx.setQybh(repCbzx.getQybh());
+                List<RepXmCbzx> repXmCbzxList = veXmCbzxService.getVeXmCbzxListByCbzxid(repXmCbzx);
                 List<String> ids = new ArrayList<String>();
-                if (CollectionUtils.isNotEmpty(veXmCbzxList)) {
-                    for (VeXmCbzx xm : veXmCbzxList) {
+                if (CollectionUtils.isNotEmpty(repXmCbzxList)) {
+                    for (RepXmCbzx xm : repXmCbzxList) {
                         ids.add(xm.getId());
                     }
                     flag = veXmCbzxService.deleteVeXmCbzxList(ids);
@@ -463,13 +463,13 @@ public class CostCenterManagementBusinessService {
                     }
                 }
                 /******再来做新增**********/
-                List<VeXmCbzx> zxxmList = new ArrayList<VeXmCbzx>();
+                List<RepXmCbzx> zxxmList = new ArrayList<RepXmCbzx>();
                 for (String xmid : operationDTO.getXmidList()) {
-                    VeXmCbzx xm = new VeXmCbzx();
+                    RepXmCbzx xm = new RepXmCbzx();
                     xm.setId(IdGenerator.getHexId());
                     xm.setQybh(operationDTO.getQybh());
                     xm.setXmid(xmid);
-                    xm.setCbzxid(veCbzx.getId());
+                    xm.setCbzxid(repCbzx.getId());
                     xm.setZhxgsj(DateUtils.getNow());
                     xm.setZhxgr(operationDTO.getCzr());
                     zxxmList.add(xm);
@@ -500,10 +500,10 @@ public class CostCenterManagementBusinessService {
             logger.info("成本中心主键id不能为空");
            // throw new SystemException(BaseExceptionEnum.BASE_COMPANY_1001);
         }
-        VeCbzx veCbzx = veCbzxService.selectVeCbzxById(operationDTO.getId());
-        if (veCbzx != null) {
-            veCbzx.setZt(operationDTO.getZt()); //项目状态
-            flag = veCbzxService.updateCostCenter(veCbzx);
+        RepCbzx repCbzx = veCbzxService.selectVeCbzxById(operationDTO.getId());
+        if (repCbzx != null) {
+            repCbzx.setZt(operationDTO.getZt()); //项目状态
+            flag = veCbzxService.updateCostCenter(repCbzx);
             logger.info("修改成本中心状态后返回结果：" + flag);
         }
         return flag;

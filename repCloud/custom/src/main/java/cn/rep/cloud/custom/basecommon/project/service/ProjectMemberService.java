@@ -1,7 +1,7 @@
 package cn.rep.cloud.custom.basecommon.project.service;
 
-import cn.rep.cloud.custom.basecommon.project.business.VeXmServiceImpl;
-import cn.rep.cloud.custom.basecommon.project.entity.VeXm;
+import cn.rep.cloud.custom.basecommon.project.business.RepXmServiceImpl;
+import cn.rep.cloud.custom.basecommon.project.entity.RepXm;
 import cn.rep.cloud.custom.basecommon.project.service.dto.AddProDTO;
 import cn.rep.cloud.custom.basecommon.project.service.dto.AddProMemberDTO;
 import cn.rep.cloud.custom.basecommon.project.service.dto.ProDetailDTO;
@@ -27,7 +27,7 @@ public class ProjectMemberService {
      * 查询项目详情
      */
     @Autowired
-    private VeXmServiceImpl veXmService;
+    private RepXmServiceImpl veXmService;
 /*
     *//**
      * 项目成员
@@ -90,7 +90,7 @@ public class ProjectMemberService {
         }
         /**修改主表的项目成员*/
         if (StringUtils.isNotBlank(dto.getCyjs()) && StringUtils.isNotBlank(dto.getXmid())) {
-            VeXm vexm = veXmService.getXmByDto(dto.getXmid());
+            RepXm vexm = veXmService.getXmByDto(dto.getXmid());
             if (StringUtils.equals(dto.getCyjs(), "2")) {
                 vexm.setXmzj("");
             } else if (StringUtils.equals(dto.getCyjs(), "3")) {

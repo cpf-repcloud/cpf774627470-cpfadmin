@@ -1,8 +1,8 @@
 package cn.rep.cloud.custom.basecommon.project.service;
 
 
-import cn.rep.cloud.custom.basecommon.project.business.VeXmServiceImpl;
-import cn.rep.cloud.custom.basecommon.project.entity.VeXm;
+import cn.rep.cloud.custom.basecommon.project.business.RepXmServiceImpl;
+import cn.rep.cloud.custom.basecommon.project.entity.RepXm;
 import cn.rep.cloud.custom.basecommon.project.service.dto.AddProDTO;
 import cn.rep.cloud.custom.basecommon.project.service.dto.ProDetailDTO;
 import cn.rep.cloud.custom.basecommon.project.service.dto.SearchDataDTO;
@@ -39,7 +39,7 @@ public class ProjectManageService {
      * service
      */
     @Autowired
-    private VeXmServiceImpl veXmService;
+    private RepXmServiceImpl veXmService;
 
     /**
      * 项目成员service
@@ -96,7 +96,7 @@ public class ProjectManageService {
      */
    /* public Boolean addVeXmCbzx(AddProDTO dto) {
         //插入成本中心表
-        VeCbzx veCbzx = new VeCbzx();
+        RepCbzx veCbzx = new RepCbzx();
         veCbzx.setId(IdGenerator.getHexId());
         veCbzx.setQybh(dto.getQybh());
         veCbzx.setGsid(dto.getGsid());
@@ -112,7 +112,7 @@ public class ProjectManageService {
         veCbzx.setZhxgsj(VeDate.getNow());
         veCbzx.setCbzxmc(dto.getXmmc());
         if (veCbzxService.insertCostCenter(veCbzx)) {
-            VeXmCbzx xmcbzx = new VeXmCbzx();
+            RepXmCbzx xmcbzx = new RepXmCbzx();
             xmcbzx.setId(IdGenerator.getHexId());
             xmcbzx.setQybh(dto.getQybh());
             xmcbzx.setXmid(dto.getId());
@@ -176,11 +176,11 @@ public class ProjectManageService {
     public ProTreeVo getTreeList(String gsid) {
         ProTreeVo proTreeVo = new ProTreeVo();
         /**查询该企业下面的所有项目list*/
-        List<VeXm> veList = veXmService.getAllList(gsid);
+        List<RepXm> veList = veXmService.getAllList(gsid);
         if (CollectionUtils.isEmpty(veList)) {
             return null;
         }
-        Map<String, List<VeXm>> veXmMap = null;
+        Map<String, List<RepXm>> veXmMap = null;
         try {
             /**通过上级编号分组*/
             veXmMap = VeCollectionUtils.group(veList, "sjbh");
@@ -189,8 +189,8 @@ public class ProjectManageService {
         }
 
         /** 获取一级项目list**/
-        List<VeXm> veXms = veXmMap.get("none");
-        getTreeData(veXms, veXmMap, proTreeVo);
+        List<RepXm> repXms = veXmMap.get("none");
+        getTreeData(repXms, veXmMap, proTreeVo);
         return proTreeVo;
     }
 
@@ -201,13 +201,13 @@ public class ProjectManageService {
      * @param veXmMap   项目分组map
      * @param proTreeVo 树形结构出参
      */
-    private void getTreeData(List<VeXm> veList, Map<String, List<VeXm>> veXmMap, ProTreeVo proTreeVo) {
+    private void getTreeData(List<RepXm> veList, Map<String, List<RepXm>> veXmMap, ProTreeVo proTreeVo) {
        /* if (CollectionUtils.isNotEmpty(veList)) {
             List<ProTreeVo> proTreeVoList = new ArrayList<>();
-            for (VeXm xm : veList) {
+            for (RepXm xm : veList) {
                 ProTreeVo treeVo = new ProTreeVo();
                 Type<ProTreeVo> proTreeVoType = BeanMapper.getType(ProTreeVo.class);
-                Type<VeXm> veXmType = BeanMapper.getType(VeXm.class);
+                Type<RepXm> veXmType = BeanMapper.getType(RepXm.class);
                 treeVo = BeanMapper.map(xm, veXmType, proTreeVoType);
                 treeVo.setTitle(xm.getXmmc());
                 String xmbh = xm.getXmbh();
@@ -223,7 +223,7 @@ public class ProjectManageService {
                         treeVo.setXmjlgh(vo.getGh());
                     }
                 }
-                List<VeXm> xmList = veXmMap.get(xmbh);// 获取子级项目编号
+                List<RepXm> xmList = veXmMap.get(xmbh);// 获取子级项目编号
                 if (CollectionUtils.isNotEmpty(xmList)) {
                     treeVo.setExpand("true");
                 } else {
@@ -248,22 +248,22 @@ public class ProjectManageService {
         if (StringUtils.isBlank(id)) {
             return null;
         }
-        VeXm xm = veXmService.getXmByDto(id);
+        RepXm xm = veXmService.getXmByDto(id);
         ProDataVo vo = BeanMapper.map(xm, ProDataVo.class);
-        VeXmCbzx cbzx = new VeXmCbzx();
+        RepXmCbzx cbzx = new RepXmCbzx();
         cbzx.setXmid(xm.getId());
-        List<VeXmCbzx> cbzxes = veXmCbzxService.getCbzxByBean(cbzx);
+        List<RepXmCbzx> cbzxes = veXmCbzxService.getCbzxByBean(cbzx);
         if (CollectionUtils.isNotEmpty(cbzxes)) {
             vo.setSfkqcbzx(Boolean.TRUE);
-            VeXmCbzx cbzx2 = cbzxes.get(0);
-            VeCbzx cb = new VeCbzx();
+            RepXmCbzx cbzx2 = cbzxes.get(0);
+            RepCbzx cb = new RepCbzx();
             cb.setId(cbzx2.getCbzxid());
             cb = veCbzxService.getVeCbzxByCbzxbh(cb);
             vo.setCbzxbh(cb.getCbzxbh());
             if (StringUtils.equals(cb.getSjbh(), "none")) {
                 vo.setSjcbzx(null);
             } else {
-                VeCbzx cb2 = new VeCbzx();
+                RepCbzx cb2 = new RepCbzx();
                 cb2.setCbzxbh(cb.getSjbh());
                 cb2 = veCbzxService.getVeCbzxByCbzxbh(cb2);
                 vo.setSjcbzx(cb2.getId());
