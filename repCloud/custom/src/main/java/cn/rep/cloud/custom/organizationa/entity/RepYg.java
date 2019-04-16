@@ -166,6 +166,62 @@ public class RepYg implements Serializable {
    	@Column(name = "cjsj" )
 	private Date cjsj;
 
+	/**
+	 * 公司id
+	 */
+	@Column(name = "gsid" )
+	private String gsid;
+
+	/**
+	 * 公司名称
+	 */
+	@Column(name = "gsmc" )
+	private String gsmc;
+
+	/**
+	 * 部门id
+	 */
+	@Column(name = "bmid" )
+	private String bmid;
+
+	/**
+	 * 部门名称
+	 */
+	@Column(name = "bmmc" )
+	private String bmmc;
+
+	public String getGsid() {
+		return gsid;
+	}
+
+	public void setGsid(String gsid) {
+		this.gsid = gsid;
+	}
+
+	public String getGsmc() {
+		return gsmc;
+	}
+
+	public void setGsmc(String gsmc) {
+		this.gsmc = gsmc;
+	}
+
+	public String getBmid() {
+		return bmid;
+	}
+
+	public void setBmid(String bmid) {
+		this.bmid = bmid;
+	}
+
+	public String getBmmc() {
+		return bmmc;
+	}
+
+	public void setBmmc(String bmmc) {
+		this.bmmc = bmmc;
+	}
+
 	public String getId() {
 		return this.id;
 	}
