@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8"/>
     <title>岗位职级列表</title>
     <style>
         @import "../../static/public/css/commons.css";
+
         .ivu-form {
             border: 0px solid #dddee1
         }
@@ -60,6 +61,31 @@
             border-radius: 5px;
         }
 
+        .czdemo {
+            marginRight: 10px;
+            color: #2d8cf0;
+            fontSize: 12px;
+            cursor: pointer;
+        }
+        .editInputdemo{
+            width: 100%;
+            height: 32px;
+            line-height: 1.5;
+            padding: 4px 7px;
+            font-size: 12px;
+            border: 1px solid #dcdee2;
+            border-radius: 4px;
+            color: #515a6e;
+            background-color: #fff;
+            background-image: none;
+            position: relative;
+            cursor: text;
+            -webkit-transition: border .2s ease-in-out,background .2s ease-in-out,-webkit-box-shadow .2s ease-in-out;
+            transition: border .2s ease-in-out,background .2s ease-in-out,-webkit-box-shadow .2s ease-in-out;
+            transition: border .2s ease-in-out,background .2s ease-in-out,box-shadow .2s ease-in-out;
+            transition: border .2s ease-in-out,background .2s ease-in-out,box-shadow .2s ease-in-out,-webkit-box-shadow .2s ease-in-out;
+        }
+
 
     </style>
 
@@ -72,11 +98,63 @@
         <div class="content">
             <div class="marginre margintop10">
                 <i-button type="primary" icon="md-add" @click="addRole">新建</i-button>
-                <i-input clearable  v-model="searchData.gwmc" placeholder="搜索岗位编号和名称" class="searchdemo"
+                <i-input clearable v-model="searchData.gwmc" placeholder="搜索岗位编号和名称" class="searchdemo"
                          @on-click="selectRank" icon="ios-search"/>
             </div>
             <div class="margintop marginre">
-                <i-table stripe ref="selection"  :columns="columns6" height="500" :data="data5"></i-table>
+
+                <i-table stripe :columns="columns6" :data="data5" height="500">
+                    <template slot-scope="{ row, index }" slot="id">
+                        <span>{{ row.id }}</span>
+                    </template>
+                    <template slot-scope="{ row, index }" slot="gwbh">
+                        <input  type="text" v-model="editGwbh" class="editInputdemo" v-if="editIndex === index"/>
+                        <span v-else>{{ row.gwbh }}</span>
+                    </template>
+                    <template slot-scope="{ row, index }" slot="gwmc">
+                        <input class="editInputdemo" type="text" v-model="editGwmc" v-if="editIndex === index"/>
+                        <span v-else>{{ row.gwmc }}</span>
+                    </template>
+
+                    <template slot-scope="{ row, index }" slot="gwjb">
+                        <i-select v-model="editGwjb" v-if="editIndex === index">
+                            <i-option value="1级">1级</i-option>
+                            <i-option value="2级">2级</i-option>
+                            <i-option value="3级">3级</i-option>
+                            <i-option value="4级">4级</i-option>
+                            <i-option value="5级">5级</i-option>
+                            <i-option value="6级">6级</i-option>
+                            <i-option value="7级">7级</i-option>
+                            <i-option value="8级">8级</i-option>
+                            <i-option value="9级">9级</i-option>
+                        </i-select>
+                        <span v-else>{{row.gwjb}}</span>
+                    </template>
+
+                    <template slot-scope="{ row, index }" slot="gwms">
+                        <input class="editInputdemo" type="text" v-model="editGwms" v-if="editIndex === index"/>
+                        <span v-else>{{ row.gwms }}</span>
+                    </template>
+
+                    <template slot-scope="{ row, index }" slot="cz">
+                        <div v-if="editIndex === index">
+                            <span class="czdemo" @click="handleSave(index)">保存</span>
+                            <span class="czdemo" @click="editIndex = -1">取消</span>
+                        </div>
+                        <div v-else>
+                            <span class="czdemo" @click="handleEdit(row, index)">编辑</span>
+                            <span class="czdemo" @click="handleDelete(row, index)">删除</span>
+                        </div>
+                    </template>
+
+                    <template slot-scope="{ row, index }" slot="zt">
+                        <!--<i-switch size="large" v-model="row.zt" @on-change="changeZt(row,index)">
+                            <span slot="open">开启</span>
+                            <span slot="close">关闭</span>
+                        </i-switch>-->
+                    </template>
+                </i-table>
+
             </div>
         </div>
 
@@ -95,12 +173,12 @@
         <i-form :model="rankEdit" ref="rankEdit" :rules="ruleRankEdit" label-width="100">
             <div class="roleFrom">
                 <form-item label="岗位编号" prop="gwbh">
-                    <i-input clearable  placeholder="请输入" class="wit300demo" v-model="rankEdit.gwbh"/>
+                    <i-input clearable placeholder="请输入" class="wit300demo" v-model="rankEdit.gwbh"/>
                 </form-item>
             </div>
             <div class="roleFrom">
                 <form-Item label="岗位名称" prop="gwmc">
-                    <i-input  clearable  placeholder="请输入" class="wit300demo" v-model="rankEdit.gwmc"/>
+                    <i-input clearable placeholder="请输入" class="wit300demo" v-model="rankEdit.gwmc"/>
                 </form-Item>
             </div>
 
@@ -120,7 +198,7 @@
                 </form-Item>
             </div>
             <form-Item label="岗位描述" prop="gwms">
-                <i-input clearable  type="textarea" v-model="rankEdit.gwms" class="wit300demo"
+                <i-input clearable type="textarea" v-model="rankEdit.gwms" class="wit300demo"
                          placeholder="请输入"/>
             </form-Item>
         </i-form>
@@ -139,12 +217,12 @@
         <i-form :model="rankAdd" ref="rankAdd" :rules="ruleRankAdd">
             <div class="roleFrom">
                 <form-item label="岗位编号" prop="gwbh">
-                    <i-input  clearable  placeholder="请输入" class="wit300demo" v-model="rankAdd.gwbh"/>
+                    <i-input clearable placeholder="请输入" class="wit300demo" v-model="rankAdd.gwbh"/>
                 </form-item>
             </div>
             <div class="roleFrom">
                 <form-Item label="岗位名称" prop="gwmc">
-                    <i-input  clearable  placeholder="请输入" class="wit300demo" v-model="rankAdd.gwmc"/>
+                    <i-input clearable placeholder="请输入" class="wit300demo" v-model="rankAdd.gwmc"/>
                 </form-Item>
             </div>
 
@@ -164,7 +242,7 @@
                 </form-Item>
             </div>
             <form-Item label="岗位描述" prop="gwms">
-                <i-input  clearable  type="textarea" v-model="rankAdd.gwms"
+                <i-input clearable type="textarea" v-model="rankAdd.gwms"
                          class="wit300demo" placeholder=""/>
             </form-Item>
         </i-form>
