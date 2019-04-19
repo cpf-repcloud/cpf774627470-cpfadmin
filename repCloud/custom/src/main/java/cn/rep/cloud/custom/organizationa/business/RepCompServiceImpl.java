@@ -1,16 +1,20 @@
 package cn.rep.cloud.custom.organizationa.business;
 
 import cn.rep.cloud.custom.coreutils.common.PageDTO;
-import cn.rep.cloud.custom.coreutils.common.RepConstants;
+import cn.rep.cloud.custom.coreutils.common.TreeNode;
 import cn.rep.cloud.custom.coreutils.utils.DateUtils;
 import cn.rep.cloud.custom.organizationa.dto.RepCompDTO;
-import cn.rep.cloud.custom.organizationa.entity.RepComp;
+import cn.rep.cloud.custom.organizationa.entity.RepGs;
 import cn.rep.cloud.custom.organizationa.service.RepCompService;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class RepCompServiceImpl {
@@ -21,8 +25,8 @@ public class RepCompServiceImpl {
     @Autowired
     private RepCompService repCompService;
 
-    public Page<RepComp> seletPage(PageDTO<RepCompDTO> pageDTO){
-        Page<RepComp> page =repCompService.selectPage(pageDTO);
+    public Page<RepGs> seletPage(PageDTO<RepCompDTO> pageDTO){
+        Page<RepGs> page =repCompService.selectPage(pageDTO);
         return page;
     }
 
@@ -32,8 +36,6 @@ public class RepCompServiceImpl {
      * @return stu 是否成功
      */
     public boolean updateRepComp(RepCompDTO dto){
-        dto.setCreattime(DateUtils.getNow());
-        dto.setUpdatetime(DateUtils.getNow());
         return repCompService.updateRepComp(dto);
     }
 
@@ -53,13 +55,54 @@ public class RepCompServiceImpl {
      */
     public boolean insertRepComp(RepCompDTO dto){
         dto.setId(DateUtils.getNo(6));
-        dto.setCreatuser("addmin");
-        dto.setUpdateuser("addmin");
-        dto.setCreattime(DateUtils.getNow());
-        dto.setUpdatetime(DateUtils.getNow());
-        dto.setIsdisabled(RepConstants.SFYX_YX);
         boolean istrue = repCompService.insertRepComp(dto);
         return istrue;
+    }
+
+    /**
+     * 通过上级id查询所有公司(不传查询所有)
+     * @param sjid 上级id
+     * @return 公司集合
+     */
+    public List<RepGs> getRepList(String sjid){
+        return repCompService.getRepList(sjid);
+    }
+
+    public List<TreeNode> getTreeNodes(){
+        List<TreeNode> treeNodes = new ArrayList<>();
+        List<RepGs> repComps = repCompService.getRepList("none");
+        for (RepGs repComp : repComps) {
+            TreeNode treeNodeOne = new TreeNode();
+            treeNodeOne.setTitle(repComp.getJc());
+            treeNodeOne.setValue(repComp.getId());
+            List<TreeNode> treeNodeChildrens = getTreeNodeChildrens(treeNodeOne);
+            treeNodeOne.setChildren(treeNodeChildrens);
+            treeNodes.add(treeNodeOne);
+        }
+        if (CollectionUtils.isNotEmpty(treeNodes)){//默认展开第一个节点
+            treeNodes.get(0).setExpand(true);
+            treeNodes.get(0).setSelected(true);
+        }
+        return treeNodes;
+    }
+
+    public List<TreeNode> getTreeNodeChildrens(TreeNode treeNode){
+        List<TreeNode> treeNodes = new ArrayList<>();
+        List<RepGs> repComps = repCompService.getRepList(treeNode.getValue());
+            for (RepGs repComp : repComps) {
+                TreeNode treeNodeOne = new TreeNode();
+                treeNodeOne.setTitle(repComp.getJc());
+                treeNodeOne.setValue(repComp.getId());
+                List<RepGs> repCompList = getRepList(treeNodeOne.getValue());
+                if (CollectionUtils.isNotEmpty(repCompList)){
+                    List<TreeNode> treeNodeChildrens = getTreeNodeChildrens(treeNodeOne);
+                    treeNodeOne.setChildren(treeNodeChildrens);
+                }
+                treeNodes.add(treeNodeOne);
+
+            }
+
+        return treeNodes;
     }
 
 

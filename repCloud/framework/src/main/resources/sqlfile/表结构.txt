@@ -279,3 +279,61 @@ INSERT INTO `rep_login` VALUES ('2019011201060002', '201904090001', '耿海元',
 #4.11 添加员工,部门,公司表
 
 -----------------------------------------------------------------------
+
+ALTER TABLE `rep_gs`
+DROP COLUMN `sjmc`,
+ADD COLUMN `sjmc`  varchar(255) NULL COMMENT '上级公司名称' AFTER `sjid`;
+
+DROP TABLE IF EXISTS `rep_city`;
+CREATE TABLE `rep_city` (
+  `bh` varchar(30) NOT NULL COMMENT '编号主键',
+  `mc` varchar(30) NOT NULL COMMENT '名称',
+  `ywmc` varchar(30) DEFAULT NULL COMMENT '英文名称',
+  `gngj` varchar(1) NOT NULL COMMENT '国内国际1国内，0国际',
+  `szgj` varchar(30) NOT NULL COMMENT '所在国家数据字典中获取',
+  `szsf` varchar(30) DEFAULT NULL COMMENT '所在省份数据字典中获取',
+  `csjj` varchar(2000) DEFAULT NULL COMMENT '城市简介',
+  `dhqh` varchar(10) DEFAULT NULL COMMENT '电话区号',
+  `yzbm` varchar(10) DEFAULT NULL COMMENT '邮政编码',
+  `bzbz` varchar(200) DEFAULT NULL COMMENT '备注 存放城市的经纬度坐标',
+  `by1` varchar(50) DEFAULT NULL COMMENT '备用一,用做城市区域来自于基础数据',
+  `by2` varchar(50) DEFAULT NULL COMMENT '备用二,用做对应国家标准城市编号',
+  `by3` varchar(200) DEFAULT NULL COMMENT '备用三,用做存入上级城市',
+  `czdatetime` varchar(20) DEFAULT NULL COMMENT '操作时间',
+  `czuserid` varchar(20) DEFAULT NULL COMMENT '操作用户',
+  `ylid` varchar(30) DEFAULT NULL COMMENT '艺龙id',
+  `hxid` varchar(30) DEFAULT NULL COMMENT '航信id',
+  `xcid` varchar(30) DEFAULT NULL COMMENT '携程id',
+  `sfrm` varchar(1) DEFAULT NULL COMMENT '是否热门城市1:是0:否',
+  `sfsh` varchar(1) DEFAULT NULL COMMENT '是否省会/直辖城市 1省会城市 2直辖市 0无 3地州市 4县级市',
+  `ywjc` varchar(1) DEFAULT NULL COMMENT '有无机场1:是0:否',
+  `ywhcz` varchar(1) DEFAULT NULL COMMENT '有无火车站1:是0:否',
+  `zbid` varchar(30) DEFAULT NULL COMMENT '座标id,与t_dzzb 表对应',
+  `pyjsm` varchar(20) DEFAULT NULL COMMENT '拼音检索码',
+  `xzq` varchar(20) DEFAULT NULL COMMENT '城市所属行政区，用于酒店和poi数据，对应ve_city_area表id',
+  `sflycs` varchar(1) DEFAULT '0' COMMENT '是否旅游城市，1是，0否，默认为0',
+  `ddid` varchar(30) DEFAULT NULL COMMENT '滴滴id',
+  `sfjdcs` varchar(1) DEFAULT NULL COMMENT '是否酒店城市，1是，0否，默认为0',
+  `sequence` bigint(20) DEFAULT NULL COMMENT '数据新增/修改/删除时操作的字段',
+  PRIMARY KEY (`bh`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `rep_country`;
+CREATE TABLE `rep_country` (
+  `id` varchar(30) NOT NULL COMMENT '主键id',
+  `mc` varchar(255) DEFAULT NULL COMMENT '国家名称',
+  `ywmc` varchar(255) DEFAULT NULL COMMENT '英文名称',
+  `sxh` varchar(255) DEFAULT NULL COMMENT '顺序号',
+  `parid` varchar(30) DEFAULT NULL COMMENT '父级id',
+  `lb` varchar(255) DEFAULT NULL COMMENT '类别',
+  `by1` varchar(255) DEFAULT NULL COMMENT '备用1',
+  `by2` varchar(255) DEFAULT NULL COMMENT '备用2(代号)',
+  `by3` varchar(255) DEFAULT NULL COMMENT '备用3(代号简称)',
+  `by4` varchar(255) DEFAULT NULL COMMENT '备用4',
+  `by5` varchar(255) DEFAULT '' COMMENT '备用5',
+  `by6` varchar(255) DEFAULT NULL COMMENT '备用6(所属洲际)',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#4.18 公司表新加字段  上级公司名称, 添加新表,城市,国家(洲)
+------------------------------------------------------------------------

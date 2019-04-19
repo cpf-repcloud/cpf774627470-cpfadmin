@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.rep.cloud.custom.basicdata.mapper.RepCityMapper">
+    <select id="pagelist" resultType="cn.rep.cloud.custom.basicdata.entity.RepCity">
+        select * from rep_city ct
+        <where>
+        </where>
+    </select>
+    <select id="getCityList" resultType="cn.rep.cloud.custom.basicdata.vo.RepCityVO">
+        select t.bh,t.mc,left(ywmc,'1') as firstZ,t.* from rep_city t
+        <where>
+            <if test="dto.gngj != '' and dto.gngj != null">
+                and t.gngj = #{dto.gngj}
+            </if>
+            <if test="dto.sfrm != '' and dto.sfrm != null">
+                and t.sfrm = #{dto.sfrm}
+            </if>
+            <if test="dto.pyjsm != '' and dto.pyjsm != null">
+                and t.pyjsm = #{dto.pyjsm}
+            </if>
+            <if test="dto.ywmc != '' and dto.ywmc != null">
+                and t.ywmc = #{dto.ywmc}
+            </if>
+            <if test="dto.gjz != '' and dto.gjz != null">
+                and (t.mc LIKE #{dto.gjz}) or (t.ywmc LIKE #{dto.gjz}) or (t.pyjsm LIKE #{dto.gjz})
+            </if>
+        </where>
+    </select>
+</mapper>

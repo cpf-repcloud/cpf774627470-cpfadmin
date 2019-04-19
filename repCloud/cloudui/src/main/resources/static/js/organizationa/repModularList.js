@@ -7,8 +7,8 @@ window.onload=function (){
             align: 'center'
         },
         {
-            title: '公司简称',
-            key: 'compjc',
+            title: '菜单名称',
+            key: 'name',
             render:function (h,params) {
                 return h('a',{
                     on:{
@@ -20,16 +20,8 @@ window.onload=function (){
             }
         },
         {
-            title: '总公司',
-            key: 'zgs'
-        },
-        {
-            title: '公司电话',
-            key: 'phonenumber'
-        },
-        {
-            title: '公司邮件',
-            key: 'email'
+            title: '上级编号',
+            key: 'parentid'
         },
         {
             title: '最后修改人',
@@ -37,7 +29,12 @@ window.onload=function (){
         },
         {
             title: '最后修改时间',
-            key: 'updatetime'
+            key: 'updatetime',
+            render: function (h, params) {
+                return h('div',
+                    formatDate(new Date(params.row.updatetime),'MM-dd hh:mm')
+                );
+            }
         },
         {
             title: '是否有效',
@@ -103,28 +100,24 @@ window.onload=function (){
             columns1: columns,
             pagedata: [],
             formRule:{
-                compmc:[{required:true,message: "请输入公司名称",trigger: 'blur'}],
-                compjc:[{required:true,message: "请输入公司简称",trigger: 'blur'}],
-                compaddress:[{required:true,message: "请输入公司地址",trigger: 'blur'}],
-                phonenumber:[{required:true,message: "请输入公司电话",trigger: 'blur'}],
-                email:[{required:true,message: "请输入公司邮件",trigger: 'blur'}],
-                homepage:[{required:true,message: "请输入公司地址",trigger: 'blur'}]
+                name:[{required:true,message: "请输入菜单名称",trigger: 'blur'}],
+                url:[{required:true,message: "请输入菜单url",trigger: 'blur'}],
+                sxh:[{required:true,message: "请输入菜单顺序号",trigger: 'blur'}],
+                parentid:[{required:true,message: "请选择上级菜单",trigger: 'blur'}]
             },
             igrid:{
-                url:"/custom/repComp/list",
+                url:"/custom/repModular/list",
                 loading:false
             },
-            addComp:false,
+            addMenu:false,
             iquery:{
                 id:"",
                 isdisabled:""
             },
             parentList:[],
             saveData:{
-                id:"",compmc:"",compjc:"",compaddress:"",zgs:"",phonenumber:"",email:"",
-                homepage:"",business:"",isdisabled:""
-            },
-            value:""
+                id:"",name:"",url:"",parentid:"",isdisabled:"",sxh:""
+            }
         },
         mounted:function (){
             var _this=this;
@@ -162,10 +155,9 @@ window.onload=function (){
                     }
                 });
             },
-            saveComp:function () {
-                apps.saveData = {id:"",compmc:"",compjc:"",compaddress:"",zgs:"",phonenumber:"",email:"",
-                    homepage:"",business:"",isdisabled:""};
-                apps.addComp = true;
+            saveMenu:function () {
+                apps.saveData = {id:"",name:"",url:"",parentid:"",isdisabled:"",sxh:""};
+                apps.addMenu = true;
             },
             parentMenu:function () {
                 var url = "/custom/repModular/parentList";

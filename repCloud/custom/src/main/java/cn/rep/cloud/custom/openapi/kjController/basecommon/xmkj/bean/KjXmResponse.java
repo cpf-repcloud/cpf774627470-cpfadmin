@@ -1,4 +1,4 @@
-package cn.rep.cloud.custom.openapi.kjController.basecommon.bean;
+package cn.rep.cloud.custom.openapi.kjController.basecommon.xmkj.bean;
 
 import cn.rep.cloud.custom.openapi.kjController.baseBean.KjBaseResponse;
 
@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class KjXmResponse extends KjBaseResponse {
 
-    List<KjXmResponse> children;
+    private List<KjXmResponse> children;
 
 
     public List<KjXmResponse> getChildren() {

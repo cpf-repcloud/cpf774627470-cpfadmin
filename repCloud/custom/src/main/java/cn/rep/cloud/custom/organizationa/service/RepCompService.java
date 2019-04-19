@@ -4,13 +4,15 @@ import cn.rep.cloud.custom.coreutils.common.PageCopyUtil;
 import cn.rep.cloud.custom.coreutils.common.PageDTO;
 import cn.rep.cloud.custom.coreutils.utils.BeanMapper;
 import cn.rep.cloud.custom.organizationa.dto.RepCompDTO;
-import cn.rep.cloud.custom.organizationa.entity.RepComp;
+import cn.rep.cloud.custom.organizationa.entity.RepGs;
 import cn.rep.cloud.custom.organizationa.mapper.RepCompMapper;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,9 +25,9 @@ public class RepCompService {
      * @param pageDTO
      * @return
      */
-    public Page<RepComp> selectPage(PageDTO<RepCompDTO> pageDTO){
-        Page<RepComp> page = PageCopyUtil.genPage(pageDTO);
-        List<RepComp> list = repCompMapper.pagelist(page,pageDTO.getData());
+    public Page<RepGs> selectPage(PageDTO<RepCompDTO> pageDTO){
+        Page<RepGs> page = PageCopyUtil.genPage(pageDTO);
+        List<RepGs> list = repCompMapper.pagelist(page,pageDTO.getData());
         page.setRecords(list);
         return page;
     }
@@ -36,7 +38,7 @@ public class RepCompService {
      * @return stu 是否成功
      */
     public boolean insertRepComp(RepCompDTO dto){
-        RepComp repComp = BeanMapper.map(dto,RepComp.class);
+        RepGs repComp = BeanMapper.map(dto,RepGs.class);
         int stu = 0;
         if (null != repComp){
             stu = repCompMapper.insert(repComp);
@@ -53,7 +55,7 @@ public class RepCompService {
      * @return stu 是否成功
      */
     public boolean updateRepComp(RepCompDTO dto){
-        RepComp repComp = BeanMapper.map(dto,RepComp.class);
+        RepGs repComp = BeanMapper.map(dto,RepGs.class);
         int stu = 0;
         if (null != repComp && StringUtils.isNotBlank(repComp.getId())){
             stu = repCompMapper.updateById(repComp);
@@ -70,7 +72,7 @@ public class RepCompService {
      * @return stu 是否成功
      */
     public boolean deleteRepComp(RepCompDTO dto){
-        RepComp repComp = BeanMapper.map(dto,RepComp.class);
+        RepGs repComp = BeanMapper.map(dto,RepGs.class);
         int stu = 0;
         if (null != repComp && StringUtils.isNotBlank(repComp.getId())){
             stu = repCompMapper.deleteById(repComp);
@@ -79,5 +81,19 @@ public class RepCompService {
             return Boolean.TRUE;
         }
         return Boolean.FALSE;
+    }
+
+    /**
+     * 通过上级id查询所有公司(不传查询所有)
+     * @param sjid 上级id
+     * @return 公司集合
+     */
+    public List<RepGs> getRepList(String sjid){
+        EntityWrapper<RepGs> ew = new EntityWrapper<>();
+        if (StringUtils.isNotBlank(sjid)){
+            ew.eq("sjid",sjid);
+        }
+        ew.orderBy("cjsj");
+        return repCompMapper.selectList(ew);
     }
 }

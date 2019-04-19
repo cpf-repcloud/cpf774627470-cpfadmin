@@ -45,7 +45,7 @@
                     </i-col>
                     <i-col :sm="12">
                         <Form-item label="城市单选控件">
-                            <ve-citycard :search="false" placeholder="search..." :all-datas="csxz" :title-menu="titleMenu" transfer=""></ve-citycard></br>
+                            <ve-citycard :search="true" placeholder="search..." :all-datas="csxz" :title-menu="titleMenu" @on-change="checkCity"></ve-citycard></br>
                             <a @click="ckyf(1)">展开描述</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a @click="sqyf(1)">收起描述</a>
                             <div id="kjms1" class="kjms">
                                 <h2 class="ve-mt10">属性</h2>

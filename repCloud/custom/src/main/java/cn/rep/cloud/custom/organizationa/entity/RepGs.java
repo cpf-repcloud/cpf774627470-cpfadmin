@@ -63,6 +63,12 @@ public class RepGs  implements Serializable {
 	private String sjid;
 
 	/**
+	 * 上级名称(null表示无上级公司)
+	 */
+   	@Column(name = "sjmc" )
+	private String sjmc;
+
+	/**
 	 * 所在国家
 	 */
    	@Column(name = "szgj" )
@@ -218,6 +224,14 @@ public class RepGs  implements Serializable {
 
 	public void setSjid(String sjid) {
 		this.sjid = sjid;
+	}
+
+	public String getSjmc() {
+		return sjmc;
+	}
+
+	public void setSjmc(String sjmc) {
+		this.sjmc = sjmc;
 	}
 
 	public String getSzgj() {

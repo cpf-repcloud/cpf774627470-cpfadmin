@@ -109,6 +109,7 @@ window.onload= function (){
                 }
             },
             closeMenu:function(i){
+                debugger
                  this.topMenu.splice(i,1);
                 this.nowId=this.topMenu[i-1].id;
             },

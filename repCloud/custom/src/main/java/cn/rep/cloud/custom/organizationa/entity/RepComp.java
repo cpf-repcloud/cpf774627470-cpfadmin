@@ -9,66 +9,155 @@ import java.util.Date;
  * 公司表
  */
 @Entity
-@Table(name = "rep_comp")
+@Table(name = "rep_gs")
 public class RepComp  implements Serializable {
 
+	private static final long serialVersionUID =  6659210305133946876L;
+
 	/**
-	 * 主键id
+	 * ID(主键)
 	 */
 	@Id
+	@Column(name = "id" )
 	private String id;
+
 	/**
-	 * 公司名称
+	 * 企业编号
 	 */
-	private String compmc;
+	@Column(name = "qybh" )
+	private String qybh;
+
 	/**
-	 * 公司简称
+	 * 编号
 	 */
-	private String compjc;
+	@Column(name = "bh" )
+	private String bh;
+
 	/**
-	 * 公司地址
+	 * 类型(1集团公司 2子公司 3.分公司)
 	 */
-	private String compaddress;
+	@Column(name = "lx" )
+	private String lx;
+
 	/**
-	 * 总公司
+	 * 公司名称(全称)
 	 */
-	private String zgs;
+	@Column(name = "mc" )
+	private String mc;
+
+	/**
+	 * 简称
+	 */
+	@Column(name = "jc" )
+	private String jc;
+
+	/**
+	 * 上级id(none表示无上级公司)
+	 */
+	@Column(name = "sjid" )
+	private String sjid;
+
+	/**
+	 * 所在国家
+	 */
+	@Column(name = "szgj" )
+	private String szgj;
+
+	/**
+	 * 所在省份
+	 */
+	@Column(name = "szsf" )
+	private String szsf;
+
+	/**
+	 * 所在城市
+	 */
+	@Column(name = "szcs" )
+	private String szcs;
+
+	/**
+	 * 详细地址
+	 */
+	@Column(name = "xxdz" )
+	private String xxdz;
+
+	/**
+	 * 公司法人
+	 */
+	@Column(name = "gsfr" )
+	private String gsfr;
+
 	/**
 	 * 公司电话
 	 */
-	private String phonenumber;
+	@Column(name = "gsdh" )
+	private String gsdh;
+
 	/**
-	 * 公司邮箱
+	 * 公司网站
 	 */
-	private String email;
+	@Column(name = "gswz" )
+	private String gswz;
+
 	/**
-	 * 公司首页
+	 * 公司LOGO
 	 */
-	private String homepage;
+	@Column(name = "logo" )
+	private String logo;
+
 	/**
-	 * 公司主营
+	 * 状态(1有效 0 无效)
 	 */
-	private String business;
+	@Column(name = "zt" )
+	private String zt;
+
 	/**
-	 * 是否有效  1:有效  0:无效
+	 * 银行账户名
 	 */
-	private String isdisabled;
+	@Column(name = "yhzhm" )
+	private String yhzhm;
+
 	/**
-	 * 创建人
+	 * 银行开户行
 	 */
-	private String creatuser;
+	@Column(name = "yhkhh" )
+	private String yhkhh;
+
 	/**
-	 * 最后修改人
+	 * 银行账号
 	 */
-	private String updateuser;
+	@Column(name = "yhzh" )
+	private String yhzh;
+
+	/**
+	 * 纳税人识别号
+	 */
+	@Column(name = "nsrsbh" )
+	private String nsrsbh;
+
+	/**
+	 * 默认语种
+	 */
+	@Column(name = "mryz" )
+	private String mryz;
+
+	/**
+	 * 本位币种
+	 */
+	@Column(name = "bwbz" )
+	private String bwbz;
+
+	/**
+	 * 创建人ID(来源员工表)
+	 */
+	@Column(name = "cjr" )
+	private String cjr;
+
 	/**
 	 * 创建时间
 	 */
-	private Date updatetime;
-	/**
-	 * 最后修改时间
-	 */
-	private Date creattime;
+	@Column(name = "cjsj" )
+	private Date cjsj;
 
 	public String getId() {
 		return id;
@@ -78,107 +167,187 @@ public class RepComp  implements Serializable {
 		this.id = id;
 	}
 
-	public String getCompmc() {
-		return compmc;
+	public String getQybh() {
+		return qybh;
 	}
 
-	public void setCompmc(String compmc) {
-		this.compmc = compmc;
+	public void setQybh(String qybh) {
+		this.qybh = qybh;
 	}
 
-	public String getCompjc() {
-		return compjc;
+	public String getBh() {
+		return bh;
 	}
 
-	public void setCompjc(String compjc) {
-		this.compjc = compjc;
+	public void setBh(String bh) {
+		this.bh = bh;
 	}
 
-	public String getCompaddress() {
-		return compaddress;
+	public String getLx() {
+		return lx;
 	}
 
-	public void setCompaddress(String compaddress) {
-		this.compaddress = compaddress;
+	public void setLx(String lx) {
+		this.lx = lx;
 	}
 
-	public String getZgs() {
-		return zgs;
+	public String getMc() {
+		return mc;
 	}
 
-	public void setZgs(String zgs) {
-		this.zgs = zgs;
+	public void setMc(String mc) {
+		this.mc = mc;
 	}
 
-	public String getPhonenumber() {
-		return phonenumber;
+	public String getJc() {
+		return jc;
 	}
 
-	public void setPhonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
+	public void setJc(String jc) {
+		this.jc = jc;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getSjid() {
+		return sjid;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setSjid(String sjid) {
+		this.sjid = sjid;
 	}
 
-	public String getHomepage() {
-		return homepage;
+	public String getSzgj() {
+		return szgj;
 	}
 
-	public void setHomepage(String homepage) {
-		this.homepage = homepage;
+	public void setSzgj(String szgj) {
+		this.szgj = szgj;
 	}
 
-	public String getBusiness() {
-		return business;
+	public String getSzsf() {
+		return szsf;
 	}
 
-	public void setBusiness(String business) {
-		this.business = business;
+	public void setSzsf(String szsf) {
+		this.szsf = szsf;
 	}
 
-	public String getIsdisabled() {
-		return isdisabled;
+	public String getSzcs() {
+		return szcs;
 	}
 
-	public void setIsdisabled(String isdisabled) {
-		this.isdisabled = isdisabled;
+	public void setSzcs(String szcs) {
+		this.szcs = szcs;
 	}
 
-	public String getCreatuser() {
-		return creatuser;
+	public String getXxdz() {
+		return xxdz;
 	}
 
-	public void setCreatuser(String creatuser) {
-		this.creatuser = creatuser;
+	public void setXxdz(String xxdz) {
+		this.xxdz = xxdz;
 	}
 
-	public String getUpdateuser() {
-		return updateuser;
+	public String getGsfr() {
+		return gsfr;
 	}
 
-	public void setUpdateuser(String updateuser) {
-		this.updateuser = updateuser;
+	public void setGsfr(String gsfr) {
+		this.gsfr = gsfr;
 	}
 
-	public Date getUpdatetime() {
-		return updatetime;
+	public String getGsdh() {
+		return gsdh;
 	}
 
-	public void setUpdatetime(Date updatetime) {
-		this.updatetime = updatetime;
+	public void setGsdh(String gsdh) {
+		this.gsdh = gsdh;
 	}
 
-	public Date getCreattime() {
-		return creattime;
+	public String getGswz() {
+		return gswz;
 	}
 
-	public void setCreattime(Date creattime) {
-		this.creattime = creattime;
+	public void setGswz(String gswz) {
+		this.gswz = gswz;
+	}
+
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public String getZt() {
+		return zt;
+	}
+
+	public void setZt(String zt) {
+		this.zt = zt;
+	}
+
+	public String getYhzhm() {
+		return yhzhm;
+	}
+
+	public void setYhzhm(String yhzhm) {
+		this.yhzhm = yhzhm;
+	}
+
+	public String getYhkhh() {
+		return yhkhh;
+	}
+
+	public void setYhkhh(String yhkhh) {
+		this.yhkhh = yhkhh;
+	}
+
+	public String getYhzh() {
+		return yhzh;
+	}
+
+	public void setYhzh(String yhzh) {
+		this.yhzh = yhzh;
+	}
+
+	public String getNsrsbh() {
+		return nsrsbh;
+	}
+
+	public void setNsrsbh(String nsrsbh) {
+		this.nsrsbh = nsrsbh;
+	}
+
+	public String getMryz() {
+		return mryz;
+	}
+
+	public void setMryz(String mryz) {
+		this.mryz = mryz;
+	}
+
+	public String getBwbz() {
+		return bwbz;
+	}
+
+	public void setBwbz(String bwbz) {
+		this.bwbz = bwbz;
+	}
+
+	public String getCjr() {
+		return cjr;
+	}
+
+	public void setCjr(String cjr) {
+		this.cjr = cjr;
+	}
+
+	public Date getCjsj() {
+		return cjsj;
+	}
+
+	public void setCjsj(Date cjsj) {
+		this.cjsj = cjsj;
 	}
 }
