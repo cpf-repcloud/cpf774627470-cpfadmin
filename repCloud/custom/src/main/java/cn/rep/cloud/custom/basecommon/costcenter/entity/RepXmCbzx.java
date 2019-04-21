@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableName;
 
 
@@ -21,35 +22,35 @@ public class RepXmCbzx implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-        /**
+    /**
      * ID(主键)
      */
-        private String id;
-        /**
+    private String id;
+    /**
      * 企业编号
      */
-        private String qybh;
-        /**
+    private String qybh;
+    /**
      * 项目ID
      */
-        private String xmid;
-        /**
+    private String xmid;
+    /**
      * 成本中心ID
      */
-        private String cbzxid;
-        /**
+    private String cbzxid;
+    /**
      * 最后修改人
      */
-        private String zhxgr;
-        /**
+    private String zhxgr;
+    /**
      * 最后修改时间
      */
-        @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-        private Date zhxgsj;
-        /**
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date zhxgsj;
+    /**
      * 最后修改IP
      */
-        private String ip;
+    private String ip;
 
 
     public String getId() {

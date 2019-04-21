@@ -7,6 +7,7 @@ import cn.rep.cloud.custom.basecommon.costcenter.service.dto.CostCenterOperation
 import cn.rep.cloud.custom.basecommon.costcenter.service.vo.CostCenterDetailVO;
 import cn.rep.cloud.custom.basecommon.costcenter.service.vo.CostCenterListVO;
 import cn.rep.cloud.custom.basecommon.costcenter.service.vo.CostCenterTreeVO;
+import cn.rep.cloud.custom.coreutils.common.BaseController;
 import cn.rep.cloud.custom.coreutils.common.PageDTO;
 import cn.rep.cloud.custom.coreutils.common.RestResponse;
 import cn.rep.cloud.custom.coreutils.systemexception.SystemException;
@@ -19,17 +20,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *项目管理
+ * 项目管理
  * /controller
  */
 @RestController
 @RequestMapping(value = "/costcenter")
-public class RepCbzxController {
+public class RepCbzxController extends BaseController {
 
     /**
      * 日志记录
      */
-   private  Logger logger= LoggerFactory.getLogger(RepCbzxController.class);
+    private Logger logger = LoggerFactory.getLogger(RepCbzxController.class);
 
 
     /***
@@ -41,7 +42,8 @@ public class RepCbzxController {
 
     /**
      * 查询成本中心树形结构【递归查询成本中心数据】
-     *`
+     * `
+     *
      * @param dto [页面带过来的查询参数]
      * @return RestResponse<CostCenterTreeVO>
      * @author yangxianglin
@@ -49,23 +51,24 @@ public class RepCbzxController {
      */
     @PostMapping(value = "/queryCostCenterTree")
     public RestResponse<CostCenterTreeVO> queryCostCenterTree(@RequestBody CostCenterManagementDTO dto) {
-        
+
         CostCenterTreeVO costCenterTreeVO = costCenterManagementBusinessService.queryCostCenterTree(dto);
         return new RestResponse<>(costCenterTreeVO);
     }
 
     /**
-     *  成本中心分页列表
+     * 成本中心分页列表
+     *
      * @param pageDTO 查询条件
-     * @return  List<CostCenterPageListVO>
+     * @return List<CostCenterPageListVO>
      * @throws SystemException [抛异常]
      * @author yangxianglin
-     * @date   2018-08-06 11:00:25
+     * @date 2018-08-06 11:00:25
      */
     @PostMapping(value = "/selectCostCenterPageList")
     public RestResponse<CostCenterListVO> selectCostCenterPageList(@RequestBody PageDTO<CostCenterListDTO> pageDTO) throws SystemException {
-       /* pageDTO.getData().setQybh(loginUser.getQybh());
-        pageDTO.getData().setGsid(loginUser.getGsid());*/
+        pageDTO.getData().setQybh(loginUser.getQybh());
+        pageDTO.getData().setGsid(loginUser.getGsid());
         CostCenterListVO listVO = costCenterManagementBusinessService.selectCostCenterPageList(pageDTO);
         return new RestResponse<>(listVO);
     }
@@ -96,8 +99,8 @@ public class RepCbzxController {
      */
     @PostMapping(value = "/insertCostCenter")
     public RestResponse<Boolean> insertCostCenter(@RequestBody CostCenterOperationDTO operationDTO) throws SystemException {
-        /*operationDTO.setCzr(loginUser.getId());
-        operationDTO.setGsid(loginUser.getGsid());*/
+        operationDTO.setCzr(loginUser.getId());
+        operationDTO.setGsid(loginUser.getGsid());
         Boolean code = costCenterManagementBusinessService.insertCostCenter(operationDTO);
         return new RestResponse<>(code);
     }
@@ -113,7 +116,7 @@ public class RepCbzxController {
      */
     @PostMapping(value = "/updateCostCenter")
     public RestResponse<Boolean> updateCostCenter(@RequestBody CostCenterOperationDTO operationDTO) throws SystemException {
-       // operationDTO.setCzr(loginUser.getId());
+        operationDTO.setCzr(loginUser.getId());
         Boolean code = costCenterManagementBusinessService.updateCostCenter(operationDTO);
         return new RestResponse<>(code);
     }
@@ -144,7 +147,7 @@ public class RepCbzxController {
      */
     @PostMapping(value = "/verificationCbzxbh")
     public RestResponse<Boolean> verificationCbzxbh(@RequestBody CostCenterOperationDTO operationDTO) throws SystemException {
-       // operationDTO.setGsid(loginUser.getGsid());
+        operationDTO.setGsid(loginUser.getGsid());
         Boolean code = costCenterManagementBusinessService.verificationCbzxbh(operationDTO);
         return new RestResponse<>(code);
     }

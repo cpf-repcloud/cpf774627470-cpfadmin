@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>基础数据列表</title>
+    <style type="text/css">
+        @import "../../static/public/css/commons.css";
+
+        ::-ms-clear, ::-ms-reveal {
+            display: none;
+        }
+
+        .tree {
+            width: 200px;
+            position: fixed;
+            left: 10px;
+            top: 10px;
+            height: 96%;
+            padding: 10px;
+            border-right: 1px solid #fff;
+            background: #fff;
+            border-radius: 5px;
+            overflow: auto;
+        }
+
+        .content {
+            position: absolute;
+            left: 220px;
+            right: 10px;
+            bottom: 10px;
+            top: 10px;
+            background: #fff;
+            height: 96%;
+            border-radius: 5px;
+            overflow-y: auto;
+            overflow-x: auto;
+        }
+
+        .sreach {
+            width: 127px;
+        }
+
+        .ivu-tree-empty {
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+    </style>
+    <script type="text/javascript" src="../../static/public/js/common.js"></script>
+    <script type="text/javascript" src="../../static/js/commonbase/database/databaseList.js"></script>
+</head>
+<body style="background: #f0f2f5;">
+<div id="app" v-cloak>
+
+    <div class="tree" id="my-box">
+        <i-form ref="queryForm" :inline="false" :model="iquery" :rules="formRule" :show-message="false"
+                @keydown.native.enter.prevent="keyDownEvent">
+            <Row>
+                <i-col :sm="20" :md="20" :lg="20" style="white-space: nowrap">
+                    <i-input class="sreach" type="text" @on-click="search" icon="ios-search" v-model="dataT.lbmc"
+                             placeholder="请输入数据类别"></i-input>
+                    <i-button type="primary" icon="md-add" @click="addBaseLb"></i-button>
+                </i-col>
+            </Row>
+            <div class="tree-box">
+                <Tree ref="tree4" :data="data1" @on-select-change="selectAll"></Tree>
+            </div>
+        </i-form>
+    </div>
+    <div class="content" style="padding:10px;">
+        <div v-if="jcsj">
+            <Breadcrumb separator="/">
+                <!--<breadcrumb-item to="/">数据类别</breadcrumb-item>-->
+                <breadcrumb-item>{{xzjcsj.lbmc}}</breadcrumb-item>
+                <breadcrumb-item>{{xzjcsj.lb}}</breadcrumb-item>
+            </Breadcrumb>
+            <a style="margin-right: 5px">
+                <Icon type="md-create" @click="editLb" style="font-size: 15px;"/>
+                <!--<Icon type="edit" @click="editDept"/>-->
+            </a>
+            </br>
+            <div class="iview-grid">
+                <i-table stripe :columns="igrid.columns" :data="igrid.datas" width="100%" height="520" size="small"
+                         :loading="igrid.loading"></i-table>
+            </div>
+            <div class="iview-pager">
+                <Page :current="ipage.pageIndex" :total="ipage.total" show-sizer show-total :page-size="ipage.size"
+                      @on-change="changePage" @on-page-size-change="changePageSize"></Page>
+            </div>
+        </div>
+
+
+        <Modal
+                v-model="sj.isSave"
+                title="新建基础数据"
+                width="550"
+                height="600"
+                class="vetech-modal"
+                :mask-closable="false"
+                :scrollable="false"
+                :closable="true"
+        >
+            <div class="iview-query-box">
+                <i-form ref="sf" :model="xzjcsj" :inline="false" :rules="formRule" :show-message="true">
+                    <Row>
+                        <i-col :sm="24">
+                            <form-item label="名称" :label-width="100" prop="mc">
+                                <i-input placeholder="请输入数据名称" :maxlength="20" clearable type="text" v-model="xzjcsj.mc"
+                                         :element-id="'mc'"></i-input>
+                            </form-item>
+                        </i-col>
+                        <i-col :sm="24">
+                            <form-item label="数据编号" :label-width="100" prop="bh">
+                                <i-input placeholder="请输入数据编号" clearable type="text" v-model="xzjcsj.bh"
+                                         :element-id="'bh'"></i-input>
+                            </form-item>
+                        </i-col>
+                        <i-col :sm="24">
+                            <form-item label="顺序号" :label-width="100" prop="sxh">
+                                <i-input placeholder="请输入顺序号" clearable type="text" v-model="xzjcsj.sxh"
+                                         :element-id="'sxh'"></i-input>
+                            </form-item>
+                        </i-col>
+                    </Row>
+                </i-form>
+            </div>
+            <div slot="footer">
+                <i-button @click="cancel" type="text">取消</i-button>
+                <i-button @click="submit" type="primary">提交</i-button>
+            </div>
+        </modal>
+        <spin size="large" fix v-if="spinShow"></spin>
+
+        <Modal
+                v-model="md.isEdit"
+                title="编辑基础数据"
+                width="550"
+                height="600"
+                class="vetech-modal"
+                :mask-closable="false"
+                :scrollable="false"
+                :closable="true"
+        >
+            <i-form ref="mf" :model="mfd" :inline="false" :rules="editformRule" :show-message="true">
+                <Row>
+                    <i-col :sm="24">
+                        <form-item label="名称" :label-width="100" prop="mc">
+                            <i-input placeholder="请输入数据名称" :maxlength="20" clearable type="text" v-model="mfd.mc"
+                                     :element-id="'mc'"></i-input>
+                        </form-item>
+                    </i-col>
+                    <i-col :sm="24">
+                        <form-item label="数据编号" :label-width="100" prop="bh">
+                            <i-input placeholder="请输入数据编号" clearable type="text" v-model="mfd.bh"
+                                     :element-id="'bh'"></i-input>
+                        </form-item>
+                    </i-col>
+                    <i-col :sm="24">
+                        <form-item label="顺序号" :label-width="100" prop="sxh">
+                            <i-input placeholder="请输入顺序号" clearable type="text" v-model="mfd.sxh"
+                                     :element-id="'sxh'"></i-input>
+                        </form-item>
+                    </i-col>
+                </Row>
+            </i-form>
+            <div slot="footer">
+                <i-button @click="cancel('mf')" type="text">取消</i-button>
+                <i-button @click="saves('mf')" type="primary">保存</i-button>
+            </div>
+        </modal>
+        <modal v-model="de.isDel" mask-closable="false" @on-ok="mydel" title="删除" width="300">
+            <div class="iview-query-box de-box">
+                <i-form ref="de" :model="mfd"><p>确人删除</p></i-form>
+            </div>
+        </modal>
+
+        <div v-if="!jcsj" style="margin-top: 5%;">
+            <p style="text-align: center;">
+                <img src="/static/public/image/common/wxgsicon.png">
+            </p>
+            <p style="text-align: center;color: #464c5b;margin-top: 20px;">
+                <b>请选择数据类别</b>
+            </p>
+            <p style="text-align: center;color: #9ea7b4;margin-bottom: 10px; margin-top: 10px;">
+                请选择类别
+            </p>
+        </div>
+
+
+        <Modal
+                v-model="md.addSjlb"
+                title="新增数据类别"
+                width="550"
+                height="600"
+                class="vetech-modal"
+                :mask-closable="false"
+                :scrollable="false"
+                :closable="true"
+        >
+            <i-form ref="savelb" :model="mfd" top="0" :label-width="150" :inline="false" :rules="ruleValidate"
+                    :show-message="true">
+                <Row>
+                    <i-col :sm="24">
+                        <form-item label="类别名称" :label-width="100" prop="lbmc">
+                            <i-input placeholder="请输入数据名称" :maxlength="20" clearable type="text" v-model="mfd.lbmc"
+                                     :element-id="'lbmc'"></i-input>
+                        </form-item>
+                    </i-col>
+                    <i-col :sm="24">
+                        <form-item label="类别编号" :label-width="100" prop="lb">
+                            <i-input placeholder="请输入数据编号" clearable type="text" v-model="mfd.lb"
+                                     :element-id="'lb'"></i-input>
+                        </form-item>
+                    </i-col>
+                </Row>
+            </i-form>
+            <div slot="footer">
+                <i-button @click="cancel('savelb')" type="text">取消</i-button>
+                <i-button @click="saves('savelb')" type="primary">保存</i-button>
+            </div>
+        </modal>
+        <Modal
+                v-model="md.editSjbl"
+                title="编辑数据类别"
+                width="550"
+                height="600"
+                class="vetech-modal"
+                :mask-closable="false"
+                :scrollable="false"
+                :closable="true"
+        >
+            <i-form ref="editlb" :model="mfd" top="0" :label-width="150" :inline="false" :rules="ruleValidate"
+                    :show-message="true">
+                <Row>
+                    <i-col :sm="24">
+                        <form-item label="类别名称" :label-width="100" prop="lbmc">
+                            <i-input placeholder="请输入数据名称" :maxlength="20" clearable type="text" v-model="mfd.lbmc"
+                                     :element-id="'lbmc'"></i-input>
+                        </form-item>
+                    </i-col>
+                    <i-col :sm="24">
+                        <form-item label="类别编号" :label-width="100" prop="lb">
+                            <i-input placeholder="请输入数据编号" clearable type="text" v-model="mfd.lb"
+                                     :element-id="'lb'"></i-input>
+                        </form-item>
+                    </i-col>
+                </Row>
+            </i-form>
+            <div slot="footer">
+                <i-button @click="cancel('savelb')" type="text">取消</i-button>
+                <i-button @click="saves('savelb')" type="primary">保存</i-button>
+            </div>
+        </modal>
+    </div>
+
+</div>
+</body>
+</html>

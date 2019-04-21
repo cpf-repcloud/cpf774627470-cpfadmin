@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <title>成本中心</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script type="text/javascript" src="../../static/public/js/common.js"></script>
+    <script type="text/javascript" src="../../static/js/commonbase/cost/costlist.js"></script>
+
+    <style>
+        @import "../../static/public/css/commons.css";
+
+        .searchdemo {
+            width: 200px;
+        }
+
+        .serwid80 {
+            width: 80%;
+        }
+
+        .dispin {
+            width: 100%;
+            display: inline-block;
+            border-bottom: 1px #f2f2f2 solid;
+        }
+
+        ::-ms-clear, ::-ms-reveal {
+            display: none;
+        }
+
+        .marginTop10 {
+            margin-top: 15px;
+        }
+
+        .margintop20 {
+            margin-top: 20px;
+        }
+
+        .demlo1 {
+            display: inline-block;
+            margin-top: 10px;
+            width: 80%;
+        }
+
+        .left20 {
+            width: 40%;
+            display: inline-block;
+            margin-left: 20%;
+            white-space: nowrap;
+        }
+
+        .w20 {
+            width: 30%;
+            display: inline-block;
+        }
+
+        .fonts {
+            font-size: 15px;
+            font-weight: 900;
+        }
+
+        .laofs {
+            float: right;
+        }
+
+        .demoer {
+            height: 1px;
+            margin-top: 20px;
+            background: #dcdee2;
+        }
+
+        .demo22 {
+            width: 830px;
+            height: 1px;
+            background: #dcdee2;
+        }
+
+        .demo33 {
+            color: #9ea7b4;
+            width: 100px;
+            display: inline-block
+        }
+
+        .demol {
+            font-size: 12px;
+            float: right;
+            color: #808695;
+        }
+
+        .demol1 {
+            margin-top: 10px;
+        }
+
+        .marginleft10 {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .wit300demo {
+            width: 400px;
+            display: inline-block;
+        }
+
+        .ivu-form-item-label {
+            text-align: right;
+            vertical-align: middle;
+            float: left;
+            font-size: 12px;
+            color: #495060;
+            line-height: 1;
+            padding: 10px 12px 10px 0;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            width: 150px;
+        }
+
+        .ivu-modal {
+            width: auto;
+            margin: 0 auto;
+            position: relative;
+            outline: 0;
+            top: 10px;
+            /* top: 100px; */
+        }
+
+        .dispin {
+            position: relative;
+        }
+
+        .dispin .more-conditions {
+            position: absolute;
+            right: 80px;
+            bottom: 0px;
+            cursor: pointer;
+        }
+
+        .demo2344 {
+            margin-left: 1%;
+        }
+
+        /**树结构*/
+        .tree {
+            width: 200px;
+            position: fixed;
+            left: 10px;
+            top: 10px;
+            height: 97%;
+            padding: 10px;
+            background: #fff;
+            border-radius: 5px;
+            overflow: scroll;
+        }
+
+        .content {
+            position: absolute;
+            left: 220px;
+            right: 10px;
+            bottom: 10px;
+            top: 10px;
+            background: #fff;
+            height: 97%;
+            border-radius: 5px;
+            overflow-y: auto;
+            overflow-x: auto
+        }
+
+        .ltitle {
+            width: 60px;
+        }
+
+        .lvalue {
+            display: inline-block;
+            line-height: 26px;
+        }
+
+        .sfpoint {
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+<body style="background: #f0f2f5;">
+<div id="appCbzx" v-cloak>
+    <!--成本中心树结构-->
+    <div class="tree">
+        <div class="marginTop10">
+            <i-input type="text" v-model="dataT.cbzxmc" placeholder="请输入名称" icon="ios-search"
+                     @on-click="searchCb"></i-input>
+        </div>
+        <Tree :data="treeData" class="marginTop10 ivu-tree" @on-select-change="selectTreeItem" ref="tree4"
+              empty-text="暂无成本中心数据"></Tree>
+    </div>
+
+    <div class="content">
+        <div class="demo2344" v-if="iquery.id!=null&&iquery.id!=''">
+            <div class="dispin" id="shsk">
+                <div class="demlo1">
+                    <span class="fonts">{{breadData.cbzxmc}}</span>
+                    <a style="margin-right: 5px">
+                        <Icon type="md-create" @click="editCostCenter" style="font-size: 15px;"/>
+                        <!--<Icon type="edit" @click="editDept"/>-->
+                    </a>
+                    <Dropdown class="marginleft10" size="large" trigger="hover">
+                        <span>
+                            ...
+                        </span>
+                    </Dropdown>
+                    <i-switch class="marginleft10" size="large" @on-change="updateCostCenterZt"
+                              v-model="breadData.ztone">
+                        <span slot="open">有效</span>
+                        <span slot="close">无效</span>
+                    </i-switch>
+                </div>
+                <Row v-show="showMore">
+                    <div class="demlo1">
+                        <div class="w20"><label class="ltitle">成本中心编号：</label><span
+                                class="lvalue">{{breadData.cbzxbh}}</span></div>
+                    </div>
+                    <div class="demlo1">
+                        <div class="w20"><label class="ltitle">关联部门：</label><span
+                                class="lvalue">{{breadData.glbmmc}}</span></div>
+                        <div class="left20"><label class="ltitle">关联项目：</label><span
+                                class="lvalue">{{breadData.glxmmc}}</span></div>
+                    </div>
+                </Row>
+                <div class="more-conditions">
+                    <span class="primary sfpoint" v-if="showMore" @click="showMore=false">
+                        <span>收起</span><Icon type="ios-arrow-up"/>
+                    </span>
+                    <span class="primary sfpoint" v-else @click="showMore=true">
+                        <span>展开</span><Icon type="ios-arrow-down"/>
+                    </span>
+                </div>
+            </div>
+            <!--新增按钮，导入，导出及查询部分-->
+            <div class="marginTop10">
+                <i-button icon="md-add" type="primary" @click="addCbzxBefore">新建</i-button>
+                <Button-Group style="margin-left: 20px;">
+                    <i-Button>导入</i-Button>
+                    <i-Button>导出</i-Button>
+                </Button-Group>
+                <i-input v-model="iquery.cbzxmcxx" class="searchdemo laofs" placeholder="请输入名称" icon="ios-search"
+                         @on-click="search"/>
+            </div>
+            <!--数据展示-->
+            <div class="iview-grid marginTop10">
+                <i-table :border=false :columns="igrid.columns" :data="igrid.datas" width="100%" height="400"
+                         size="small"
+                         :loading="igrid.loading"></i-table>
+            </div>
+            <!--分页部分-->
+            <div class="iview-pager">
+                <Page :current="ipage.current" :total="ipage.total" show-sizer show-total :page-size="ipage.size"
+                      @on-change="changePage" @on-page-size-change="changePageSize"></Page>
+            </div>
+        </div>
+
+        <!--无数据页面-->
+        <div v-else style="margin-top: 10%;">
+            <p style="text-align: center;">
+                <img src="/static/public/image/common/wxgsicon.png">
+            </p>
+            <p style="text-align: center;color: #464c5b;margin-top: 20px;">
+                <b>暂无成本中心数据</b>
+            </p>
+            <p style="text-align: center;color: #9ea7b4;margin-bottom: 10px;margin-top: 10px;">
+                暂无成本中心数据
+            </p>
+            <p style="text-align: center;">
+                <i-button type="primary" @click="addCbzxBefore">
+                    <Icon type="md-add"></Icon>
+                    新建
+                </i-button>
+            </p>
+        </div>
+    </div>
+    <!--新增页面-->
+    <Modal
+            v-model="addModel"
+            :title="addData.id?cbzxTitle.bj:cbzxTitle.cj"
+            width="550"
+            height="600"
+            class="vetech-modal"
+            :closable="false"
+    >
+        <!--表单部分-->
+        <i-form :model="addData" ref="add" top="0" :label-width="150" :rules="ruleValidate" :show-message="true">
+            <!--新增的时候-->
+            <div v-if="addData.id==''||addData.id==null">
+                <form-Item class="wit300demo" label="上级成本中心名称" v-if="iquery.id==null||iquery.id==''">
+                    <i-input placeholder="" v-model="addData.sjbh"/>
+                </form-Item>
+                <!--选的时候新增-->
+                <form-Item class="wit300demo" label="上级成本中心名称" v-else>
+                    {{iquery.cbzxmc}}
+                </form-Item>
+            </div>
+            <!--编辑-->
+            <div v-else>
+                <form-Item class="wit300demo" label="上级成本中心名称">
+                    {{addData.sjmc}}
+                </form-Item>
+            </div>
+            <div>
+                <form-Item class="wit300demo" label="成本中心名称" prop="cbzxmc">
+                    <i-input placeholder="" v-model="addData.cbzxmc"/>
+                </form-Item>
+            </div>
+            <div v-if="!addData.id">
+                <form-Item class="wit300demo" label="成本中心编号" prop="cbzxbh">
+                    <i-input placeholder="" v-model="addData.cbzxbh"/>
+                </form-Item>
+            </div>
+            <div v-if="addData.id">
+                <form-Item class="wit300demo" label="成本中心编号">
+                    <span>{{addData.cbzxbh}}</span>
+                </form-Item>
+            </div>
+            <div>
+                <form-Item class="wit300demo" label="关联部门">
+                    <tree-input :multiple="true" :ajaxvalue="bmsdata" :simple-data="simpleData3" v-model="kjxx.bmdxkj"
+                                @on-check-change="bmdxCheckFn"></tree-input>
+                </form-Item>
+            </div>
+            <div>
+                <form-Item class="wit300demo" label="关联项目">
+                    <tree-input :multiple="true" :ajaxvalue="xmsdata" :simple-data="simpleData2" v-model="kjxx.xmdxkj"
+                                @on-check-change="xmdxCheckFn"></tree-input>
+                </form-Item>
+            </div>
+            <div>
+                <form-Item class="wit300demo" label="是否独立预算">
+                    <i-switch v-model="addData.sfdlysone" size="large">
+                        <span slot="open">是</span>
+                        <span slot="close">否</span>
+                    </i-switch>
+                </form-Item>
+            </div>
+        </i-form>
+        <!--脚部-->
+        <div slot="footer">
+            <i-button type="text" @click="cancel">取消</i-button>
+            <i-button type="primary" @click="addCbzx">提交</i-button>
+        </div>
+    </Modal>
+</div>
+
+</body>
+</html>
