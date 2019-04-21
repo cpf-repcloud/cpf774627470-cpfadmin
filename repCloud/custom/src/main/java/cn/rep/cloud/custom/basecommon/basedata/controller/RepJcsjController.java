@@ -60,7 +60,6 @@ public class RepJcsjController extends BaseController {
     public RestResponse<List<BaseDataListVO>> queryBaseLbList(@RequestBody BaseDataListDTO dto) {
         dto.setQybh(loginUser.getQybh());
         dto.setGsid(loginUser.getGsid());
-        dto.setZhxgrmc(loginUser.getXm());
         List<BaseDataListVO> list = basecommonSerivce.queryBaseLbList(dto);
         return new RestResponse<>(list);
     }
