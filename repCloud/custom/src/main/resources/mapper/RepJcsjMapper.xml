@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.rep.cloud.custom.basecommon.basedata.mapper.RepJcsjMapper">
+
+    <select id="pagelist" parameterType="cn.rep.cloud.custom.basecommon.basedata.service.dto.BaseDataListDTO"
+            resultType="cn.rep.cloud.custom.basecommon.basedata.service.vo.BaseDataListVO">
+        select * from rep_jcsj
+        <where>
+            <if test="dto.qybh !=null and dto.qybh!=''">
+                and qybh=#{dto.qybh}
+            </if>
+            <if test="dto.gsid !=null and dto.gsid!=''">
+                and gsid=#{dto.gsid}
+            </if>
+            <if test="dto.bh !=null and dto.bh!=''">
+                and bh=#{dto.bh}
+            </if>
+            <if test="dto.mc !=null and dto.mc!=''">
+                <bind name="mc" value="'%'+dto.mc+'%'"/>
+                and mc like #{mc}
+            </if>
+            <if test="dto.lbmc !=null and dto.lbmc!=''">
+                <bind name="lbmc" value="'%'+dto.lbmc+'%'"/>
+                and lbmc like #{lbmc}
+            </if>
+            <if test="dto.sjms !=null and dto.sjms!=''">
+                <bind name="sjms" value="'%'+dto.sjms+'%'"/>
+                and sjms like #{sjms}
+            </if>
+            <if test="dto.lb !=null and dto.lb!=''">
+                and lb = #{dto.lb}
+            </if>
+        </where>
+    </select>
+
+    <select id="checkBaseData" parameterType="cn.rep.cloud.custom.basecommon.basedata.service.dto.BaseDataListDTO"
+            resultType="cn.rep.cloud.custom.basecommon.basedata.service.vo.BaseDataListVO">
+        select * from rep_jcsj
+        <where>
+            <if test="dto.qybh !=null and dto.qybh!=''">
+                and qybh=#{dto.qybh}
+            </if>
+            <if test="dto.gsid !=null and dto.gsid!=''">
+                and gsid=#{dto.gsid}
+            </if>
+            <if test="dto.bh !=null and dto.bh!=''">
+                and bh=#{dto.bh}
+            </if>
+            <if test="dto.mc !=null and dto.mc!=''">
+                and mc = #{dto.mc}
+            </if>
+            <if test="dto.lbmc !=null and dto.lbmc!=''">
+                and lbmc = #{dto.lbmc}
+            </if>
+            <if test="sxh !=null and sxh !=''">
+                and sxh = #{dto.sxh}
+            </if>
+            <if test="dto.id !=null and dto.id!=''">
+                and id !=#{dto.id}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -31,6 +31,10 @@ public class PostRankSearchDTO {
     private String gsid;
 
 
+    /**
+     * 状态
+     */
+    private String zt;
 
     public String getGwbh() {
         return gwbh;
@@ -63,6 +67,15 @@ public class PostRankSearchDTO {
     public void setGsid(String gsid) {
         this.gsid = gsid;
     }
+
+    public String getZt() {
+        return zt;
+    }
+
+    public void setZt(String zt) {
+        this.zt = zt;
+    }
+
     @Override
     public String toString(){
         return JSONUtil.toJsonStr(this);

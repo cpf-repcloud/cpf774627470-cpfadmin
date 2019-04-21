@@ -10,11 +10,21 @@ public class KjBaseRequest {
      */
     private String gsid;
 
+    private String qybh;
+
     public String getGsid() {
         return gsid;
     }
 
     public void setGsid(String gsid) {
         this.gsid = gsid;
+    }
+
+    public String getQybh() {
+        return qybh;
+    }
+
+    public void setQybh(String qybh) {
+        this.qybh = qybh;
     }
 }
