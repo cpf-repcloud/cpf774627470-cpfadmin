@@ -15,14 +15,19 @@
             <if test="dto.sfrm != '' and dto.sfrm != null">
                 and t.sfrm = #{dto.sfrm}
             </if>
-            <if test="dto.pyjsm != '' and dto.pyjsm != null">
-                and t.pyjsm = #{dto.pyjsm}
-            </if>
-            <if test="dto.ywmc != '' and dto.ywmc != null">
-                and t.ywmc = #{dto.ywmc}
-            </if>
+        </where>
+    </select>
+
+    <select id="getPageCityList" resultType="cn.rep.cloud.custom.basicdata.entity.RepCity">
+        select t.bh,t.mc from rep_city t
+        <where>
+            and t.gngj = '1'
+            <!--<if test="dto.gngj != '' and dto.gngj != null">-->
+                <!--and t.gngj = #{dto.gngj}-->
+            <!--</if>-->
             <if test="dto.gjz != '' and dto.gjz != null">
-                and (t.mc LIKE #{dto.gjz}) or (t.ywmc LIKE #{dto.gjz}) or (t.pyjsm LIKE #{dto.gjz})
+                <bind name="gjz" value="'%'+dto.gjz+'%'"/>
+                and (t.mc LIKE #{gjz}) or (t.ywmc = #{dto.gjz}) or (t.pyjsm = #{dto.gjz})
             </if>
         </where>
     </select>

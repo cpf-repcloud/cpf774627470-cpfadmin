@@ -9,4 +9,20 @@
           </if>
         </where>
     </select>
+
+    <select id="getMbx" resultType="String">
+        SELECT jc
+          FROM (
+            SELECT
+              @r AS _id,
+              (SELECT @r := sjid FROM rep_gs WHERE id = _id) AS parent_id,
+              @l := @l + 1 AS lvl
+            FROM
+            (SELECT @r := #{chrId}, @l := 0) vars,
+              rep_gs h
+            WHERE @r &lt;&gt; 0) T1
+        JOIN rep_gs T2
+        ON T1._id = T2.id
+        ORDER BY id
+    </select>
 </mapper>

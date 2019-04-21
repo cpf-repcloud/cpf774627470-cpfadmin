@@ -105,5 +105,13 @@ public class RepCompServiceImpl {
         return treeNodes;
     }
 
+    /**
+     * 查询公司页面头部面包屑
+     * @param chrId 子id
+     * @return
+     */
+    public List<String> getMbx(String chrId){
+        return repCompService.getMbx(chrId);
+    }
 
 }

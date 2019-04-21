@@ -27,6 +27,15 @@
             </i-form>
         </div>
         <div class="tree-content">
+            <div>
+                <Breadcrumb>
+                    <breadcrumb-item v-for="item in breadList">{{item}}</breadcrumb-item>
+                </Breadcrumb>
+                <div>
+
+                </div>
+                <Divider />
+            </div>
             <i-form ref="queryForm" :inline="false" :model="iquery" :show-message="false" @keydown.native.enter.prevent ="keyDownEvent">
                 <div class="pb10">
                     <i-button type="primary" @click="saveComp">新增</i-button>

@@ -26,6 +26,10 @@ public class KjCsResponse extends KjBaseResponse {
      * 分类(热门城市,A-Z)
      */
     private String firstZ;
+    /**
+     * 查询时返回分页信息
+     */
+    private Long total;
 
     public String getId() {
         return id;
@@ -65,5 +69,13 @@ public class KjCsResponse extends KjBaseResponse {
 
     public void setFirstZ(String firstZ) {
         this.firstZ = firstZ;
+    }
+
+    public Long getTotal() {
+        return total;
+    }
+
+    public void setTotal(Long total) {
+        this.total = total;
     }
 }

@@ -42,4 +42,16 @@ public class RepCityService {
         List<RepCityVO> cityList = repCityMapper.getCityList(dto);
         return cityList;
     }
+
+    /**
+     * 用于控件查询城市
+     * @param pageDTO
+     * @return
+     */
+    public Page<RepCity> getPageCityList(PageDTO<RepCityDTO> pageDTO){
+        Page<RepCity> page = PageCopyUtil.genPage(pageDTO);
+        List<RepCity> cityList = repCityMapper.getPageCityList(page,pageDTO.getData());
+        page.setRecords(cityList);
+        return page;
+    }
 }

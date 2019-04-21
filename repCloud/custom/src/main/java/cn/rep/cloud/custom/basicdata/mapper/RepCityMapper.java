@@ -18,4 +18,6 @@ public interface RepCityMapper extends BaseMapper<RepCity> {
     List<RepCity> pagelist(Page page, @Param("dto") RepCityDTO dto);
 
     List<RepCityVO> getCityList(@Param("dto") RepCityDTO dto);
+
+    List<RepCity> getPageCityList(Page page,@Param("dto") RepCityDTO dto);
 }
