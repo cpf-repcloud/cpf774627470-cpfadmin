@@ -105,26 +105,8 @@ window.onload= function (){
             mounted:function(){
             },
             methods:{
-                checkCity:function (data) {
-                    debugger
-                    var request = {
-                        value:""
-                    };
-                    request.value = data;
-                    $.ajax({
-                        type: "POST",
-                        url: "/custom/kj/city/getCityList",
-                        data: JSON.stringify(request),
-                        dataType: "json",
-                        contentType: "application/json;charset=UTF-8",
-                        success: function (response) {
-                            debugger
-                            if (response.status && response.status === "200") {
-                                console.log(JSON.stringify(response.result))
-                                csxz = response.result;
-                            }
-                        }
-                    })
+                dataChange:function(data){
+                    console.log(data);
                 },
                 changeHandler:function(val,data){
                     /*val隐藏域的值*/

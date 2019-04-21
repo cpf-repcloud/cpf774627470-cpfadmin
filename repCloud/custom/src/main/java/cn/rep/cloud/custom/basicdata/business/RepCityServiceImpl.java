@@ -70,7 +70,7 @@ public class RepCityServiceImpl {
         responseList.add(rmcsResponse);
 
         //再查询其他城市分类
-        dto.setSfrm(Constants.SFRM_N);
+        dto.setSfrm("");
         List<RepCityVO> repCityVOS = repCityService.getCityList(dto);
         try {
             //根据城市分类分组(热门城市,A-Z)
@@ -99,20 +99,23 @@ public class RepCityServiceImpl {
 
     /**
      * 城市控件搜索查询
-     * @param dto
+     * @param pageDTO
      * @return
      */
-    public List<KjCsResponse> getSearchCity(RepCityDTO dto){
-        List<KjCsResponse> responseList = new ArrayList<>();
-        List<RepCityVO> repCityVOS = repCityService.getCityList(dto);
-        for (RepCityVO vo : repCityVOS){
-            KjCsResponse response = new KjCsResponse();
-            response.setId(vo.getBh());
-            response.setBh(vo.getBh());
-            response.setName(vo.getMc());
-            responseList.add(response);
+    public KjCsResponse getSearchCity(PageDTO<RepCityDTO> pageDTO){
+        Page<RepCity> repCityVOS = repCityService.getPageCityList(pageDTO);
+        KjCsResponse response = new KjCsResponse();
+        List<CityBean> responseList = new ArrayList<>();
+        for (RepCity vo : repCityVOS.getRecords()){
+            CityBean cityBean = new CityBean();
+            cityBean.setId(vo.getBh());
+            cityBean.setBh(vo.getBh());
+            cityBean.setName(vo.getMc());
+            responseList.add(cityBean);
         }
-        return responseList;
+        response.setChildren(responseList);
+        response.setTotal(repCityVOS.getTotal());
+        return response;
     }
 
     

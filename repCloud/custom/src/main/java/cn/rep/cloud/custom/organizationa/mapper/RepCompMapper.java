@@ -15,4 +15,11 @@ import java.util.List;
 public interface RepCompMapper extends BaseMapper<RepGs> {
 
     List<RepGs> pagelist(Page page, @Param("dto") RepCompDTO dto);
+
+    /**
+     * 查询公司页面头部面包屑
+     * @param chrId 子id
+     * @return
+     */
+    List<String> getMbx(@Param("chrId") String chrId);
 }

@@ -72,4 +72,14 @@ public class RepCompController  extends BaseController {
         List<TreeNode> treeNodes = repCompService.getTreeNodes();
         return new RestResponse(treeNodes);
     }
+
+    /**
+     * 查询公司树形结构
+     * @return 公司集合
+     */
+    @RequestMapping("getMbx")
+    public RestResponse<List<String>> getMbx(@RequestParam("chrId") String chrId){
+        List<String> treeNodes = repCompService.getMbx(chrId);
+        return new RestResponse(treeNodes);
+    }
 }

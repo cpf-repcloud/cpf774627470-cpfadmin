@@ -96,4 +96,13 @@ public class RepCompService {
         ew.orderBy("cjsj");
         return repCompMapper.selectList(ew);
     }
+
+    /**
+     * 查询公司页面头部面包屑
+     * @param chrId 子id
+     * @return
+     */
+    public List<String> getMbx(String chrId){
+        return repCompMapper.getMbx(chrId);
+    }
 }

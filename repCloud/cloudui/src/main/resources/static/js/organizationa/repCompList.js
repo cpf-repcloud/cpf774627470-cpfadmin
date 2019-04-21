@@ -111,6 +111,7 @@ window.onload=function (){
     ];
     var apps;
     var treeNodeList =[];
+    var breadList =[];
     $.ajax({
         type: "POST",
         url: "/custom/repComp/getTreeNodes",
@@ -120,8 +121,9 @@ window.onload=function (){
         success: function (response) {
             if (response.status && response.status === "200") {
                 treeNodeList = response.result;
-                initVue();
+                breadList.push(treeNodeList[0].title);
             }
+            initVue();
         }
     })
 
@@ -130,6 +132,7 @@ window.onload=function (){
         apps= new Vue({
             el: '#app',
             data:{
+                breadList:breadList,
                 columns1: columns,
                 pagedata: [],
                 treeNodeList:treeNodeList,
@@ -261,11 +264,30 @@ window.onload=function (){
                     if (data && data.length > 0){
                         var sjid = data[0].value;
                         _this.iquery.sjid = sjid;
+                        getMbx(sjid);
                         this.queryPage();
                     }
                 }
             }
         })
+    }
+
+    function getMbx(chrId) {
+        var url = "/custom/repComp/getMbx?chrId="+chrId;
+        $.ajax({
+            type:"GET",
+            url:url,
+            dataType:"json",
+            contentType:"application/json;charset=UTF-8",
+            success:function(response){
+                if(response.status  && response.status === "200"){
+                    apps.breadList = response.result;
+                }
+            },
+            error:function(){
+                apps.$Message.error("系统错误,请联系管理员!");
+            }
+        });
     }
 
 }
