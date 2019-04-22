@@ -7,17 +7,9 @@ import java.util.List;
 public class KjCsResponse extends KjBaseResponse {
 
     /**
-     * id
-     */
-    private String id;
-    /**
      * 城市编号
      */
     private String bh;
-    /**
-     * 城市名称
-     */
-    private String name;
     /**
      * 子对象
      */
@@ -31,28 +23,12 @@ public class KjCsResponse extends KjBaseResponse {
      */
     private Long total;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getBh() {
         return bh;
     }
 
     public void setBh(String bh) {
         this.bh = bh;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public List<CityBean> getChildren() {

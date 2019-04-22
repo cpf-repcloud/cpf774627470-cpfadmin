@@ -3,6 +3,7 @@ package cn.rep.cloud.custom.organizationa.business;
 import cn.rep.cloud.custom.coreutils.common.PageDTO;
 import cn.rep.cloud.custom.coreutils.common.TreeNode;
 import cn.rep.cloud.custom.coreutils.utils.DateUtils;
+import cn.rep.cloud.custom.openapi.kjController.basecommon.gskj.bean.KjGsResponse;
 import cn.rep.cloud.custom.organizationa.dto.RepCompDTO;
 import cn.rep.cloud.custom.organizationa.entity.RepGs;
 import cn.rep.cloud.custom.organizationa.service.RepCompService;
@@ -114,4 +115,20 @@ public class RepCompServiceImpl {
         return repCompService.getMbx(chrId);
     }
 
+    /**
+     * 公司控件查询
+     * @return
+     */
+    public List<KjGsResponse> getCompList(){
+        List<RepGs> gsList = getRepList("");
+        List<KjGsResponse> compList = new ArrayList<>();
+        for (RepGs repGs : gsList){
+            KjGsResponse response = new KjGsResponse();
+            response.setId(repGs.getId());
+            response.setName(repGs.getJc());
+            response.setValue(repGs.getBh());
+            compList.add(response);
+        }
+        return compList;
+    }
 }

@@ -267,7 +267,10 @@ window.onload=function (){
                         getMbx(sjid);
                         this.queryPage();
                     }
-                }
+                },
+                dataChange:function(data){
+                    console.log(data);
+                },
             }
         })
     }

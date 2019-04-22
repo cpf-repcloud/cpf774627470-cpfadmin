@@ -1,21 +1,7 @@
 window.onload= function (){
-        var xlList = [
-            {id:"1",name:"测试1",value:"123"},
-            {id:"2",name:"测试2",value:"123"},
-            {id:"3",name:"测试3",value:"123"},
-            {id:"4",name:"测试4",value:"123"},
-            {id:"5",name:"测试5",value:"123"},
-            {id:"6",name:"测试6",value:"123"},
-            {id:"7",name:"测试7",value:"123"},
-            {id:"8",name:"测试8",value:"123"},
-            {id:"9",name:"测试9",value:"123"},
-            {id:"10",name:"测试10",value:"123"},
-            {id:"11",name:"测试11",value:"123"},
-            {id:"12",name:"测试12",value:"123"},
-            {id:"13",name:"测试13",value:"123"},
-            {id:"14",name:"测试14",value:"123"},
-            {id:"15",name:"测试15",value:"123"}
-        ];
+        var xlList = [];
+            // {"id":"1","name":"测试1","value":"123"},
+            // {"id":"2","name":"测试2","value":"123"}
         var titleMenu = [
             {
                 name:'热门城市',
@@ -87,10 +73,10 @@ window.onload= function (){
             if (response.status && response.status === "200") {
                 console.log(JSON.stringify(response.result))
                 csxz = response.result;
-                initVue();
+                getGsList();
             }
         }
-    })
+    });
 
 
     function initVue() {
@@ -130,6 +116,29 @@ window.onload= function (){
                             $("#"+kjmsid).hide();
                         }
                     })
+                }
+            }
+        })
+    }
+
+    function getGsList() {
+        var request = {
+            gsid:"",
+            bmid:""
+        }
+        $.ajax({
+            type: "POST",
+            url: "/custom/kj/employee/getEmployeeList",
+            data: JSON.stringify(request),
+            dataType: "json",
+            async:true,
+            contentType: "application/json;charset=UTF-8",
+            success: function (response) {
+                debugger
+                if (response.status && response.status === "200") {
+                    console.log(JSON.stringify(response.result));
+                    xlList = response.result;
+                    initVue();
                 }
             }
         })
