@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>出差申请单</title>
+    <style type="text/css">
+        @import "../../static/public/css/commons.css";
+
+        ::-ms-clear, ::-ms-reveal {
+            display: none;
+        }
+
+        .tree {
+            width: 200px;
+            position: fixed;
+            left: 10px;
+            top: 10px;
+            height: 96%;
+            padding: 10px;
+            border-right: 1px solid #fff;
+            background: #fff;
+            border-radius: 5px;
+            overflow: auto;
+        }
+
+        .content {
+            position: absolute;
+            left: 220px;
+            right: 10px;
+            bottom: 10px;
+            top: 10px;
+            background: #fff;
+            height: 96%;
+            border-radius: 5px;
+            overflow-y: auto;
+            overflow-x: auto;
+        }
+
+        .sreach {
+            width: 127px;
+        }
+
+        .ivu-tree-empty {
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+
+        .content {
+            position: absolute;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            top: 10px;
+            background: #fff;
+            height: 96%;
+            border-radius: 5px;
+            overflow-y: auto;
+            overflow-x: auto;
+        }
+
+        .tagClass {
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            margin-top: -5px;
+            font-weight: bold;
+
+        }
+
+        .xzxcDemo {
+            text-align: center;
+            font-size: 14px;
+            color: #2d8cf0;
+        }
+
+        .scxcDemo {
+            color: #2d8cf0;
+            margin-left: -3px;
+            display: inline-block;
+            margin-top:2px;
+
+        }
+        .demo-drawer-profile{
+            font-size: 14px;
+        }
+        .demo-drawer-profile .ivu-col{
+            margin-bottom: 12px;
+        }
+    </style>
+    <script type="text/javascript" src="../../static/public/js/common.js"></script>
+    <script type="text/javascript" src="../../static/js/billmanagement/ccsqd/ccsqdlist.js"></script>
+</head>
+<body style="background: #f0f2f5; overflow:auto;">
+<div id="app" v-cloak>
+    <div class="content">
+        <!--查询条件-->
+        <i-form ref="queryForm" :inline="false" :model="iquery" @keydown.native.enter.prevent="keyDownEvent">
+            <Row>
+                <i-col :sm="24" :md="12" :lg="6">
+                    <form-item label="申请日期" :label-width="150">
+                        <date-Picker type="daterange" clearable split-panels v-model="iquery.sqrq"></date-Picker>
+                    </form-item>
+                </i-col>
+                <i-col :sm="24" :md="12" :lg="6">
+                    <form-item label="申请单号" :label-width="150">
+                        <i-input clearable v-model="iquery.sqdh"/>
+                    </form-item>
+                </i-col>
+                <i-col :sm="24" :md="12" :lg="6">
+                    <form-item label="单据状态" :label-width="150">
+                        <i-select v-model="iquery.djzt" filterable multiple>
+                            <!--<Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+                            <i-option value="1">1</i-option>
+                            <i-option value="2">2</i-option>
+                        </i-select>
+                    </form-item>
+                </i-col>
+                <i-col :sm="24" :md="12" :lg="6">
+                    <form-item label="申请人" :label-width="150">
+                        <i-input clearable v-model="iquery.sqr"/>
+                    </form-item>
+                </i-col>
+            </Row>
+            <Row>
+                <i-col :sm="24" :md="12" :lg="6">
+                    <form-item label="审批状态" :label-width="150">
+                        <i-select v-model="iquery.djzt" filterable multiple>
+                            <!--<Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+                            <i-option value="1">1</i-option>
+                            <i-option value="2">2</i-option>
+                        </i-select>
+                    </form-item>
+                </i-col>
+
+                <i-col :sm="24" :md="12" :lg="6">
+                    <form-item label="审批状态" :label-width="150">
+                        <i-button type="primary" icon="md-add" @click="addCcsqd">新建</i-button>
+                        <i-button type="primary" icon="md-add" @click="model=true">新建1</i-button>
+                    </form-item>
+                </i-col>
+            </Row>
+        </i-form>
+
+        <!--数据展示-->
+        <div class="iview-grid marginTop10">
+            <i-table :border=false :columns="igrid.columns" :data="igrid.datas" width="100%" height="500"
+                     size="small"
+                     :loading="igrid.loading"></i-table>
+        </div>
+        <!--分页部分-->
+        <div class="iview-pager">
+            <Page :current="ipage.current" :total="ipage.total" show-sizer show-total :page-size="ipage.size"
+                  @on-change="changePage" @on-page-size-change="changePageSize"></Page>
+        </div>
+    </div>
+
+
+    <!--新增出差申请单页面-->
+    <Modal
+            v-model="modalData.addModal"
+            title="新增出差申请单"
+            @on-ok="okAddCcsqd"
+            ok-text="提交"
+            :mask-closable="false"
+            :scrollable="true"
+            width="1000"
+            height="600"
+            class="vetech-modal"
+            @on-cancel="cancel">
+        <i-form :model="addCcsqdData" ref="rankEdit" label-width="20" class="m15">
+            <div>
+                <div>
+                    <div class="tagClass">
+                        <Icon type="md-person"></Icon>
+                        <span class="ml5">申请人信息</span>
+                    </div>
+                </div>
+                <div>
+                    <Row>
+                        <i-col :sm="24" :md="12" :lg="8">
+                            <form-item label="申请人" :label-width="100">
+                                <span>曹鹏飞/2222</span>
+                            </form-item>
+                        </i-col>
+                        <i-col :sm="24" :md="12" :lg="8">
+                            <form-item label="当前部门" :label-width="100">
+                                <span>研发部</span>
+                            </form-item>
+                        </i-col>
+                        <i-col :sm="24" :md="12" :lg="8">
+                            <form-item label="申请时间" :label-width="100">
+                                <span>2018-02-12 18:52:23</span>
+                            </form-item>
+                        </i-col>
+                    </Row>
+                </div>
+            </div>
+            <!--出差信息-->
+            <div>
+                <div>
+                    <div class="tagClass">
+                        <Icon type="ios-briefcase"></Icon>
+                        <span class="ml5">出差信息</span>
+                    </div>
+                </div>
+                <div>
+                    <Row>
+                        <i-col :sm="24" :md="12" :lg="8">
+                            <form-item label="出差类型" :label-width="100">
+                                <i-select filterable multiple>
+                                    <!--<Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+                                    <i-option value="1">1</i-option>
+                                    <i-option value="2">2</i-option>
+                                </i-select>
+                            </form-item>
+                        </i-col>
+                        <i-col :sm="24" :md="12" :lg="8">
+                            <form-item label="出差业务种类" :label-width="100">
+                                <i-select filterable multiple>
+                                    <!--<Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+                                    <i-option value="1">1</i-option>
+                                    <i-option value="2">2</i-option>
+                                </i-select>
+                            </form-item>
+                        </i-col>
+                        <i-col :sm="24" :md="12" :lg="8">
+                            <form-item label="事由" :label-width="100">
+                                <i-select filterable multiple>
+                                    <!--<Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+                                    <i-option value="1">1</i-option>
+                                    <i-option value="2">2</i-option>
+                                </i-select>
+                            </form-item>
+                        </i-col>
+                    </Row>
+                    <Row>
+                        <i-col :sm="24" :md="24" :lg="24">
+                            <form-item label="出差人员" :label-width="100">
+                                <i-input placeholder="差旅事项"></i-input>
+                                <div>
+
+                                </div>
+                            </form-item>
+                        </i-col>
+
+                    </Row>
+
+                    <Row>
+                        <i-col :sm="24" :md="24" :lg="24">
+                            <form-item label="差旅事项" :label-width="100">
+                                <i-input placeholder="差旅事项" type="textarea" :rows="4"></i-input>
+                            </form-item>
+                        </i-col>
+
+                    </Row>
+                </div>
+
+            </div>
+            <!--行程计划-->
+            <div>
+                <div>
+                    <div class="tagClass">
+                        <Icon type="ios-calendar"></Icon>
+                        <span class="ml5">行程计划</span>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <Row>
+                            <i-col :sm="24" :md="12" :lg="8">
+                                <form-item label="出发地" :label-width="100">
+                                    <i-select filterable multiple>
+                                        <!--<Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+                                        <i-option value="1">1</i-option>
+                                        <i-option value="2">2</i-option>
+                                    </i-select>
+                                </form-item>
+                            </i-col>
+                        </Row>
+                    </div>
+                    <div v-for="(xc,index) in addCcsqdData.xcjh" class="whrap">
+                        <Row>
+                            <i-col :sm="24" :md="8" :lg="8">
+                                <form-item :label="'第'+(index+1)+'目的地'" :label-width="100">
+                                    <i-input clearable v-model="xc.mdd"/>
+                                </form-item>
+                            </i-col>
+                            <i-col :sm="24" :md="8" :lg="8">
+                                <form-item label="出发时间" :label-width="100">
+                                    <Date-Picker type="date" v-model="xc.cfsj" start-date="xc.cfmrsj" clearable></Date-Picker>
+                                </form-item>
+                            </i-col>
+                            <i-col :sm="24" :md="8" :lg="8">
+                                <form-item label="到达时间" :label-width="100">
+                                    <Date-Picker type="date" v-model="xc.ddsj" clearable></Date-Picker>
+                                </form-item>
+                            </i-col>
+                            <div v-if="index>0" class="scxcDemo" @click="deleteXc(index)">
+                                <Icon type="md-trash" size="20"></Icon>
+                            </div>
+                        </Row>
+                    </div>
+                    <div class="xzxcDemo">
+                            <span @click="addXcjh">
+                                 <Icon type="ios-add-circle-outline"></Icon>
+                            <span>
+                                新增行程
+                            </span>
+                            </span>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <div>
+                    <div class="tagClass">
+                        <Icon type="md-apps" ></Icon>
+                        <span class="ml5">其他</span>
+                    </div>
+                    <div>
+                        <Row>
+                            <i-col :sm="24" :md="12" :lg="8">
+                                <Upload
+                                        multiple
+                                        type="drag"
+                                        action="//jsonplaceholder.typicode.com/posts/">
+                                    <div style="padding: 20px 0">
+                                        <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
+                                        <p>上传文件</p>
+                                    </div>
+                                </Upload>
+                            </i-col>
+                        </Row>
+
+                    </div>
+                </div>
+            </div>
+        </i-form>
+    </Modal>
+
+
+
+    <!--出差申请单详情页面-->
+        <Drawer :closable="false" width="640" v-model="model">
+            <p :style="pStyle">出差申请单详情</p>
+            <p :style="pStyle">Personal</p>
+            <div class="demo-drawer-profile">
+                <Row>
+                    <i-col span="12">
+                    申请人: 曹鹏飞
+                    </i-col>
+                    <i-col span="12">
+                    部门: 研发部
+                    </i-col>
+                </Row>
+                <Row>
+                    <i-col span="12">
+                    申请时间: 2018-09-11 15:45:23
+                    </i-col>
+                    <i-col span="12">
+                    出差类型: 123456
+                    </i-col>
+                </Row>
+                <Row>
+                    <i-col span="12">
+                    出差业务类型: 出差234
+                    </i-col>
+                    <i-col span="12">
+                     事由: 事由哦234234
+                    </i-col>
+                </Row>
+            </div>
+            <Divider />
+            <div class="demo-drawer-profile">
+                <Row>
+                    <i-col span="12">
+                    出差人员: 曹鹏飞 耿海元
+                    </i-col>
+                </Row>
+                <Row>
+                    <i-col span="12">
+                    成本中心: 车呢本你
+                    </i-col>
+                </Row>
+                <Row>
+                    <i-col span="24">
+                    差旅事项: Map visualization
+                    </i-col>
+                </Row>
+            </div>
+            <Divider />
+            <div class="demo-drawer-profile">
+                <Row>
+                    <i-col span="24">
+                    出发地: 武汉
+                    </i-col>
+                    <i-col span="12">
+                    Phone Number: +86 18888888888
+                    </i-col>
+                </Row>
+                <Row>
+                    <i-col span="12">
+                    GitHub: <a href="https://github.com/iview/iview" target="_blank">https://github.com/iview/iview</a>
+                    </i-col>
+                </Row>
+            </div>
+        </Drawer>
+
+</div>
+</body>
+</html>

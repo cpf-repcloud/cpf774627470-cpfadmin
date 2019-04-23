@@ -6,3 +6,168 @@ a{text-decoration: none;}
 li{list-style: none;}
 .i_input{padding: 10px;}
 .i_input{text-align: center !important;line-height: 50px !important;}
+
+
+body{padding: 10px;}
+.clearfix {display: block;}
+.clearfix:after{display:block; visibility:hidden; clear:both; height:0; content:"."}
+
+/*主题色*/
+.primary{color:#2d8cf0;}
+.success{color:#19be6b;}
+.light-primary{color:#5cadff;}
+.dark-Primary{color:#2b85e4;}
+.warning{color:#ff9900;}
+.error{color:#ed3f14;}
+.title{color:#1c2438;}
+.default{color:#495060;}
+.disabled{color:#bbbec4}
+.c9{color:#999;}
+.c3{color:#333;}
+
+/*margin，padding值*/
+.m0{margin: 0px;}
+.m5{margin:5px;}
+.m10{margin:10px;}
+.m15{margin:15px;}
+.m20{margin:20px;}
+.ml0{margin-left: 0px;}
+.ml5{margin-left:5px;}
+.ml10{margin-left:10px;}
+.ml15{margin-left:15px;}
+.ml20{margin-left:20px;}
+.mr0{margin-right: 0px;}
+.mr5{margin-right:5px;}
+.mr10{margin-right:10px;}
+.mr15{margin-right:15px;}
+.mr20{margin-right:20px;}
+.mt0{margin-top: 0px;}
+.mt5{margin-top:5px;}
+.mt10{margin-top:10px;}
+.mt15{margin-top:15px;}
+.mt20{margin-top:20px;}
+.mb0{margin-bottom: 0px;}
+.mb5{margin-bottom:5px;}
+.mb10{margin-bottom:10px;}
+.mb15{margin-bottom:15px;}
+.mb20{margin-bottom:20px;}
+.p0{padding: 0px;}
+.p5{padding:5px;}
+.p10{padding:10px;}
+.p15{padding:15px;}
+.p20{padding:20px;}
+.pl0{padding-left: 0px;}
+.pl5{padding-left:5px;}
+.pl10{padding-left:10px;}
+.pl15{padding-left:15px;}
+.pl20{padding-left:20px;}
+.pr0{padding-right: 0px;}
+.pr5{padding-right:5px;}
+.pr10{padding-right:10px;}
+.pr15{padding-right:15px;}
+.pr20{padding-right:20px;}
+.pt0{padding-top: 0px;}
+.pt5{padding-top:5px;}
+.pt10{padding-top:10px;}
+.pt15{padding-top:15px;}
+.pt20{padding-top:20px;}
+.pb0{padding-bottom: 0px;}
+.pb5{padding-bottom:5px;}
+.pb10{padding-bottom:10px;}
+.pb15{padding-bottom:15px;}
+.pb20{padding-bottom:20px;}
+
+/*font值大小,line-height*/
+.f12{font-size: 12px;}
+.f13{font-size: 13px;}
+.f14{font-size: 14px;}
+.f15{font-size: 15px;}
+.f16{font-size: 16px;}
+.f17{font-size: 17px;}
+.f18{font-size: 18px;}
+.f20{font-size: 20px;}
+.lh1{line-height: 1;}
+.lh16{line-height: 16px;}
+.lh20{line-height: 20px;}
+.lh24{line-height: 24px;}
+.lh30{line-height: 30px;}
+
+/*文本方向*/
+.tl{text-align: left;}
+.tc{text-align: center;}
+.tr{text-align: right;}
+
+/*浮动方向*/
+.fl{float: left;}
+.fc{float: inherit;}
+.fr{float: right;}
+
+.whrap{
+    white-space: nowrap;
+}
+
+/*重新定义iview相关css*/
+[v-cloak]{display: none;}
+.iview-pager{padding: 10px;}
+
+/*左右布局*/
+html{width: 100%;height: 100%;}
+.full-body{width: 100%;height: 100%;background: #f0f2f5;padding: 0px;}
+.lr-container{width: 100%;height:100%;box-sizing: border-box;padding: 10px;}
+.lr-container #main{width: 100%;height: 100%;background: #fff;border-radius: 5px;position: relative;overflow: hidden;}
+.lr-container .tree{width: 220px;position: absolute;left: 10px;top: 10px;bottom:10px;border-right: 1px solid #eee;overflow: auto;padding-right: 10px;}
+.lr-container .tree .ivu-tree{margin-top: 10px;}
+.lr-container .content{position: absolute;left:230px;right:0;bottom:0; top:0;padding:0px}
+
+/*左边树检索*/
+.tree .serach-content{
+    margin-top: 10px;
+    border-radius: 5px;
+}
+.tree .serach-content p{
+    padding: 10px;
+    color:#f72828;
+}
+
+
+/*新增页面公共样式*/
+/*表单限制最大宽度*/
+.form-max240 .ivu-form-item-content{max-width: 240px;}
+.form-max240 .ivu-form-item{margin-bottom: 15px;}
+.form-max286 .ivu-form-item-content{max-width: 286px;}
+.form-max286 .ivu-form-item{margin-bottom: 5px;}
+/*date日历控件百分之百*/
+.date-block .ivu-date-picker{width:100%;}
+
+/*步骤重写，样式扩大至30px*/
+.charge-large.ivu-steps .ivu-steps-head-inner{width: 30px;height:30px;line-height:28px;font-size: 16px;}
+.charge-large.ivu-steps .ivu-steps-title{font-size: 16px;}
+.charge-large.ivu-steps .ivu-steps-item.ivu-steps-status-process .ivu-steps-title{font-size: 16px;color:#333;}
+
+/*底部fixed*/
+.charge-content{margin-bottom: 20px;padding: 15px 0;}
+.charge-content .charge-title{font-size: 16px;margin: 15px 0px;}
+.charge-bottom{position: fixed;bottom:0px;left:0px;padding:10px 30px;border-top:2px solid #ddd;background: #fff;right:0px;z-index: 10; }
+.charge-bottom button{min-width: 80px;}
+.charge-bottom button+button{margin-left:10px;}
+
+/*表单祥重置margin-bottom为0*/
+.charge-form-mb0 .ivu-form-item{margin-bottom: 2px;}
+
+/*修改滚动条样式*/
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar{ width: 8px; height:8px;background-color: #fff; }
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track{ -webkit-box-shadow: none; border-radius: 10px; background-color: #fff; }
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb { border-radius: 10px; -webkit-box-shadow:none; background-color: #dedede; }
+/*定义最上方和最下方的按钮*/
+::-webkit-scrollbar-button{ width:0px; height: 0px; /*background-color: #000;border:1px solid yellow;*/  }
+
+
+
+/*弹窗公共样式*/
+.vetech-modal .ivu-modal{ height: 90%; top:5%;}
+.vetech-modal .ivu-modal-content{ height: 100%;  }
+.vetech-modal .ivu-modal-content .ivu-modal-body{height: calc(100% - 115px); overflow: auto;}
+
