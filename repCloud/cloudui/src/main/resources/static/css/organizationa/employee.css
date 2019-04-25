@@ -1,0 +1,320 @@
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+.full-screen {
+    width: 100%;
+    height: 100%;
+}
+
+.full-screen .full-height {
+    height: 100%;
+}
+
+.full-screen .lbr {
+    border-right: 1px solid #ddd;
+}
+
+.full-screen .search {
+    height: 32px;
+    margin-bottom: 10px;
+}
+
+.full-screen .dept {
+    height: calc(100% - 42px);
+}
+
+.full-screen .ivu-tree-empty {
+    text-align: center;
+}
+
+.full-screen .dept-info {
+    font-size: 14px;
+    border-bottom: 1px dotted #ddd;
+}
+
+.full-screen .dept-name {
+    margin: 10px 0;
+}
+
+.full-screen .dept-name > em {
+    font-size: 18px;
+    font-style: normal;
+    color: #333;
+    font-weight: bold;
+}
+
+.p10 .mc {
+    display: inline-block;
+    width: 70px;
+}
+
+.p10 .dep-val {
+    display: inline-block;
+    padding: 0 4px;
+    min-width: 200px;
+}
+
+.conditions .vpx {
+    margin-bottom: 10px;
+}
+
+.full-screen .ivfl {
+    float: right;
+}
+
+.full-screen .iv220 {
+    width: 220px;
+}
+
+.full-screen .searchBox {
+    height: 62px;
+    padding: 20px 0 0 10px;
+    overflow: hidden;
+}
+
+.ivu-collapse > .ivu-collapse-item > .ivu-collapse-header {
+    padding-left: 10px;
+}
+
+.ivu-collapse > .ivu-collapse-item > .ivu-collapse-header > i {
+    margin-right: 5px;
+}
+
+.ivu-form-item-content {
+    height: 32px;
+}
+
+.ivu-date-picker {
+    width: 100%;
+}
+
+.nu-mt5 {
+    margin-top: 5px;
+}
+.role-tab {
+    margin-top: 20px;
+    margin-left: 18%;
+    width: 70%;
+}
+/**员工列表*/
+.company-info .ltitle,.company-info .lvalue,.company-info .more-conditions{display: inline-block;line-height: 26px;}
+.company-info .ltitle{width: 60px;}
+.company-info .more-conditions{cursor: pointer;}
+.company-info .more-conditions .ivu-icon{padding: 0px 3px;border-width: 0 1px 0 1px;margin-right: 5px;font-size: 14px;}
+.iview-query-box{padding: 10px 0px;}
+.ivu-icon-ios-loading:before{content: "\F29C";}
+.conditions{position: relative;}
+.conditions .ivu-row{width: 80%;}
+.conditions .more-conditions{position: absolute;right: 30px;bottom: 0px;}
+
+/**员工新增用到样式**/
+.ivu-icon{vertical-align: middle;cursor: pointer;}
+.ivu-icon-ios-checkmark:before{content: "\F3FD";font-size:30px;}
+.charge-info-success{background: #fafafa;padding: 10px 0px;border-radius:5px;}
+/* 可以设置不同的进入和离开动画 */
+/* 设置持续时间和动画函数 */
+.slide-fade-enter-active {
+    transition: all .4s linear;
+}
+.slide-fade-leave-active {
+    transition: all .4s linear;
+}
+.slide-fade-enter, .slide-fade-leave-to {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+.charge-bottom{position: fixed;bottom:0px;left:100px;padding:10px 30px;border-top:2px solid #ddd;background: #fff;right:120px;z-index: 10; }
+
+.ivu-modal-footer{
+    padding-bottom: 35px;
+}
+.ivu-dropdown{
+    padding-left: 10px;
+}
+.noline{
+    white-space:nowrap;
+}
+
+.ivu-avatar .ivu-icon-ios-person{font-size: 30px;}
+.mt20{margin-top: 20px;}
+.title-b{margin-bottom: 10px;display: block;font-size: 13px;}
+/*.ivu-row{margin-bottom: 5px;}*/
+.ivu-row+.ivu-row{border-top: 1px dashed #ddd;/*padding-top:15px;*/}
+.ivu-card{margin-bottom: 20px;}
+.ivu-card-head p, .ivu-card-head-inner{font-size:16px;}
+/*.ivu-tabs-tabpane .ivu-card{margin: 0px 25px 20px 25px;}*/
+.ud-p20{padding: 20px;background: #fff;}
+.ud-p20 .ivu-breadcrumb{margin-bottom: 10px;}
+.user-card table{width: 100%;}
+.user-card table td{padding: 5px;font-size: 14px;}
+.ivu-tabs-nav-wrap{background: #fff;border-bottom: 1px solid #e6e6e6;margin-top: 10px;}
+/*.ivu-tabs-nav-wrap .ivu-tabs-nav{margin-left: 25px;}*/
+/*.ivu-modal-body{padding: 16px 30px;}*/
+.menu-content{position: absolute;padding:20px 20px 20px 180px; left:0px;top:0px;}
+.f20{font-size: 20px;}
+.c9{color:#999;}
+.ivu-modal {width: auto;  margin: 0 auto;  position: relative;  outline: 0;  top: 0px;  }
+.ivu-form-item{margin-bottom: 20px;}
+.ivu-tabs-nav-scroll{border-bottom: 1px solid #e6e6e6;}
+.ivu-tabs-ink-bar{bottom:0px;}
+
+.role-ment {
+    width: 186px;
+    margin-top: 15px;
+}
+.role-ment ul {
+    width: 100%;
+}
+
+.role td {
+    border: 1px solid #ddd;
+    height: 40px;
+    padding: 0 10px;
+    font-size: 10px;
+    user-select: none;
+}
+
+.role {
+    table-layout: fixed;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.role .ivu-icon {
+    margin-right: 5px;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.role thead {
+    background-color: #f8f8f9;
+    border: 1px solid #ddd;
+}
+
+.role thead th {
+    height: 54px;
+}
+
+.role > thead tr th:nth-child(1) {
+    width: 240px;
+}
+
+.role .level-2 td:nth-child(1) {
+    padding-left: 20px;
+}
+
+.role .level-3 td:nth-child(1) {
+    padding-left: 40px;
+}
+
+.role .level-4 td:nth-child(1) {
+    padding-left: 60px;
+}
+
+
+.role-tab {
+    margin-top: 20px;
+    margin-left: 30px;
+    width: 95%;
+}
+
+.role-table {
+    border: 1px solid #e0e0e0;
+    border-bottom: none;
+    padding: 0;
+    position: relative;
+}
+
+.header {
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #e7e7e7;
+    background: #F8F8F9;
+    text-align: center;
+}
+
+.vertical-line {
+    width: 1px;
+    height: 100%;
+    background: #ddd;
+    position: absolute;
+    left: 30%;
+    top: 0
+}
+
+.left {
+    width: 30%;
+    float: left;
+    padding-left: 10px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.one {
+    padding-left: 20px;
+}
+
+.right {
+    width: 70%;
+    float: left;
+    padding-left: 10px;
+}
+
+.item-icon {
+    margin-left: -5px;
+    padding: 5px;
+}
+
+.line {
+    clear: both;
+    width: 100%;
+    height: 1px;
+    background: #e0e0e0;
+}
+
+.h40 {
+    height: 39px;
+    line-height: 39px;
+}
+
+
+.vertical-center-modal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.restmm-zt{
+    font-weight: bold;
+}
+.restmm-sjhm{
+    color:#ff0000;
+}
+.restmm-cont{
+    color:#808080;
+}
+
+.addygrzxx{
+   cursor:pointer;
+}
+
+.ivu-row + .ivu-row{
+    border-top:none;
+}
+.mb10{
+    margin-bottom: 10px;
+}
+.add-zj-btn{height: 32px; border:1px dashed #dddee1;color:#999; font-size: 14px; line-height: 30px;
+ text-align: center; width: 91.5%; border-radius:3px;cursor: pointer;}
+.mr-70{
+    margin-right: 70px;
+}
+.ml-70{
+    margin-left: 38px;
+}
+.sc-rz{
+    color:#2d8cf0;
+    cursor: pointer;
+}

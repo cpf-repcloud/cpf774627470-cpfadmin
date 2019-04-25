@@ -44,7 +44,7 @@
             </i-form>
             <i-table :columns="columns1" :data="pagedata" height="400" :loading="igrid.loading"></i-table>
             <Page class="pt20" :current="1" :page-size="ipage.size" :total="ipage.total" show-total @on-change="search" ></Page>
-            <Modal width="70%" title="新增公司" v-model="addComp" :mask-closable="false" @on-ok="save">
+            <Modal width="70%" style="height: 200px;" scrollable="true" title="新增公司" v-model="addComp" :mask-closable="false" @on-ok="save">
                 <i-form ref="saveData" :model="saveData" :inline="false" :label-width="80" :rules="formRule" :show-message="true">
                     <Row>
                         <div>
@@ -61,7 +61,7 @@
                             </i-col>
                             <i-col :sm="12">
                                 <Form-item label="公司全称" prop="gsmc">
-                                    <i-input v-model="saveData.gsmc" type="text" placeholder="请输入..." clearable/></i-input>
+                                    <i-input style="width: 80%" v-model="saveData.gsmc" type="text" placeholder="请输入..." clearable/></i-input>
                                 </Form-item>
                             </i-col>
                             <i-col :sm="12">

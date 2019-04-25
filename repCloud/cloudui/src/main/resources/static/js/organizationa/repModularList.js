@@ -125,6 +125,9 @@ window.onload=function (){
             _this.parentMenu();
         },
         methods:{
+            download:function () {
+                window.location.href = "/custom/repEmployee/downloadModel";
+            },
             search: function (){
                 var _this=this;
                 apps.pagedata=[];

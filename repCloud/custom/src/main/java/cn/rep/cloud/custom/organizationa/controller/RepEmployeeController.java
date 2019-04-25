@@ -1,34 +1,44 @@
 package cn.rep.cloud.custom.organizationa.controller;
 
-import cn.rep.cloud.custom.organizationa.business.RepEmployeeServiceImpl;
-import cn.rep.cloud.custom.organizationa.entity.RepLogin;
-import org.apache.commons.lang.StringUtils;
+import cn.rep.cloud.custom.coreutils.common.BaseController;
+import cn.rep.cloud.custom.coreutils.common.RestResponse;
+import cn.rep.cloud.custom.organizationa.business.RepYgServiceImpl;
+import cn.rep.cloud.custom.organizationa.dto.RepYgDTO;
+import cn.rep.cloud.custom.organizationa.vo.SuccessBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
 
 @RestController
 @RequestMapping("repEmployee")
-public class RepEmployeeController {
+public class RepEmployeeController extends BaseController{
     @Autowired
-    private RepEmployeeServiceImpl repEmployeeService;
+    private RepYgServiceImpl repYgService;
 
-    @RequestMapping("/detail")
-    public RepLogin queryRepEmployee(@RequestParam("id") String id){
-        RepLogin repEmployee = repEmployeeService.queryRepEmployee(id);
-        return repEmployee;
+    /**
+     * 下载模板
+     * @return 返回excel模板
+     */
+    @RequestMapping(value = "downloadModel", method = RequestMethod.GET, produces ="application/json;charset=UTF-8")
+    public Object downloadModel(){
+        return repYgService.downloadYgMb();
     }
 
-    @RequestMapping("/login")
-    public boolean queryRepEmployee(@RequestBody RepLogin repEmployee){
-        String loginname = repEmployee.getLoginname();
-        String passwrod = repEmployee.getPassword();
-        boolean result = false;
-        if (StringUtils.equals("admin",loginname) && StringUtils.equals("123456",passwrod)){
-            result = true;
-        }
-        return result;
+    /**
+     * 批量上传员工
+     * @return
+     */
+    @RequestMapping(value = "uploadEmpBatch")
+    public RestResponse<SuccessBean> uploadEmpBatch(@RequestParam("file") MultipartFile file){
+        RepYgDTO dto = new RepYgDTO();
+        dto.setQybh(loginUser.getQybh());
+        dto.setCjr(loginUser.getXm());
+        SuccessBean successBean = repYgService.uploadEmpBatch(file,dto);
+        return new RestResponse(successBean);
     }
 }

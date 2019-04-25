@@ -19,6 +19,7 @@
                 <div class="pb10">
                     <i-button type="primary" @click="saveMenu">新增</i-button>
                     <i-input placeholder="请输入..." icon="ios-search" style="max-width: 200px;"></i-input>
+                    <a @click="download">下载模板</a>
                 </div>
             </i-form>
             <i-table :columns="columns1" :data="pagedata" height="400" :loading="igrid.loading"></i-table>

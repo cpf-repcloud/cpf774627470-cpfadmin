@@ -26,6 +26,10 @@ public class RepYgDTO {
      * 开通状态(0 未开启，1 已开通)
      */
     private String ktzt;
+    /**
+     * 创建人
+     */
+    private String cjr;
 
     public String getId() {
         return id;
@@ -73,5 +77,13 @@ public class RepYgDTO {
 
     public void setKtzt(String ktzt) {
         this.ktzt = ktzt;
+    }
+
+    public String getCjr() {
+        return cjr;
+    }
+
+    public void setCjr(String cjr) {
+        this.cjr = cjr;
     }
 }

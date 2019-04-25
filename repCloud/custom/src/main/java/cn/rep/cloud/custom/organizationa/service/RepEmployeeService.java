@@ -27,4 +27,17 @@ public class RepEmployeeService {
     public RepLogin getEmpByLonginName(String loginName){
         return repEmployeeMapper.getEmpByLonginName(loginName);
     }
+
+    /**
+     * 新增登录账号
+     * @param repLogin
+     * @return
+     */
+    public boolean insetLogin(RepLogin repLogin){
+        int result = repEmployeeMapper.insert(repLogin);
+        if (result > 0){
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
+    }
 }

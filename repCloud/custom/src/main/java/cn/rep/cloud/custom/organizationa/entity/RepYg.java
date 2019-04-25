@@ -1,6 +1,6 @@
 package cn.rep.cloud.custom.organizationa.entity;
 
-import cn.rep.cloud.custom.coreutils.jedis.RedisModel;
+import cn.rep.cloud.custom.coreutils.annotation.ExcelCell;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,108 +38,126 @@ public class RepYg implements Serializable {
 	 * 工号
 	 */
    	@Column(name = "gh" )
+	@ExcelCell(colValue = "工号",col = 0)
 	private String gh;
 
 	/**
 	 * 姓名
 	 */
    	@Column(name = "xm" )
+	@ExcelCell(colValue = "姓名",col = 1)
 	private String xm;
 
 	/**
 	 * 英文姓名
 	 */
    	@Column(name = "ywxm" )
+	@ExcelCell(colValue = "英文名",col = 2)
 	private String ywxm;
 
 	/**
 	 * 电话号码
 	 */
    	@Column(name = "dhhm" )
+	@ExcelCell(colValue = "电话号码",col = 3)
 	private String dhhm;
 
 	/**
 	 * 手机号码
 	 */
    	@Column(name = "sjhm" )
+	@ExcelCell(colValue = "手机号码",col = 4)
 	private String sjhm;
 
 	/**
 	 * 国际电话区号
 	 */
    	@Column(name = "gjdhqh" )
+	@ExcelCell(colValue = "国际电话区号",col = 5)
 	private String gjdhqh;
 
 	/**
 	 * 联系邮箱
 	 */
    	@Column(name = "lxyx" )
+	@ExcelCell(colValue = "联系邮箱",col = 6)
 	private String lxyx;
 
 	/**
 	 * 联系地址
 	 */
    	@Column(name = "lxdz" )
+	@ExcelCell(colValue = "联系地址",col = 7)
 	private String lxdz;
 
 	/**
 	 * 籍贯
 	 */
    	@Column(name = "jg" )
+	@ExcelCell(colValue = "籍贯",col = 8)
 	private String jg;
 
 	/**
 	 * 性别(M男，F女)
 	 */
    	@Column(name = "xb" )
+	@ExcelCell(colValue = "性别",col = 9)
 	private String xb;
 
 	/**
 	 * 生日(32489)
 	 */
    	@Column(name = "sr" )
+	@ExcelCell(colValue = "生日",col = 10)
 	private Date sr;
 
 	/**
 	 * 是否秘书(0 否，1 是）
 	 */
    	@Column(name = "sfms" )
+	@ExcelCell(colValue = "是否秘书",col = 11)
 	private String sfms;
 
 	/**
 	 * 报销委托人
 	 */
    	@Column(name = "bxwtr" )
+	@ExcelCell(colValue = "报销委托人",col = 12)
 	private String bxwtr;
 
 	/**
 	 * 常驻工作地
 	 */
    	@Column(name = "czgzd" )
+	@ExcelCell(colValue = "常驻工作地",col = 13)
 	private String czgzd;
 
 	/**
 	 * 银行账户名
 	 */
    	@Column(name = "yhzhm" )
+	@ExcelCell(colValue = "银行账户名",col = 14)
 	private String yhzhm;
 
 	/**
 	 * 银行开户行
 	 */
    	@Column(name = "yhkhh" )
+	@ExcelCell(colValue = "银行开户行",col = 15)
 	private String yhkhh;
 
 	/**
 	 * 银行账号
 	 */
    	@Column(name = "yhzh" )
+	@ExcelCell(colValue = "银行账号",col = 16)
 	private String yhzh;
 
 	/**
 	 * 数据权限类型（1 本人，2 本部门，3 本公司,4 指定部门）
 	 */
    	@Column(name = "sjqxlx" )
+	@ExcelCell(colValue = "数据权限类型",col = 17)
 	private String sjqxlx;
 
 	/**
@@ -176,6 +194,7 @@ public class RepYg implements Serializable {
 	 * 公司名称
 	 */
 	@Column(name = "gsmc" )
+	@ExcelCell(colValue = "公司名称",col = 18)
 	private String gsmc;
 
 	/**
@@ -188,6 +207,7 @@ public class RepYg implements Serializable {
 	 * 部门名称
 	 */
 	@Column(name = "bmmc" )
+	@ExcelCell(colValue = "部门名称",col = 19)
 	private String bmmc;
 
 	public String getGsid() {

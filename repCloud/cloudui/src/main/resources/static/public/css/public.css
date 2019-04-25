@@ -8,7 +8,6 @@ li{list-style: none;}
 .i_input{text-align: center !important;line-height: 50px !important;}
 
 
-body{padding: 10px;}
 .clearfix {display: block;}
 .clearfix:after{display:block; visibility:hidden; clear:both; height:0; content:"."}
 
@@ -170,4 +169,8 @@ html{width: 100%;height: 100%;}
 .vetech-modal .ivu-modal{ height: 90%; top:5%;}
 .vetech-modal .ivu-modal-content{ height: 100%;  }
 .vetech-modal .ivu-modal-content .ivu-modal-body{height: calc(100% - 115px); overflow: auto;}
+
+.cur-pointer{
+    cursor: pointer;
+}
 

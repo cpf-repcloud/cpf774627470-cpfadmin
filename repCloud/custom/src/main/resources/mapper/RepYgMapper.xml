@@ -2,4 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.rep.cloud.custom.organizationa.mapper.RepYgMapper">
 
+    <!--批量新增-->
+    <insert id="insertBatch" parameterType="List">
+        insert into rep_yg(id,qybh,gh,xm,ywxm,dhhm,sjhm,gjdhqh,lxyx,lxdz,jg,xb,sr,sfms,bxwtr,czgzd,yhzhm,yhkhh,yhzh,sjqxlx,
+          ktzt,grtx,cjr,cjsj,gsid,gsmc,bmid,bmmc) values
+          <foreach collection="repYgList" item="repyg" index="idnex" separator=",">
+              (#{repyg.id},#{repyg.qybh},#{repyg.gh},#{repyg.xm},#{repyg.ywxm},#{repyg.dhhm},#{repyg.sjhm},#{repyg.gjdhqh},
+              #{repyg.lxyx},#{repyg.lxdz},#{repyg.jg},#{repyg.xb},#{repyg.sr},#{repyg.sfms},#{repyg.bxwtr},#{repyg.czgzd},
+              #{repyg.yhzhm},#{repyg.yhkhh},#{repyg.yhzh},#{repyg.sjqxlx},#{repyg.ktzt},#{repyg.grtx},#{repyg.cjr},
+              #{repyg.cjsj},#{repyg.gsid},#{repyg.gsmc},#{repyg.bmid},#{repyg.bmmc})
+          </foreach>
+    </insert>
+
+    <!--批量修改-->
+    <update id="updateBatch" parameterType="List">
+        <foreach collection="repYgList" item="repyg" index="index" separator=",">
+            update rep_yg set
+              id=#{repyg.id},qybh=#{repyg.qybh},gh=#{repyg.gh},xm=#{repyg.xm},ywxm=#{repyg.ywxm},dhhm=#{repyg.dhhm},
+              sjhm=#{repyg.sjhm},gjdhqh=#{repyg.gjdhqh},lxyx=#{repyg.lxyx},lxdz=#{repyg.lxdz},jg=#{repyg.jg},
+              xb=#{repyg.xb},sr=#{repyg.sr},sfms=#{repyg.sfms},bxwtr=#{repyg.bxwtr},czgzd=#{repyg.czgzd},yhzhm=#{repyg.yhzhm},
+              yhkhh=#{repyg.yhkhh},yhzh=#{repyg.yhzh},zjqxlx=#{repyg.zjqxlx},ktzt=#{repyg.ktzt},grtx=#{repyg.grtx},
+              gjr=#{repyg.gjr},cjsj=#{repyg.cjsj},gsid=#{repyg.gsid},gsmc=#{repyg.gsmc},bmid=#{repyg.bmid},bmmc=#{repyg.bmmc}
+        </foreach>
+    </update>
 </mapper>
