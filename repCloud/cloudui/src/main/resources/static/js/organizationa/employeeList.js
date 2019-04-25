@@ -49,7 +49,7 @@ window.onload=function (){
                 apps.loading = true;
             },
             scSuccess:function (response, file, fileList) {
-                debugger
+                apps.sc = {};
                 apps.loading = false;
                 $(".kssc").hide();
                 $(".sbyy").show();

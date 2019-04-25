@@ -4,7 +4,11 @@ import cn.rep.cloud.custom.basecommon.common.Constants;
 import cn.rep.cloud.custom.coreutils.utils.BeanMapper;
 import cn.rep.cloud.custom.coreutils.utils.DateUtils;
 import cn.rep.cloud.custom.coreutils.utils.Md5AndSalt;
+import cn.rep.cloud.custom.organizationa.business.RepCompServiceImpl;
+import cn.rep.cloud.custom.organizationa.business.RepDeptServiceImpl;
 import cn.rep.cloud.custom.organizationa.dto.RepYgDTO;
+import cn.rep.cloud.custom.organizationa.entity.RepBm;
+import cn.rep.cloud.custom.organizationa.entity.RepGs;
 import cn.rep.cloud.custom.organizationa.entity.RepLogin;
 import cn.rep.cloud.custom.organizationa.entity.RepYg;
 import cn.rep.cloud.custom.organizationa.mapper.RepYgMapper;
@@ -26,6 +30,10 @@ public class RepYgService {
     private RepYgMapper repYgMapper;
     @Autowired
     private RepEmployeeService repEmployeeService;
+    @Autowired
+    private RepDeptServiceImpl repDeptService;
+    @Autowired
+    private RepCompServiceImpl repCompService;
 
     /**
      *  通过id查询员工
@@ -142,38 +150,39 @@ public class RepYgService {
         int failCount = 0;
         int successCount = 0;
         for (RepYg repYg : repYgs){
-            RepYg one = queryRepYgByGh(repYg.getGh());
+            //失败后返回给页面的数据
             FailBean insertFailBean = new FailBean();
-            if (null != one){
-                failCount++;
-                insertFailBean.setId(one.getId());
-                insertFailBean.setBh(one.getGh());
-                insertFailBean.setMc(one.getXm());
+            failCount++;
+            //判断公司是否存在
+            RepGs repGs = repCompService.getGsByBh(repYg.getGsid());
+            //判断工号是否被注册
+            RepYg one = queryRepYgByGh(repYg.getGh());
+            //判断部门是否存在
+            RepBm repBm = repDeptService.getBmByBh(repYg.getBmid());
+            if (null == repGs){
+                insertFailBean.setMessage("公司不存在或者公司编号填写错误!");
+            }else if (null == repBm){
+                insertFailBean.setMessage("部门不存在或者部门编号填写错误!");
+            }else if (null != one){
                 insertFailBean.setMessage("该工号已经注册!");
-                failBeanList.add(insertFailBean);
             }else{
+                failCount--;
                 RepYg tow = new RepYg();
                 BeanMapper.copy(repYg,tow);
                 successList.add(tow);
+                continue;
             }
+            insertFailBean.setId(repYg.getId());
+            insertFailBean.setBh(repYg.getGh());
+            insertFailBean.setMc(repYg.getXm());
+            failBeanList.add(insertFailBean);
         }
         if (CollectionUtils.isNotEmpty(successList)){
             successCount = repYgMapper.insertBatch(successList);
             //员工添加成功后,就默认添加一个登录账号,登录账号默认为工号,密码默认为123456
             if (successCount > 0){
                 for (RepYg repYg : successList){
-                    RepLogin repLogin = new RepLogin();
-                    repLogin.setId(DateUtils.getNo(5));
-                    repLogin.setYgid(repYg.getId());
-                    repLogin.setLoginname(repYg.getGh());
-                    repLogin.setName(repYg.getXm());
-                    String password = Md5AndSalt.getMd5("123456",repYg.getGh()).toString();
-                    repLogin.setCreattime(DateUtils.getNow());
-                    repLogin.setCreattime(DateUtils.getNow());
-                    repLogin.setCreatuser(repYg.getCjr());
-                    repLogin.setUpdateuser(repYg.getCjr());
-                    repLogin.setPassword(password);
-                    repEmployeeService.insetLogin(repLogin);
+                    repEmployeeService.insetLogin(repYg);
                 }
             }
         }

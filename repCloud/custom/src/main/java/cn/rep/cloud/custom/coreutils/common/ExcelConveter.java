@@ -70,6 +70,11 @@ public class ExcelConveter {
         return workbook.getSheetAt(index);
     }
 
+    /**
+     * 处理每一行 每个单元格的值
+     * @param row 当前行
+     * @return 当前行
+     */
     public static Object[] convertArrayByRow(Row row) {
         int cols = row.getLastCellNum();
         Object[] arr = new Object[cols];
@@ -80,8 +85,10 @@ public class ExcelConveter {
             if (cell.getCellTypeEnum() == CellType.STRING) {
                 arr[i] = cell.getStringCellValue();
             } else if(HSSFDateUtil.isCellDateFormatted(cell)) {
+                //处理单元格内日期格式
                 arr[i] = DateUtil.getJavaDate(cell.getNumericCellValue());
             }else if (cell.getCellTypeEnum() == CellType.NUMERIC) {
+                //处理单元格内数字是小数还是整数或科学计数
                 Object inputValue = null;// 单元格值
                 Long longVal = Math.round(cell.getNumericCellValue());
                 Double doubleVal = cell.getNumericCellValue();

@@ -105,4 +105,15 @@ public class RepCompService {
     public List<String> getMbx(String chrId){
         return repCompMapper.getMbx(chrId);
     }
+
+    /**
+     * 根据公司编号查询公司
+     * @param bh
+     * @return
+     */
+    public RepGs getGsByBh(String bh){
+        RepGs repGs = new RepGs();
+        repGs.setBh(bh);
+        return repCompMapper.selectOne(repGs);
+    }
 }

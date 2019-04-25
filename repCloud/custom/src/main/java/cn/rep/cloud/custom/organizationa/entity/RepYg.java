@@ -188,6 +188,7 @@ public class RepYg implements Serializable {
 	 * 公司id
 	 */
 	@Column(name = "gsid" )
+	@ExcelCell(colValue = "公司编号",col = 19)
 	private String gsid;
 
 	/**
@@ -201,13 +202,14 @@ public class RepYg implements Serializable {
 	 * 部门id
 	 */
 	@Column(name = "bmid" )
+	@ExcelCell(colValue = "部门编号",col = 21)
 	private String bmid;
 
 	/**
 	 * 部门名称
 	 */
 	@Column(name = "bmmc" )
-	@ExcelCell(colValue = "部门名称",col = 19)
+	@ExcelCell(colValue = "部门名称",col = 20)
 	private String bmmc;
 
 	public String getGsid() {

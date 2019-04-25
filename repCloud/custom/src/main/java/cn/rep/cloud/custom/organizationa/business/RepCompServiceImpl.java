@@ -9,6 +9,7 @@ import cn.rep.cloud.custom.organizationa.entity.RepGs;
 import cn.rep.cloud.custom.organizationa.service.RepCompService;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.toolkit.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,5 +131,16 @@ public class RepCompServiceImpl {
             compList.add(response);
         }
         return compList;
+    }
+
+    /**
+     * 根据公司编号查询公司
+     * @param gsbh
+     * @return
+     */
+    public RepGs getGsByBh(String gsbh){
+        if (StringUtils.isNotEmpty(gsbh))
+        return repCompService.getGsByBh(gsbh);
+        return null;
     }
 }

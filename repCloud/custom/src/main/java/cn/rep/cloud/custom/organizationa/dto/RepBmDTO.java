@@ -26,6 +26,10 @@ public class RepBmDTO {
      * 是否自动生成成本中心(1 是 0 否)
      */
     private String sfzdsccbzx;
+    /**
+     * 创建人
+     */
+    private String cjr;
 
     public String getId() {
         return id;
@@ -73,5 +77,13 @@ public class RepBmDTO {
 
     public void setSfzdsccbzx(String sfzdsccbzx) {
         this.sfzdsccbzx = sfzdsccbzx;
+    }
+
+    public String getCjr() {
+        return cjr;
+    }
+
+    public void setCjr(String cjr) {
+        this.cjr = cjr;
     }
 }

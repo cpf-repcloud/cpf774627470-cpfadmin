@@ -5,7 +5,6 @@ window.onload= function (){
     function contentsH() {
         var contentsH = $("section").height();
         var footerh = contentsH - 55 - 40 - 8;
-        debugger
         $(".index_footer").height(footerh);
     }
 
@@ -54,10 +53,7 @@ window.onload= function (){
                 , data: JSON.stringify({})
                 , contentType: 'application/json;charset=utf-8'
                 , success: function (data) {
-                    console.log(JSON.stringify(data));
-                    debugger
                     _this.employee = data.result.repYg;
-                    console.log(_this.employee);
                     _this.leftMenu=data.result.menuList;
                 }
             })
@@ -80,7 +76,6 @@ window.onload= function (){
             },
             topMenuFun:function(item,index,e){
                 var _this= this;
-                debugger
                 var this_li = e.target;
                 if (this_li.tagName != "LI"){
                     var pp = $(this_li).parent();
@@ -96,7 +91,6 @@ window.onload= function (){
                 })
             },
             menuDhFn: function (item){
-                debugger;
                 var _this=this;
                 if(item.parentid !== 'none'){
                     this.leftMenu.forEach(function(pList){
@@ -109,7 +103,6 @@ window.onload= function (){
                 }
             },
             closeMenu:function(i){
-                debugger
                  this.topMenu.splice(i,1);
                 this.nowId=this.topMenu[i-1].id;
             },
@@ -127,7 +120,6 @@ window.onload= function (){
                 },300)
             },
             rightWards:function () {
-                debugger
                 var scroll_left1 = $("#mouseScroll").scrollLeft();
                 if (h < 0 || scroll_left1 != h) h = 0;
                 h += 250;
