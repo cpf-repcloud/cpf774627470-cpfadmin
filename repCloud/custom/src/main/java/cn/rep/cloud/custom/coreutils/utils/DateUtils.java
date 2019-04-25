@@ -6,6 +6,7 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import cn.hutool.core.date.DateUtil;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
@@ -15,11 +16,11 @@ import org.apache.commons.lang.time.DurationFormatUtils;
  * 时间工具类
  */
 public class DateUtils {
-    private static String[] m_nMonth = { "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" };
+    private static String[] m_nMonth = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
 
     public static void main(String[] args) {
 //System.out.println( VeDate.formatToStr(new Date(), "yyyy-M-d"));
-        String domain="129.3.36.0:80,vetch:8081";
+        String domain = "129.3.36.0:80,vetch:8081";
         domain = StringUtils.trimToEmpty(domain).toUpperCase().replaceAll(":80", "");
         String rno = getNoNo(6);
         System.out.print(domain);
@@ -28,10 +29,8 @@ public class DateUtils {
     /**
      * 验证日期格式是否合法
      *
-     * @param strDate
-     *            需要验证的日期字符串
-     * @param format
-     *            指定日期字符串的格式，如果不输入默认yyyy-MM-dd
+     * @param strDate 需要验证的日期字符串
+     * @param format  指定日期字符串的格式，如果不输入默认yyyy-MM-dd
      * @return
      */
     public static boolean isDate(String strDate, String... format) {
@@ -54,12 +53,8 @@ public class DateUtils {
     /**
      * 验证日期时间格式
      *
-     * @param datetime
-     *            需要验证的日期时间字符串
-     *
-     * @param format
-     *            指定日期字符串的格式，如果不输入默认yyyy-MM-dd HH:mm:ss
-     *
+     * @param datetime 需要验证的日期时间字符串
+     * @param format   指定日期字符串的格式，如果不输入默认yyyy-MM-dd HH:mm:ss
      * @return boolean 如果格式合法返回true
      */
     public static boolean isDatetime(String datetime, String... format) {
@@ -80,8 +75,6 @@ public class DateUtils {
     }
 
     /**
-     *
-     * @return yyyy-MM-dd 获取现在日期
      * @return 返回短时间格式 yyyy-MM-dd
      */
     public static Date getNowDateShort() {
@@ -96,8 +89,7 @@ public class DateUtils {
     /**
      * 根据用户传入的时间表示格式，返回当前时间的格式 如果是yyyyMMdd，注意字母y不能大写。
      *
-     * @param sformat
-     *            yyyyMMddHHmmss
+     * @param sformat yyyyMMddHHmmss
      * @return
      */
     public static String getUserDate(String sformat) {
@@ -185,10 +177,8 @@ public class DateUtils {
     /**
      * 将指定格式的字符串转为日期时间对象
      *
-     * @param strDate
-     *            时间
-     * @param format
-     *            格式
+     * @param strDate 时间
+     * @param format  格式
      * @return 时间 date
      */
     public static Date formatToDate(String strDate, String format) {
@@ -259,13 +249,11 @@ public class DateUtils {
 
     /**
      * 二个时间之间相差的小时，返回可以为小数
-     *
+     * <p>
      * st1 - st2
      *
-     * @param st1
-     *            HH:mm格式的时间
-     * @param st2
-     *            HH:mm格式的时间
+     * @param st1 HH:mm格式的时间
+     * @param st2 HH:mm格式的时间
      * @return 返回 st1 - st2 之间间隔的小时
      */
     public static double getTwoHourShort(String st1, String st2) {
@@ -277,13 +265,11 @@ public class DateUtils {
 
     /**
      * 二个时间之间相差的分钟，返回可以为小数
-     *
+     * <p>
      * st1 - st2
      *
-     * @param st1
-     *            HH:mm格式的时间
-     * @param st2
-     *            HH:mm格式的时间
+     * @param st1 HH:mm格式的时间
+     * @param st2 HH:mm格式的时间
      * @return 返回 st1 - st2 之间间隔的分钟
      */
     public static double getTwoMinShort(String st1, String st2) {
@@ -295,19 +281,16 @@ public class DateUtils {
 
     /**
      * 判断现在时间是否在2个时间之间
-     *
+     * <p>
      * 处理下面几种情况
-     *
+     * <p>
      * 正常的 00:00-08:00
-     *
+     * <p>
      * 开始时间比结束时间大的 20:00-01:00
-     *
+     * <p>
      * 岔开的05:00-02:00
      *
-     *
-     * @param sxsj
-     *            00:00-08:00,10:00-17:00
-     *
+     * @param sxsj 00:00-08:00,10:00-17:00
      */
     public static boolean getSxsjIsOk(String sxsj) {
         if (StringUtils.isBlank(sxsj)) {
@@ -338,10 +321,8 @@ public class DateUtils {
     /**
      * 得到二个日期间的间隔月数 同一个月返回0
      *
-     * @param date1
-     *            较大的日期 格式是 yyyy-MM-dd
-     * @param date2
-     *            较小的日期 格式是 yyyy-MM-dd
+     * @param date1 较大的日期 格式是 yyyy-MM-dd
+     * @param date2 较小的日期 格式是 yyyy-MM-dd
      * @return 间隔的月数 date1 - date2
      */
     public static int getTwoMonth(String date1, String date2) {
@@ -362,10 +343,8 @@ public class DateUtils {
     /**
      * 得到二个日期间的间隔天数 同一个日期返回0
      *
-     * @param date1
-     *            较大的日期 格式是 yyyy-MM-dd
-     * @param date2
-     *            较小的日期 格式是 yyyy-MM-dd
+     * @param date1 较大的日期 格式是 yyyy-MM-dd
+     * @param date2 较小的日期 格式是 yyyy-MM-dd
      * @return 间隔的天数 date1 - date2
      */
     public static int getTwoDay(String date1, String date2) {
@@ -382,10 +361,8 @@ public class DateUtils {
     /**
      * 得到二个日期间的间隔天数 同一个日期返回0
      *
-     * @param date1
-     *            较大的日期 格式是 yyyy-MM-dd
-     * @param date2
-     *            较小的日期 格式是 yyyy-MM-dd
+     * @param date1 较大的日期 格式是 yyyy-MM-dd
+     * @param date2 较小的日期 格式是 yyyy-MM-dd
      * @return 间隔的天数 date1 - date2
      */
     public static int getTwoDay(Date date1, Date date2) {
@@ -400,10 +377,8 @@ public class DateUtils {
     /**
      * 得到二个日期间的间隔分钟 同一个日期时间返回0
      *
-     * @param datettime1
-     *            较大的日期 格式是 yyyy-MM-dd HH:mm:ss
-     * @param datettime2
-     *            较小的日期 格式是 yyyy-MM-dd HH:mm:ss
+     * @param datettime1 较大的日期 格式是 yyyy-MM-dd HH:mm:ss
+     * @param datettime2 较小的日期 格式是 yyyy-MM-dd HH:mm:ss
      * @return 间隔的分钟 datettime1 - datettime2
      */
     public static int getTwoMin(String datettime1, String datettime2) {
@@ -420,10 +395,8 @@ public class DateUtils {
     /**
      * 得到二个日期间的间隔分钟 同一个日期时间返回0
      *
-     * @param datettime1
-     *            较大的日期 格式是 yyyy-MM-dd HH:mm:ss
-     * @param datettime2
-     *            较小的日期 格式是 yyyy-MM-dd HH:mm:ss
+     * @param datettime1 较大的日期 格式是 yyyy-MM-dd HH:mm:ss
+     * @param datettime2 较小的日期 格式是 yyyy-MM-dd HH:mm:ss
      * @return 间隔的分钟 datettime1 - datettime2
      */
     public static int getTwoMin(Date datettime1, Date datettime2) {
@@ -438,10 +411,8 @@ public class DateUtils {
     /**
      * 得到二个日期间的间隔秒 同一个日期时间返回0
      *
-     * @param datettime1
-     *            较大的日期 格式是 yyyy-MM-dd HH:mm:ss
-     * @param datettime2
-     *            较小的日期 格式是 yyyy-MM-dd HH:mm:ss
+     * @param datettime1 较大的日期 格式是 yyyy-MM-dd HH:mm:ss
+     * @param datettime2 较小的日期 格式是 yyyy-MM-dd HH:mm:ss
      * @return 间隔的秒数 datettime1 - datettime2
      */
     public static int getTwoSec(String datettime1, String datettime2) {
@@ -458,10 +429,8 @@ public class DateUtils {
     /**
      * 得到二个日期间的间隔秒 同一个日期时间返回0
      *
-     * @param datettime1
-     *            较大的日期 格式是 yyyy-MM-dd HH:mm:ss
-     * @param datettime2
-     *            较小的日期 格式是 yyyy-MM-dd HH:mm:ss
+     * @param datettime1 较大的日期 格式是 yyyy-MM-dd HH:mm:ss
+     * @param datettime2 较小的日期 格式是 yyyy-MM-dd HH:mm:ss
      * @return 间隔的秒数 datettime1 - datettime2
      */
     public static int getTwoSec(Date datettime1, Date datettime2) {
@@ -476,10 +445,8 @@ public class DateUtils {
     /**
      * 时间前推或后推秒钟,其中second表示秒钟数
      *
-     * @param date
-     *            yyyy-MM-dd HH:mm:ss
-     * @param second
-     *            向前推为负数，向后推为正数
+     * @param date   yyyy-MM-dd HH:mm:ss
+     * @param second 向前推为负数，向后推为正数
      * @return
      */
     public static Date getPreSec(Date date, int second) {
@@ -492,10 +459,8 @@ public class DateUtils {
     /**
      * 时间前推或后推秒钟,其中second表示秒钟数
      *
-     * @param datetime
-     *            yyyy-MM-dd HH:mm:ss
-     * @param second
-     *            向前推为负数，向后推为正数
+     * @param datetime yyyy-MM-dd HH:mm:ss
+     * @param second   向前推为负数，向后推为正数
      * @return
      */
     public static String getPreSec(String datetime, int second) {
@@ -506,10 +471,8 @@ public class DateUtils {
     /**
      * 时间前推或后推分钟,其中min表示分钟数
      *
-     * @param datetime
-     *            yyyy-MM-dd HH:mm:ss
-     * @param min
-     *            向前推为负数，向后推为正数
+     * @param datetime yyyy-MM-dd HH:mm:ss
+     * @param min      向前推为负数，向后推为正数
      * @return
      */
     public static Date getPreMin(Date datetime, int min) {
@@ -522,10 +485,8 @@ public class DateUtils {
     /**
      * 时间前推或后推分钟,其中min表示分钟数
      *
-     * @param datetime
-     *            yyyy-MM-dd HH:mm:ss
-     * @param min
-     *            向前推为负数，向后推为正数
+     * @param datetime yyyy-MM-dd HH:mm:ss
+     * @param min      向前推为负数，向后推为正数
      * @return
      */
     public static String getPreMin(String datetime, int min) {
@@ -536,10 +497,8 @@ public class DateUtils {
     /**
      * 日期前推或后推天数,其中day表示天数
      *
-     * @param dateDate
-     *            yyyy-MM-dd
-     * @param day
-     *            向前推为负数，向后推为正数
+     * @param dateDate yyyy-MM-dd
+     * @param day      向前推为负数，向后推为正数
      * @return
      */
     public static Date getPreDay(Date dateDate, int day) {
@@ -552,10 +511,8 @@ public class DateUtils {
     /**
      * 日期前推或后推天数,其中day表示天数
      *
-     * @param date
-     *            yyyy-MM-dd
-     * @param day
-     *            向前推为负数，向后推为正数
+     * @param date yyyy-MM-dd
+     * @param day  向前推为负数，向后推为正数
      * @return
      */
     public static String getPreDay(String date, int day) {
@@ -566,10 +523,8 @@ public class DateUtils {
     /**
      * 日期前推或后推月数,其中month表示月数
      *
-     * @param dateDate
-     *            yyyy-MM-dd
-     * @param month
-     *            向前推为负数，向后推为正数
+     * @param dateDate yyyy-MM-dd
+     * @param month    向前推为负数，向后推为正数
      * @return
      */
     public static Date getPreMonth(Date dateDate, int month) {
@@ -582,10 +537,8 @@ public class DateUtils {
     /**
      * 日期前推或后推月数,其中month表示月数
      *
-     * @param date
-     *            yyyy-MM-dd
-     * @param month
-     *            向前推为负数，向后推为正数
+     * @param date  yyyy-MM-dd
+     * @param month 向前推为负数，向后推为正数
      * @return
      */
     public static Date getPreMonth(String date, int month) {
@@ -793,8 +746,7 @@ public class DateUtils {
     /**
      * 补齐开始日期到秒.使其格式为yyyy-MM-dd 00:00:00
      *
-     * @param date
-     *            补齐开始日期
+     * @param date 补齐开始日期
      * @return Date
      */
     public static Date startDateTime(Date date) {
@@ -810,8 +762,7 @@ public class DateUtils {
     /**
      * 补齐结束日期到秒.使其格式为yyyy-MM-dd 23:59:59
      *
-     * @param date
-     *            补齐结束日期
+     * @param date 补齐结束日期
      * @return Date
      */
     public static Date endDateTime(Date date) {
@@ -871,7 +822,7 @@ public class DateUtils {
 
     /**
      * 取得数据库主键 生成格式为yyyymmddhhmmss+k位随机数
-     *
+     * <p>
      * 表示是取几位随机数，可以自己定
      */
 
@@ -981,25 +932,27 @@ public class DateUtils {
         List<Date[]> l = new ArrayList<Date[]>();
         // 在一个月内的
         if (endDate.compareTo(getMonthEnd(startDate)) <= 0) {
-            l.add(new Date[] { startDate, endDate });
+            l.add(new Date[]{startDate, endDate});
         } else {
             fn = startDate;
             tn = getMonthEnd(startDate);
-            l.add(new Date[] { fn, tn });
+            l.add(new Date[]{fn, tn});
             // 下一个月第一天
             fn = getPreMonth(getMonthFirst(startDate), 1);
             while (endDate.compareTo(getMonthEnd(fn)) > 0) {
-                l.add(new Date[] { fn, getMonthEnd(fn) });
+                l.add(new Date[]{fn, getMonthEnd(fn)});
                 fn = getPreMonth(fn, 1);
             }
-            l.add(new Date[] { getMonthFirst(endDate), endDate });
+            l.add(new Date[]{getMonthFirst(endDate), endDate});
         }
         return l;
     }
 
     // 不适用日期 格式2015-03-02|2015-03-04,2015-03-07|2015-03-08
+
     /**
      * 把 fromdate 到 todate 这个日期段，排除掉str日期后，组成的日期段
+     *
      * @param fromDate
      * @param toDate
      * @param str
@@ -1118,9 +1071,8 @@ public class DateUtils {
 
     /**
      * 把字符传格式为HH:mm 不是很精确的
-     *
+     * <p>
      * 12:00 12 1200
-     *
      */
     public static String Ftmwk(String tm) {
         tm = StringUtils.trimToEmpty(tm).replaceAll(":+", ":");
@@ -1161,12 +1113,9 @@ public class DateUtils {
     /**
      * 用于返回指定日期格式的日期增加指定天数的日期
      *
-     * @param appDate
-     *            指定日期
-     * @param format
-     *            指定日期格式yyyy-MM-dd
-     * @param days
-     *            指定天数
+     * @param appDate 指定日期
+     * @param format  指定日期格式yyyy-MM-dd
+     * @param days    指定天数
      * @return 指定日期格式的日期增加指定天数的日期
      */
     public static String getFutureDay(String appDate, String format, int days) {
@@ -1188,10 +1137,8 @@ public class DateUtils {
     /**
      * 得到一个时间延后或前移几天的时间,nowdate为时间,delay为前移或后延的天数
      *
-     * @param nowdate
-     *            现在日期
-     * @param delay
-     *            delay为前移或后延的天数
+     * @param nowdate 现在日期
+     * @param delay   delay为前移或后延的天数
      * @return 日期
      */
     public static String getNextDay(String nowdate, String delay) {
@@ -1214,10 +1161,8 @@ public class DateUtils {
     /**
      * 判断一个给定的日期字符串是否符合给定的格式，并且是有效的日期
      *
-     * @param date
-     *            给定的日期字符串
-     * @param format
-     *            要求的日期格式
+     * @param date   给定的日期字符串
+     * @param format 要求的日期格式
      * @return boolean 如果符合格式并且是有效的日期返回true 否则返回false
      * @see [类、类#方法、类#成员]
      */
@@ -1248,16 +1193,15 @@ public class DateUtils {
         return k[2] + k[1].toUpperCase() + k[5].substring(2, 4);
     }
 
-    public static int getYear(){
-        Calendar a=Calendar.getInstance();
+    public static int getYear() {
+        Calendar a = Calendar.getInstance();
         return a.get(Calendar.YEAR);
     }
 
     /**
      * xiongzhao 2012-09-19 将yyyy-MM-dd日期转换成
      *
-     * @param date
-     *            yyyy-MM-dd
+     * @param date yyyy-MM-dd
      * @return 19SEP12
      */
     public static String dateCommandTime(String date) {
@@ -1282,12 +1226,13 @@ public class DateUtils {
 
     /**
      * 两个时间之间的天数
+     *
      * @param date1 格式：yyyy-MM-dd
      * @param date2 格式：yyyy-MM-dd
      * @return 天数
      */
     public static long getDays(String date1, String date2) {
-        if (StringUtils.isBlank(date1) || StringUtils.isBlank(date2)){
+        if (StringUtils.isBlank(date1) || StringUtils.isBlank(date2)) {
             return 0;
         }
         // 转换为标准时间
@@ -1308,6 +1253,7 @@ public class DateUtils {
 
     /**
      * 字符型日期转Calendar，格式不对返回null
+     *
      * @param strDate 格式：yyyy-MM-dd or yyyy-MM-dd hh:mm:ss
      * @return 日历对象
      */
@@ -1334,15 +1280,17 @@ public class DateUtils {
 
         return calendar;
     }
+
     /**
      * 如果origDate 大于 destDate，返回1；小于destDate，返回-1
      * 等于destDate，返回0，出现异常，返回-2
      * 格式：yyyy-MM-dd HH:mm:ss
+     *
      * @param origDate 比较方
      * @param destDate 被比较方
      * @return
      */
-    public static int compareDate(String origDate, String destDate){
+    public static int compareDate(String origDate, String destDate) {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         int i = 0;
         try {
@@ -1361,11 +1309,11 @@ public class DateUtils {
         }
         return i;
     }
+
     /**
      * 取得指定日期的下一个月
      *
-     * @param dates
-     *            指定日期。
+     * @param dates 指定日期。
      * @param count
      * @return 指定日期的下几个月
      */
@@ -1377,17 +1325,18 @@ public class DateUtils {
 
         return dateToStr(gc.getTime());
     }
+
     /**
      * 取得指定月份的第一天
      *
-     * @param dat
-     *            String
+     * @param dat String
      * @return String
      */
     public static String getMonthBegin(String dat) {
         String str = dat.substring(0, 8);
         return str + "01";
     }
+
     /**
      * 获取一个月的最后一天
      *
@@ -1411,6 +1360,7 @@ public class DateUtils {
         }
         return str;
     }
+
     /**
      * 判断是否润年
      *
@@ -1442,10 +1392,8 @@ public class DateUtils {
      *
      * @param sj1
      * @param sj2
-     * @return [参数说明]
-     *
      * @return String [返回类型说明]
-     * @exception throws [违例类型] [违例说明]
+     * @throws throws [违例类型] [违例说明]
      * @see [类、类#方法、类#成员]
      */
     public static String getTwoMil(String sj1, String sj2) {
@@ -1466,10 +1414,8 @@ public class DateUtils {
      *
      * @param sj1
      * @param sj2
-     * @return [参数说明]
-     *
      * @return String [返回类型说明]
-     * @exception throws [违例类型] [违例说明]
+     * @throws throws [违例类型] [违例说明]
      * @see [类、类#方法、类#成员]
      */
     public static String getTwoMiaos(String sj1, String sj2) {
@@ -1487,6 +1433,7 @@ public class DateUtils {
 
     /**
      * 二个小时时间间的差值,必须保证二个时间都是"HH:MM"的格式
+     *
      * @param st1
      * @param st2
      * @return 字符型的分钟【注意：此方法，如果入参st1比st2小，此方法返回值为0】
@@ -1513,10 +1460,8 @@ public class DateUtils {
      *
      * @param st1
      * @param st2
-     * @return [参数说明]
-     *
      * @return int [返回类型说明]
-     * @exception throws [违例类型] [违例说明]
+     * @throws throws [违例类型] [违例说明]
      * @see [类、类#方法、类#成员]
      */
     public static int getMinutesFromTwoHour(String st1, String st2) {
@@ -1532,6 +1477,7 @@ public class DateUtils {
 
     /**
      * 判断是否是周末
+     *
      * @param dateStr 将长时间格式时间 yyyy-MM-dd HH:mm:ss
      * @return 周六、周日 true
      */
@@ -1539,7 +1485,7 @@ public class DateUtils {
         Calendar cal = new GregorianCalendar();
         cal.setTime(strToDateLong(dateStr));
         int weekNum = cal.get(Calendar.DAY_OF_WEEK) - 1;
-        if(weekNum == 6 || weekNum == 0){
+        if (weekNum == 6 || weekNum == 0) {
             return true;
         }
         return false;
@@ -1547,13 +1493,13 @@ public class DateUtils {
 
     /**
      * @category 判断第一个日期是否在第二个日期之后
-     *
      */
     public static boolean after(String srcDate, String desDate) {
         Date date1 = strToDate(srcDate);
         Date date2 = strToDate(desDate);
         return date1.after(date2);
     }
+
     /**
      * 毫秒转为时分秒
      *
@@ -1588,7 +1534,8 @@ public class DateUtils {
 
     /**
      * 获取随机数，使用时注意生成的总位数
-     * 		格式  yyMMddHHmmssSSS + k位随机数
+     * 格式  yyMMddHHmmssSSS + k位随机数
+     *
      * @param k
      * @return
      */
@@ -1600,4 +1547,20 @@ public class DateUtils {
         }
         return getUserDate("yyMMddHHmmssSSS") + RandomStringUtils.randomNumeric(k);
     }
+
+
+    /**
+     * 获取 年月日时间错
+     *
+     * @return
+     */
+    public static String getTimeStr() {
+        int year = DateUtil.thisYear();
+        int month = DateUtil.thisMonth();
+        String monthStr = month < 10 ? "0" + month : month + "";
+        int day = DateUtil.thisDayOfMonth();
+        String dayStr = day < 10 ? "0" + day : day + "";
+        return year + monthStr + dayStr;
+    }
+
 }
