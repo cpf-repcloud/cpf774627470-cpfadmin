@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layout">
+<html lang="zh-cn">
 <head>
     <meta charset="UTF-8">
     <title>基础数据列表</title>
@@ -13,7 +11,7 @@
     </script>
 </head>
 <body class="bodyClass">
-    <div id="app" layout:fragment="content" v-cloak >
+    <div id="app"  v-cloak >
 
         <div class="tree" id="my-box" >
             <i-form ref="queryForm" :inline="false" :model="iquery" :rules="formRule" :show-message="false" @keydown.native.enter.prevent ="keyDownEvent">

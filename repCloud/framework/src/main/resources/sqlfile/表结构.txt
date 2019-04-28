@@ -138,7 +138,7 @@ CREATE TABLE `rep_gw` (
 `xflygsid`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '下发来源公司ID' ,
 `xfsj`  datetime NULL DEFAULT NULL COMMENT '下发时间' ,
 `cjr`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '创建人' ,
-`cjsj`  datetime NOT NULL DEFAULT 'CURRENT_TIMESTAMP' COMMENT '创建时间' ,
+`cjsj`  datetime NULL DEFAULT NULL COMMENT '创建时间' ,
 `zhxgr`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '最后修改人' ,
 `zhxgsj`  datetime NULL DEFAULT NULL COMMENT '最后修改时间' ,
 `ip`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '最后修改IP' ,
@@ -153,7 +153,7 @@ COMMENT='岗位表'
 
 #4.9号添加岗位表
 
------------------------------------------------
+#-----------------------------------------------
 DROP TABLE IF EXISTS `rep_yg`;
 CREATE TABLE `rep_yg` (
   `id` varchar(32) NOT NULL COMMENT 'ID(主键)',
@@ -281,7 +281,7 @@ INSERT INTO `rep_login` VALUES ('2019011201060002', '201904090001', '耿海元',
 #-----------------------------------------------------------------------
 
 ALTER TABLE `rep_gs`
-DROP COLUMN `sjmc`,
+#DROP COLUMN IF EXISTS `sjmc`,
 ADD COLUMN `sjmc`  varchar(255) NULL COMMENT '上级公司名称' AFTER `sjid`;
 
 DROP TABLE IF EXISTS `rep_city`;

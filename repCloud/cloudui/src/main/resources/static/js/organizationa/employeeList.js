@@ -1,3 +1,4 @@
+
 window.onload=function (){
     var apps;
     var treeNodeList =[];
@@ -12,7 +13,29 @@ window.onload=function (){
         getEmployeeList();
     });
 
+    var breadList;
+    var bmvo;
+    var deptid;
+    var employee;
+
     function getBmMbx(sjid) {
+        $.ajax({
+            type: "GET",
+            url: "/custom/repDept/getBmMbx?chrId="+sjid,
+            dataType: "json",
+            contentType: "application/json;charset=UTF-8",
+            success: function (response) {
+                if (response.status && response.status === "200") {
+                    breadList = response.result.mbxList;
+                    bmvo = response.result;
+                    deptid = response.result.id;
+                    employee = response.result.bmfzr;
+                    initVue();
+                }
+            }
+        });
+    }
+    function getBmMbx_app(sjid) {
         $.ajax({
             type: "GET",
             url: "/custom/repDept/getBmMbx?chrId="+sjid,
@@ -35,10 +58,10 @@ window.onload=function (){
             data:{
                 employeeList:employeeList,
                 deptList:deptList,
-                employee:"",
-                deptid:"",
+                employee:employee,
+                deptid:deptid,
                 sc:{},
-                bmvo:{},
+                bmvo:bmvo,
                 loading:false,
                 upload:false,
                 addEmp:false,
@@ -72,7 +95,6 @@ window.onload=function (){
             },
             mounted:function (){
                 var _this=this;
-                getBmMbx(treeNodeList[0].value);
                 _this.queryPage();
             },
             methods:{
@@ -83,15 +105,15 @@ window.onload=function (){
                     console.log(data);
                 },
                 editBms:function (bmid) {
-                    apps.$forceUpdate();
                     apps.editBm = true;
+                    apps.$forceUpdate();
                 },
                 checkedTreeNode:function (data) {
                     var _this = this;
                     if (data && data.length > 0){
                         var sjid = data[0].value;
                         _this.iquery.sjid = sjid;
-                        getBmMbx(sjid);
+                        getBmMbx_app(sjid);
                         //this.queryPage();
                     }
                 },
@@ -117,6 +139,8 @@ window.onload=function (){
                 }
             }
         })
+        debugger
+        window.apps=apps;
     }
 
     function treeNode() {
@@ -129,7 +153,8 @@ window.onload=function (){
             success: function (response) {
                 if (response.status && response.status === "200") {
                     treeNodeList = response.result;
-                    initVue();
+                    getBmMbx(treeNodeList[0].value);
+
                 }
             }
         });
@@ -142,7 +167,6 @@ window.onload=function (){
             url: "/custom/kj/employee/getEmployeeList",
             data: JSON.stringify(request),
             dataType: "json",
-            async:true,
             contentType: "application/json;charset=UTF-8",
             success: function (response) {
                 if (response.status && response.status === "200") {
@@ -160,7 +184,6 @@ window.onload=function (){
             url: "/custom/kj/dept/getDeptList",
             data: JSON.stringify(request),
             dataType: "json",
-            async:true,
             contentType: "application/json;charset=UTF-8",
             success: function (response) {
                 if (response.status && response.status === "200") {
@@ -171,5 +194,6 @@ window.onload=function (){
             }
         });
     }
+
 
 }
