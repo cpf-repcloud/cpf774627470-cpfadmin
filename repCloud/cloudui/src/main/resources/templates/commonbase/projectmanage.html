@@ -385,8 +385,6 @@
             ok-text="提交"
             :loading="addload"
             :mask-closable="false"
-            class-name="vertical-center-modal"
-            class="vetech-modal"
             @on-cancel="cancel">
         <i-form :model="addData" ref="formValidateAdd" :rules="ruleValidate">
             <i-col :sm="24" :md="24" :lg="24">
@@ -456,7 +454,7 @@
             <i-col :sm="12" :md="12" :lg="12">
                 <form-Item class="wit300demo" prop="xmjl" label="项目经理">
                     <div class="wit200demo">
-                        <Employee v-model="kjAddData.xmjl" @on-emp="selectXmjl"></Employee>
+                        <pulldown v-if="addModel" v-model="kjAddData.xmjl" class="demo-input" data-type="1" :data-source="employeeList" @on-change="empChange"></pulldown>
                     </div>
                 </form-Item>
             </i-col>

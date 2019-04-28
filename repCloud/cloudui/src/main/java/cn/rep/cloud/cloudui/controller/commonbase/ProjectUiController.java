@@ -12,6 +12,6 @@ public class ProjectUiController {
      */
     @RequestMapping(value = "projectList", method = RequestMethod.GET)
     public String repModularList() {
-        return "/project/projectmanage";
+        return "/commonbase/projectmanage";
     }
 }

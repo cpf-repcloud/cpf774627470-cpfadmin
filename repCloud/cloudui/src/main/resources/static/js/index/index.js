@@ -194,7 +194,6 @@ $(".article_child").click(function(){
     var src= $(this).attr("data-src");
     $("#content_page").attr("src",src);
 })
-    window.app=app;
 
 }
 
