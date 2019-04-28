@@ -34,7 +34,7 @@
                             </template>
                             <menu-item :name="index+1+'-'+menuindex+1"
                                        v-for="(list,menuindex) in item.children"
-                                       :class="{'ivu-menu-item-active':nowId===list.id}"
+                                       :class="nowId==list.id ? 'ivu-menu-item-active':''"
                                        :key="list.id"
                                        v-text="list.name"
                                        @click.native="menuFunc(list)"
@@ -83,9 +83,9 @@
                             :key="index"
                             @click="topMenuFun(topmenu,index,$event)"
                         >
-                            <span class="index_unchecked" :class="{'index_checked':topmenu.id==nowId}"></span>
+                            <span class="index_unchecked" :class="topmenu.id== nowId ? 'index_checked': ''"></span>
                             <span v-text="topmenu.name"></span>
-                            <span @click="closeMenu(index)">
+                            <span @click.stop="closeMenu(index)">
                                 <Icon v-if="index!=0" type="ios-close" class="section_icon_close"></Icon>
                             </span>
                         </li>
