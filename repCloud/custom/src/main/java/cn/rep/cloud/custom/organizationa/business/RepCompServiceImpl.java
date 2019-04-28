@@ -70,6 +70,10 @@ public class RepCompServiceImpl {
         return repCompService.getRepList(sjid);
     }
 
+    /**
+     * 通过递归查询方式获取公司树形结构
+     * @return
+     */
     public List<TreeNode> getTreeNodes(){
         List<TreeNode> treeNodes = new ArrayList<>();
         List<RepGs> repComps = repCompService.getRepList("none");

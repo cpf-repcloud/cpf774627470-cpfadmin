@@ -125,8 +125,7 @@ window.onload=function (){
             }
             initVue();
         }
-    })
-
+    });
 
     function initVue() {
         apps= new Vue({

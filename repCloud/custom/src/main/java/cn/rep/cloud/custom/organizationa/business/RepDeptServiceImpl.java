@@ -1,9 +1,14 @@
 package cn.rep.cloud.custom.organizationa.business;
 
+import cn.rep.cloud.custom.coreutils.common.TreeNode;
 import cn.rep.cloud.custom.openapi.kjController.basecommon.bmkj.bean.KjBmResponse;
 import cn.rep.cloud.custom.organizationa.dto.RepBmDTO;
 import cn.rep.cloud.custom.organizationa.entity.RepBm;
+import cn.rep.cloud.custom.organizationa.entity.RepGs;
+import cn.rep.cloud.custom.organizationa.service.RepCompService;
 import cn.rep.cloud.custom.organizationa.service.RepDeptService;
+import cn.rep.cloud.custom.organizationa.vo.RepDeptVO;
+import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +27,8 @@ public class RepDeptServiceImpl {
 
     @Autowired
     private RepDeptService repDeptService;
+    @Autowired
+    private RepCompService repCompService;
 
     /**
      * 通过企业编号查询部门
@@ -33,9 +40,9 @@ public class RepDeptServiceImpl {
         List<KjBmResponse> responseList = new ArrayList<>();
         for (RepBm repBm : deptList){
             KjBmResponse response = new KjBmResponse();
-            response.setId(repBm.getBh());
+            response.setId(repBm.getId());
             response.setName(repBm.getJc());
-            response.setValue(repBm.getId());
+            response.setValue(repBm.getBh());
             responseList.add(response);
         }
         return responseList;
@@ -50,6 +57,79 @@ public class RepDeptServiceImpl {
         if (StringUtils.isNotBlank(bmbh))
         return repDeptService.getBmByBh(bmbh);
         return null;
+    }
+
+    /**
+     * 查询页面面包屑和部门基本信息
+     * @param bmid 部门id
+     * @param ssgsid 所属公司id
+     * @return
+     */
+    public RepDeptVO getBmMbx(String bmid, String ssgsid){
+        //获取页面面包屑
+        List<String> stringList = new ArrayList<>();
+        RepGs repGs = repCompService.getGsByBh(ssgsid);
+        stringList.add(repGs.getJc());
+        List<String> bmxList = repDeptService.getBmMbx(bmid);
+        for (String str : bmxList){
+            stringList.add(str);
+        }
+        //获取部门基本信息
+        RepBm repBm = repDeptService.getBmById(bmid);
+        String sjid = "";
+        if (null != repBm && !StringUtils.equals("none",repBm.getSjid())){
+            sjid = repBm.getSjid();
+        }
+        RepDeptVO repDeptVO = repDeptService.getBmByBmid(bmid,sjid);
+        if (null != repDeptVO){
+            if (StringUtils.isBlank(repDeptVO.getSjbmmc())){
+                repDeptVO.setSjbmmc("无");
+            }
+            repDeptVO.setMbxList(stringList);
+        }
+        return repDeptVO;
+    }
+
+    /**
+     * 通过递归查询方式获取部门树形结构
+     * @return
+     */
+    public List<TreeNode> getTreeNodes(){
+        //部门子节点
+        List<TreeNode> treeNodes = new ArrayList<>();
+        List<RepBm> repBmList = repDeptService.getRepList("none");
+        for (RepBm repBm : repBmList) {
+            TreeNode treeNodeOne = new TreeNode();
+            treeNodeOne.setValue(repBm.getId());
+            treeNodeOne.setTitle(repBm.getJc());
+            List<TreeNode> treeNodeChildrens = getTreeNodeChildrens(treeNodeOne);
+            treeNodeOne.setChildren(treeNodeChildrens);
+            treeNodes.add(treeNodeOne);
+        }
+        if (CollectionUtils.isNotEmpty(treeNodes)){
+            treeNodes.get(0).setExpand(true);
+            treeNodes.get(0).setSelected(true);
+        }
+        return treeNodes;
+    }
+
+    public List<TreeNode> getTreeNodeChildrens(TreeNode treeNode){
+        List<TreeNode> treeNodes = new ArrayList<>();
+        List<RepBm> repBms = repDeptService.getRepList(treeNode.getValue());
+        for (RepBm repBm : repBms) {
+            TreeNode treeNodeOne = new TreeNode();
+            treeNodeOne.setTitle(repBm.getJc());
+            treeNodeOne.setValue(repBm.getId());
+            List<RepBm> repBmList = repDeptService.getRepList(treeNodeOne.getValue());
+            if (CollectionUtils.isNotEmpty(repBmList)){
+                List<TreeNode> treeNodeChildrens = getTreeNodeChildrens(treeNodeOne);
+                treeNodeOne.setChildren(treeNodeChildrens);
+            }
+            treeNodes.add(treeNodeOne);
+
+        }
+
+        return treeNodes;
     }
 
 

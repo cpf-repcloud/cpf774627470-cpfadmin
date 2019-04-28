@@ -2,4 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.rep.cloud.custom.organizationa.mapper.RepDeptMapper">
 
+    <select id="getBmMbx" resultType="String">
+        SELECT jc
+          FROM (
+            SELECT
+              @r AS _id,
+              (SELECT @r := sjid FROM rep_bm WHERE id = _id) AS parent_id,
+              @l := @l + 1 AS lvl
+            FROM
+            (SELECT @r := #{chrId}, @l := 0) vars,
+              rep_bm h
+            WHERE @r &lt;&gt; 0) T1
+        JOIN rep_bm T2
+        ON T1._id = T2.id
+        ORDER BY id
+    </select>
+
+    <select id="getBmByBmid" resultType="cn.rep.cloud.custom.organizationa.vo.RepDeptVO" parameterType="String">
+        SELECT
+            bm.id,bm.jc,bm.bh,
+            <if test="sjid != null and sjid != ''">
+                bm2.jc AS sjbmmc,
+            </if>
+            bm.bmfzr,bm.bmdh,
+            concat(bm.szsf,'-',bm.szcs,'-',bm.szdz) AS szdz,
+            bm.cwzg,gs.jc as ssgsmc
+        FROM
+            rep_bm bm,
+            <if test="sjid != null and sjid != ''">
+                rep_bm bm2,
+            </if>
+            rep_gs gs
+        <where>
+            AND bm.id = #{bmid}
+            <if test="sjid != null and sjid != ''">
+                AND bm.sjid = bm2.id
+            </if>
+            AND gs.bh = bm.ssgsid
+        </where>
+    </select>
+
 </mapper>

@@ -1,20 +1,15 @@
 package cn.rep.cloud.custom.organizationa.service;
 
 import cn.rep.cloud.custom.basecommon.common.Constants;
-import cn.rep.cloud.custom.coreutils.utils.BeanMapper;
 import cn.rep.cloud.custom.organizationa.dto.RepBmDTO;
 import cn.rep.cloud.custom.organizationa.entity.RepBm;
-import cn.rep.cloud.custom.organizationa.entity.RepGs;
 import cn.rep.cloud.custom.organizationa.mapper.RepDeptMapper;
-import cn.rep.cloud.custom.organizationa.vo.FailBean;
-import cn.rep.cloud.custom.organizationa.vo.SuccessBean;
+import cn.rep.cloud.custom.organizationa.vo.RepDeptVO;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,6 +34,20 @@ public class RepDeptService {
     }
 
     /**
+     * 通过上级id查询所有部门(不传查询所有)
+     * @param sjid 上级id
+     * @return 公司集合
+     */
+    public List<RepBm> getRepList(String sjid){
+        EntityWrapper<RepBm> ew = new EntityWrapper<>();
+        if (StringUtils.isNotBlank(sjid)){
+            ew.eq("sjid",sjid);
+        }
+        ew.orderBy("cjsj");
+        return repDeptMapper.selectList(ew);
+    }
+
+    /**
      * 通过部门编号查询部门
      * @param bmbh
      * @return
@@ -58,6 +67,35 @@ public class RepDeptService {
         RepBm repBm = new RepBm();
         repBm.setSjid(sjid);
         return repDeptMapper.selectOne(repBm);
+    }
+
+    /**
+     * 根据上级id获取页面面包屑
+     * @param sjid
+     * @return
+     */
+    public List<String> getBmMbx(String sjid){
+        return repDeptMapper.getBmMbx(sjid);
+    }
+
+    /**
+     * 根据部门id查询部门
+     * @param bmid 部门id
+     * @return
+     */
+    public RepDeptVO getBmByBmid(String bmid,String sjid){
+        return repDeptMapper.getBmByBmid(bmid,sjid);
+    }
+
+    /**
+     * 根据主键id查询部门
+     * @param id
+     * @return
+     */
+    public RepBm getBmById(String id){
+        EntityWrapper<RepBm> ew = new EntityWrapper<>();
+        ew.eq("id",id);
+        return repDeptMapper.selectById(id);
     }
 
     /**

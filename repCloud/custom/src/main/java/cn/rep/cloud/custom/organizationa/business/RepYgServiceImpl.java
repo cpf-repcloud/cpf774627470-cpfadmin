@@ -63,9 +63,9 @@ public class RepYgServiceImpl {
         List<KjYgResponse> responseList = new ArrayList<>();
         for (RepYg repYg : ygList){
             KjYgResponse response = new KjYgResponse();
-            response.setId(repYg.getGh());
+            response.setId(repYg.getId());
             response.setName(repYg.getXm());
-            response.setValue(repYg.getId());
+            response.setValue(repYg.getGh());
             responseList.add(response);
         }
         return responseList;

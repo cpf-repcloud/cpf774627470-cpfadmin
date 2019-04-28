@@ -81,7 +81,7 @@
                             </i-col>
                             <i-col :sm="12">
                                 <Form-item label="所在地" prop="zgs">
-                                    <ve-citycard :search="true" placeholder="search..." @data-change="dataChange" search-url="/custom/kj/city/getSearchCity" slide-url="/custom/kj/city/getCityList"></ve-citycard>
+                                    <ve-citycard search="true" placeholder="search..." @data-change="dataChange" search-url="/custom/kj/city/getSearchCity" slide-url="/custom/kj/city/getCityList"></ve-citycard>
                                 </Form-item>
                             </i-col>
                             <i-col :sm="12">
@@ -149,6 +149,8 @@
                     </Row>
                 </i-form>
             </Modal>
+            <ve-citycard search="true" placeholder="search..." @data-change="dataChange" search-url="/custom/kj/city/getSearchCity" slide-url="/custom/kj/city/getCityList"></ve-citycard>
+
         </div>
     </div>
 </body>

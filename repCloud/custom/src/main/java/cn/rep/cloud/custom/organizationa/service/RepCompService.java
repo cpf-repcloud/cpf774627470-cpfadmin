@@ -50,6 +50,17 @@ public class RepCompService {
     }
 
     /**
+     * 根据id查询公司
+     * @param gsid
+     * @return
+     */
+    public RepGs getGsById(String gsid){
+        if (StringUtils.isBlank(gsid)) return null;
+        RepGs repGs = repCompMapper.selectById(gsid);
+        return repGs;
+    }
+
+    /**
      * 更新系统模块
      * @param dto 需要更新的模块数据
      * @return stu 是否成功
