@@ -2,6 +2,7 @@ package cn.rep.cloud.custom.organizationa.business;
 
 import cn.rep.cloud.custom.coreutils.common.PageDTO;
 import cn.rep.cloud.custom.coreutils.common.TreeNode;
+import cn.rep.cloud.custom.coreutils.utils.BeanMapper;
 import cn.rep.cloud.custom.coreutils.utils.DateUtils;
 import cn.rep.cloud.custom.openapi.kjController.basecommon.gskj.bean.KjGsResponse;
 import cn.rep.cloud.custom.organizationa.dto.RepCompDTO;
@@ -132,6 +133,7 @@ public class RepCompServiceImpl {
             response.setId(repGs.getId());
             response.setName(repGs.getJc());
             response.setValue(repGs.getBh());
+            BeanMapper.copy(repGs,response);
             compList.add(response);
         }
         return compList;

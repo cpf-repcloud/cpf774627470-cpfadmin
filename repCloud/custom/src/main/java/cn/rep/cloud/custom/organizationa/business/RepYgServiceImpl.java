@@ -4,6 +4,7 @@ package cn.rep.cloud.custom.organizationa.business;
 import cn.rep.cloud.custom.basecommon.common.Constants;
 import cn.rep.cloud.custom.coreutils.common.DownloadFileUtil;
 import cn.rep.cloud.custom.coreutils.common.ExcelConveter;
+import cn.rep.cloud.custom.coreutils.utils.BeanMapper;
 import cn.rep.cloud.custom.coreutils.utils.DateUtils;
 import cn.rep.cloud.custom.openapi.kjController.basecommon.ygkj.Bean.KjYgResponse;
 import cn.rep.cloud.custom.organizationa.dto.RepYgDTO;
@@ -66,6 +67,7 @@ public class RepYgServiceImpl {
             response.setId(repYg.getId());
             response.setName(repYg.getXm());
             response.setValue(repYg.getGh());
+            BeanMapper.copy(repYg,response);
             responseList.add(response);
         }
         return responseList;

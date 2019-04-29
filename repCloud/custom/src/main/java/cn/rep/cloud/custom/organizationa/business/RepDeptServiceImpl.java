@@ -1,6 +1,7 @@
 package cn.rep.cloud.custom.organizationa.business;
 
 import cn.rep.cloud.custom.coreutils.common.TreeNode;
+import cn.rep.cloud.custom.coreutils.utils.BeanMapper;
 import cn.rep.cloud.custom.openapi.kjController.basecommon.bmkj.bean.KjBmResponse;
 import cn.rep.cloud.custom.organizationa.dto.RepBmDTO;
 import cn.rep.cloud.custom.organizationa.entity.RepBm;
@@ -43,6 +44,7 @@ public class RepDeptServiceImpl {
             response.setId(repBm.getId());
             response.setName(repBm.getJc());
             response.setValue(repBm.getBh());
+            BeanMapper.copy(repBm,response);
             responseList.add(response);
         }
         return responseList;

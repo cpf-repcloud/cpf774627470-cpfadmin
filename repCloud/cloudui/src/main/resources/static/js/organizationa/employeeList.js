@@ -98,6 +98,13 @@ window.onload=function (){
                 _this.queryPage();
             },
             methods:{
+                cancelEmp:function () {
+                    apps.addEmp = false;
+                    this.$refs.saveData.resetFields();
+                },
+                saveEmp:function () {
+
+                },
                 empChange:function (data) {
                     console.log(data);
                 },
@@ -139,7 +146,6 @@ window.onload=function (){
                 }
             }
         })
-        debugger
         window.apps=apps;
     }
 

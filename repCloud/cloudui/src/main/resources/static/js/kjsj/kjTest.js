@@ -42,7 +42,7 @@ window.onload= function (){
                 changeHandler:function(val,data){
                     /*val隐藏域的值*/
                     /*data返回已选择数据的集合*/
-                    // console.log(JSON.stringify(data));
+                    console.log(JSON.stringify(data));
                 },
                 ckyf:function (data) {
                     var kjms = $(".kjms");
