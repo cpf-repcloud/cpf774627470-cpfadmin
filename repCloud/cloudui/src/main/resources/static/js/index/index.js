@@ -2,6 +2,18 @@ window.onload= function (){
     var leftMenu=[];
     var h = 0;
 
+    $.ajaxSetup({
+        complete:function(XMLHttpRequest,textStatus){
+            if(textStatus=="parsererror"){
+                $.messager.alert('提示信息', "登陆超时！请重新登陆！", 'info',function(){
+                    window.location.href = 'login';
+                });
+            } else if(textStatus=="error"){
+                $.messager.alert('提示信息', "请求超时！请稍后再试！", 'info');
+            }
+        }
+    });
+
     function contentsH() {
         var contentsH = $("section").height();
         var footerh = contentsH - 55 - 40 - 8;

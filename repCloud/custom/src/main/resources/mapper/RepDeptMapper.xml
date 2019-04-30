@@ -20,12 +20,15 @@
 
     <select id="getBmByBmid" resultType="cn.rep.cloud.custom.organizationa.vo.RepDeptVO" parameterType="String">
         SELECT
-            bm.id,bm.jc,bm.bh,
+            bm.id,bm.mc,bm.jc,bm.bh,bm.sjid,bm.szcs,bm.szdz,
             <if test="sjid != null and sjid != ''">
                 bm2.jc AS sjbmmc,
             </if>
+            (select xm from rep_yg where id = bm.bmfzr) bmfzrmc,
+            (select xm from rep_yg where id = bm.cwzg) cwzgmc,
             bm.bmfzr,bm.bmdh,
-            concat(bm.szsf,'-',bm.szcs,'-',bm.szdz) AS szdz,
+            concat(bm.szsf,'-',bm.szcs,'-',bm.szdz) AS xxszdz,
+            concat(bm.szsfid,',',bm.szcsid) AS xxszdzid,
             bm.cwzg,gs.jc as ssgsmc
         FROM
             rep_bm bm,

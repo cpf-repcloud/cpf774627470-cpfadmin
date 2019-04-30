@@ -70,7 +70,7 @@
                         </i-col>
                         <i-col span="12">
                             <label class="ltitle">部门负责人：</label>
-                            <span class="lvalue">{{bmvo.bmfzr}}</span>
+                            <span class="lvalue">{{bmvo.bmfzrmc}}</span>
                         </i-col>
                         <i-col span="12">
                             <label class="ltitle">部门电话：</label>
@@ -87,11 +87,11 @@
                             </i-col>
                             <i-col span="12">
                                 <label class="ltitle">所在地：</label>
-                                <span class="lvalue">{{bmvo.szdz}}</span>
+                                <span class="lvalue">{{bmvo.xxszdz}}</span>
                             </i-col>
                             <i-col span="12">
                                 <label class="ltitle">财务主管：</label>
-                                <span class="lvalue">{{bmvo.cwzg}}</span>
+                                <span class="lvalue">{{bmvo.cwzgmc}}</span>
                             </i-col>
                         </div>
                     </Row>
@@ -201,7 +201,12 @@
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
                             <Form-item label="上级部门" prop="business">
-                                <pulldown  v-if="editBm" v-model="deptid" class="demo-input" data-type="1" :data-source="deptList" @on-change="deptChange"></pulldown>
+                                <div v-if="bmvo.sjbmmc=='无'">
+                                    无
+                                </div>
+                                <div v-else>
+                                    <pulldown  v-if="editBm" v-model="bmvo.sjid" class="demo-input" data-type="1" :data-source="deptList" @on-change="deptChange"></pulldown>
+                                </div>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
@@ -221,7 +226,7 @@
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
                             <Form-item label="负责人" prop="business">
-                                <pulldown v-if="editBm" v-model="employee" class="demo-input" data-type="1" :data-source="employeeList" @on-change="empChange"></pulldown>
+                                <pulldown v-if="editBm" v-model="bmvo.bmfzr" class="demo-input" data-type="1" :data-source="employeeList" @on-change="empChange"></pulldown>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
@@ -231,7 +236,7 @@
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
                             <Form-item label="所在城市" prop="business">
-                                <i-input v-model="bmvo.szcs" clearable type="text" placeholder="请输入"></i-input>
+                                <Cascader v-if="editBm" :data="countryList" v-model="countryid" filterable change-on-select @on-change="changeCity"></Cascader>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
@@ -241,7 +246,7 @@
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
                             <Form-item label="财务主管" prop="business">
-                                <i-input v-model="bmvo.cwzg" clearable type="text" placeholder="请输入"></i-input>
+                                <pulldown v-if="editBm" v-model="bmvo.cwzg" class="demo-input" data-type="1" :data-source="employeeList" @on-change="empChange"></pulldown>
                             </Form-item>
                         </i-col>
                     </div>

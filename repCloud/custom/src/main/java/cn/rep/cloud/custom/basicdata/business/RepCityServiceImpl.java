@@ -5,11 +5,13 @@ import cn.rep.cloud.custom.basicdata.dto.RepCityDTO;
 import cn.rep.cloud.custom.basicdata.entity.RepCity;
 import cn.rep.cloud.custom.basicdata.service.RepCityService;
 import cn.rep.cloud.custom.basicdata.vo.RepCityVO;
+import cn.rep.cloud.custom.basicdata.vo.RepCountryVO;
 import cn.rep.cloud.custom.coreutils.common.PageDTO;
 import cn.rep.cloud.custom.coreutils.common.VeCollectionUtils;
 import cn.rep.cloud.custom.openapi.kjController.basecommon.cskj.bean.CityBean;
 import cn.rep.cloud.custom.openapi.kjController.basecommon.cskj.bean.KjCsResponse;
 import com.baomidou.mybatisplus.plugins.Page;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,5 +120,24 @@ public class RepCityServiceImpl {
         return response;
     }
 
-    
+    /**
+     * 根据省份id查询城市
+     * @param parid
+     * @return
+     */
+    public List<RepCountryVO> getCityListByParid(String parid){
+        if (StringUtils.isBlank(parid)) return null;
+        return repCityService.getCityListByParid(parid);
+    }
+
+    /**
+     * 根据父级id查询城市
+     * @param sjid 上级id
+     * @return
+     */
+    public List<RepCountryVO> getCityListBySjid(String sjid){
+        if (StringUtils.isBlank(sjid)) return null;
+        return repCityService.getCityListBySjid(sjid);
+    }
+
 }

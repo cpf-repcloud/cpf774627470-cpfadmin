@@ -5,6 +5,7 @@ import cn.rep.cloud.custom.basicdata.dto.RepCityDTO;
 import cn.rep.cloud.custom.basicdata.entity.RepCity;
 import cn.rep.cloud.custom.basicdata.mapper.RepCityMapper;
 import cn.rep.cloud.custom.basicdata.vo.RepCityVO;
+import cn.rep.cloud.custom.basicdata.vo.RepCountryVO;
 import cn.rep.cloud.custom.coreutils.common.PageCopyUtil;
 import cn.rep.cloud.custom.coreutils.common.PageDTO;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -53,5 +54,28 @@ public class RepCityService {
         List<RepCity> cityList = repCityMapper.getPageCityList(page,pageDTO.getData());
         page.setRecords(cityList);
         return page;
+    }
+
+    /**
+     * 根据省份id 查询城市
+     * @param szsf /所属省份id
+     * @return
+     */
+    public List<RepCountryVO> getCityListByParid(String szsf){
+        if (StringUtils.isNotBlank(szsf)){
+            List<RepCountryVO> cityList = repCityMapper.getCityListBySfid(szsf);
+            return cityList;
+        }
+        return null;
+    }
+
+    /**
+     * 根据上级id 查询城市
+     * @param sjid 上级id
+     * @return
+     */
+    public List<RepCountryVO> getCityListBySjid(String sjid){
+        List<RepCountryVO> cityList = repCityMapper.getCityListBySjid(sjid);
+        return cityList;
     }
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.rep.cloud.custom.basicdata.mapper.RepCountryMapper">
+
+    <select id="getCountryList" parameterType="cn.rep.cloud.custom.basicdata.dto.RepCountryDTO" resultType="cn.rep.cloud.custom.basicdata.entity.RepCountry">
+        select * from rep_country
+         <where>
+             <if test="dto.id != null and dto.id != ''">
+                 <bind name="cid" value="dto.id + '%'"/>
+                 and id like #{cid} order by sxh
+             </if>
+         </where>
+    </select>
+</mapper>

@@ -22,7 +22,6 @@ public class BaseController {
     @ModelAttribute
     public void loginUser(){
         HttpSession session = request.getSession();
-        System.out.println(session.getId());
         loginUser = (RepYg)session.getAttribute(session.getId());
     }
 }

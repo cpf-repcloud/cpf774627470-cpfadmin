@@ -13,6 +13,10 @@ public class RepDeptVO {
      */
     private String bh;
     /**
+     * 上级部门id
+     */
+    private String sjid;
+    /**
      * 上级部门名称
      */
     private String sjbmmc;
@@ -20,6 +24,10 @@ public class RepDeptVO {
      * 部门负责人
      */
     private String bmfzr;
+    /**
+     * 部门负责人名称
+     */
+    private String bmfzrmc;
     /**
      * 部门电话
      */
@@ -29,21 +37,41 @@ public class RepDeptVO {
      */
     private String jc;
     /**
+     * 部门名称
+     */
+    private String mc;
+    /**
      * 所属公司名称
      */
     private String ssgsmc;
     /**
      * 所在地址
      */
+    private String xxszdz;
+    /**
+     * 所在地址
+     */
     private String szdz;
+    /**
+     * 所在城市
+     */
+    private String szcs;
     /**
      * 财务主管
      */
     private String cwzg;
     /**
+     * 财务主管名称
+     */
+    private String cwzgmc;
+    /**
      * 页面面包屑
      */
     private List<String> mbxList;
+    /**
+     * 详细所在地址id
+     */
+    private String xxszdzid;
 
     public String getId() {
         return id;
@@ -123,5 +151,61 @@ public class RepDeptVO {
 
     public void setMbxList(List<String> mbxList) {
         this.mbxList = mbxList;
+    }
+
+    public String getSjid() {
+        return sjid;
+    }
+
+    public void setSjid(String sjid) {
+        this.sjid = sjid;
+    }
+
+    public String getBmfzrmc() {
+        return bmfzrmc;
+    }
+
+    public void setBmfzrmc(String bmfzrmc) {
+        this.bmfzrmc = bmfzrmc;
+    }
+
+    public String getMc() {
+        return mc;
+    }
+
+    public void setMc(String mc) {
+        this.mc = mc;
+    }
+
+    public String getXxszdz() {
+        return xxszdz;
+    }
+
+    public void setXxszdz(String xxszdz) {
+        this.xxszdz = xxszdz;
+    }
+
+    public String getSzcs() {
+        return szcs;
+    }
+
+    public void setSzcs(String szcs) {
+        this.szcs = szcs;
+    }
+
+    public String getCwzgmc() {
+        return cwzgmc;
+    }
+
+    public void setCwzgmc(String cwzgmc) {
+        this.cwzgmc = cwzgmc;
+    }
+
+    public String getXxszdzid() {
+        return xxszdzid;
+    }
+
+    public void setXxszdzid(String xxszdzid) {
+        this.xxszdzid = xxszdzid;
     }
 }

@@ -2,18 +2,19 @@
 window.onload=function (){
     var apps;
     var treeNodeList =[];
-    var breadList =[];
     var employeeList =[];
     var deptList =[];
+    var countryList =[];
+    var countryid = [];
     var request = {
         gsid:"",
         bmid:""
     };
     $(function () {
-        getEmployeeList();
+        treeNode();
     });
 
-    var breadList;
+    var breadList = [];
     var bmvo;
     var deptid;
     var employee;
@@ -30,7 +31,7 @@ window.onload=function (){
                     bmvo = response.result;
                     deptid = response.result.id;
                     employee = response.result.bmfzr;
-                    initVue();
+                    getEmployeeList();
                 }
             }
         });
@@ -56,6 +57,9 @@ window.onload=function (){
         apps= new Vue({
             el: '#app',
             data:{
+                countryid:[],
+                countryList:countryList,
+                countryid:countryid,
                 employeeList:employeeList,
                 deptList:deptList,
                 employee:employee,
@@ -113,7 +117,11 @@ window.onload=function (){
                 },
                 editBms:function (bmid) {
                     apps.editBm = true;
-                    apps.$forceUpdate();
+                    getCountryList();
+                    if (apps.bmvo && apps.bmvo.xxszdzid){
+                        var list = apps.bmvo.xxszdzid.split(",");
+                        apps.countryid = list;
+                    }
                 },
                 checkedTreeNode:function (data) {
                     var _this = this;
@@ -143,9 +151,13 @@ window.onload=function (){
                     $(".sbyy").hide();
                     $(".sc-footer").hide();
                     $(".kssc").show();
+                },
+                changeCity:function (value, selectedData) {
+                    console.log(JSON.stringify(value));
+                    console.log(JSON.stringify(selectedData));
                 }
             }
-        })
+        });
         window.apps=apps;
     }
 
@@ -160,7 +172,6 @@ window.onload=function (){
                 if (response.status && response.status === "200") {
                     treeNodeList = response.result;
                     getBmMbx(treeNodeList[0].value);
-
                 }
             }
         });
@@ -193,10 +204,25 @@ window.onload=function (){
             contentType: "application/json;charset=UTF-8",
             success: function (response) {
                 if (response.status && response.status === "200") {
-                    debugger
                     deptList = response.result;
+                    initVue();
                 }
-                treeNode();
+            }
+        });
+    }
+
+    function getCountryList() {
+        $.ajax({
+            type: "POST",
+            url: "/custom/country/getCountryList",
+            data: {},
+            dataType: "json",
+            contentType: "application/json;charset=UTF-8",
+            async:true,
+            success: function (response) {
+                if (response.status && response.status === "200") {
+                    apps.countryList = response.result;
+                }
             }
         });
     }

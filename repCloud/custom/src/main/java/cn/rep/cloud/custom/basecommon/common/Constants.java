@@ -26,4 +26,6 @@ public class Constants {
      * 是否热门: 否
      */
     public static final String SFRM_N="0";
+
+    public static final String CITY_LJKJ = "city_ljkj";
 }

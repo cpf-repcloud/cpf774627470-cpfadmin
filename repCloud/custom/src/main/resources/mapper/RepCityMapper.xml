@@ -31,4 +31,12 @@
             </if>
         </where>
     </select>
+
+    <select id="getCityListBySfid" resultType="cn.rep.cloud.custom.basicdata.vo.RepCountryVO" parameterType="String">
+        select bh as 'value',mc as label from rep_city where szsf = #{szsf} and by3 = ''
+    </select>
+
+    <select id="getCityListBySjid" resultType="cn.rep.cloud.custom.basicdata.vo.RepCountryVO" parameterType="String">
+        select bh as 'value',mc as label from rep_city where by3 = #{sjid}
+    </select>
 </mapper>
