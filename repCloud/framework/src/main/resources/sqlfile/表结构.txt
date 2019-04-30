@@ -512,3 +512,9 @@ CREATE TABLE `rep_ccsqd_fjb` (
 
 #4.25新增出差申请单相关表
 #---------------------------------------------------------
+ALTER TABLE `rep_bm`
+ADD COLUMN `szsfid`  varchar(30) NULL COMMENT '所在省份id' AFTER `sjid`,
+ADD COLUMN `szcsid`  varchar(30) NULL COMMENT '所在城市id' AFTER `szsf`;
+
+#4.30部门表新增 所在城市/省份id字段
+#----------------------------------------------------------
