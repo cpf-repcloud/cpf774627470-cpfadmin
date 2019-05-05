@@ -59,7 +59,9 @@ window.onload=function (){
             el: '#app',
             data:{
                 editBmData:{},
-                saveBmData:{},
+                saveBmData:{
+                    id:"",ssgsid:"",mc:"",jc:"",bh:"",bmfzr:"",countryid:"",cwzg:"",bmdh:"",szdz:""
+                },
                 compList:compList,
                 countryid:[],
                 countryList:countryList,
@@ -70,6 +72,7 @@ window.onload=function (){
                 deptid:deptid,
                 sc:{},
                 bmvo:bmvo,
+                addload:true,
                 loading:false,
                 upload:false,
                 addEmp:false,
@@ -81,13 +84,10 @@ window.onload=function (){
                 treeNode:treeNodeList,
                 breadList:breadList,
                 formSaveBmRule:{
-                    ssgsid:[{required:true,message: "请选择所属公司",trigger: 'blur'}],
                     mc:[{required:true,message: "请输入部门名称",trigger: 'blur'}],
                     jc:[{required:true,message: "请输入部门简称",trigger: 'blur'}],
                     bh:[{required:true,message: "请输入部门编号",trigger: 'blur'}],
-                    bmfzr:[{required:true,message: "请选择部门负责人",trigger: 'blur'}],
                     countryid:[{required:true,message: "请选择部门所在城市",trigger: 'blur'}],
-                    cwzg:[{required:true,message: "请选择部门财务主管",trigger: 'blur'}],
                     bmdh:[{required:true,message: "请输入部门电话",trigger: 'blur'}],
                     szdz:[{required:true,message: "请输入部门详细地址",trigger: 'blur'}]
                 },
@@ -98,10 +98,6 @@ window.onload=function (){
                 iquery:{
                     sjid:"",
                     zt:""
-                },
-                saveData:{
-                    id:"",compmc:"",compjc:"",compaddress:"",zgs:"",phonenumber:"",email:"",
-                    homepage:"",business:"",isdisabled:""
                 }
             },
             mounted:function (){
@@ -114,7 +110,18 @@ window.onload=function (){
                     this.$refs.saveData.resetFields();
                 },
                 saveEmp:function () {
-
+                    apps.addDept = true;
+                },
+                saveDept:function () {
+                    debugger
+                    apps.$refs["saveBmDatas"].validate(function(flag) {
+                        if(flag){
+                            alert(2);
+                        }
+                    })
+                },
+                cancelDept:function () {
+                    this.$refs.saveBmData.resetFields();
                 },
                 empChange:function (val,data) {
                     console.log(data);
