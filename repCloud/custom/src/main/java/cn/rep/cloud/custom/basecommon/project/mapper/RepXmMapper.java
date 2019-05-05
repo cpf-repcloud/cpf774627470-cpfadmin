@@ -17,7 +17,7 @@ import java.util.List;
  * Created by vetech on 2018/8/4.
  */
 @Mapper
-@Component(value = "veXmMapper")
+@Component(value = "repXmMapper")
 public interface RepXmMapper extends BaseMapper<RepXm> {
 
     List<ProDataVo> selectVeXmPage(Page page, @Param("dto") SearchDataDTO dto);

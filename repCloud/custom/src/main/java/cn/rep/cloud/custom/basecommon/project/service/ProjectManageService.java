@@ -1,6 +1,10 @@
 package cn.rep.cloud.custom.basecommon.project.service;
 
 
+import cn.rep.cloud.custom.basecommon.costcenter.business.RepCbzxServiceImpl;
+import cn.rep.cloud.custom.basecommon.costcenter.business.RepXmCbzxServiceImpl;
+import cn.rep.cloud.custom.basecommon.costcenter.entity.RepCbzx;
+import cn.rep.cloud.custom.basecommon.costcenter.entity.RepXmCbzx;
 import cn.rep.cloud.custom.basecommon.project.business.RepXmServiceImpl;
 import cn.rep.cloud.custom.basecommon.project.entity.RepXm;
 import cn.rep.cloud.custom.basecommon.project.service.dto.AddProDTO;
@@ -12,7 +16,10 @@ import cn.rep.cloud.custom.basecommon.project.service.vo.ProTreeVo;
 import cn.rep.cloud.custom.coreutils.common.IdGenerator;
 import cn.rep.cloud.custom.coreutils.common.PageDTO;
 import cn.rep.cloud.custom.coreutils.common.VeCollectionUtils;
+import cn.rep.cloud.custom.coreutils.utils.BeanMapper;
 import cn.rep.cloud.custom.coreutils.utils.DateUtils;
+import cn.rep.cloud.custom.organizationa.business.RepYgServiceImpl;
+import cn.rep.cloud.custom.organizationa.entity.RepYg;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -21,6 +28,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.plugins.Page;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.metamodel.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +48,7 @@ public class ProjectManageService {
      * service
      */
     @Autowired
-    private RepXmServiceImpl veXmService;
+    private RepXmServiceImpl repXmService;
 
     /**
      * 项目成员service
@@ -47,6 +56,14 @@ public class ProjectManageService {
     @Autowired
     private ProjectMemberService memberService;
 
+    @Autowired
+    private RepYgServiceImpl repYgService;
+
+    @Autowired
+    private RepXmCbzxServiceImpl repXmCbzxService;
+    
+    @Autowired
+    private RepCbzxServiceImpl repCbzxService;
 
 
 
@@ -72,7 +89,7 @@ public class ProjectManageService {
         if (dto.getSfkqcbzx()) {
            // addVeXmCbzx(dto);
         }
-        return veXmService.addPro(dto);
+        return repXmService.addPro(dto);
     }
 
 
@@ -111,7 +128,7 @@ public class ProjectManageService {
         veCbzx.setZhxgr(dto.getZhxgr());
         veCbzx.setZhxgsj(VeDate.getNow());
         veCbzx.setCbzxmc(dto.getXmmc());
-        if (veCbzxService.insertCostCenter(veCbzx)) {
+        if (repCbzxService.insertCostCenter(veCbzx)) {
             RepXmCbzx xmcbzx = new RepXmCbzx();
             xmcbzx.setId(IdGenerator.getHexId());
             xmcbzx.setQybh(dto.getQybh());
@@ -133,7 +150,7 @@ public class ProjectManageService {
      */
     public Page<ProDataVo> selectPage(PageDTO<SearchDataDTO> dto) {
         logger.info("查询项目列表入参{}", dto);
-        Page<ProDataVo> vso = veXmService.selectPage(dto);
+        Page<ProDataVo> vso = repXmService.selectPage(dto);
         return vso;
     }
 
@@ -163,7 +180,7 @@ public class ProjectManageService {
             // 新增项目成员角色
             addXmCy(dto.getXmbhcy(), dto);
         }
-        return veXmService.editPro(dto);
+        return repXmService.editPro(dto);
     }
 
 
@@ -176,7 +193,7 @@ public class ProjectManageService {
     public ProTreeVo getTreeList(String gsid) {
         ProTreeVo proTreeVo = new ProTreeVo();
         /**查询该企业下面的所有项目list*/
-        List<RepXm> veList = veXmService.getAllList(gsid);
+        List<RepXm> veList = repXmService.getAllList(gsid);
         if (CollectionUtils.isEmpty(veList)) {
             return null;
         }
@@ -202,17 +219,15 @@ public class ProjectManageService {
      * @param proTreeVo 树形结构出参
      */
     private void getTreeData(List<RepXm> veList, Map<String, List<RepXm>> veXmMap, ProTreeVo proTreeVo) {
-       /* if (CollectionUtils.isNotEmpty(veList)) {
+        if (CollectionUtils.isNotEmpty(veList)) {
             List<ProTreeVo> proTreeVoList = new ArrayList<>();
             for (RepXm xm : veList) {
                 ProTreeVo treeVo = new ProTreeVo();
-                Type<ProTreeVo> proTreeVoType = BeanMapper.getType(ProTreeVo.class);
-                Type<RepXm> veXmType = BeanMapper.getType(RepXm.class);
-                treeVo = BeanMapper.map(xm, veXmType, proTreeVoType);
+                treeVo = BeanMapper.map(xm, ProTreeVo.class);
                 treeVo.setTitle(xm.getXmmc());
                 String xmbh = xm.getXmbh();
                 String xmjl = xm.getXmjl();//项目经理
-                VeYgrz ygrz = veYgrzServicel.searchYgrzById(xmjl);
+              /*  VeYgrz ygrz = repYgService.
                 if (null != ygrz) {
                     treeVo.setXmjlmc(ygrz.getXm());
                     String xmjlygid = ygrz.getYgid();
@@ -222,7 +237,7 @@ public class ProjectManageService {
                     if (null != vo) {
                         treeVo.setXmjlgh(vo.getGh());
                     }
-                }
+                }*/
                 List<RepXm> xmList = veXmMap.get(xmbh);// 获取子级项目编号
                 if (CollectionUtils.isNotEmpty(xmList)) {
                     treeVo.setExpand("true");
@@ -233,7 +248,7 @@ public class ProjectManageService {
                 getTreeData(xmList, veXmMap, treeVo);
             }
             proTreeVo.setChildren(proTreeVoList);
-        }*/
+        }
 
     }
 
@@ -244,60 +259,55 @@ public class ProjectManageService {
      * @return
      */
     public ProDataVo getXmVoByData(SearchDataDTO dto) {
-       /* String id = dto.getId();
+        String id = dto.getId();
         if (StringUtils.isBlank(id)) {
             return null;
         }
-        RepXm xm = veXmService.getXmByDto(id);
+        RepXm xm = repXmService.getXmByDto(id);
         ProDataVo vo = BeanMapper.map(xm, ProDataVo.class);
         RepXmCbzx cbzx = new RepXmCbzx();
         cbzx.setXmid(xm.getId());
-        List<RepXmCbzx> cbzxes = veXmCbzxService.getCbzxByBean(cbzx);
+        List<RepXmCbzx> cbzxes = repXmCbzxService.getCbzxByBean(cbzx);
         if (CollectionUtils.isNotEmpty(cbzxes)) {
             vo.setSfkqcbzx(Boolean.TRUE);
             RepXmCbzx cbzx2 = cbzxes.get(0);
             RepCbzx cb = new RepCbzx();
             cb.setId(cbzx2.getCbzxid());
-            cb = veCbzxService.getVeCbzxByCbzxbh(cb);
+            cb = repCbzxService.getVeCbzxByCbzxbh(cb);
             vo.setCbzxbh(cb.getCbzxbh());
             if (StringUtils.equals(cb.getSjbh(), "none")) {
                 vo.setSjcbzx(null);
             } else {
                 RepCbzx cb2 = new RepCbzx();
                 cb2.setCbzxbh(cb.getSjbh());
-                cb2 = veCbzxService.getVeCbzxByCbzxbh(cb2);
+                cb2 = repCbzxService.getVeCbzxByCbzxbh(cb2);
                 vo.setSjcbzx(cb2.getId());
             }
         } else {
             vo.setSfkqcbzx(Boolean.FALSE);
         }
         //项目经理
-        VeYgrz xmjlrz = getYgInfoBYRzid(vo.getXmjl());
-        if (null != xmjlrz) {
-            vo.setXmjlmc(xmjlrz.getXm());
-            vo.setXmjlszbm(xmjlrz.getBmid());
-            vo.setXmjlszgs(xmjlrz.getGsid());
-            EmployeeInfoBaseDTO baseDTO = new EmployeeInfoBaseDTO();
-            baseDTO.setYgid(xmjlrz.getYgid());
-            EmployeeSessionBaseVO baseVO = ygService.selectEmployeeSessionInfo(baseDTO);
-            if (null != vo) {
-                vo.setXmjlgh(baseVO.getGh());
-            }
+        RepYg yg = repYgService.getYgById(vo.getXmjl());
+        if (null != yg) {
+            vo.setXmjlmc(yg.getXm());
+            vo.setXmjlszbm(yg.getBmid());
+            vo.setXmjlszgs(yg.getGsid());
+            vo.setXmjlgh(yg.getGh());
         }
-        VeYgrz xmzjrz = getYgInfoBYRzid(vo.getXmzj());
+        RepYg xmzjrz = repYgService.getYgById(vo.getXmzj());
         if (null != xmzjrz) {
             vo.setXmzjmc(xmzjrz.getXm());
             vo.setXmzjszbm(xmzjrz.getBmid());
             vo.setXmzjszgs(xmzjrz.getGsid());
         }
-        VeYgrz xmlxrrz = getYgInfoBYRzid(vo.getXmlxr());
+        RepYg xmlxrrz = repYgService.getYgById(vo.getXmlxr());
         if (null != xmlxrrz) {
             vo.setXmlxrmc(xmlxrrz.getXm());
             vo.setXmlxrszbm(xmlxrrz.getBmid());
             vo.setXmlxrszgs(xmlxrrz.getGsid());
         }
-        return vo;*/
-       return null;
+        return vo;
+
     }
 
 
@@ -310,7 +320,7 @@ public class ProjectManageService {
      * @return
      */
     public int updateState(AddProDTO dto) {
-        return veXmService.updateState(dto);
+        return repXmService.updateState(dto);
     }
 
 

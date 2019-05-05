@@ -1,5 +1,4 @@
-
-$( function () {
+$(function () {
 
     var dataTree = [];
     //项目list 数据存放
@@ -58,7 +57,7 @@ $( function () {
                             var data = {id: params.row.id};
                             app.xmid = params.row.id;
                             $.ajax({
-                                url: "/custom/vexm/getProDetail",
+                                url: "/custom/repXm/getProDetail",
                                 type: "post",
                                 dataType: "json",
                                 contentType: "application/json",
@@ -294,7 +293,7 @@ $( function () {
                             console.log(value);
                             var data = {id: params.row.id, zt: value};
                             $.ajax({
-                                url: "/custom/vexm/updateCyzt",
+                                url: "/custom/repXm/updateCyzt",
                                 type: "post",
                                 contentType: "application/json",
                                 dataType: "json",
@@ -369,7 +368,7 @@ $( function () {
                                 var vedata = params.row;
                                 var data = {id: vedata.id, xmid: vedata.xmid, cyjs: vedata.cyjs};
                                 $.ajax({
-                                    url: "/custom/vexm/deleteProCy",
+                                    url: "/custom/repXm/deleteProCy",
                                     type: "post",
                                     contentType: "application/json",
                                     dataType: "json",
@@ -398,9 +397,9 @@ $( function () {
 
     ];
 
-var app;
+    var app;
     // 员工控件数据
-    var employeeList=[];
+    var employeeList = [];
 
     /**项目列表数据*/
     var tableData = [];
@@ -569,15 +568,13 @@ var app;
             {type: 'string', max: 50, message: "zdwsgzf", trigger: 'blur'}
         ]
     }
-    var kjAddData = {xmjl: [], xmzj: [], xmbhcy: [], xmlxr: [], cbzxData: ""};
-    var kjEditData = {xmjl: [], xmzj: [], xmbhcy: [], xmlxr: [], cbzxData: ""};
 
     var iquery = {};
     var proListDetail = {};
 
     $.ajax({
         type: "POST",
-        url: "/custom/vexm/getTreeList",
+        url: "/custom/repXm/getTreeList",
         success: function (res) {
             if (res && res.result) {
                 dataTree = res.result.children;
@@ -587,24 +584,25 @@ var app;
                 }
             }
             getApp();
-            app.data = dataTree;
+            app.treedata = dataTree;
             app.iquery = iquery;
             app.proListDetail = proListDetail;
         }
     })
 
     var request = {
-        gsid:"",
-        bmid:""
+        gsid: "",
+        bmid: ""
     }
+
     /*员工控件方法*/
-    function getYgkjData(){
+    function getYgkjData() {
         $.ajax({
             type: "POST",
             url: "/custom/kj/employee/getEmployeeList",
             data: JSON.stringify(request),
             dataType: "json",
-            async:true,
+            async: true,
             contentType: "application/json;charset=UTF-8",
             success: function (response) {
                 if (response.status && response.status === "200") {
@@ -616,21 +614,20 @@ var app;
     }
 
 
-
     function getApp() {
         app = new Vue({
             el: "#app",
             data: {
-                data: dataTree,
+                treedata: dataTree,
                 iquery: iquery,
                 igrid: {
-                    url: "/custom/vexm/proList",
+                    url: "/custom/repXm/proList",
                     loading: false,
                     datas: tableData,
                     columns: tableColumns
                 },
                 igrids: {
-                    url: "/custom/vexm/getProMembers",
+                    url: "/custom/repXm/getProMembers",
                     loading: false,
                     datas: tableDatas,
                     columns: proMembertableColumns
@@ -641,9 +638,7 @@ var app;
                 proDetail: proDetail,
                 editModel: false,
                 editData: editData,
-                kjAddData: kjAddData,
                 xmmc: "",
-                kjEditData: kjEditData,
                 changeTabData: "1",
                 tabValue: "1",
                 xmid: "",
@@ -651,14 +646,16 @@ var app;
                 editload: true,
                 ruleValidate: ruleValidate,
                 ruleValidateEdit: ruleValidateedit,
-                employeeList: employeeList
+                employeeList: employeeList,
+                kjData:[]
+
             },
             mounted: function () {
                 getYgkjData();
                 //this.queryPage();
             },
             methods: {
-                empChange:function(data) {
+                empChange: function (data) {
                     console.log(data);
                 },
                 search: function () {
@@ -703,8 +700,10 @@ var app;
                             if (addData.sjbh == null || addData.sjbh == "") {
                                 addData.sjbh = "none";
                             }
+                            console.log(addData);
+                            debugger
                             $.ajax({
-                                url: "/custom/vexm/addPro",
+                                url: "/custom/repXm/addPro",
                                 type: "post",
                                 dataType: 'json',
                                 contentType: "application/json",
@@ -734,7 +733,6 @@ var app;
                     })
                 },
                 okEdit: function () {
-
                     app.$refs["formValidateEdit"].validate(function (valid) {
                         if (valid) {
                             if (editData.sfdlyszt) {
@@ -747,7 +745,7 @@ var app;
                                 editData.sjbh = "none";
                             }
                             $.ajax({
-                                url: "/custom/vexm/addPro",
+                                url: "/custom/repXm/addPro",
                                 type: "post",
                                 dataType: 'json',
                                 contentType: "application/json",
@@ -779,7 +777,7 @@ var app;
                         $("#fix").css("right", "0px");
                         var data = {id: proDetail.id};
                         $.ajax({
-                            url: "/custom/vexm/getProDetail",
+                            url: "/custom/repXm/getProDetail",
                             type: "post",
                             dataType: "json",
                             contentType: "application/json",
@@ -806,7 +804,6 @@ var app;
                 },
                 addFun: function () {
                     app.$refs["formValidateAdd"].resetFields();
-                    app.kjAddData = {xmjl: [], xmzj: [], xmbhcy: [], xmlxr: []};
                     app.addModel = true;
 
                     addData.xmbhcy = [];
@@ -840,7 +837,7 @@ var app;
                         getXmList();
                         app.queryPage();
                         $.ajax({
-                            url: "/custom/vexm/getProDetail",
+                            url: "/custom/repXm/getProDetail",
                             type: "post",
                             contentType: "application/json",
                             dataType: "json",
@@ -848,18 +845,24 @@ var app;
                             success: function (res) {
                                 var detailData = res.result;
                                 proListDetail = JSON.parse(JSON.stringify(detailData));
-                                if (detailData.sfyx == "1") {
-                                    proListDetail.sfyx = true;
-                                } else {
-                                    proListDetail.sfyx = false;
+                                if(detailData){
+                                    if (detailData.sfyx == "1") {
+                                        proListDetail.sfyx = true;
+                                    } else {
+                                        proListDetail.sfyx = false;
+                                    }
+                                    if (detailData.sfdlys == "1") {
+                                        proListDetail.sfdlyszt = true;
+                                    } else {
+                                        proListDetail.sfdlyszt = false;
+                                    }
+
+                                    console.log(proListDetail);
                                 }
-                                if (detailData.sfdlys == "1") {
-                                    proListDetail.sfdlyszt = true;
-                                } else {
-                                    proListDetail.sfdlyszt = false;
-                                }
+                                debugger
                                 app.proListDetail = proListDetail;
-                                console.log(proListDetail);
+                                console.log(app.treedata);
+
                             }
                         });
                     }
@@ -886,39 +889,36 @@ var app;
                     var dataid = {id: proListDetail.id};
                     getEditKjData(dataid);
                 },
-                selectXmjl: function (data) {
-                    if (data.length == 3) {
-                        if (app.addModel) {
-                            addData.xmjl = data[2].value;
-                            var prod = {ssgsid: data[0].id, ssbmid: data[1].id, ygrzid: data[2].value, cyjs: "1"}
-                            addData.xmbhcy.push(prod);
-                        }
-                        if (app.editModel) {
-                            removeCyFun("1");
-                            editData.xmjl = data[2].value;
-                            var prod = {ssgsid: data[0].id, ssbmid: data[1].id, ygrzid: data[2].value, cyjs: "1"}
-                            editData.xmbhcy.push(prod);
-                        }
-                    } else {
-                        removeCyFun("1");
+                selectXmjl: function (val, data) {
+                    debugger
+                    if (app.addModel) { // 新增
+                        addData.xmbhcy[0]=getxmcr(data,"1");
+                        addData.xmjl = val[0];
+                    }
+                    if (app.editModel) {// 编辑
+                        editData.xmjl = val[0];
+                    }
+                },
+                selectXmzj: function (val, data) {
+                    console.log(data)
+                    if (app.addModel) {
+                        addData.xmbhcy[1]=getxmcr(data,"2");
+                        addData.xmzj = val[0];
+                    }
+                    if (app.editModel) {
+                        editData.xmzj = val[0];
                     }
 
                 },
-                selectXmzj: function (data) {
-                    if (data.length == 3) {
-                        if (app.addModel) {
-                            addData.xmzj = data[2].value;
-                            var prod = {ssgsid: data[0].id, ssbmid: data[1].id, ygrzid: data[2].value, cyjs: "2"};
-                            addData.xmbhcy.push(prod);
-                        }
-                        if (app.editModel) {
-                            removeCyFun("2");
-                            editData.xmzj = data[2].value;
-                            var prod = {ssgsid: data[0].id, ssbmid: data[1].id, ygrzid: data[2].value, cyjs: "2"};
-                            editData.xmbhcy.push(prod);
-                        }
-                    } else {
-                        removeCyFun("2");
+                selectXmlxr: function (val, data) {
+                    console.log(data);
+                    if (app.addModel) {
+                        addData.xmlxr = val[0];
+                        addData.xmbhcy[2]=getxmcr(data,"3");
+                    }
+                    if (app.editModel) {
+                        removeCyFun("3");
+                        editData.xmbhcy.push(prod);
                     }
                 },
                 selectCbzxFun: function (data) {
@@ -930,30 +930,18 @@ var app;
                         editData.sjcbzx = data[0].value;
                     }
                 },
-                selectXmlxr: function (data) {
-                    if (data.length == 3) {
-                        if (app.addModel) {
-                            addData.xmlxr = data[2].value;
-                            var prod = {ssgsid: data[0].id, ssbmid: data[1].id, ygrzid: data[2].value, cyjs: "3"};
-                            addData.xmbhcy.push(prod);
-                        }
-                        if (app.editModel) {
-                            removeCyFun("3");
-                            editData.xmlxr = data[2].value;
-                            var prod = {ssgsid: data[0].id, ssbmid: data[1].id, ygrzid: data[2].value, cyjs: "3"};
-                            editData.xmbhcy.push(prod);
-                        }
-                    } else {
-                        removeCyFun("3");
-                    }
-                },
+
 
             }
 
         })
     }
 
-
+    function getxmcr(data,cyjs) {
+        var obj = data[0];
+        var data = {gsid: obj.gsid, bmid: obj.bmid, id: obj.id, cyjs: cyjs};
+        return data;
+    }
 
     function updataStataFun(data) {
         updateStata.id = data.id;
@@ -963,7 +951,7 @@ var app;
             updateStata.sfyx = "0";
         }
         $.ajax({
-            url: "/custom/vexm/updateState",
+            url: "/custom/repXm/updateState",
             type: "post",
             contentType: "application/json",
             dataType: "json",
@@ -983,16 +971,16 @@ var app;
 
     function getTreeData() {
         $.ajax({
-            url: "/custom/vexm/getTreeList",
+            url: "/custom/repXm/getTreeList",
             type: "post",
             async: false,
             success: function (data) {
 
                 if (data && data.result) {
                     var dataTree = data.result.children;
-                    app.data = dataTree;
+                    app.treedata = dataTree;
                 } else {
-                    app.data = [];
+                    app.treedata = [];
                 }
                 getXmList();
             }
@@ -1021,7 +1009,7 @@ var app;
     /**调用查询项目list 方法*/
     function getXmList() {
         app.igrid.datas = [];
-        app.igrid.url = "/custom/vexm/proList";
+        app.igrid.url = "/custom/repXm/proList";
         app.igrid.columns = tableColumns;
         app.queryPage();
     }
@@ -1043,7 +1031,7 @@ var app;
     function getEditKjData(dataid) {
         app.$refs["formValidateEdit"].resetFields();
         $.ajax({
-            url: "/custom/vexm/getProDetail",
+            url: "/custom/repXm/getProDetail",
             type: "post",
             contentType: "application/json",
             dataType: "json",
@@ -1092,39 +1080,6 @@ var app;
                 }
                 editData.ksrqData = editData.ksrqStr
                 editData.jsrqData = editData.jsrqStr;
-
-                //员工控件回显
-
-                console.log(app.kjEditData);
-                app.editData = editData;
-                if (!editData.xmjlszgs) {
-                    kjEditData.xmjl = [];
-                    app.kjEditData.xmjl = [];
-                } else {
-                    Vue.set(kjEditData.xmjl, 0, editData.xmjlszgs);
-                    Vue.set(kjEditData.xmjl, 1, editData.xmjlszbm);
-                    Vue.set(kjEditData.xmjl, 2, editData.xmjl);
-                }
-                if (!editData.xmzjszgs) {
-                    kjEditData.xmzj = [];
-                    app.kjEditData.xmzj = [];
-                } else {
-                    Vue.set(kjEditData.xmzj, 0, editData.xmzjszgs);
-                    Vue.set(kjEditData.xmzj, 1, editData.xmzjszbm);
-                    Vue.set(kjEditData.xmzj, 2, editData.xmzj);
-                }
-                if (!editData.xmlxrszgs) {
-                    kjEditData.xmlxr = [];
-                    app.kjEditData.xmlxr = [];
-                } else {
-                    Vue.set(kjEditData.xmlxr, 0, editData.xmlxrszgs);
-                    Vue.set(kjEditData.xmlxr, 1, editData.xmlxrszbm);
-                    Vue.set(kjEditData.xmlxr, 2, editData.xmlxr);
-                }
-                kjEditData.cbzxData = editData.sjcbzx;
-
-                app.kjEditData = kjEditData;
-
                 app.editModel = true;
 
             }
@@ -1145,7 +1100,7 @@ var app;
     }
 
 
-    window.app=app;
+    window.app = app;
 })
 
 

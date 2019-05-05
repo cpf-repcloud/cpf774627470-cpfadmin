@@ -1,5 +1,6 @@
 package cn.rep.cloud.custom.basecommon.project.service;
 
+import cn.rep.cloud.custom.basecommon.project.business.RepXmCyServiceImpl;
 import cn.rep.cloud.custom.basecommon.project.business.RepXmServiceImpl;
 import cn.rep.cloud.custom.basecommon.project.entity.RepXm;
 import cn.rep.cloud.custom.basecommon.project.service.dto.AddProDTO;
@@ -28,19 +29,10 @@ public class ProjectMemberService {
      */
     @Autowired
     private RepXmServiceImpl veXmService;
-/*
-    *//**
-     * 项目成员
-     *//*
-    @Autowired
-    private VeXmCyServiceImpl veXmCyService;
 
-    *//**
-     * 员工
-     *//*
-    @Autowired
-    private VeYgServiceImpl ygService;*/
 
+    @Autowired
+    private RepXmCyServiceImpl repXmCyService;
     /**
      * 添加项目成员方法
      *
@@ -58,11 +50,11 @@ public class ProjectMemberService {
         memberDTO.setZhxgsj(dto.getZhxgsj());
         // 新加成员项目状态为1
         memberDTO.setZt("1");
-        memberDTO.setSsbmid(detailDTO.getSsbmid());
-        memberDTO.setXmcy(detailDTO.getYgrzid());
-        memberDTO.setSsgsid(detailDTO.getSsgsid());
+        memberDTO.setSsbmid(detailDTO.getBmid());
+        memberDTO.setXmcy(detailDTO.getId());
+        memberDTO.setSsgsid(detailDTO.getGsid());
         memberDTO.setCyjs(detailDTO.getCyjs());
-        return 0;//veXmCyService.addMember(memberDTO);
+        return repXmCyService.addMember(memberDTO);
 
     }
 

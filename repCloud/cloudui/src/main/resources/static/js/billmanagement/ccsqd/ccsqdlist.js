@@ -101,6 +101,7 @@ window.onload = function () {
                 },
                 modalData:{
                     addModal:false,
+                    fjFile:[]
                 },
                 addCcsqdData:{
                     xcjh:[{mdd:"",cfsj:"",ddsj:"",sxh:""}]
@@ -162,8 +163,32 @@ window.onload = function () {
                     var xcArr = app.addCcsqdData.xcjh;
                     xcArr=xcArr.splice(0, index);
                     app.addCcsqdData.xcjh=xcArr;
+                },
+                //文件上传成功时候回调
+                successFile:function(response,file,fileList){
+                    console.log(response);
+                    console.log(file);
+                    console.log(fileList);
+
+                },
+                //文件上传失败 回调
+                errorFile:function(error,file,fileList) {
+                    console.log(error);
+                    console.log(file);
+                    console.log(fileList);
+                },
+                // 上传文件之前的钩子
+                handleUpload:function(file){
+                    console.log(file);
+                    app.modalData.fjFile.push(file);
+                },
+                //删除上传的文件
+                delFile:function(index) {
+                    var fileDate = app.modalData.fjFile.splice(index, 0);
+                    app.modalData.fjFile=fileDate;
                 }
             },
+
             watch: {}
         });
     }

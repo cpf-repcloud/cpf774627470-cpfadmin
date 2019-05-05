@@ -27,7 +27,7 @@ Vue.mixin({
                 contentType: "application/json;charset=UTF-8",
                 success: function (response) {
                     _this.igrid.loading = false;
-                    if (response.status && response.status === "200") {
+                    if (response.status && response.status === "200"&&response.result) {
                         _this.pagedata = response.result.records;
                         _this.ipage.total = response.result.total;
                         _this.ipage.size = response.result.size;

@@ -59,10 +59,6 @@
             white-space: nowrap;
         }
 
-        .w45 {
-            width: 50%;
-            display: inline-block;
-        }
 
         .fonts {
             font-size: 15px;
@@ -257,7 +253,7 @@
             <div class="marginTop10">
                 <i-input   placeholder="" v-model="xmmc" icon="ios-search" class="serwid80"></i-input>
             </div>
-            <Tree :data="data" class="marginTop10" @on-select-change="getProData"
+            <Tree :data="treedata" class="marginTop10" @on-select-change="getProData"
                   empty-text="暂无项目数据"></Tree>
         </div>
         <div class="content">
@@ -285,20 +281,20 @@
                     </div>
                     <div class="demlo1">
                         <div class="w20">
-                            <div class="w45">项目编号：</div>
-                            <div class="w45"> {{proListDetail.xmbh}}</div>
+                            <div class="w80 in-block">项目编号：</div>
+                            <div class="w80 in-block"> {{proListDetail.xmbh}}</div>
                         </div>
                         <div class="left20">
-                            <div class="w45">项目状态：</div>
-                            <div v-if="proListDetail.zt=='0'" class="w45">
+                            <div class="w80 in-block">项目状态：</div>
+                            <div v-if="proListDetail.zt=='0'" class="w80 in-block">
                                 <Icon type="ios-radio-button-on" size="1" color="#2b85e4"></Icon>
                                 未开始
                             </div>
-                            <div v-if="proListDetail.zt=='1'" class="w45">
+                            <div v-if="proListDetail.zt=='1'" class="w80 in-block">
                                 <Icon type="ios-radio-button-on" size="1" color="#2b85e4"></Icon>
                                 进行中
                             </div>
-                            <div v-if="proListDetail.zt=='2'" class="w45">
+                            <div v-if="proListDetail.zt=='2'" class="w80 in-block">
                                 <Icon type="ios-radio-button-on" size="1" color="#2b85e4"></Icon>
                                 已完成
                             </div>
@@ -306,22 +302,22 @@
                     </div>
                     <div class="demlo1">
                         <div class="w20">
-                            <div class="w45">项目类型：</div>
-                            <div class="w45"> 研发项目</div>
+                            <div class="w80 in-block">项目类型：</div>
+                            <div class="w80 in-block"> 研发项目</div>
                         </div>
                         <div class="left20">
-                            <div class="w45"> 项目经理：</div>
-                            <div class="w45">{{proListDetail.xmjlmc}}({{proListDetail.xmjlgh}})</div>
+                            <div class="w80 in-block"> 项目经理：</div>
+                            <div class="w80 in-block">{{proListDetail.xmjlmc}}({{proListDetail.xmjlgh}})</div>
                         </div>
                     </div>
                     <div class="demlo1">
                         <div class="w20">
-                            <div class="w45">开始日期：</div>
-                            <div class="w45">{{proListDetail.ksrqStr}}</div>
+                            <div class="w80 in-block">开始日期：</div>
+                            <div class="w80 in-block">{{proListDetail.ksrqStr}}</div>
                         </div>
                         <div class="left20">
-                            <div class="w45">项目描述：</div>
-                            <div class="w45">{{proListDetail.xmms}}</div>
+                            <div class="w80 in-block">项目描述：</div>
+                            <div class="w80 in-block">{{proListDetail.xmms}}</div>
                         </div>
                     </div>
                 </div>
@@ -454,21 +450,21 @@
             <i-col :sm="12" :md="12" :lg="12">
                 <form-Item class="wit300demo" prop="xmjl" label="项目经理">
                     <div class="wit200demo">
-                        <pulldown v-if="addModel" v-model="kjAddData.xmjl" class="demo-input" data-type="1" :data-source="employeeList" @on-change="empChange"></pulldown>
+                        <pulldown v-if="addModel" v-model="addData.xmjl" clearable  class="demo-input" data-type="1" :data-source="employeeList" @on-change="selectXmjl"></pulldown>
                     </div>
                 </form-Item>
             </i-col>
             <i-col :sm="12" :md="12" :lg="12">
                 <form-item class="wit300demo" prop="xmzj" label="项目总监">
                     <div class="wit200demo">
-                        <Employee v-model="kjAddData.xmzj" @on-emp="selectXmzj"></Employee>
+                        <pulldown v-if="addModel" v-model="addData.xmzj" clearable class="demo-input" data-type="1" :data-source="employeeList" @on-change="selectXmzj"></pulldown>
                     </div>
                 </form-item>
             </i-col>
             <i-col :sm="12" :md="12" :lg="12">
                 <form-Item class="wit300demo" prop="xmlxr" label="项目联系人">
                     <div class="wit200demo">
-                        <Employee v-model="kjAddData.xmlxr" @on-emp="selectXmlxr"></Employee>
+                        <pulldown v-if="addModel" v-model="addData.xmlxr" clearable class="demo-input" data-type="1" :data-source="employeeList" @on-change="selectXmlxr"></pulldown>
                     </div>
                 </form-Item>
             </i-col>

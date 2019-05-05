@@ -1,6 +1,7 @@
 package cn.rep.cloud.custom.basecommon.project.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -127,6 +128,7 @@ public class AddProDTO {
     /**
      * 项目包含成员
      */
+    @JsonIgnoreProperties(ignoreUnknown = true)
     private List<ProDetailDTO> xmbhcy;
 
 
