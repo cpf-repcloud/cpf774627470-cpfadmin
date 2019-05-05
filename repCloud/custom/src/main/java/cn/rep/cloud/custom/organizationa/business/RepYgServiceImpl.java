@@ -114,4 +114,14 @@ public class RepYgServiceImpl {
         return successBean;
     }
 
+    /**
+     * 通过id 查询员工
+     * @param id
+     * @return
+     */
+    public RepYg getYgById(String id){
+        return repYgService.queryRepYg(id);
+    }
+
+
 }
