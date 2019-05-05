@@ -60,7 +60,6 @@ window.onload=function (){
             data:{
                 editBmData:{},
                 saveBmData:{},
-                saveComp:{},
                 compList:compList,
                 countryid:[],
                 countryList:countryList,
@@ -81,13 +80,16 @@ window.onload=function (){
                 pagedata: [],
                 treeNode:treeNodeList,
                 breadList:breadList,
-                formRule:{
-                    compmc:[{required:true,message: "请输入公司名称",trigger: 'blur'}],
-                    compjc:[{required:true,message: "请输入公司简称",trigger: 'blur'}],
-                    compaddress:[{required:true,message: "请输入公司地址",trigger: 'blur'}],
-                    phonenumber:[{required:true,message: "请输入公司电话",trigger: 'blur'}],
-                    email:[{required:true,message: "请输入公司邮件",trigger: 'blur'}],
-                    homepage:[{required:true,message: "请输入公司地址",trigger: 'blur'}]
+                formSaveBmRule:{
+                    ssgsid:[{required:true,message: "请选择所属公司",trigger: 'blur'}],
+                    mc:[{required:true,message: "请输入部门名称",trigger: 'blur'}],
+                    jc:[{required:true,message: "请输入部门简称",trigger: 'blur'}],
+                    bh:[{required:true,message: "请输入部门编号",trigger: 'blur'}],
+                    bmfzr:[{required:true,message: "请选择部门负责人",trigger: 'blur'}],
+                    countryid:[{required:true,message: "请选择部门所在城市",trigger: 'blur'}],
+                    cwzg:[{required:true,message: "请选择部门财务主管",trigger: 'blur'}],
+                    bmdh:[{required:true,message: "请输入部门电话",trigger: 'blur'}],
+                    szdz:[{required:true,message: "请输入部门详细地址",trigger: 'blur'}]
                 },
                 igrid:{
                     // url:"/custom/repComp/list",
@@ -114,7 +116,7 @@ window.onload=function (){
                 saveEmp:function () {
 
                 },
-                empChange:function (data) {
+                empChange:function (val,data) {
                     console.log(data);
                 },
                 deptChange:function (data) {

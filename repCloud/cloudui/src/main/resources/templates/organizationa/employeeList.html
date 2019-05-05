@@ -35,7 +35,7 @@
 <body class="bodyClass">
 <div id="app" v-cloak>
     <div class="tree" id="my-box" >
-        <i-form ref="queryForm" :inline="false" :model="iquery" :rules="formRule" :show-message="false" @keydown.native.enter.prevent ="keyDownEvent">
+        <i-form ref="queryForm" :inline="false" :model="iquery" :show-message="false" @keydown.native.enter.prevent ="keyDownEvent">
             <Row>
                 <i-col :sm="20" :md="20" :lg="20">
                     <i-input class="sreach" type="text" icon="ios-search"  ></i-input>
@@ -149,56 +149,56 @@
             </p>
         </modal>
         <Modal width="70%" v-model="addDept" class="vetech-modal" scrollable="true" title="新增部门" :mask-closable="false">
-            <i-form ref="saveData" :model="saveComp" :inline="false" :label-width="80" :rules="formRule" :show-message="true">
+            <i-form ref="saveData" :model="saveBmData" :inline="false" :label-width="80" :rules="formSaveBmRule" :show-message="true">
                 <Row>
                     <div>
                         <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="所属公司" prop="business">
+                            <Form-item label="所属公司" prop="ssgsid">
                                 <pulldown  v-if="addDept" v-model="saveBmData.ssgsid" class="demo-input" data-type="1" :data-source="compList" @on-change="compChange"></pulldown>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="上级部门" prop="business">
+                            <Form-item label="上级部门">
                                 <pulldown  v-if="addDept" v-model="saveBmData.sjid" class="demo-input" data-type="1" :data-source="deptList" @on-change="deptChange"></pulldown>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="部门名称" prop="business">
+                            <Form-item label="部门名称" prop="mc">
                                 <i-input v-model="saveBmData.mc" clearable type="text" placeholder="请输入"></i-input>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="部门简称" prop="business">
+                            <Form-item label="部门简称" prop="jc">
                                 <i-input v-model="saveBmData.jc" clearable type="text" placeholder="请输入"></i-input>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="部门编号" prop="business">
+                            <Form-item label="部门编号" prop="bh">
                                 <i-input v-model="saveBmData.bh" clearable type="text" placeholder="请输入"></i-input>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="负责人" prop="business">
+                            <Form-item label="负责人" prop="bmfzr">
                                 <pulldown v-if="addDept" v-model="saveBmData.bmfzr" class="demo-input" data-type="1" :data-source="employeeList" @on-change="empChange"></pulldown>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="部门电话" prop="business">
+                            <Form-item label="部门电话" prop="bmdh">
                                 <i-input v-model="saveBmData.bmdh" clearable type="text" placeholder="请输入"></i-input>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="所在城市" prop="business">
+                            <Form-item label="所在城市" prop="countryid">
                                 <Cascader v-if="addDept" v-model="saveBmData.countryid" :data="countryList" filterable change-on-select @on-change="changeCity"></Cascader>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="详细地址" prop="business">
+                            <Form-item label="详细地址" prop="szdz">
                                 <i-input v-model="saveBmData.szdz" clearable type="text" placeholder="请输入"></i-input>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="财务主管" prop="business">
+                            <Form-item label="财务主管" prop="cwzg">
                                 <pulldown v-if="addDept" v-model="saveBmData.cwzg" class="demo-input" data-type="2" data-source="/custom/kj/employee/getEmployeeList" @on-change="empChange"></pulldown>
                             </Form-item>
                         </i-col>
@@ -207,7 +207,7 @@
             </i-form>
         </Modal>
         <Modal width="70%" v-model="addEmp" class="vetech-modal" scrollable="true" title="新增员工" :mask-closable="false">
-            <i-form ref="saveBmData" :model="saveBmData" :inline="false" :label-width="80" :rules="formRule" :show-message="true">
+            <i-form ref="saveBmData" :model="saveBmData" :inline="false" :label-width="80" :rules="formSaveBmRule" :show-message="true">
                 <Row>
                     <div>
                         <i-col :sm="12" class="pb20 pt10">
@@ -269,7 +269,7 @@
             </div>
         </Modal>
         <Modal width="70%" v-model="editBm" class="vetech-modal" scrollable="true" title="编辑部门" :mask-closable="false">
-            <i-form ref="editBmData" :model="editBmData" :inline="false" :label-width="80" :rules="formRule" :show-message="true">
+            <i-form ref="editBmData" :model="editBmData" :inline="false" :label-width="80" :rules="formSaveBmRule" :show-message="true">
                 <Row>
                     <div>
                         <i-col :sm="12" class="pb20 pt10">
