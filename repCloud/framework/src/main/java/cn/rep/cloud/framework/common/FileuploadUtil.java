@@ -8,8 +8,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -91,21 +92,21 @@ public class FileuploadUtil {
         // outputFormat：文件输出后缀名
         // Thumbnails 如果用来压缩 png 格式的文件，会越压越大，
         // 得把png格式的图片转换为jpg格式
-//        if ("png".equalsIgnoreCase(extName)) {
-//            // 由于outputFormat会自动在路径后加上后缀名，所以移除以前的后缀名
-//            String removeExtensionFilePath = FilenameUtils.removeExtension(toFilePath);
-//            Thumbnails.of(serverPath).scale(1f)
-//                    .outputQuality(0.5f)
-//                    .outputFormat("jpg")
-//                    .toFile(getServerPath(removeExtensionFilePath));
-//            toFilePath = removeExtensionFilePath + ".jpg";
-//        } else {
-//            Thumbnails.of(serverPath).scale(1f).outputQuality(0.5f)
-//                    .toFile(getServerPath(toFilePath));
-//        }
+        if ("png".equalsIgnoreCase(extName)) {
+            // 由于outputFormat会自动在路径后加上后缀名，所以移除以前的后缀名
+            String removeExtensionFilePath = FilenameUtils.removeExtension(toFilePath);
+            Thumbnails.of(serverPath).scale(1f)
+                    .outputQuality(0.5f)
+                    .outputFormat("jpg")
+                    .toFile(getServerPath(removeExtensionFilePath));
+            toFilePath = removeExtensionFilePath + ".jpg";
+        } else {
+            Thumbnails.of(serverPath).scale(1f).outputQuality(0.5f)
+                    .toFile(getServerPath(toFilePath));
+        }
 
         // 删除被压缩的文件
-        //FileUtils.forceDelete(new File(serverPath));
+        FileUtils.forceDelete(new File(serverPath));
 
         return toFilePath;
     }
@@ -218,5 +219,68 @@ public class FileuploadUtil {
      */
     public static FileResult saveImage(MultipartFile multipartFile, String childFile, String extension) throws IOException {
         return saveFile(multipartFile, childFile, extension, true);
+    }
+
+    /**
+     * 字节 转换为B MB GB
+     * @param size 字节大小
+     * @return
+     */
+    private static String getPrintSize(long size){
+        long rest = 0;
+        if(size < 1024){
+            return String.valueOf(size) + "B";
+        }else{
+            size /= 1024;
+        }
+        if(size < 1024){
+            return String.valueOf(size) + "KB";
+        }else{
+            rest = size % 1024;
+            size /= 1024;
+        }
+        if(size < 1024){
+            size = size * 100;
+            return String.valueOf((size / 100)) + "." + String.valueOf((rest * 100 / 1024 % 100)) + "MB";
+        }else{
+            size = size * 100 / 1024;
+            return String.valueOf((size / 100)) + "." + String.valueOf((size % 100)) + "GB";
+        }
+    }
+
+    /**
+     * 检查文件是否为图片
+     * @param multipartFile
+     * @return
+     */
+    private boolean checkImage(MultipartFile multipartFile) throws IOException{
+        // 得到处理后的图片文件对象
+        File toFile = null;
+        Image image = null;
+        //判断文件是否为图片
+        try {
+            // 通过ImageReader来解码这个file并返回一个BufferedImage对象
+            // 如果找不到合适的ImageReader则会返回null，我们可以认为这不是图片文件
+            // 或者在解析过程中报错，也返回false
+            InputStream ins = null;
+            ins = multipartFile.getInputStream();
+            toFile = new File(multipartFile.getOriginalFilename());
+            OutputStream os = new FileOutputStream(toFile);
+            int bytesRead = 0;
+            byte[] buffer = new byte[8192];
+            while ((bytesRead = ins.read(buffer, 0, 8192)) != -1) {
+                os.write(buffer, 0, bytesRead);
+            }
+            os.close();
+            ins.close();
+            image = ImageIO.read(toFile);
+        } catch(IOException ex) {
+            throw new IOException("上传文件类型有误",ex);
+        }
+        if (null == image){
+            throw new IOException("上传文件类型有误");
+        }else{
+            return true;
+        }
     }
 }

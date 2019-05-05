@@ -15,7 +15,7 @@ public class RepCountryVO implements Serializable{
     /**
      * 下级
      */
-    private List<RepCountryVO> children;
+    private List<BasicDataBean> children;
 
     public String getValue() {
         return value;
@@ -33,11 +33,11 @@ public class RepCountryVO implements Serializable{
         this.label = label;
     }
 
-    public List<RepCountryVO> getChildren() {
+    public List<BasicDataBean> getChildren() {
         return children;
     }
 
-    public void setChildren(List<RepCountryVO> children) {
+    public void setChildren(List<BasicDataBean> children) {
         this.children = children;
     }
 }

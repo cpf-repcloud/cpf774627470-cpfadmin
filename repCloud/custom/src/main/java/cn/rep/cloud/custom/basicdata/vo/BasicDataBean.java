@@ -1,6 +1,8 @@
 package cn.rep.cloud.custom.basicdata.vo;
 
-public class BasicDataBean {
+import java.io.Serializable;
+
+public class BasicDataBean implements Serializable{
     /**
      * 国家/省份/城市 id
      */

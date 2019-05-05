@@ -50,7 +50,7 @@ public class RepCountryServiceImpl {
             RepCountryVO repCountryVO = new RepCountryVO();
             repCountryVO.setValue(country.getId());
             repCountryVO.setLabel(country.getMc());
-            List<RepCountryVO> repCities = repCityService.getCityListByParid(country.getId());
+            List<BasicDataBean> repCities = repCityService.getCityListByParid(country.getId());
 //            for (RepCountryVO repCity : repCities){
 //                //查询地级县市
 //                List<RepCountryVO> childrens = repCityService.getCityListBySjid(repCity.getValue());

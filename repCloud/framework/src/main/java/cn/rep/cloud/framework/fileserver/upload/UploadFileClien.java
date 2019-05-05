@@ -19,7 +19,6 @@ public class UploadFileClien {
      *
      * @param childFile 上传的父目录
      * @param extension 允许上传的文件后缀名
-     * @author "lixingwu"
      */
     @PostMapping("/uploadFile")
     public FileResult uploadFile(
@@ -36,7 +35,6 @@ public class UploadFileClien {
      *
      * @param childFile 上传的父目录
      * @param extension 允许上传的文件后缀名
-     * @author "lixingwu"
      */
     @PostMapping("/uploadImage")
     public FileResult uploadImage(

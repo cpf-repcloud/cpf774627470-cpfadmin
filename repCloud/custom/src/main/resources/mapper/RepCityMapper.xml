@@ -32,7 +32,7 @@
         </where>
     </select>
 
-    <select id="getCityListBySfid" resultType="cn.rep.cloud.custom.basicdata.vo.RepCountryVO" parameterType="String">
+    <select id="getCityListBySfid" resultType="cn.rep.cloud.custom.basicdata.vo.BasicDataBean" parameterType="String">
         select bh as 'value',mc as label from rep_city where szsf = #{szsf} and by3 = ''
     </select>
 

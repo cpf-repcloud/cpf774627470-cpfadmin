@@ -4,6 +4,7 @@ import cn.rep.cloud.custom.basecommon.common.Constants;
 import cn.rep.cloud.custom.basicdata.dto.RepCityDTO;
 import cn.rep.cloud.custom.basicdata.entity.RepCity;
 import cn.rep.cloud.custom.basicdata.service.RepCityService;
+import cn.rep.cloud.custom.basicdata.vo.BasicDataBean;
 import cn.rep.cloud.custom.basicdata.vo.RepCityVO;
 import cn.rep.cloud.custom.basicdata.vo.RepCountryVO;
 import cn.rep.cloud.custom.coreutils.common.PageDTO;
@@ -125,7 +126,7 @@ public class RepCityServiceImpl {
      * @param parid
      * @return
      */
-    public List<RepCountryVO> getCityListByParid(String parid){
+    public List<BasicDataBean> getCityListByParid(String parid){
         if (StringUtils.isBlank(parid)) return null;
         return repCityService.getCityListByParid(parid);
     }

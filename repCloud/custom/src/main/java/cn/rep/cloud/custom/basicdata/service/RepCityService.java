@@ -4,6 +4,7 @@ import cn.rep.cloud.custom.basecommon.common.Constants;
 import cn.rep.cloud.custom.basicdata.dto.RepCityDTO;
 import cn.rep.cloud.custom.basicdata.entity.RepCity;
 import cn.rep.cloud.custom.basicdata.mapper.RepCityMapper;
+import cn.rep.cloud.custom.basicdata.vo.BasicDataBean;
 import cn.rep.cloud.custom.basicdata.vo.RepCityVO;
 import cn.rep.cloud.custom.basicdata.vo.RepCountryVO;
 import cn.rep.cloud.custom.coreutils.common.PageCopyUtil;
@@ -61,9 +62,9 @@ public class RepCityService {
      * @param szsf /所属省份id
      * @return
      */
-    public List<RepCountryVO> getCityListByParid(String szsf){
+    public List<BasicDataBean> getCityListByParid(String szsf){
         if (StringUtils.isNotBlank(szsf)){
-            List<RepCountryVO> cityList = repCityMapper.getCityListBySfid(szsf);
+            List<BasicDataBean> cityList = repCityMapper.getCityListBySfid(szsf);
             return cityList;
         }
         return null;

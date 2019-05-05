@@ -4,6 +4,7 @@ window.onload=function (){
     var treeNodeList =[];
     var employeeList =[];
     var deptList =[];
+    var compList =[];
     var countryList =[];
     var countryid = [];
     var request = {
@@ -31,7 +32,7 @@ window.onload=function (){
                     bmvo = response.result;
                     deptid = response.result.id;
                     employee = response.result.bmfzr;
-                    getEmployeeList();
+                    getCountryList();
                 }
             }
         });
@@ -57,6 +58,10 @@ window.onload=function (){
         apps= new Vue({
             el: '#app',
             data:{
+                editBmData:{},
+                saveBmData:{},
+                saveComp:{},
+                compList:compList,
                 countryid:[],
                 countryList:countryList,
                 countryid:countryid,
@@ -115,9 +120,11 @@ window.onload=function (){
                 deptChange:function (data) {
                     console.log(data);
                 },
+                compChange:function (data) {
+                    console.log(data);
+                },
                 editBms:function (bmid) {
                     apps.editBm = true;
-                    getCountryList();
                     if (apps.bmvo && apps.bmvo.xxszdzid){
                         var list = apps.bmvo.xxszdzid.split(",");
                         apps.countryid = list;
@@ -205,8 +212,24 @@ window.onload=function (){
             success: function (response) {
                 if (response.status && response.status === "200") {
                     deptList = response.result;
-                    initVue();
                 }
+                getCompList();
+            }
+        });
+    }
+    //查询公司控件
+    function getCompList() {
+        $.ajax({
+            type: "POST",
+            url: "/custom/kj/comp/getCompList",
+            data: JSON.stringify(request),
+            dataType: "json",
+            contentType: "application/json;charset=UTF-8",
+            success: function (response) {
+                if (response.status && response.status === "200") {
+                    compList = response.result;
+                }
+                initVue();
             }
         });
     }
@@ -218,11 +241,11 @@ window.onload=function (){
             data: {},
             dataType: "json",
             contentType: "application/json;charset=UTF-8",
-            async:true,
             success: function (response) {
                 if (response.status && response.status === "200") {
-                    apps.countryList = response.result;
+                    countryList = response.result;
                 }
+                getEmployeeList();
             }
         });
     }

@@ -2,6 +2,7 @@ package cn.rep.cloud.custom.basicdata.mapper;
 
 import cn.rep.cloud.custom.basicdata.dto.RepCityDTO;
 import cn.rep.cloud.custom.basicdata.entity.RepCity;
+import cn.rep.cloud.custom.basicdata.vo.BasicDataBean;
 import cn.rep.cloud.custom.basicdata.vo.RepCityVO;
 import cn.rep.cloud.custom.basicdata.vo.RepCountryVO;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
@@ -22,7 +23,7 @@ public interface RepCityMapper extends BaseMapper<RepCity> {
 
     List<RepCity> getPageCityList(Page page,@Param("dto") RepCityDTO dto);
 
-    List<RepCountryVO> getCityListBySfid(@Param("szsf") String szsf);
+    List<BasicDataBean> getCityListBySfid(@Param("szsf") String szsf);
 
     List<RepCountryVO> getCityListBySjid(@Param("sjid") String sjid);
 }
