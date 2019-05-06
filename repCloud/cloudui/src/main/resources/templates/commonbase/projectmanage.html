@@ -6,6 +6,7 @@
     <!--public-->
     <style>
         @import "../../static/public/css/commons.css";
+        @import "../../static/public/css/public.css";
         .searchdemo {
             width: 230px;
         }
@@ -21,7 +22,7 @@
         .dispin {
             width: 60%;
             display: inline-block;
-            margin-left: 20px;
+            margin-left: 0px;
         }
 
         ::-ms-clear, ::-ms-reveal {
@@ -526,35 +527,33 @@
     <Modal
             v-model="editModel"
             title="编辑"
-            @on-ok="okEdit()"
+            @on-ok="okEdit"
             width="900"
             :mask-closable="false"
             :loading="editload"
             ok-text="提交"
-            class-name="vertical-center-modal"
-            class="vetech-modal"
             @on-cancel="cancel">
         <i-form ref="formValidateEdit" :rules="ruleValidateEdit" :model="editData">
             <i-col :sm="24" :md="24" :lg="24">
-                <form-Item class="wit300demo maeg20" prop="sjbh" label="sjbm">
+                <form-Item class="wit300demo maeg20" prop="sjbh" label="上级编号">
                     <i-input clearable  placeholder="请输入" class="wit200demo"
                              v-model="editData.sjbh"/>
                 </form-Item>
             </i-col>
             <i-col :sm="12" :md="12" :lg="12">
-                <form-item class="wit300demo" prop="xmmc" label="xmmc">
+                <form-item class="wit300demo" prop="xmmc" label="项目名称">
                     <i-input clearable  placeholder="请输入" class="wit200demo"
                              v-model="editData.xmmc"/>
                 </form-item>
             </i-col>
             <i-col :sm="12" :md="12" :lg="12">
-                <form-item class="wit300demo" prop="xmbh" label="xmbh">
+                <form-item class="wit300demo" prop="xmbh" label="项目编号">
                     <i-input clearable  placeholder="请输入" class="wit200demo"
                              v-model="editData.xmbh"/>
                 </form-item>
             </i-col>
             <i-col :sm="12" :md="12" :lg="12">
-                <form-Item class="wit300demo" prop="zt" label="zt">
+                <form-Item class="wit300demo" prop="zt" label="状态">
                     <i-select v-model="editData.zt" class="wit200demo">
                         <i-option value="0">未开始</i-option>
                         <i-option value="1">进行中</i-option>
@@ -568,7 +567,7 @@
                  </i-select>
              </form-Item>-->
             <i-col :sm="12" :md="12" :lg="12">
-                <form-Item class="wit300demo" prop="xmlx" label="xmlx">
+                <form-Item class="wit300demo" prop="xmlx" label="项目类型">
                     <i-select v-model="editData.xmlx" class="wit200demo">
                         <i-option value="0">公司项目</i-option>
                         <i-option value="1">集团项目</i-option>
@@ -577,20 +576,20 @@
 
             </i-col>
             <i-col :sm="12" :md="12" :lg="12">
-                <form-item class="wit300demo" prop="ksrqData" label="ksrq">
+                <form-item class="wit300demo" prop="ksrqData" label="开始时间">
                     <Date-Picker type="date" v-model="editData.ksrqData" @on-change="ksrqFunDemo"
                                  placeholder="项目开始日期" class="wit200demo"></Date-Picker>
                 </form-item>
             </i-col>
             <i-col :sm="12" :md="12" :lg="12">
-                <form-item class="wit300demo" prop="jsrqData" label="jssj">
+                <form-item class="wit300demo" prop="jsrqData" label="结束时间">
                     <Date-Picker type="date" v-model="editData.jsrqData" @on-change="jssjFunDemo"
                                  placeholder="项目结束日期" class="wit200demo"></Date-Picker>
                 </form-item>
             </i-col>
 
             <i-col :sm="24" :md="24" :lg="24">
-                <form-item class="wit300demo" prop="bzbz" label=ymggsj.bz">
+                <form-item class="wit300demo" prop="bzbz" label="备注">
                     <i-input clearable  placeholder="请输入"
                              class="wit200demo" v-model="editData.bzbz"/>
                 </form-item>
@@ -598,28 +597,28 @@
 
             <div class="demo223"></div>
             <i-col :sm="12" :md="12" :lg="12">
-                <form-Item class="wit300demo" prop="xmjl" label="xmjl">
+                <form-Item class="wit300demo" prop="xmjl" label="项目经理">
                     <div class="wit200demo">
-                        <Employee v-model="kjEditData.xmjl" @on-emp="selectXmjl"></Employee>
+                        <pulldown v-if="editModel" v-model="editData.xmjl" clearable  class="demo-input" data-type="1" :data-source="employeeList" @on-change="selectXmjl"></pulldown>
                     </div>
                 </form-Item>
             </i-col>
             <i-col :sm="12" :md="12" :lg="12">
-                <form-item class="wit300demo" prop="xmzj" label="xmzj">
+                <form-item class="wit300demo" prop="xmzj" label="项目总监">
                     <div class="wit200demo">
-                        <Employee v-model="kjEditData.xmzj" @on-emp="selectXmzj"></Employee>
+                        <pulldown v-if="editModel" v-model="editData.xmzj" clearable class="demo-input" data-type="1" :data-source="employeeList" @on-change="selectXmzj"></pulldown>
                     </div>
                 </form-item>
             </i-col>
             <i-col :sm="12" :md="12" :lg="12">
-                <form-Item class="wit300demo" prop="xmlxr" label="xmlxr">
+                <form-Item class="wit300demo" prop="xmlxr" label="项目联系人">
                     <div class="wit200demo">
-                        <Employee v-model="kjEditData.xmlxr" @on-emp="selectXmlxr"></Employee>
+                        <pulldown v-if="editModel" v-model="editData.xmlxr" clearable class="demo-input" data-type="1" :data-source="employeeList" @on-change="selectXmlxr"></pulldown>
                     </div>
                 </form-Item>
             </i-col>
             <i-col :sm="12" :md="12" :lg="12">
-                <form-item class="wit300demo" prop="glbm" label="glbm">
+                <form-item class="wit300demo" prop="glbm" label="关联部门">
                     <i-select v-model="editData.glbm" class="wit200demo">
                         <i-option value="1">研发部</i-option>
                     </i-select>
@@ -664,10 +663,10 @@
         </i-form>
     </Modal>
 
-    <Drawer title="Basic Drawer" :closable="false" v-model="fter" width="500">
+    <Drawer :closable="false" v-model="fter" width="500">
         <div style="margin-top: 20px;margin-right: 25px;margin-left: 25px;height: 100%">
             <Tabs :value="tabValue" style="margin-top: 20px;margin-left: 5px;" @on-click="changeTab">
-                <Tab-Pane label=项目详情" name="1">
+                <Tab-Pane label="项目详情" name="1">
                     <div v-if="changeTabData=='1'" class="demo234">
                         <div>
                             <div class="fonts">{{proDetail.xmmc}}</div>
@@ -762,7 +761,7 @@
                         </div>
                     </div>
                 </Tab-Pane>
-                <Tab-Pane label=项目成员" name="2">
+                <Tab-Pane label="项目成员" name="2">
                     <div style="width: 100%" v-if="changeTabData=='2'">
                         <div>
                             <i-input clearable  placeholder="项目所属成员名称" v-model="iquery.cymc"

@@ -76,6 +76,7 @@ window.onload=function (){
                 adddeptload:true,
                 loading:false,
                 upload:false,
+                addload:false,
                 addEmp:false,
                 addDept:false,
                 showMore:false,
@@ -123,39 +124,59 @@ window.onload=function (){
                     //         alert(2);
                     //     }
                     // })
-                    $.ajax({
-                        url: "/custom/repXm/addPro",
-                        type: "post",
-                        dataType: 'json',
-                        contentType: "application/json",
-                        data: JSON.stringify(apps.saveBmData),
-                        success: function (data) {
-                            if (data.status == 200) {
-                                apps.$Message.success("新增成功");
-                                apps.saveBmData = {};
+
+
+                    apps.$refs["saveBmDatas"].validate(function (valid) {
+                        if (valid) {
+                            $.ajax({
+                                url: "/custom/repXm/addPro",
+                                type: "post",
+                                dataType: 'json',
+                                contentType: "application/json",
+                                data: JSON.stringify(apps.saveBmData),
+                                success: function (data) {
+                                    if (data.status == 200) {
+                                        apps.$Message.success("新增成功");
+                                        apps.saveBmData = {};
+                                        apps.adddeptload = false;
+                                        apps.addDept = false;
+                                        treeNode();
+                                    } else {
+                                        app.$Message.error("新增失败");
+                                    }
+                                },
+                                error: function (e) {
+                                    console.log(e);
+                                    app.addload = false;
+                                }
+                            })
+                        }
+                        else {
+                            apps.$Message.error('表单验证失败!');
+                            setTimeout(function () {
                                 apps.adddeptload = false;
-                                apps.addDept = false;
-                                treeNode();
-                            } else {
-                                app.$Message.error("新增失败");
-                            }
-                        },
-                        error: function (e) {
-                            console.log(e);
-                            app.addload = false;
+                                apps.$nextTick(function () {
+                                    apps.adddeptload = true;
+                                });
+                            }, 100)
+
                         }
                     })
+
+
                 },
                 cancelDept:function () {
                     this.$refs.saveBmData.resetFields();
                 },
                 empChange:function (val,data) {
-                    console.log(data);
+                    apps.saveBmData.bmfzr = val[0];
                 },
                 deptChange:function (data) {
                     console.log(data);
                 },
-                compChange:function (data) {
+                compChange:function (val,data) {
+                    debugger
+                    apps.saveBmData.ssgsid = val[0];
                     console.log(data);
                 },
                 editBms:function (bmid) {
@@ -197,6 +218,7 @@ window.onload=function (){
                 changeCity:function (value, selectedData) {
                     console.log(JSON.stringify(value));
                     console.log(JSON.stringify(selectedData));
+                    apps.saveBmData.countryid = value[0];
                 }
             }
         });
@@ -284,6 +306,7 @@ window.onload=function (){
             }
         });
     }
+
 
 
 }

@@ -70,7 +70,8 @@ $(function () {
                                         proList = app.igrid.datas;
                                         getCyList();
                                     }
-                                    app.$refs.fter.showPanel();
+                                    debugger
+                                    app.fter = true;
                                 }
                             })
 
@@ -647,7 +648,8 @@ $(function () {
                 ruleValidate: ruleValidate,
                 ruleValidateEdit: ruleValidateedit,
                 employeeList: employeeList,
-                kjData:[]
+                kjData: [],
+                fter: false
 
             },
             mounted: function () {
@@ -845,7 +847,7 @@ $(function () {
                             success: function (res) {
                                 var detailData = res.result;
                                 proListDetail = JSON.parse(JSON.stringify(detailData));
-                                if(detailData){
+                                if (detailData) {
                                     if (detailData.sfyx == "1") {
                                         proListDetail.sfyx = true;
                                     } else {
@@ -892,20 +894,23 @@ $(function () {
                 selectXmjl: function (val, data) {
                     debugger
                     if (app.addModel) { // 新增
-                        addData.xmbhcy[0]=getxmcr(data,"1");
+                        addData.xmbhcy[0] = getxmcr(data, "1");
                         addData.xmjl = val[0];
                     }
                     if (app.editModel) {// 编辑
+                        editData.xmbhcy[0] = getxmcr(data, "1");
                         editData.xmjl = val[0];
                     }
                 },
                 selectXmzj: function (val, data) {
+                    debugger
                     console.log(data)
                     if (app.addModel) {
-                        addData.xmbhcy[1]=getxmcr(data,"2");
+                        addData.xmbhcy[1] = getxmcr(data, "2");
                         addData.xmzj = val[0];
                     }
                     if (app.editModel) {
+                        editData.xmbhcy[1] = getxmcr(data, "2");
                         editData.xmzj = val[0];
                     }
 
@@ -914,11 +919,12 @@ $(function () {
                     console.log(data);
                     if (app.addModel) {
                         addData.xmlxr = val[0];
-                        addData.xmbhcy[2]=getxmcr(data,"3");
+                        addData.xmbhcy[2] = getxmcr(data, "3");
                     }
                     if (app.editModel) {
-                        removeCyFun("3");
-                        editData.xmbhcy.push(prod);
+
+                        editData.xmlxr = val[0];
+                        editData.xmbhcy[2] = getxmcr(data, "3");
                     }
                 },
                 selectCbzxFun: function (data) {
@@ -937,7 +943,7 @@ $(function () {
         })
     }
 
-    function getxmcr(data,cyjs) {
+    function getxmcr(data, cyjs) {
         var obj = data[0];
         var data = {gsid: obj.gsid, bmid: obj.bmid, id: obj.id, cyjs: cyjs};
         return data;
@@ -988,24 +994,6 @@ $(function () {
     }
 
 
-    function removeCyFun(cyjs) {
-
-        if (app.addModel) {
-            $.each(addData.xmbhcy, function (index, val) {
-                if (val.cyjs && val.cyjs == cyjs) {
-                    addData.xmbhcy.splice(index, 1);
-                }
-            })
-        }
-        if (app.editModel) {
-            $.each(editData.xmbhcy, function (index, val) {
-                if (val.cyjs && val.cyjs == cyjs) {
-                    editData.xmbhcy.splice(index, 1);
-                }
-            })
-        }
-    }
-
     /**调用查询项目list 方法*/
     function getXmList() {
         app.igrid.datas = [];
@@ -1037,39 +1025,11 @@ $(function () {
             dataType: "json",
             data: JSON.stringify(dataid),
             success: function (res) {
+                debugger
                 console.log(res);
                 editData = {};
                 editData = res.result;
                 editData.xmbhcy = [];
-                var prodxmjl = {
-                    ssgsid: editData.xmjlszgs,
-                    ssbmid: editData.xmjlszbm,
-                    ygrzid: editData.xmjl,
-                    cyjs: "1"
-                }
-                if (editData.xmjl) {
-                    editData.xmbhcy.push(prodxmjl);
-                }
-                var prodxmzj = {
-                    ssgsid: editData.xmzjszgs,
-                    ssbmid: editData.xmzjszbm,
-                    ygrzid: editData.xmzj,
-                    cyjs: "2"
-                };
-                if (editData.xmzj) {
-                    editData.xmbhcy.push(prodxmzj);
-                }
-                var prodxmlxr = {
-                    ssgsid: editData.xmlxrszgs,
-                    ssbmid: editData.xmlxrszbm,
-                    ygrzid: editData.xmlxr,
-                    cyjs: "3"
-                };
-                if (editData.xmlxr) {
-                    editData.xmbhcy.push(prodxmlxr);
-                }
-
-                console.log(editData);
                 if (editData.sfdlys == "1") {
                     editData.sfdlyszt = true;
                 } else {
@@ -1080,6 +1040,7 @@ $(function () {
                 }
                 editData.ksrqData = editData.ksrqStr
                 editData.jsrqData = editData.jsrqStr;
+                app.editData = editData;
                 app.editModel = true;
 
             }
@@ -1100,7 +1061,6 @@ $(function () {
     }
 
 
-    window.app = app;
 })
 
 
