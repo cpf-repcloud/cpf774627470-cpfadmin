@@ -7,6 +7,9 @@ window.onload=function (){
     var compList =[];
     var countryList =[];
     var countryid = [];
+    var saveBmData = {
+        id:"",ssgsid:"",mc:"",jc:"",bh:"",bmfzr:"",countryid:"",cwzg:"",bmdh:"",szdz:""
+    };
     var request = {
         gsid:"",
         bmid:""
@@ -59,9 +62,7 @@ window.onload=function (){
             el: '#app',
             data:{
                 editBmData:{},
-                saveBmData:{
-                    id:"",ssgsid:"",mc:"",jc:"",bh:"",bmfzr:"",countryid:"",cwzg:"",bmdh:"",szdz:""
-                },
+                saveBmData:saveBmData,
                 compList:compList,
                 countryid:[],
                 countryList:countryList,
@@ -72,7 +73,7 @@ window.onload=function (){
                 deptid:deptid,
                 sc:{},
                 bmvo:bmvo,
-                addload:true,
+                adddeptload:true,
                 loading:false,
                 upload:false,
                 addEmp:false,
@@ -84,10 +85,13 @@ window.onload=function (){
                 treeNode:treeNodeList,
                 breadList:breadList,
                 formSaveBmRule:{
+                    ssgsid:[{required:true,message: "请选择所属公司",trigger: 'change'}],
+                    bmfzr:[{required:true,message: "请选择部门负责人",trigger: 'change'}],
+                    cwzg:[{required:true,message: "请选择部门财务主管",trigger: 'change'}],
                     mc:[{required:true,message: "请输入部门名称",trigger: 'blur'}],
                     jc:[{required:true,message: "请输入部门简称",trigger: 'blur'}],
                     bh:[{required:true,message: "请输入部门编号",trigger: 'blur'}],
-                    countryid:[{required:true,message: "请选择部门所在城市",trigger: 'blur'}],
+                    countryid:[{required:true,message: "请选择部门所在城市",trigger: 'change'}],
                     bmdh:[{required:true,message: "请输入部门电话",trigger: 'blur'}],
                     szdz:[{required:true,message: "请输入部门详细地址",trigger: 'blur'}]
                 },
@@ -107,16 +111,38 @@ window.onload=function (){
             methods:{
                 cancelEmp:function () {
                     apps.addEmp = false;
-                    this.$refs.saveData.resetFields();
                 },
                 saveEmp:function () {
                     apps.addDept = true;
+                    apps.$refs["saveBmDatas"].resetFields();
                 },
                 saveDept:function () {
-                    debugger
-                    apps.$refs["saveBmDatas"].validate(function(flag) {
-                        if(flag){
-                            alert(2);
+                    // debugger
+                    // apps.$refs["saveBmDatas"].validate(function(flag) {
+                    //     if(flag){
+                    //         alert(2);
+                    //     }
+                    // })
+                    $.ajax({
+                        url: "/custom/repXm/addPro",
+                        type: "post",
+                        dataType: 'json',
+                        contentType: "application/json",
+                        data: JSON.stringify(apps.saveBmData),
+                        success: function (data) {
+                            if (data.status == 200) {
+                                apps.$Message.success("新增成功");
+                                apps.saveBmData = {};
+                                apps.adddeptload = false;
+                                apps.addDept = false;
+                                treeNode();
+                            } else {
+                                app.$Message.error("新增失败");
+                            }
+                        },
+                        error: function (e) {
+                            console.log(e);
+                            app.addload = false;
                         }
                     })
                 },

@@ -148,7 +148,7 @@
                 <i-button @click="upload = false">关闭</i-button>
             </p>
         </modal>
-        <Modal width="70%" ok-text="保存" @on-ok="saveDept" :loading="addload" @on-cancel="cancelDept" v-model="addDept" class="vetech-modal" title="新增部门" :mask-closable="false">
+        <Modal width="70%" ok-text="保存" @on-ok="saveDept" :loading="adddeptload" @on-cancel="cancelDept" v-model="addDept" class="vetech-modal" title="新增部门" :mask-closable="false">
             <i-form ref="saveBmDatas" :model="saveBmData" :inline="false" :label-width="80" :rules="formSaveBmRule" :show-message="true">
                 <Row>
                     <div>
@@ -189,7 +189,7 @@
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
                             <Form-item label="所在城市" prop="countryid">
-                                <Cascader v-if="addDept" v-model="saveBmData.countryid" :data="countryList" filterable change-on-select @on-change="changeCity"></Cascader>
+                                <Cascader v-model="saveBmData.countryid" :data="countryList" filterable change-on-select @on-change="changeCity"></Cascader>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
@@ -207,42 +207,42 @@
             </i-form>
         </Modal>
         <Modal width="70%" ok-text="保存" @on-ok="saveDept" :loading="addload" @on-cancel="cancelDept" v-model="addEmp" class="vetech-modal" scrollable="true" title="新增员工" :mask-closable="false">
-            <i-form ref="saveBmDatas" :model="saveBmData" :inline="false" :label-width="80" :rules="formSaveBmRule" :show-message="true">
+            <i-form :model="addEmp" :inline="false" :label-width="80" :show-message="true">
                 <Row>
                     <div>
                         <i-col :sm="12" class="pb20 pt10">
                             <Form-item label="所属公司" prop="business">
-                                <pulldown  v-if="addEmp" v-model="saveBmData.ssgsid" class="demo-input" data-type="1" :data-source="deptList" @on-change="deptChange"></pulldown>
+                                <pulldown  v-if="addEmp" v-model="addEmp.ssgsid" class="demo-input" data-type="1" :data-source="deptList" @on-change="deptChange"></pulldown>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
                             <Form-item label="上级部门" prop="business">
-                                <pulldown  v-if="addEmp" v-model="saveBmData.sjid" class="demo-input" data-type="1" :data-source="deptList" @on-change="deptChange"></pulldown>
+                                <pulldown  v-if="addEmp" v-model="addEmp.sjid" class="demo-input" data-type="1" :data-source="deptList" @on-change="deptChange"></pulldown>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
                             <Form-item label="部门名称" prop="business">
-                                <i-input v-model="saveBmData.mc" clearable type="text" placeholder="请输入"></i-input>
+                                <i-input v-model="addEmp.mc" clearable type="text" placeholder="请输入"></i-input>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
                             <Form-item label="部门简称" prop="business">
-                                <i-input v-model="saveBmData.jc" clearable type="text" placeholder="请输入"></i-input>
+                                <i-input v-model="addEmp.jc" clearable type="text" placeholder="请输入"></i-input>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
                             <Form-item label="部门编号" prop="business">
-                                <i-input v-model="saveBmData.bh" clearable type="text" placeholder="请输入"></i-input>
+                                <i-input v-model="addEmp.bh" clearable type="text" placeholder="请输入"></i-input>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
                             <Form-item label="负责人" prop="business">
-                                <pulldown v-if="editBm" v-model="saveBmData.bmfzr" class="demo-input" data-type="1" :data-source="employeeList" @on-change="empChange"></pulldown>
+                                <pulldown v-if="editBm" v-model="addEmp.bmfzr" class="demo-input" data-type="1" :data-source="employeeList" @on-change="empChange"></pulldown>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
                             <Form-item label="部门电话" prop="business">
-                                <i-input v-model="saveBmData.bmdh" clearable type="text" placeholder="请输入"></i-input>
+                                <i-input v-model="addEmp.bmdh" clearable type="text" placeholder="请输入"></i-input>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
@@ -265,7 +265,7 @@
             </i-form>
         </Modal>
         <Modal width="70%" v-model="editBm" class="vetech-modal" scrollable="true" title="编辑部门" :mask-closable="false">
-            <i-form ref="editBmData" :model="editBmData" :inline="false" :label-width="80" :rules="formSaveBmRule" :show-message="true">
+            <i-form ref="editBmData" :model="editBmData" :inline="false" :label-width="80"  :show-message="true">
                 <Row>
                     <div>
                         <i-col :sm="12" class="pb20 pt10">
