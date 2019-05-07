@@ -20,7 +20,7 @@ import java.util.List;
  * @since 2018-08-06
  */
 @Mapper
-@Component(value = "veCbzxMapper")
+@Component(value = "repCbzxMapper")
 public interface RepCbzxMapper extends BaseMapper<RepCbzx> {
     /**
      *  成本中心分页列表

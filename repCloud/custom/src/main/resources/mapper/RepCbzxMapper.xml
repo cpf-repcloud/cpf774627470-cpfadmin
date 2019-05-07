@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.rep.cloud.custom.basecommon.costcenter.mapper.RepCbzxMapper">
+    <!--查询成本中心信息集合-->
+    <select id="selectCostCenterPageList" resultType="cn.rep.cloud.custom.basecommon.costcenter.service.vo.CostCenterPageListVO" >
+        select cb.id,cb.cbzxbh,cb.cbzxmc,cb.zt,cb.zhxgsj,cb.sjbh
+        from  rep_cbzx cb
+        <include refid="sql_where"/>
+    </select>
+    <sql id="sql_where">
+        <where>
+            <choose>
+                <!-- 成本中心id集合 -->
+                <when test="dto.cbzxidList != null and dto.cbzxidList.size > 0">
+                    AND cb.id in
+                    <foreach item="id" index="index" collection="dto.cbzxidList" open="(" separator="," close=")">
+                        #{id}
+                    </foreach>
+                </when>
+            </choose>
+            <!-- 所属企业 -->
+            <if test="dto !=null and dto.qybh!='' and dto.qybh!=null">
+                AND cb.qybh = #{dto.qybh}
+            </if>
+            <!-- 成本中心名称 -->
+            <if test="dto!=null and dto.cbzxmc!='' and dto.cbzxmc!= null">
+                <bind name="mc" value="'%'+dto.cbzxmc+'%'"/>
+                AND cb.cbzxmc like #{mc}
+            </if>
+            <!-- 成本中心编号 -->
+            <!--<if test="dto!=null and dto.cbzxbh!='' and dto.cbzxbh!= null">
+                <bind name="cbzxbh" value="'%'+dto.cbzxbh+'%'"/>
+                AND cb.cbzxbh like #{cbzxbh}
+            </if>-->
+        </where>
+    </sql>
+</mapper>

@@ -1,5 +1,6 @@
 package cn.rep.cloud.custom.openapi.kjController.basecommon.bmkj.bean;
 
+
 public class KjBmRequest {
 
     /**

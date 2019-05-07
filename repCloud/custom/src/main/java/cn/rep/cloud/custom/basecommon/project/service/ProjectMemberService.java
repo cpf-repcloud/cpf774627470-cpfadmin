@@ -66,7 +66,7 @@ public class ProjectMemberService {
      */
 
     public Page<ProMembersVO> getProMembers(PageDTO<SearchProMemberDTO> dto) {
-        Page<ProMembersVO> voPage =null;// veXmCyService.getProMembers(dto);
+        Page<ProMembersVO> voPage = repXmCyService.getProMembers(dto);
         return voPage;
     }
 

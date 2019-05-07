@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.rep.cloud.custom.basecommon.project.mapper.RepXmCyMapper">
+
+    <select id="selectProMember"
+            parameterType="cn.rep.cloud.custom.basecommon.project.service.dto.SearchProMemberDTO"
+            resultType="cn.rep.cloud.custom.basecommon.project.service.vo.ProMembersVO">
+        select yg.xm,yg .gh,cy.zt,cy.cyjs ,cy.id,cy.xmid from rep_xm_cy cy
+        left join rep_yg yg on yg.id=cy.xmcy
+        <include refid="sql_where"/>
+        order by cyjs ASC
+    </select>
+
+    <sql id="sql_where">
+        <where>
+            <if test="dto.cymc !=null and dto.cymc !='' ">
+                <bind name="xm" value="'%'+dto.cymc+'%'"/>
+                and (yg.xm like #{xm} or yg.gh like #{xm})
+            </if>
+            <if test="dto.xmid !=null and dto.xmid !=''">
+                and cy.xmid=#{dto.xmid}
+            </if>
+            <if test="dto.qybh !=null and dto.qybh !=''">
+                and cy.qybh=#{dto.qybh}
+            </if>
+        </where>
+
+    </sql>
+
+    <select id="selectCountPro" resultType="int" parameterType="cn.rep.cloud.custom.basecommon.project.service.dto.SearchProMemberDTO">
+        select count(cy.id) from rep_xm_cy cy left join rep_gs gs on
+         cy.ssgsid=gs.bh left join rep_bm bm on bm.bh=cy.ssbmid
+          left join rep_yg yg on yg.id= cy.xmcy
+        <include refid="sql_where"/>
+    </select>
+</mapper>

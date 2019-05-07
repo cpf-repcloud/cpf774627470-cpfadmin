@@ -73,34 +73,47 @@ window.onload = function () {
                                     contentType: "application/json",
                                     data: JSON.stringify(cr),
                                     success: function (data) {
+                                        debugger
                                         /**成功*/
-                                        app.$data.addData = data.result;
-                                        app.$data.addData.sfdlys == "1" ? app.$data.addData.sfdlysone = true : app.$data.addData.sfdlysone = false;
-                                        var bmList, xmList;
-                                        bmList = app.$data.addData.bmList;
-                                        xmList = app.$data.addData.xmList;
-                                        var ttbmid=[];
-                                        var ttxmid=[];
-                                        ttbmid.splice(0,ttbmid.length);
-                                        ttxmid.splice(0,ttxmid.length);
-                                        $(bmList).each(function (k, v) {
-                                            ttbmid.push(v.bmid);
-                                        });
-                                        app.$set(app.$data.kjxx,"bmdxkj",ttbmid);
-                                        $(xmList).each(function (k, v) {
-                                            ttxmid.push(v.xmid);
-                                        });
-                                        app.$set(app.$data.kjxx,"xmdxkj",ttxmid)
-
+                                        app.addData = data.result;
+                                        app.addData.sfdlys == "1" ? app.addData.sfdlysone = true : app.addData.sfdlysone = false;
                                         /**未选的新增**/
-                                        if (app.$data.iquery.id == null || app.$data.iquery.id == '') {
-                                            app.$data.addData.sjmx = "";
+                                        if (app.iquery.id == null || app.iquery.id == '') {
+                                            app.addData.sjmx = "";
                                         } else {
                                             /**选的时候新增**/
-                                            app.$data.addData.sjmx = app.$data.iquery.cbzxmc;
+                                            app.addData.sjmx = app.iquery.cbzxmc;
+                                        }
+                                        var xmList=app.addData.xmList;
+                                        var bmList=app.addData.bmList;
+                                        var glxm=[];
+                                        var glbm="";
+                                        if(xmList){
+                                            $.each(xmList, function (i, val) {
+                                                //glxm+=(","+val.id);
+                                                glxm.push(val)
+                                            });
+                                            /*if(glxm) {
+                                                glxm=glxm.substr(1,glxm.length)
+                                            }*/
+                                        }
+                                        if(bmList){
+                                            $.each(bmList, function (i, val) {
+                                                glbm+=(","+val.id);
+                                            });
+                                            if(glbm) {
+                                                glbm= glbm.substr(1,glbm.length)
+                                            }
                                         }
 
-                                        app.$data.addModel = true;
+                                        app.addData.glxm=glxm;
+                                        app.addData.glbm=glbm;
+
+                                        if(!app.addData.sjbh) {
+                                            app.addData.sjbh="none";
+                                        }
+
+                                        app.addModel = true;
                                     },
                                     error: function (xhr, type) {
                                         /**失败*/
@@ -264,8 +277,8 @@ window.onload = function () {
                 /**新增或编辑数据绑定**/
                 addData: {
                     id: "",
-                    qybh: "VETECH",//企业编号
-                    gsbh: "VETECH001",//公司编号
+                    qybh: "",//企业编号
+                    gsbh: "",//公司编号
                     sjbh: "",
                     cbzxmc: "",
                     cbzxbh: "",
@@ -305,31 +318,9 @@ window.onload = function () {
                 /**树结构数据**/
                 treeData: treeData,
                 dataT: dataT,
-
-                /**项目多选控件*/
-                xmsdata: {url: "/custom/control/project/getTreeProject"},
-                simpleData2: {
-                    id: "id",
-                    name: "title",
-                    children: "children"
-                },
-
-
-                /**部门多选控件***/
-                bmsdata: {url: "/custom/control/dept/searchDeptTreeByGs"},
-                simpleData3: {
-                    id: "id",
-                    name: "title",
-                    children: "children"
-                },
-                /**控件信息接收**/
-                kjxx:{
-                    bmdxkj: [],//接收控件信息
-                    xmdxkj: [],//接收控件信息
-
-                }
-
-
+                projectList:[],
+                deptList:[],
+                addload:true
             },
             mounted: function () {
                 if (this.iquery.id != null && this.iquery.id != '') {
@@ -338,8 +329,36 @@ window.onload = function () {
                 this.bindWindow();
                 this.calcTableHeight();
                 this.loadTree();
+                this.initFun();
             },
             methods: {
+                initFun:function(){
+                    $.ajax({
+                        url: "/custom/kj/project/getProjectList",
+                        type: "post",
+                        dataType: "json",
+                        contentType: "application/json",
+                        success: function (res) {
+
+                            if (res && res.status == "200") {
+                               app.projectList=res.result;
+                            }
+                        }
+                    })
+                    $.ajax({
+                        url: "/custom/kj/dept/getDeptList",
+                        type: "post",
+                        dataType: "json",
+                        data:JSON.stringify({}),
+                        contentType: "application/json",
+                        success: function (res) {
+
+                            if (res && res.status == "200") {
+                               app.deptList=res.result;
+                            }
+                        }
+                    })
+                },
                 bindWindow: function () {
                     var _this = this, hex;
                     $(window).on('resize', function () {
@@ -385,85 +404,82 @@ window.onload = function () {
                         bmidList: [],
                         xmidList: [],
                     }
-                    app.$data.addModel = true;
+                    app.addModel = true;
+                },
+                selectProject:function(val,data){
+
+                    console.log(val);
+                    var proarr=[];
+                    if(data){
+                        $.each(data,function(index,pro) {
+                            proarr.push(pro.id);
+                        })
+                    }
+                    app.addData.xmidList=proarr;
+
+                },
+                selectDept:function(val,data){
+
+                    console.log(val);
+                    var deptarr=[];
+                    if(data){
+                        $.each(data,function(index,dept) {
+                            deptarr.push(dept.id);
+                        })
+                    }
+                    app.addData.bmidList=deptarr;
+
                 },
                 /**确定新增成本中心**/
                 addCbzx: function () {
+
                     var _this = this;
                     var costurl;
-                    if (app.$data.addData.id != '' && app.$data.addData.id != null) {
+                    if (app.addData.id != '' && app.addData.id != null) {
                         costurl = "/custom/costcenter/updateCostCenter"
                     } else {
                         costurl = "/custom/costcenter/insertCostCenter"
                         /**未选的新增**/
-                        if (app.$data.iquery.id == null || app.$data.iquery.id == '') {
-                            app.$data.addData.sjbh = "none";
+                        if (app.iquery.id == null || app.iquery.id == '') {
+                            app.addData.sjbh = "none";
                         } else {
                             /**选的时候新增**/
-                            app.$data.addData.sjbh = app.$data.iquery.id;
+                            app.addData.sjbh = app.iquery.id;
                         }
                     }
-                    app.$data.addData.bmidList = [];
-                    app.$data.addData.xmidList = [];
-
-                    if (app.$data.addData.bmidList instanceof Array) {
-                        app.$data.addData.bmidList.splice(0, app.$data.addData.bmidList.length);
-                    }
-                    if (app.$data.addData.xmidList instanceof Array) {
-                        app.$data.addData.xmidList.splice(0, app.$data.addData.xmidList.length);
-                    }
-                    if(app.$data.kjxx.bmdxkj instanceof Array){
-                        $(app.$data.kjxx.bmdxkj).each(function(bmk,bmv){
-                            app.$data.addData.bmidList.push(bmv)
-                        });
-                    }else{
-                        app.$data.addData.bmidList.push(app.$data.kjxx.bmdxkj);
-                    }
-
-                    if (app.$data.kjxx.xmdxkj instanceof Array) {
-                        $(app.$data.kjxx.xmdxkj).each(function (kj, kjvalue) {
-                            app.$data.addData.xmidList.push(kjvalue);
-                        });
-                    } else {
-                        app.$data.addData.xmidList.push(app.$data.kjxx.xmdxkj);
-                    }
-                    app.$data.addData.sfdlysone ? app.$data.addData.sfdlys = "1" : app.$data.addData.sfdlys = "0";
-                    this.$refs["add"].validate(function (valide) {
+                    app.addData.sfdlysone ? app.addData.sfdlys = "1" : app.addData.sfdlys = "0";
+                    debugger
+                    app.$refs["add"].validate(function (valide) {
                         if (valide) {
-                            var dataCheck = true;
-                            app.addData.bmidList=['1']; //todo
-                            if (app.$data.addData.bmidList.length == 0) {
-                                app.$Message.warning("请选择关联部门!");
-                                dataCheck = false;
-                            }
-                            app.addData.xmidList=['2'];//todo
-                            if (app.$data.addData.xmidList.length == 0) {
-                                app.$Message.warning("请选择关联项目!");
-                                dataCheck = false;
-                            }
-                            if (dataCheck) {
-                                $.ajax({
-                                    type: 'POST',
-                                    url: costurl,
-                                    dataType: 'json',
-                                    contentType: "application/json",
-                                    data: JSON.stringify(app.$data.addData),
-                                    success: function (data) {
-                                        /**成功*/
-                                        _this.addModel = false;
-                                        if (app.$data.addData.id != '' && app.$data.addData.id != null) {
-                                            _this.$Message.info("编辑成功");
-                                        } else {
-                                            _this.$Message.info("新增成功");
-                                        }
-                                        app.queryPage();//左侧页刷新
-                                        app.searchCb();
-                                    },
-                                    error: function (xhr, type) {
-                                        /**失败*/
+                            $.ajax({
+                                type: 'POST',
+                                url: costurl,
+                                dataType: 'json',
+                                contentType: "application/json",
+                                data: JSON.stringify(app.addData),
+                                success: function (data) {
+                                    /**成功*/
+                                    _this.addModel = false;
+                                    if (app.addData.id != '' && app.addData.id != null) {
+                                        _this.$Message.info("编辑成功");
+                                    } else {
+                                        _this.$Message.info("新增成功");
                                     }
+                                    app.queryPage();//左侧页刷新
+                                    app.searchCb();
+                                },
+                                error: function (xhr, type) {
+                                    /**失败*/
+                                }
+                            });
+
+                        }else{
+                            setTimeout(function () {
+                                app.addload = false;
+                                app.$nextTick(function () {
+                                    app.addload = true;
                                 });
-                            }
+                            }, 100)
                         }
                     });
                 },
@@ -486,11 +502,11 @@ window.onload = function () {
                         data: JSON.stringify(cr),
                         success: function (data) {
                             /**成功*/
-                            $.extend(true,app.$data.addData,data.result);
-                            app.$data.addData.sfdlys == "1" ? app.$data.addData.sfdlysone = true : app.$data.addData.sfdlysone = false;
+                            $.extend(true,app.addData,data.result);
+                            app.addData.sfdlys == "1" ? app.addData.sfdlysone = true : app.addData.sfdlysone = false;
                             var bmidList, xmidList;
-                            bmidList = app.$data.addData.bmList;
-                            xmidList = app.$data.addData.xmList;
+                            bmidList = app.addData.bmList;
+                            xmidList = app.addData.xmList;
                             var ttbmidList=[];
                             var ttxmidList=[];
                             ttbmidList.splice(0,ttbmidList.length);
@@ -498,19 +514,17 @@ window.onload = function () {
                             $(bmidList).each(function (k, v) {
                                 ttbmidList.push(v.bmid);
                             });
-                            app.$set(app.$data.kjxx,"bmdxkj",ttbmidList)
                             $(xmidList).each(function (sl, svalue) {
                                 ttxmidList.push(svalue.xmid);
                             });
-                            app.$set(app.$data.kjxx,"xmdxkj",ttxmidList);
-                            app.$data.addModel = true;
+                            app.addModel = true;
 
                             /**未选的新增**/
-                            if (app.$data.iquery.id == null || app.$data.iquery.id == '') {
-                                app.$data.addData.sjmx = "";
+                            if (app.iquery.id == null || app.iquery.id == '') {
+                                app.addData.sjmx = "";
                             } else {
                                 /**选的时候新增**/
-                                app.$data.addData.sjmx = app.$data.iquery.cbzxmc;
+                                app.addData.sjmx = app.iquery.cbzxmc;
                             }
 
                         },
@@ -556,7 +570,7 @@ window.onload = function () {
                         data: JSON.stringify(obj),
                         success: function (data) {
                             if(data&&data.result){
-                                app.$data.treeData = data.result.children;
+                                app.treeData = data.result.children;
                             }
                         }, error: function () {
                         }
@@ -565,19 +579,19 @@ window.onload = function () {
 
                 /**树搜索加载*/
                 searchCb: function () {
-                    if (app.$data.treeData instanceof Array) {
-                        app.$data.treeData.splice(0, app.$data.treeData.length);
+                    if (app.treeData instanceof Array) {
+                        app.treeData.splice(0, app.treeData.length);
                     }
                     $.ajax({
                         type: 'POST',
                         url: '/custom/costcenter/queryCostCenterTree',
                         dataType: 'json',
                         contentType: "application/json",
-                        data: JSON.stringify(app.$data.dataT),
+                        data: JSON.stringify(app.dataT),
                         success: function (data) {
                             /***组装树结构数据*/
                             if (data.result) {
-                                app.$data.treeData = data.result.children;
+                                app.treeData = data.result.children;
                             }
 
                         }, error: function () {

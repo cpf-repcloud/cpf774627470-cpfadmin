@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.rep.cloud.custom.basecommon.costcenter.mapper.RepXmCbzxMapper">
+    <!--查询成本中心信息集合-->
+    <select id="getVeXmCbzxMcListByCbzxid" resultType="java.lang.String">
+        select xm.xmmc
+        from  rep_xm_cbzx zx
+        left join rep_xm xm on zx.xmid = xm.id
+        <include refid="sql_where"/>
+    </select>
+    <sql id="sql_where">
+        <where>
+            <!-- 成本中心id -->
+            <if test=" cbzxid!='' and cbzxid!=null">
+                AND zx.cbzxid = #{cbzxid}
+            </if>
+        </where>
+    </sql>
+</mapper>

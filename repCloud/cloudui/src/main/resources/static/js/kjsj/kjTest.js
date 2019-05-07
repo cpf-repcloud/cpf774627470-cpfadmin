@@ -16,7 +16,7 @@ window.onload= function (){
         async:true,
         contentType: "application/json;charset=UTF-8",
         success: function (response) {
-            debugger
+
             if (response.status && response.status === "200") {
                 console.log(JSON.stringify(response.result));
                 xlList = response.result;

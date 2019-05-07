@@ -11689,7 +11689,7 @@ exports.default = {
             }
         },
         updateResult: function updateResult(result, doStr) {
-            debugger;
+
             this.tmpSelected = result;
         },
         updateSelected: function updateSelected() {
@@ -22417,7 +22417,7 @@ exports.default = {
         var data = this.table.data ? this.table.data : [];
 
         if (this.data && this.data instanceof Object && !Array.isArray(this.data) && this.index === 0) {
-            debugger;
+
             var _iteratorNormalCompletion2 = true;
             var _didIteratorError2 = false;
             var _iteratorError2 = undefined;

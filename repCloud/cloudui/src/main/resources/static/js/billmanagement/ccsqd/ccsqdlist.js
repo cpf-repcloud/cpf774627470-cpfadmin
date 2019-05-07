@@ -133,7 +133,7 @@ window.onload = function () {
                     //this.queryPage();
                 },
                 gridSuccsess: function (data) {
-                    debugger
+
                     var result = data.result;
                     this.ipage.total = result.total;
                     this.igrid.datas = result.records;
@@ -159,7 +159,7 @@ window.onload = function () {
                 },
                 //删除行程计划
                 deleteXc:function(index){
-                    debugger
+
                     var xcArr = app.addCcsqdData.xcjh;
                     xcArr=xcArr.splice(0, index);
                     app.addCcsqdData.xcjh=xcArr;

@@ -381,7 +381,7 @@ window.onload = function () {
                 this.editIndex = index;
             },
             handleDelete:function(row,index){
-                debugger
+
                 var id=row.id;
                 app.$Modal.confirm({
                     title: "删除岗位",
@@ -412,7 +412,7 @@ window.onload = function () {
                 });
             },
             changeZt:function(row,index){
-                debugger
+
                 rankEdit = {};
                 var ztdata=app.data5[index];
                 var zt= ztdata.zt

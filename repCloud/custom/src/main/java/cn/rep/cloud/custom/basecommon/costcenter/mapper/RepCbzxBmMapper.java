@@ -18,7 +18,7 @@ import java.util.List;
  * @since 2018-08-08
  */
 @Mapper
-@Component(value = "veCbzxBmMapper")
+@Component(value = "repCbzxBmMapper")
 public interface RepCbzxBmMapper extends BaseMapper<RepCbzxBm> {
     /**
      * 查询成本中心部门名称数据集合

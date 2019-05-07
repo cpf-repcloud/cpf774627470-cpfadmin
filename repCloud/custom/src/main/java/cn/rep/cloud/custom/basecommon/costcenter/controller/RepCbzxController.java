@@ -51,6 +51,8 @@ public class RepCbzxController extends BaseController {
      */
     @PostMapping(value = "/queryCostCenterTree")
     public RestResponse<CostCenterTreeVO> queryCostCenterTree(@RequestBody CostCenterManagementDTO dto) {
+        dto.setGsid(loginUser.getGsid());
+        dto.setQybh(loginUser.getQybh());
 
         CostCenterTreeVO costCenterTreeVO = costCenterManagementBusinessService.queryCostCenterTree(dto);
         return new RestResponse<>(costCenterTreeVO);
@@ -74,21 +76,6 @@ public class RepCbzxController extends BaseController {
     }
 
     /**
-     * 查询成本中心详情数据
-     *
-     * @param operationDTO 传入参数
-     * @return CostCenterDetailVO
-     * @throws SystemException [抛异常]
-     * @author yxl
-     * @date 2018-08-07 10:05:20
-     */
-    @PostMapping(value = "/selectCostCenterDetail")
-    public RestResponse<CostCenterDetailVO> selectCostCenterDetail(@RequestBody CostCenterOperationDTO operationDTO) throws SystemException {
-        CostCenterDetailVO vo = costCenterManagementBusinessService.selectCostCenterDetail(operationDTO);
-        return new RestResponse<>(vo);
-    }
-
-    /**
      * 成本中心新增数据
      *
      * @param operationDTO 传入参数
@@ -101,8 +88,25 @@ public class RepCbzxController extends BaseController {
     public RestResponse<Boolean> insertCostCenter(@RequestBody CostCenterOperationDTO operationDTO) throws SystemException {
         operationDTO.setCzr(loginUser.getId());
         operationDTO.setGsid(loginUser.getGsid());
+        operationDTO.setZhxgr(loginUser.getXm());
+        operationDTO.setQybh(loginUser.getQybh());
         Boolean code = costCenterManagementBusinessService.insertCostCenter(operationDTO);
         return new RestResponse<>(code);
+    }
+
+    /**
+     * 查询成本中心详情数据
+     *
+     * @param operationDTO 传入参数
+     * @return CostCenterDetailVO
+     * @throws SystemException [抛异常]
+     * @author yxl
+     * @date 2018-08-07 10:05:20
+     */
+    @PostMapping(value = "/selectCostCenterDetail")
+    public RestResponse<CostCenterDetailVO> selectCostCenterDetail(@RequestBody CostCenterOperationDTO operationDTO) throws SystemException {
+        CostCenterDetailVO vo = costCenterManagementBusinessService.selectCostCenterDetail(operationDTO);
+        return new RestResponse<>(vo);
     }
 
     /**

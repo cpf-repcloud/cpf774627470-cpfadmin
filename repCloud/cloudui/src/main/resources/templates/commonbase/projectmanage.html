@@ -377,9 +377,9 @@
             v-model="addModel"
             title="新建"
             @on-ok="okAdd"
+            ok-text="提交"
             width="900"
             height="500"
-            ok-text="提交"
             :loading="addload"
             :mask-closable="false"
             @on-cancel="cancel">
@@ -663,8 +663,8 @@
         </i-form>
     </Modal>
 
-    <Drawer :closable="false" v-model="fter" width="500">
-        <div style="margin-top: 20px;margin-right: 25px;margin-left: 25px;height: 100%">
+    <Drawer :closable="false" v-model="fter" width="600">
+        <div style="margin-top: 20px;height: 100%">
             <Tabs :value="tabValue" style="margin-top: 20px;margin-left: 5px;" @on-click="changeTab">
                 <Tab-Pane label="项目详情" name="1">
                     <div v-if="changeTabData=='1'" class="demo234">

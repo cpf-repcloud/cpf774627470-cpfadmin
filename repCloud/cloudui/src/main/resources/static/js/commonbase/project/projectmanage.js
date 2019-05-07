@@ -70,7 +70,7 @@ $(function () {
                                         proList = app.igrid.datas;
                                         getCyList();
                                     }
-                                    debugger
+
                                     app.fter = true;
                                 }
                             })
@@ -703,7 +703,7 @@ $(function () {
                                 addData.sjbh = "none";
                             }
                             console.log(addData);
-                            debugger
+
                             $.ajax({
                                 url: "/custom/repXm/addPro",
                                 type: "post",
@@ -773,7 +773,6 @@ $(function () {
                     })
                 },
                 changeTab: function (data) {
-                    console.log(data);
                     if (data == "1") {
                         app.changeTabData = "1";
                         $("#fix").css("right", "0px");
@@ -794,6 +793,7 @@ $(function () {
                             }
                         })
                     } else if (data == "2") {
+
                         proList = app.igrid.datas;
                         getCyList();
                         app.changeTabData = "2";
@@ -903,7 +903,7 @@ $(function () {
                     }
                 },
                 selectXmzj: function (val, data) {
-                    debugger
+
                     console.log(data)
                     if (app.addModel) {
                         addData.xmbhcy[1] = getxmcr(data, "2");
@@ -944,9 +944,12 @@ $(function () {
     }
 
     function getxmcr(data, cyjs) {
-        var obj = data[0];
-        var data = {gsid: obj.gsid, bmid: obj.bmid, id: obj.id, cyjs: cyjs};
-        return data;
+        if(data){
+            var obj = data[0];
+            var data = {gsid: obj.gsid, bmid: obj.bmid, id: obj.id, cyjs: cyjs};
+            return data;
+        }
+
     }
 
     function updataStataFun(data) {
@@ -1025,7 +1028,7 @@ $(function () {
             dataType: "json",
             data: JSON.stringify(dataid),
             success: function (res) {
-                debugger
+
                 console.log(res);
                 editData = {};
                 editData = res.result;

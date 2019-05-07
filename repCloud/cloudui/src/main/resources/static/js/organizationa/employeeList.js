@@ -175,7 +175,7 @@ window.onload=function (){
                     console.log(data);
                 },
                 compChange:function (val,data) {
-                    debugger
+
                     apps.saveBmData.ssgsid = val[0];
                     console.log(data);
                 },

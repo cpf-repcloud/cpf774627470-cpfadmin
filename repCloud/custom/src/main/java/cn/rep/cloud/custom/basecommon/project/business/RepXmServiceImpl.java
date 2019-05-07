@@ -102,6 +102,12 @@ public class RepXmServiceImpl {
         return repXmMapper.selectById(id);
     }
 
+    public List<RepXm> getXmList(String qybh){
+        EntityWrapper ew = new EntityWrapper();
+        ew.eq("qybh", qybh);
+        return repXmMapper.selectList(ew);
+    }
+
     /**
      * 查询项目列表
      *

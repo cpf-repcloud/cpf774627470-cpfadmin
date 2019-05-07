@@ -276,14 +276,17 @@
         </div>
     </div>
     <!--新增页面-->
-    <Modal
-            v-model="addModel"
-            :title="addData.id?cbzxTitle.bj:cbzxTitle.cj"
-            width="550"
-            height="600"
-            class="vetech-modal"
-            :closable="false"
-    >
+
+        <Modal
+                v-model="addModel"
+                :title="addData.id?cbzxTitle.bj:cbzxTitle.cj"
+                @on-ok="addCbzx"
+                ok-text="提交"
+                width="550"
+                height="400"
+                :loading="addload"
+                :mask-closable="false"
+                @on-cancel="cancel">
         <!--表单部分-->
         <i-form :model="addData" ref="add" top="0" :label-width="150" :rules="ruleValidate" :show-message="true">
             <!--新增的时候-->
@@ -319,14 +322,12 @@
             </div>
             <div>
                 <form-Item class="wit300demo" label="关联部门">
-                    <tree-input :multiple="true" :ajaxvalue="bmsdata" :simple-data="simpleData3" v-model="kjxx.bmdxkj"
-                                @on-check-change="bmdxCheckFn"></tree-input>
+                    <pulldown v-if="addModel" v-model="addData.glbm" clearable class="demo-input" :multiple="true"  data-type="1" :data-source="deptList" @on-change="selectDept"></pulldown>
                 </form-Item>
             </div>
             <div>
                 <form-Item class="wit300demo" label="关联项目">
-                    <tree-input :multiple="true" :ajaxvalue="xmsdata" :simple-data="simpleData2" v-model="kjxx.xmdxkj"
-                                @on-check-change="xmdxCheckFn"></tree-input>
+                    <pulldown v-if="addModel" v-model="addData.glxm" :multiple="true" clearable class="demo-input" data-type="1" :data-source="projectList" @on-change="selectProject"></pulldown>
                 </form-Item>
             </div>
             <div>
@@ -337,14 +338,7 @@
                     </i-switch>
                 </form-Item>
             </div>
-
-
         </i-form>
-        <!--脚部-->
-        <div slot="footer">
-            <i-button type="text" @click="cancel">取消</i-button>
-            <i-button type="primary" @click="addCbzx">提交</i-button>
-        </div>
     </Modal>
 </div>
 

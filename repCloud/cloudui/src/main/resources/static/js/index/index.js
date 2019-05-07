@@ -72,7 +72,7 @@ window.onload= function (){
         },
         methods:{
             menuFunc:function(item){
-                debugger
+
                 var topMenu=this.topMenu,
                 _this=this,
                     i=0;

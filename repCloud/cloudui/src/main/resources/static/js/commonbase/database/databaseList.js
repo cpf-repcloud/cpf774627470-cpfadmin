@@ -17,6 +17,7 @@ window.onload = function () {
         contentType: "application/json",
         data: JSON.stringify(dataT),
         success: function (data) {
+            debugger
             if (data) {
                 $.each(data.result, function (i, item) {
                     var titles = {title: "", value: "", expand: false};
