@@ -307,7 +307,7 @@ public class CostCenterManagementBusinessService {
         repCbzx.setCbzxbh(operationDTO.getCbzxbh());
         repCbzx.setCbzxmc(operationDTO.getCbzxmc());
         repCbzx.setSjbh(operationDTO.getSjbh());
-        repCbzx.setZt("1");
+        repCbzx.setZt(operationDTO.getZt());
         repCbzx.setSfdlys(operationDTO.getSfdlys());
         repCbzx.setZhxgr(operationDTO.getCzr());
         repCbzx.setZhxgsj(DateUtils.getNow());

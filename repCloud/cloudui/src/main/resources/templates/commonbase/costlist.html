@@ -180,8 +180,9 @@
     </style>
 
 </head>
+
 <body style="background: #f0f2f5;">
-<div id="appCbzx" v-cloak>
+<div id="app" v-cloak>
     <!--成本中心树结构-->
     <div class="tree">
         <div class="marginTop10">
@@ -327,7 +328,7 @@
             </div>
             <div>
                 <form-Item class="wit300demo" label="关联项目">
-                    <pulldown v-if="addModel" v-model="addData.glxm" :multiple="true" clearable class="demo-input" data-type="1" :data-source="projectList" @on-change="selectProject"></pulldown>
+                    <pulldown v-if="addModel" v-model="addData.glxm" multiple="true" clearable class="demo-input" data-type="1" :data-source="projectList" @on-change="selectProject"></pulldown>
                 </form-Item>
             </div>
             <div>

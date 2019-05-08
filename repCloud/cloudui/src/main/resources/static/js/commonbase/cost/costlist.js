@@ -7,8 +7,8 @@
 window.onload = function () {
         /**成本中心列表请求参数**/
         var iquery = {
-            qybh: "VETECH",//企业编号
-            gsbh: "VETECH001",//公司编号
+            qybh: "",//企业编号
+            gsbh: "",//公司编号
             id: "",
             mcbh: "",
             cbzxbh: "",//成本中心编号
@@ -87,31 +87,25 @@ window.onload = function () {
                                         var xmList=app.addData.xmList;
                                         var bmList=app.addData.bmList;
                                         var glxm=[];
-                                        var glbm="";
+                                        var glbm=[];
                                         if(xmList){
                                             $.each(xmList, function (i, val) {
-                                                //glxm+=(","+val.id);
-                                                glxm.push(val)
+                                                glxm[i]=val.xmid;
                                             });
-                                            /*if(glxm) {
-                                                glxm=glxm.substr(1,glxm.length)
-                                            }*/
                                         }
-                                        if(bmList){
+                                       if(bmList){
                                             $.each(bmList, function (i, val) {
-                                                glbm+=(","+val.id);
+                                                glbm[i]=val.bmid;
                                             });
-                                            if(glbm) {
-                                                glbm= glbm.substr(1,glbm.length)
-                                            }
                                         }
-
+                                        app.projectList
                                         app.addData.glxm=glxm;
                                         app.addData.glbm=glbm;
 
                                         if(!app.addData.sjbh) {
                                             app.addData.sjbh="none";
                                         }
+                                        app.addData.sjmc=data.sjmc;
 
                                         app.addModel = true;
                                     },
@@ -257,14 +251,15 @@ window.onload = function () {
 
         /**树结构查询用到的请求参数*/
         var dataT = {
-            qybh: "VETECH",
-            gsbh: "VETECH001",
+            qybh: "",
+            gsbh: "",
             cbzxmc: "",
         }
+        debugger
 
         /**实例化vue**/
         var app = new Vue({
-            el: "#appCbzx",
+            el: "#app",
             data: {
                 /**搜索条件数据绑定**/
                 iquery: iquery,
@@ -323,6 +318,7 @@ window.onload = function () {
                 addload:true
             },
             mounted: function () {
+                debugger
                 if (this.iquery.id != null && this.iquery.id != '') {
                     this.queryPage();
                 }
@@ -339,7 +335,6 @@ window.onload = function () {
                         dataType: "json",
                         contentType: "application/json",
                         success: function (res) {
-
                             if (res && res.status == "200") {
                                app.projectList=res.result;
                             }
@@ -352,7 +347,7 @@ window.onload = function () {
                         data:JSON.stringify({}),
                         contentType: "application/json",
                         success: function (res) {
-
+                            debugger
                             if (res && res.status == "200") {
                                app.deptList=res.result;
                             }
@@ -392,8 +387,8 @@ window.onload = function () {
                 addCbzxBefore: function () {
                     this.addData = {
                         id: "",
-                        qybh: "VETECH",//企业编号
-                        gsbh: "VETECH001",//公司编号
+                        qybh: "",//企业编号
+                        gsbh: "",//公司编号
                         sjbh: "",
                         cbzxmc: "",
                         cbzxbh: "",
@@ -432,7 +427,6 @@ window.onload = function () {
                 },
                 /**确定新增成本中心**/
                 addCbzx: function () {
-
                     var _this = this;
                     var costurl;
                     if (app.addData.id != '' && app.addData.id != null) {
@@ -447,6 +441,8 @@ window.onload = function () {
                             app.addData.sjbh = app.iquery.id;
                         }
                     }
+
+                    app.addData.zt = "1";
                     app.addData.sfdlysone ? app.addData.sfdlys = "1" : app.addData.sfdlys = "0";
                     debugger
                     app.$refs["add"].validate(function (valide) {
@@ -602,6 +598,7 @@ window.onload = function () {
 
                 /**点击树页面 显示*/
                 selectTreeItem: function (data) {
+                    debugger
                     if (data) {
                         var obj = {
                             id: data[0].id,
@@ -609,19 +606,15 @@ window.onload = function () {
                             sjbh: data[0].sjbh,
                             cbzxmc:data[0].cbzxmc,
                         }
-                        $.extend(iquery, obj);
+                        app.iquery=obj;
                         app.search();
                     }
                 },
 
-                /**项目多选控件**/
-                xmdxCheckFn: function (value) {//项目树
-                },
-                /**部门多选控件**/
-                bmdxCheckFn: function (value) {//项目树
-                }
+
 
             }
         });
+        window.app=app;
     };
 
