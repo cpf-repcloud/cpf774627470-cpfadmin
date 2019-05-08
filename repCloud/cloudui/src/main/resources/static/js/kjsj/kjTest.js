@@ -16,7 +16,7 @@ window.onload= function (){
         async:true,
         contentType: "application/json;charset=UTF-8",
         success: function (response) {
-
+            debugger
             if (response.status && response.status === "200") {
                 console.log(JSON.stringify(response.result));
                 xlList = response.result;
@@ -30,7 +30,7 @@ window.onload= function (){
         app= new Vue({
             el: '#app',
             data:{
-                xlValue:"",
+                xlValue:['19042509592849426','19042509592823186'],
                 xlList:xlList
             },
             mounted:function(){

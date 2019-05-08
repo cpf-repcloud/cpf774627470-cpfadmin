@@ -25,7 +25,7 @@
                 <Row>
                     <i-col :sm="12">
                         <Form-item label="下拉单选控件">
-                            <pulldown v-model="xlValue" class="demo-input" data-type="1" :data-source="xlList" @on-change="changeHandler"></pulldown>
+                            <pulldown v-model="xlValue" multiple="true" class="demo-input" data-type="1" :data-source="xlList" @on-change="changeHandler"></pulldown>
                             <a @click="ckyf(0)">展开描述</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a @click="sqyf(0)">收起描述</a>
                             <div id="kjms0" class="kjms">
                                 <h2 class="ve-mt10 ve-mb10">基本用法<span class="ve-warning ve-f14">必须严格按照参数类型传值，否则报错</span></h2>
@@ -46,7 +46,6 @@
                                 <p>员工控件地址:/custom/kj/employee/getEmployeeList</p>
                                 <p>部门控件地址:/custom/kj/dept/getDeptList</p>
                                 <p>公司控件地址:/custom/kj/comp/getCompList</p>
-                                <p>项目地址:/custom/kj/project/getProjectList</p>
                             </div>
                         </Form-item>
                     </i-col>
