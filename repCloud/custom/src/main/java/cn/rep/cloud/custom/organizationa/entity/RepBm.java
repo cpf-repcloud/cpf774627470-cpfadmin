@@ -61,12 +61,22 @@ public class RepBm  implements Serializable {
 	 */
    	@Column(name = "szsf" )
 	private String szsf;
+	/**
+	 * 所在省份id
+	 */
+   	@Column(name = "szsfid" )
+	private String szsfid;
 
 	/**
 	 * 所在城市
 	 */
    	@Column(name = "szcs" )
 	private String szcs;
+	/**
+	 * 所在城市id
+	 */
+   	@Column(name = "szcsid" )
+	private String szcsid;
 
 	/**
 	 * 所在地址
@@ -121,6 +131,22 @@ public class RepBm  implements Serializable {
 	 */
    	@Column(name = "cjsj" )
 	private Date cjsj;
+
+	public String getSzsfid() {
+		return szsfid;
+	}
+
+	public void setSzsfid(String szsfid) {
+		this.szsfid = szsfid;
+	}
+
+	public String getSzcsid() {
+		return szcsid;
+	}
+
+	public void setSzcsid(String szcsid) {
+		this.szcsid = szcsid;
+	}
 
 	public String getId() {
 		return this.id;

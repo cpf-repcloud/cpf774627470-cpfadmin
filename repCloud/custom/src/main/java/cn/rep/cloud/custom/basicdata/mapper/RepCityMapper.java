@@ -26,4 +26,6 @@ public interface RepCityMapper extends BaseMapper<RepCity> {
     List<BasicDataBean> getCityListBySfid(@Param("szsf") String szsf);
 
     List<RepCountryVO> getCityListBySjid(@Param("sjid") String sjid);
+
+    RepCityDTO getCityCountryByCsid(@Param("id") String id);
 }

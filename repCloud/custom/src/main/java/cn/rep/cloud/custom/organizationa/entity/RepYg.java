@@ -211,6 +211,71 @@ public class RepYg implements Serializable {
 	@Column(name = "bmmc" )
 	@ExcelCell(colValue = "部门名称",col = 20)
 	private String bmmc;
+	/**
+	 * 是否离职 0:否 1:是
+	 */
+	@Column(name = "sflz" )
+	private Integer sflz;
+	/**
+	 * 岗位
+	 */
+	@Column(name = "gw" )
+	private String gw;
+	/**
+	 * 直属上级
+	 */
+	@Column(name = "zssj" )
+	private String zssj;
+	/**
+	 * 权限级别
+	 */
+	@Column(name = "qxjb" )
+	private Integer qxjb;
+	/**
+	 * 平台角色
+	 */
+	@Column(name = "ptjs" )
+	private String ptjs;
+
+	public Integer getSflz() {
+		return sflz;
+	}
+
+	public void setSflz(Integer sflz) {
+		this.sflz = sflz;
+	}
+
+	public String getGw() {
+		return gw;
+	}
+
+	public void setGw(String gw) {
+		this.gw = gw;
+	}
+
+	public String getZssj() {
+		return zssj;
+	}
+
+	public void setZssj(String zssj) {
+		this.zssj = zssj;
+	}
+
+	public Integer getQxjb() {
+		return qxjb;
+	}
+
+	public void setQxjb(Integer qxjb) {
+		this.qxjb = qxjb;
+	}
+
+	public String getPtjs() {
+		return ptjs;
+	}
+
+	public void setPtjs(String ptjs) {
+		this.ptjs = ptjs;
+	}
 
 	public String getGsid() {
 		return gsid;

@@ -79,4 +79,13 @@ public class RepCityService {
         List<RepCountryVO> cityList = repCityMapper.getCityListBySjid(sjid);
         return cityList;
     }
+
+    /**
+     * 根据城市id 查询城市/省份名称
+     * @param csid 城市id
+     * @return
+     */
+    public RepCityDTO getCityCountryByCsid(String csid){
+        return repCityMapper.getCityCountryByCsid(csid);
+    }
 }

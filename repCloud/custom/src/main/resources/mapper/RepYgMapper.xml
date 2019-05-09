@@ -2,6 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.rep.cloud.custom.organizationa.mapper.RepYgMapper">
 
+
+    <select id="pagelist" parameterType="cn.rep.cloud.custom.organizationa.dto.RepYgDTO" resultType="cn.rep.cloud.custom.organizationa.entity.RepYg">
+        select * from rep_yg
+        <where>
+          <if test="dto.gjz != null and dto.gjz != ''">
+              <bind name="gjz" value="'%'+dto.gjz+'%'"/>
+              and gh = #{gjz} or xm = #{gjz}
+          </if>
+        </where>
+    </select>
+
     <!--批量新增-->
     <insert id="insertBatch" parameterType="List">
         insert into rep_yg(id,qybh,gh,xm,ywxm,dhhm,sjhm,gjdhqh,lxyx,lxdz,jg,xb,sr,sfms,bxwtr,czgzd,yhzhm,yhkhh,yhzh,sjqxlx,

@@ -26,6 +26,42 @@ public class RepCityDTO {
      * 关键字(用于搜索)
      */
     private String gjz;
+    /**
+     * 城市名称
+     */
+    private String mc;
+    /**
+     * 所在省份id
+     */
+    private String szsfid;
+    /**
+     * 所在省份
+     */
+    private String szsf;
+
+    public String getMc() {
+        return mc;
+    }
+
+    public void setMc(String mc) {
+        this.mc = mc;
+    }
+
+    public String getSzsfid() {
+        return szsfid;
+    }
+
+    public void setSzsfid(String szsfid) {
+        this.szsfid = szsfid;
+    }
+
+    public String getSzsf() {
+        return szsf;
+    }
+
+    public void setSzsf(String szsf) {
+        this.szsf = szsf;
+    }
 
     public String getId() {
         return id;

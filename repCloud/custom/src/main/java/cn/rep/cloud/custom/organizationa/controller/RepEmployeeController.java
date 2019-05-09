@@ -1,16 +1,15 @@
 package cn.rep.cloud.custom.organizationa.controller;
 
 import cn.rep.cloud.custom.coreutils.common.BaseController;
+import cn.rep.cloud.custom.coreutils.common.PageDTO;
 import cn.rep.cloud.custom.coreutils.common.RestResponse;
 import cn.rep.cloud.custom.organizationa.business.RepYgServiceImpl;
 import cn.rep.cloud.custom.organizationa.dto.RepYgDTO;
 import cn.rep.cloud.custom.organizationa.entity.RepYg;
 import cn.rep.cloud.custom.organizationa.vo.SuccessBean;
+import com.baomidou.mybatisplus.plugins.Page;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -20,6 +19,12 @@ import java.io.File;
 public class RepEmployeeController extends BaseController{
     @Autowired
     private RepYgServiceImpl repYgService;
+
+    @RequestMapping("list")
+    public RestResponse<Page<RepYg>> list(@RequestBody PageDTO<RepYgDTO> pageDTO){//
+        Page<RepYg> pageNew = repYgService.seletPage(pageDTO);
+        return new RestResponse(pageNew);
+    }
 
     /**
      * 下载模板
@@ -41,10 +46,5 @@ public class RepEmployeeController extends BaseController{
         dto.setCjr(loginUser.getXm());
         SuccessBean successBean = repYgService.uploadEmpBatch(file,dto);
         return new RestResponse(successBean);
-    }
-
-    @RequestMapping(value="getUser")
-    public RestResponse<RepYg> getUser(){
-        return new RestResponse<>(loginUser);
     }
 }

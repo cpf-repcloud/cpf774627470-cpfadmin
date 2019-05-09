@@ -39,4 +39,9 @@
     <select id="getCityListBySjid" resultType="cn.rep.cloud.custom.basicdata.vo.RepCountryVO" parameterType="String">
         select bh as 'value',mc as label from rep_city where by3 = #{sjid}
     </select>
+
+    <select id="getCityCountryByCsid" resultType="cn.rep.cloud.custom.basicdata.dto.RepCityDTO">
+        select sf.id as szsfid,sf.mc as szsf,cs.mc as mc from rep_country sf,rep_city cs
+        where sf.id=cs.szsf and cs.bh = #{id}
+    </select>
 </mapper>

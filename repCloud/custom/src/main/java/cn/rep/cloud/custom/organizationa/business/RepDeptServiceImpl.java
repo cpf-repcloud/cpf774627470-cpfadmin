@@ -1,7 +1,12 @@
 package cn.rep.cloud.custom.organizationa.business;
 
+import cn.rep.cloud.custom.basecommon.common.Constants;
+import cn.rep.cloud.custom.basicdata.business.RepCityServiceImpl;
+import cn.rep.cloud.custom.basicdata.dto.RepCityDTO;
+import cn.rep.cloud.custom.basicdata.entity.RepCity;
 import cn.rep.cloud.custom.coreutils.common.TreeNode;
 import cn.rep.cloud.custom.coreutils.utils.BeanMapper;
+import cn.rep.cloud.custom.coreutils.utils.DateUtils;
 import cn.rep.cloud.custom.openapi.kjController.basecommon.bmkj.bean.KjBmResponse;
 import cn.rep.cloud.custom.organizationa.dto.RepBmDTO;
 import cn.rep.cloud.custom.organizationa.entity.RepBm;
@@ -30,6 +35,8 @@ public class RepDeptServiceImpl {
     private RepDeptService repDeptService;
     @Autowired
     private RepCompService repCompService;
+    @Autowired
+    private RepCityServiceImpl repCityService;
 
     /**
      * 通过企业编号查询部门
@@ -87,8 +94,11 @@ public class RepDeptServiceImpl {
             if (StringUtils.isBlank(repDeptVO.getSjbmmc())){
                 repDeptVO.setSjbmmc("无");
             }
-            repDeptVO.setMbxList(stringList);
         }
+        if (null == repDeptVO){
+            repDeptVO = new RepDeptVO();
+        }
+        repDeptVO.setMbxList(stringList);
         return repDeptVO;
     }
 
@@ -132,6 +142,31 @@ public class RepDeptServiceImpl {
         }
 
         return treeNodes;
+    }
+
+    /**
+     * 新增部门
+     * @param repBmDTO
+     */
+    public boolean insertDept(RepBmDTO repBmDTO){
+        if (StringUtils.isBlank(repBmDTO.getMc())) return Boolean.FALSE;
+        repBmDTO.setId(DateUtils.getNo(5));
+        repBmDTO.setZt(Constants.ZT_ONE);
+        repBmDTO.setSfzdsccbzx(Constants.ZT_ONE);
+        //查询所在城市,所在省份
+        RepCityDTO repCity = repCityService.getCityCountryByCsid(repBmDTO.getSzcsid());
+        if (null == repCity) return Boolean.FALSE;
+        repBmDTO.setSzcs(repCity.getMc());
+        repBmDTO.setSzsf(repCity.getSzsf());
+        repBmDTO.setSzsfid(repCity.getSzsfid());
+        RepBm repBm = new RepBm();
+        BeanMapper.copy(repBmDTO,repBm);
+        repBm.setCjsj(DateUtils.getNow());
+        repBm.setSsgsid(repBmDTO.getSsgsbh());
+        if (StringUtils.isBlank(repBm.getSjid())){
+            repBm.setSjid("none");
+        }
+        return repDeptService.insertRepDept(repBm);
     }
 
 

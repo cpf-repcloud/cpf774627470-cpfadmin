@@ -31,7 +31,8 @@ window.onload= function (){
             el: '#app',
             data:{
                 xlValue:['19042509592849426','19042509592823186'],
-                xlList:xlList
+                xlList:xlList,
+                citydata:["10119"]
             },
             mounted:function(){
             },

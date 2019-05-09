@@ -141,4 +141,14 @@ public class RepCityServiceImpl {
         return repCityService.getCityListBySjid(sjid);
     }
 
+    /**
+     * 根据城市id 查询城市/省份名称
+     * @param csid 城市id
+     * @return
+     */
+    public RepCityDTO getCityCountryByCsid(String csid){
+        if (StringUtils.isBlank(csid)) return null;
+        return repCityService.getCityCountryByCsid(csid);
+    }
+
 }

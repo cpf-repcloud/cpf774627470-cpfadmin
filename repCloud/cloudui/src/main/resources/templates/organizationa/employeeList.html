@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-cn" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>员工列表</title>
     <meta charset="utf-8">
@@ -48,11 +48,11 @@
     </div>
     <div class="tree-content">
         <div>
-            <Breadcrumb>
+            <Breadcrumb v-if = "breadList.length > 0">
                 <breadcrumb-item v-for="item in breadList">{{item}}</breadcrumb-item>
             </Breadcrumb>
             <div>
-                <div class="mt10">
+                <div class="mt10" v-if = "breadList.length > 1">
                     <Breadcrumb style="display: inline-block;">
                         <breadcrumb-item>{{breadList[breadList.length-1]}}</breadcrumb-item>
                     </Breadcrumb>
@@ -116,7 +116,7 @@
                 <i-input placeholder="请输入..." icon="ios-search" style="max-width: 200px;"></i-input>
             </div>
         </i-form>
-        <i-table :columns="columns1" :data="pagedata" height="400" :loading="igrid.loading"></i-table>
+        <i-table :columns="dataColumns" :data="pagedata" height="400" :loading="igrid.loading"></i-table>
         <Page class="pt20" :current="1" :page-size="ipage.size" :total="ipage.total" show-total  ></Page>
         <modal title="批量导入员工" width="600" v-model="upload" class="upload-modal vetech-modal" :mask-closable="false">
             <div>
@@ -153,8 +153,9 @@
                 <Row>
                     <div>
                         <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="所属公司" prop="ssgsid">
-                                <pulldown  v-if="addDept" v-model="saveBmData.ssgsid" class="demo-input" data-type="1" :data-source="compList" @on-change="compChange"></pulldown>
+                            <Form-item label="所属公司">
+                                <!--<pulldown  v-if="addDept" v-model="saveBmData.ssgsid" class="demo-input" data-type="1" :data-source="compList" @on-change="compChange"></pulldown>-->
+                                {{breadList[0]}}
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
@@ -179,7 +180,7 @@
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
                             <Form-item label="负责人" prop="bmfzr">
-                                <pulldown v-if="addDept" v-model="saveBmData.bmfzr" class="demo-input" data-type="1" :data-source="employeeList" @on-change="empChange"></pulldown>
+                                <pulldown v-if="addDept" v-model="saveBmData.bmfzr" class="demo-input" data-type="1" :data-source="employeeList" @on-change="bmfzrChange"></pulldown>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
@@ -188,8 +189,9 @@
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="所在城市" prop="countryid">
-                                <Cascader v-model="saveBmData.countryid" :data="countryList" filterable change-on-select @on-change="changeCity"></Cascader>
+                            <Form-item label="所在城市" prop="szcsid">
+                                <ve-citycard v-model="saveBmData.szcsid" style="width:100%;" :search="true" placeholder="search..." @data-change="changeCity" search-url="/custom/kj/city/getSearchCity" slide-url="/custom/kj/city/getCityList"></ve-citycard>
+                                <!--<Cascader v-model="saveBmData.countryid" :data="countryList" filterable change-on-select @on-change="changeCity"></Cascader>-->
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
@@ -199,127 +201,184 @@
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
                             <Form-item label="财务主管" prop="cwzg">
-                                <pulldown v-if="addDept" v-model="saveBmData.cwzg" class="demo-input" data-type="2" data-source="/custom/kj/employee/getEmployeeList" @on-change="empChange"></pulldown>
+                                <pulldown v-if="addDept" v-model="saveBmData.cwzg" class="demo-input" data-type="2" data-source="/custom/kj/employee/getEmployeeList" @on-change="cwzgChange"></pulldown>
                             </Form-item>
                         </i-col>
                     </div>
                 </Row>
             </i-form>
         </Modal>
-        <Modal width="70%" ok-text="保存" @on-ok="saveDept" :loading="addload" @on-cancel="cancelDept" v-model="addEmp" class="vetech-modal" scrollable="true" title="新增员工" :mask-closable="false">
-            <i-form :model="addEmp" :inline="false" :label-width="80" :show-message="true">
+        <Modal width="70%" ok-text="保存" @on-ok="saveEmployee" :loading="addload" @on-cancel="cancelDept" v-model="addEmp" class="vetech-modal" scrollable="true" title="新增员工" :mask-closable="false">
+            <i-form :model="addEmployee" :inline="false" :label-width="90" :show-message="true">
                 <Row>
                     <div>
-                        <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="所属公司" prop="business">
-                                <pulldown  v-if="addEmp" v-model="addEmp.ssgsid" class="demo-input" data-type="1" :data-source="deptList" @on-change="deptChange"></pulldown>
+                        <i-col :sm="12" >
+                            <Form-item label="所属公司">
+                                <!--<pulldown  v-if="addEmp" v-model="addEmp.ssgsid" class="demo-input" data-type="1" :data-source="deptList" @on-change="deptChange"></pulldown>-->
+                                {{breadList[0]}}
                             </Form-item>
                         </i-col>
-                        <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="上级部门" prop="business">
-                                <pulldown  v-if="addEmp" v-model="addEmp.sjid" class="demo-input" data-type="1" :data-source="deptList" @on-change="deptChange"></pulldown>
+                        <i-col :sm="12" >
+                            <Form-item label="所属部门">
+                                <!--<pulldown  v-if="addEmp" v-model="addEmp.sjid" class="demo-input" data-type="1" :data-source="deptList" @on-change="deptChange"></pulldown>-->
+                                {{breadList[breadList.length-1]}}
                             </Form-item>
                         </i-col>
-                        <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="部门名称" prop="business">
-                                <i-input v-model="addEmp.mc" clearable type="text" placeholder="请输入"></i-input>
+                        <i-col :sm="12" >
+                            <Form-item label="工号" prop="gh">
+                                <i-input v-model="addEmployee.gh" clearable type="text" placeholder="请输入"></i-input>
                             </Form-item>
                         </i-col>
-                        <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="部门简称" prop="business">
-                                <i-input v-model="addEmp.jc" clearable type="text" placeholder="请输入"></i-input>
+                        <i-col :sm="12" >
+                            <Form-item label="性别" prop="xb">
+                                <radio-group  v-model="xb">
+                                    <Radio label="男" ></Radio>
+                                    <Radio label="女"></Radio>
+                                </radio-group>
                             </Form-item>
                         </i-col>
-                        <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="部门编号" prop="business">
-                                <i-input v-model="addEmp.bh" clearable type="text" placeholder="请输入"></i-input>
+                        <i-col :sm="12" >
+                            <Form-item label="姓名" prop="xm">
+                                <i-input v-model="addEmployee.xm" clearable type="text" placeholder="请输入"></i-input>
                             </Form-item>
                         </i-col>
-                        <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="负责人" prop="business">
-                                <pulldown v-if="editBm" v-model="addEmp.bmfzr" class="demo-input" data-type="1" :data-source="employeeList" @on-change="empChange"></pulldown>
+                        <i-col :sm="12" >
+                            <Form-item label="英文名称" prop="ywxm">
+                                <i-input v-model="addEmployee.ywxm" clearable type="text" placeholder="请输入"></i-input>
                             </Form-item>
                         </i-col>
-                        <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="部门电话" prop="business">
-                                <i-input v-model="addEmp.bmdh" clearable type="text" placeholder="请输入"></i-input>
+                        <i-col :sm="12" >
+                            <Form-item label="电话号码" prop="dhhm">
+                                <i-input v-if="editBm" v-model="addEmployee.dhhm" clearable type="text" placeholder="请输入"></i-input >
                             </Form-item>
                         </i-col>
-                        <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="所在城市" prop="business">
-                                <Cascader v-if="editBm" v-model="countryid" :data="countryList" filterable change-on-select @on-change="changeCity"></Cascader>
+                        <i-col :sm="12" >
+                            <Form-item label="手机号码" prop="sjhm">
+                                <i-input v-model="addEmployee.sjhm" clearable type="text" placeholder="请输入"></i-input>
                             </Form-item>
                         </i-col>
-                        <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="详细地址" prop="business">
-                                <i-input v-model="bmvo.szdz" clearable type="text" placeholder="请输入"></i-input>
+                        <i-col :sm="12" >
+                            <Form-item label="国际电话区号" prop="gjdhqh">
+                                <i-input v-if="editBm" v-model="addEmployee.gjdhqh" clearable type="text" placeholder="请输入"></i-input>
                             </Form-item>
                         </i-col>
-                        <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="财务主管" prop="business">
-                                <pulldown v-if="editBm" v-model="bmvo.cwzg" class="demo-input" data-type="1" :data-source="employeeList" @on-change="empChange"></pulldown>
+                        <i-col :sm="12" >
+                            <Form-item label="联系邮箱" prop="lxyx">
+                                <i-input v-model="addEmployee.lxyx" clearable type="text" placeholder="请输入"></i-input>
+                            </Form-item>
+                        </i-col>
+                        <i-col :sm="12" >
+                            <Form-item label="联系地址" prop="lxdz">
+                                <i-input v-model="addEmployee.lxdz" clearable type="text" placeholder="请输入"></i-input>
+                            </Form-item>
+                        </i-col>
+                        <i-col :sm="12" >
+                            <Form-item label="籍贯" prop="jg">
+                                <i-input v-model="addEmployee.jg" clearable type="text" placeholder="请输入"></i-input>
+                            </Form-item>
+                        </i-col>
+                        <i-col :sm="12" >
+                            <Form-item label="生日" prop="sr">
+                                <i-input v-model="addEmployee.sr" clearable type="text" placeholder="请输入"></i-input>
+                            </Form-item>
+                        </i-col>
+                        <i-col :sm="12" >
+                            <Form-item label="是否秘书" prop="sfms">
+                                <i-input v-model="addEmployee.sfms" clearable type="text" placeholder="请输入"></i-input>
+                            </Form-item>
+                        </i-col>
+                        <i-col :sm="12" >
+                            <Form-item label="报销委托人" prop="bxwtr">
+                                <i-input v-model="addEmployee.bxwtr" clearable type="text" placeholder="请输入"></i-input>
+                            </Form-item>
+                        </i-col>
+                        <i-col :sm="12" >
+                            <Form-item label="常驻工作地" prop="czgzd">
+                                <i-input v-model="addEmployee.czgzd" clearable type="text" placeholder="请输入"></i-input>
+                            </Form-item>
+                        </i-col>
+                        <i-col :sm="12" >
+                            <Form-item label="银行账户名" prop="yhzhm">
+                                <i-input v-model="addEmployee.yhzhm" clearable type="text" placeholder="请输入"></i-input>
+                            </Form-item>
+                        </i-col>
+                        <i-col :sm="12" >
+                            <Form-item label="银行开户行" prop="yhkhh">
+                                <i-input v-model="addEmployee.yhkhh" clearable type="text" placeholder="请输入"></i-input>
+                            </Form-item>
+                        </i-col>
+                        <i-col :sm="12" >
+                            <Form-item label="银行账号" prop="yhzh">
+                                <i-input v-model="addEmployee.yhzh" clearable type="text" placeholder="请输入"></i-input>
+                            </Form-item>
+                        </i-col>
+                        <i-col :sm="12" >
+                            <Form-item label="数据权限类型" prop="sjqxlx">
+                                <i-input v-model="addEmployee.sjqxlx" clearable type="text" placeholder="请输入"></i-input>
                             </Form-item>
                         </i-col>
                     </div>
                 </Row>
             </i-form>
         </Modal>
-        <Modal width="70%" v-model="editBm" class="vetech-modal" scrollable="true" title="编辑部门" :mask-closable="false">
+        <Modal width="70%" ok-text="保存" @on-ok="editDept" v-model="editBm" class="vetech-modal" scrollable="true" title="编辑部门" :mask-closable="false">
             <i-form ref="editBmData" :model="editBmData" :inline="false" :label-width="80"  :show-message="true">
                 <Row>
                     <div>
                         <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="所属公司" prop="business">
+                            <Form-item label="所属公司">
                                 {{bmvo.ssgsmc}}
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="上级部门" prop="business">
+                            <Form-item label="上级部门">
                                 <div v-if="bmvo.sjbmmc=='无'">
                                     无
                                 </div>
                                 <div v-else>
-                                    <pulldown  v-if="editBm" v-model="bmvo.sjid" class="demo-input" data-type="1" :data-source="deptList" @on-change="deptChange"></pulldown>
+                                    <!--<pulldown  v-if="editBm" v-model="bmvo.sjid" class="demo-input" data-type="1" :data-source="deptList" @on-change="deptChange"></pulldown>-->
+                                    {{bmvo.sjbmmc}}
                                 </div>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="部门名称" prop="business">
+                            <Form-item label="部门名称" prop="mc">
                                 <i-input v-model="bmvo.mc" clearable type="text" placeholder="请输入"></i-input>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="部门简称" prop="business">
+                            <Form-item label="部门简称" prop="jc">
                                 <i-input v-model="bmvo.jc" clearable type="text" placeholder="请输入"></i-input>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="部门编号" prop="business">
+                            <Form-item label="部门编号" prop="bh">
                                 <i-input v-model="bmvo.bh" clearable type="text" placeholder="请输入"></i-input>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="负责人" prop="business">
+                            <Form-item label="负责人" prop="bmfzr">
                                 <pulldown v-if="editBm" v-model="bmvo.bmfzr" class="demo-input" data-type="1" :data-source="employeeList" @on-change="empChange"></pulldown>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="部门电话" prop="business">
+                            <Form-item label="部门电话" prop="bmdh">
                                 <i-input v-model="bmvo.bmdh" clearable type="text" placeholder="请输入"></i-input>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="所在城市" prop="business">
-                                <Cascader v-if="editBm" v-model="countryid" :data="countryList" filterable change-on-select @on-change="changeCity"></Cascader>
+                            <Form-item label="所在城市" prop="szcsid">
+                                <!--<Cascader v-if="editBm" v-model="countryid" :data="countryList" filterable change-on-select @on-change="changeCity"></Cascader>-->
+                                <ve-citycard :datas="bmvo.szcsid" style="width:100%;" :search="true" placeholder="search..." @data-change="changeCity" search-url="/custom/kj/city/getSearchCity" slide-url="/custom/kj/city/getCityList"></ve-citycard>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="详细地址" prop="business">
+                            <Form-item label="详细地址" prop="szdz">
                                 <i-input v-model="bmvo.szdz" clearable type="text" placeholder="请输入"></i-input>
                             </Form-item>
                         </i-col>
                         <i-col :sm="12" class="pb20 pt10">
-                            <Form-item label="财务主管" prop="business">
+                            <Form-item label="财务主管" prop="cwzg">
                                 <pulldown v-if="editBm" v-model="bmvo.cwzg" class="demo-input" data-type="1" :data-source="employeeList" @on-change="empChange"></pulldown>
                             </Form-item>
                         </i-col>
@@ -327,7 +386,6 @@
                 </Row>
             </i-form>
         </Modal>
-
     </div>
 </div>
 </body>

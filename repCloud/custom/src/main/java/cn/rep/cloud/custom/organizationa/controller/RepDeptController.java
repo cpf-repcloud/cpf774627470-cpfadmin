@@ -4,8 +4,11 @@ import cn.rep.cloud.custom.coreutils.common.BaseController;
 import cn.rep.cloud.custom.coreutils.common.RestResponse;
 import cn.rep.cloud.custom.coreutils.common.TreeNode;
 import cn.rep.cloud.custom.organizationa.business.RepDeptServiceImpl;
+import cn.rep.cloud.custom.organizationa.dto.RepBmDTO;
+import cn.rep.cloud.custom.organizationa.entity.RepBm;
 import cn.rep.cloud.custom.organizationa.vo.RepDeptVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +38,20 @@ public class RepDeptController extends BaseController {
         String ssgsid = loginUser.getGsid();
         RepDeptVO repDeptVO = repDeptService.getBmMbx(chrId,ssgsid);
         return new RestResponse(repDeptVO);
+    }
+
+    /**
+     * 新增部门
+     * @param repBmDTO
+     * @return
+     */
+    @RequestMapping(value = "saveDept")
+    public RestResponse<Boolean> saveDept(@RequestBody RepBmDTO repBmDTO){
+        repBmDTO.setQybh(loginUser.getQybh());
+        repBmDTO.setCjr(loginUser.getId());
+        repBmDTO.setSsgsbh(loginUser.getGsid());
+        boolean result = repDeptService.insertDept(repBmDTO);
+        return new RestResponse(result);
     }
 
     /**

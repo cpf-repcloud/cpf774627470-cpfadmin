@@ -1,6 +1,8 @@
 package cn.rep.cloud.custom.organizationa.service;
 
 import cn.rep.cloud.custom.basecommon.common.Constants;
+import cn.rep.cloud.custom.coreutils.common.PageCopyUtil;
+import cn.rep.cloud.custom.coreutils.common.PageDTO;
 import cn.rep.cloud.custom.coreutils.utils.BeanMapper;
 import cn.rep.cloud.custom.coreutils.utils.DateUtils;
 import cn.rep.cloud.custom.coreutils.utils.Md5AndSalt;
@@ -15,6 +17,7 @@ import cn.rep.cloud.custom.organizationa.mapper.RepYgMapper;
 import cn.rep.cloud.custom.organizationa.vo.FailBean;
 import cn.rep.cloud.custom.organizationa.vo.SuccessBean;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +45,18 @@ public class RepYgService {
      */
     public RepYg queryRepYg(String id){
         return repYgMapper.selectById(id);
+    }
+
+    /**
+     * 分页查询
+     * @param pageDTO
+     * @return
+     */
+    public Page<RepYg> selectPage(PageDTO<RepYgDTO> pageDTO){
+        Page<RepYg> page = PageCopyUtil.genPage(pageDTO);
+        List<RepYg> list = repYgMapper.pagelist(page,pageDTO.getData());
+        page.setRecords(list);
+        return page;
     }
 
     /**

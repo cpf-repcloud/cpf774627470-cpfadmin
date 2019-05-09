@@ -119,7 +119,7 @@ public class FileuploadUtil {
      */
     private static String getDestPath(String childFile, String extName) {
         //规则：  uuid + 后缀名
-        String sb = childFile + "/"+IdGenerator.uuid()+"." + extName;
+        String sb = childFile + "/"+IdGenerator.uuid2()+"." + extName;
         return sb;
     }
 
@@ -274,6 +274,8 @@ public class FileuploadUtil {
             os.close();
             ins.close();
             image = ImageIO.read(toFile);
+            //删除生成的临时文件
+            FileUtils.forceDelete(new File(toFile.getPath()));
         } catch(IOException ex) {
             throw new IOException("上传文件类型有误",ex);
         }

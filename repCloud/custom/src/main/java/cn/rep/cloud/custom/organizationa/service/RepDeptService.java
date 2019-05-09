@@ -1,6 +1,7 @@
 package cn.rep.cloud.custom.organizationa.service;
 
 import cn.rep.cloud.custom.basecommon.common.Constants;
+import cn.rep.cloud.custom.coreutils.utils.BeanMapper;
 import cn.rep.cloud.custom.organizationa.dto.RepBmDTO;
 import cn.rep.cloud.custom.organizationa.entity.RepBm;
 import cn.rep.cloud.custom.organizationa.mapper.RepDeptMapper;
@@ -96,6 +97,71 @@ public class RepDeptService {
         EntityWrapper<RepBm> ew = new EntityWrapper<>();
         ew.eq("id",id);
         return repDeptMapper.selectById(id);
+    }
+
+    /**
+     * 插入部门
+     * @param repBm 需要插入的部门
+     * @return stu 是否成功
+     */
+    public boolean insertRepDept(RepBm repBm){
+        int stu = 0;
+        if (null != repBm){
+            stu = repDeptMapper.insert(repBm);
+        }
+        if (stu>0){
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
+    }
+
+    /**
+     * 更新部门
+     * @param repBm 需要更新的部门数据
+     * @return stu 是否成功
+     */
+    public boolean updateRepDept(RepBm repBm){
+        int stu = 0;
+        if (null != repBm && StringUtils.isNotBlank(repBm.getId())){
+            stu = repDeptMapper.updateById(repBm);
+        }
+        if (stu>0){
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
+    }
+
+    /**
+     * 删除部门   物理删除
+     * @param repBm 需要删除的模块数据
+     * @return stu 是否成功
+     */
+    public boolean physicalDeletionDept(RepBm repBm){
+        int stu = 0;
+        if (null != repBm && StringUtils.isNotBlank(repBm.getId())){
+            stu = repDeptMapper.deleteById(repBm);
+        }
+        if (stu>0){
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
+    }
+
+    /**
+     * 删除部门   逻辑删除
+     * @param repBm 需要删除的模块数据
+     * @return stu 是否成功
+     */
+    public boolean logicalDeletionDept(RepBm repBm){
+        int stu = 0;
+        if (null != repBm && StringUtils.isNotBlank(repBm.getId())){
+            repBm.setZt(Constants.ZT_ZERO);
+            stu = repDeptMapper.updateById(repBm);
+        }
+        if (stu>0){
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
     }
 
     /**

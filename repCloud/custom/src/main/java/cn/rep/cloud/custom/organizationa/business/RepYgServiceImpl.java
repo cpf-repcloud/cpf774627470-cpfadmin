@@ -1,16 +1,22 @@
 package cn.rep.cloud.custom.organizationa.business;
 
 
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import cn.rep.cloud.custom.basecommon.common.Constants;
 import cn.rep.cloud.custom.coreutils.common.DownloadFileUtil;
 import cn.rep.cloud.custom.coreutils.common.ExcelConveter;
+import cn.rep.cloud.custom.coreutils.common.PageDTO;
 import cn.rep.cloud.custom.coreutils.utils.BeanMapper;
 import cn.rep.cloud.custom.coreutils.utils.DateUtils;
+import cn.rep.cloud.custom.coreutils.utils.SerializeUtil;
 import cn.rep.cloud.custom.openapi.kjController.basecommon.ygkj.Bean.KjYgResponse;
 import cn.rep.cloud.custom.organizationa.dto.RepYgDTO;
 import cn.rep.cloud.custom.organizationa.entity.RepYg;
 import cn.rep.cloud.custom.organizationa.service.RepYgService;
 import cn.rep.cloud.custom.organizationa.vo.SuccessBean;
+import com.baomidou.mybatisplus.plugins.Page;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +45,17 @@ public class RepYgServiceImpl {
 
     private static final String filePath = "/download/excel/";
 
+
+    /**
+     * 分页查询
+     * @param pageDTO
+     * @return
+     */
+    public Page<RepYg> seletPage(PageDTO<RepYgDTO> pageDTO){
+        Page<RepYg> page =repYgService.selectPage(pageDTO);
+        return page;
+    }
+
     /**
      * 登录成功后将当前登录人存入session中
      * @param id
@@ -48,7 +65,8 @@ public class RepYgServiceImpl {
         RepYg repYg = repYgService.queryRepYg(id);
         if (null != repYg && StringUtils.isNotBlank(repYg.getId())){
             HttpSession session = request.getSession();
-            session.setAttribute(session.getId(),repYg);
+            JSONObject json = JSONUtil.parseObj(repYg);
+            session.setAttribute(session.getId(), SerializeUtil.serialize(json));
         }
         return repYg;
     }

@@ -1,5 +1,8 @@
 package cn.rep.cloud.custom.coreutils.common;
 
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
+import cn.rep.cloud.custom.coreutils.utils.SerializeUtil;
 import cn.rep.cloud.custom.organizationa.entity.RepYg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +25,7 @@ public class BaseController {
     @ModelAttribute
     public void loginUser(){
         HttpSession session = request.getSession();
-        loginUser = (RepYg)session.getAttribute(session.getId());
+        JSONObject object = (JSONObject)SerializeUtil.unSerialize((byte[])session.getAttribute(session.getId()));
+        loginUser = JSONUtil.toBean(object,RepYg.class);
     }
 }
