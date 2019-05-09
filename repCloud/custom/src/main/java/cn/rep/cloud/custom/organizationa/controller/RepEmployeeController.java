@@ -4,6 +4,7 @@ import cn.rep.cloud.custom.coreutils.common.BaseController;
 import cn.rep.cloud.custom.coreutils.common.RestResponse;
 import cn.rep.cloud.custom.organizationa.business.RepYgServiceImpl;
 import cn.rep.cloud.custom.organizationa.dto.RepYgDTO;
+import cn.rep.cloud.custom.organizationa.entity.RepYg;
 import cn.rep.cloud.custom.organizationa.vo.SuccessBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,5 +41,10 @@ public class RepEmployeeController extends BaseController{
         dto.setCjr(loginUser.getXm());
         SuccessBean successBean = repYgService.uploadEmpBatch(file,dto);
         return new RestResponse(successBean);
+    }
+
+    @RequestMapping(value="getUser")
+    public RestResponse<RepYg> getUser(){
+        return new RestResponse<>(loginUser);
     }
 }

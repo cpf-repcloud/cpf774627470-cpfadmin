@@ -21,8 +21,9 @@ window.onload = function () {
             if (data) {
                 $.each(data.result, function (i, item) {
                     var titles = {title: "", value: "", expand: false};
-                    titles.title = data.result[i].lbmc;
-                    titles.value = data.result[i].lb;
+                    titles.title = item.lbmc;
+                    titles.value = item.lb;
+                    titles.id = item.id;
                     datas.push(titles);
                 });
             }
@@ -86,8 +87,8 @@ window.onload = function () {
                             debugger
                             app.$refs["mf"].resetFields();//重置表单
                             setTimeout(function () {
-                                var data=app.$data.igrid.datas[params.index];
-                                app.mfd=data;
+                                var data = app.$data.igrid.datas[params.index];
+                                app.mfd = data;
                                 //$.extend(app.$data.mfd, );
                                 app.$data.md.isEdit = true;
                             }, 1)
@@ -104,8 +105,8 @@ window.onload = function () {
                     on: {
                         click: function (e) {
                             app.$data.de.isDel = true;
-                            var data=app.$data.igrid.datas[params.index];
-                            app.mfd=data;
+                            var data = app.$data.igrid.datas[params.index];
+                            app.mfd = data;
                             //$.extend(app.$data.mfd, );
                             app.$data.md.isEdit = true;
                         }
@@ -168,7 +169,6 @@ window.onload = function () {
                 iquery: {
                     lb: ""
                 },
-
                 dataT: {lbmc: ""},
                 formRule: {
                     mc: [{required: true, message: "请输入数据名称"}],
@@ -214,16 +214,33 @@ window.onload = function () {
                         {validator: databaseCheck, trigger: 'blur'},
                     ]
                 },
+                ruleValidateLbEdit: {
+                    lbmc: [{required: true, message: "类别名称不能为空", trigger: 'blur'}],
+                    lb: [
+                        {required: true, message: "类别编号不能为空", trigger: 'blur'},
+                        {validator: dataCheck, trigger: 'blur'},
+                        {validator: databaseCheck, trigger: 'blur'},
+                    ]
+                },
+                editLbData: {},
+                user:{},
 
             },
             mounted: function () {
                 //this.queryPage();
+                this.getUser();
             },
             methods: {
                 selectAll: function (data) {
                     if (data) {
                         app.xzjcsj.lb = data[0].value;
                         app.xzjcsj.lbmc = data[0].title;
+                        app.mfd.lbmc = data[0].title;
+                        app.mfd.lb = data[0].value;
+                        app.mfd.id = data[0].id;
+                        app.editLbData.lbmc = data[0].title;
+                        app.editLbData.lb = data[0].value;
+                        app.editLbData.id = data[0].id;
                         this.iquery.lb = data[0].value;
                     }
                     this.iquery.lbmc = "";
@@ -341,10 +358,69 @@ window.onload = function () {
                         }
                     });
                 },
+
+                savesLb: function (ref) {
+                    this.$refs[ref].validate(function (flag) {
+                        if (flag) {
+                            app.spinShow = true;
+                            $.ajax({
+                                type: "POST",
+                                url: "/custom/basecommon/addJcsjLb",
+                                data: JSON.stringify(app.mfd),
+                                dataType: "json",
+                                async: true,
+                                contentType: "application/json;charset=UTF-8",
+                                success: function (response) {
+                                    app.spinShow = false;
+                                    if (response) {
+                                        app.$Message.success("新增成功");
+                                        app.md.addSjlb = false;
+                                        getJcsj();
+                                    } else {
+                                        app.$Message.error("新增失败");
+                                    }
+                                },
+                                error: function () {
+                                    app.spinShow = false;
+                                }
+                            });
+                        }
+                    });
+                },
+                editBaseLb: function (ref) {
+                    this.$forceUpdate();
+                    this.$refs[ref].validate(function (flag) {
+                        if (flag) {
+                            app.spinShow = true;
+                            $.ajax({
+                                type: "POST",
+                                url: "/custom/basecommon/editJcsjLb",
+                                data: JSON.stringify(app.editLbData),
+                                dataType: "json",
+                                async: true,
+                                contentType: "application/json;charset=UTF-8",
+                                success: function (response) {
+                                    app.spinShow = false;
+                                    if (response) {
+                                        app.$Message.success("修改成功");
+                                        app.md.editSjbl = false;
+                                        getJcsj();
+                                    } else {
+                                        app.$Message.error("修改失败");
+                                    }
+                                },
+                                error: function () {
+                                    app.spinShow = false;
+                                }
+                            });
+                        }
+                    });
+                },
                 cancel: function (ref) {
                     app.$data.sj.isSave = false;
                     app.$data.md.isEdit = false;
                     app.md.addSjlb = false;
+                    app.md.editSjbl = false;
                     // this.$refs[ref].resetFields();//重置表单
                 },
                 keyDownEvent: function () {
@@ -354,9 +430,14 @@ window.onload = function () {
                     app.md.addSjlb = true;
                 },
                 editLb: function () {
-                    app.md.editSjbl = false;
-                    app.mfd.lb = xzjcsj.lb;
-                    app.mfd.lbmc = xzjcsj.lbmc;
+                    debugger
+                    app.md.editSjbl = true;
+                    app.mfd.lb = app.xzjcsj.lb;
+                    app.mfd.lbmc = app.xzjcsj.lbmc;
+                    app.editLbData.lb = app.mfd.lb;
+                    app.editLbData.lbmc = app.mfd.lbmc;
+                    console.log(app.editLbData);
+                    this.$forceUpdate();
                 }
 
             },
@@ -429,8 +510,9 @@ window.onload = function () {
                 if (data) {
                     $.each(data.result, function (i, item) {
                         var titles = {title: "", value: "", expand: false};
-                        titles.title = data.result[i].lbmc;
-                        titles.value = data.result[i].lbbh;
+                        titles.title = item.lbmc;
+                        titles.value = item.lb;
+                        titles.id = item.id;
                         datas.push(titles);
                     });
                 }

@@ -211,7 +211,7 @@
                     <Row>
                         <i-col :sm="24" :md="12" :lg="8">
                             <form-item label="出差类型" :label-width="100">
-                                <i-select filterable multiple>
+                                <i-select filterable v-model="addCcsqdData.cclx">
                                     <!--<Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
                                     <i-option value="1">1</i-option>
                                     <i-option value="2">2</i-option>
@@ -220,7 +220,7 @@
                         </i-col>
                         <i-col :sm="24" :md="12" :lg="8">
                             <form-item label="出差业务种类" :label-width="100">
-                                <i-select filterable multiple>
+                                <i-select v-model="addCcsqdData.ccywzl" >
                                     <!--<Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
                                     <i-option value="1">1</i-option>
                                     <i-option value="2">2</i-option>
@@ -228,7 +228,7 @@
                             </form-item>
                         </i-col>
                         <i-col :sm="24" :md="12" :lg="8">
-                            <form-item label="事由" :label-width="100">
+                            <form-item label="事由" :label-width="100" v-model="addCcsqdData.sy">
                                 <i-select filterable multiple>
                                     <!--<Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
                                     <i-option value="1">1</i-option>
@@ -240,10 +240,7 @@
                     <Row>
                         <i-col :sm="24" :md="24" :lg="24">
                             <form-item label="出差人员" :label-width="100">
-                                <i-input placeholder="差旅事项"></i-input>
-                                <div>
-
-                                </div>
+                                <pulldown v-if="modalData.addModal" v-model="addCcsqdData.ccry" :multiple="true" class="demo-input" data-type="1" :data-source="employeeList" @on-change="selectCcry"></pulldown>
                             </form-item>
                         </i-col>
 
@@ -251,7 +248,7 @@
 
                     <Row>
                         <i-col :sm="24" :md="24" :lg="24">
-                            <form-item label="差旅事项" :label-width="100">
+                            <form-item label="差旅事项" :label-width="100" v-model="addCcsqdData.clsx">
                                 <i-input placeholder="差旅事项" type="textarea" :rows="4"></i-input>
                             </form-item>
                         </i-col>
@@ -272,12 +269,8 @@
                     <div>
                         <Row>
                             <i-col :sm="24" :md="12" :lg="8">
-                                <form-item label="出发地" :label-width="100">
-                                    <i-select filterable multiple>
-                                        <!--<Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-                                        <i-option value="1">1</i-option>
-                                        <i-option value="2">2</i-option>
-                                    </i-select>
+                                <form-item label="出发地" :label-width="100" v-model="addCcsqdData.cfd">
+                                    <pulldown v-if="modalData.addModal" v-model="addCcsqdData.cfd" :multiple="true" class="demo-input" data-type="1" :data-source="countryList" @on-change="selectCfd"></pulldown>
                                 </form-item>
                             </i-col>
                         </Row>
@@ -291,7 +284,7 @@
                             </i-col>
                             <i-col :sm="24" :md="8" :lg="8">
                                 <form-item label="出发时间" :label-width="100">
-                                    <Date-Picker type="date" v-model="xc.cfsj" start-date="xc.cfmrsj" clearable></Date-Picker>
+                                    <Date-Picker type="date" v-model="xc.cfsj" clearable></Date-Picker>
                                 </form-item>
                             </i-col>
                             <i-col :sm="24" :md="8" :lg="8">
@@ -318,7 +311,7 @@
             <div>
                 <div>
                     <div class="tagClass">
-                        <Icon type="md-apps" ></Icon>
+                        <Icon type="md-apps"></Icon>
                         <span class="ml5">其他</span>
                     </div>
                     <div>

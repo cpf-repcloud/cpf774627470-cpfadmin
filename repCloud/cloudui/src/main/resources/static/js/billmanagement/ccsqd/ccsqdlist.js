@@ -113,17 +113,53 @@ window.onload = function () {
                     lineHeight: '24px',
                     display: 'block',
                     marginBottom: '16px'
-                }
-                ,
-                model:false
-
-
-
+                },
+                model:false,
+                employeeList:[],//员工控件数据
+                countryList:[],//城市控件数据
             },
             mounted: function () {
                 //this.queryPage();
+                this.initKj();
             },
             methods: {
+                initKj:function(){
+                    $.ajax({
+                        type: "POST",
+                        url: "/custom/kj/employee/getEmployeeList",
+                        data: JSON.stringify({}),
+                        dataType: "json",
+                        async: true,
+                        contentType: "application/json;charset=UTF-8",
+                        success: function (response) {
+                            if (response.status && response.status === "200") {
+                                employeeList = response.result;
+                                app.employeeList = employeeList;
+                            }
+                        }
+                    });
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/custom/country/getCountryList",
+                        data: {},
+                        dataType: "json",
+                        contentType: "application/json;charset=UTF-8",
+                        success: function (response) {
+                            if (response.status && response.status === "200") {
+                                app.countryList = response.result;
+                                console.log(countryList);
+                            }
+
+                        }
+                    });
+                },
+                selectCcry:function(val,data) {
+
+                },
+                selectCfd:function(val,data) {
+                    console.log(data);
+                },
                 search: function () {
                     this.$refs.queryForm.validate(function (flag) {
                         ////console.log(arguments);
@@ -133,7 +169,6 @@ window.onload = function () {
                     //this.queryPage();
                 },
                 gridSuccsess: function (data) {
-
                     var result = data.result;
                     this.ipage.total = result.total;
                     this.igrid.datas = result.records;
@@ -159,7 +194,6 @@ window.onload = function () {
                 },
                 //删除行程计划
                 deleteXc:function(index){
-
                     var xcArr = app.addCcsqdData.xcjh;
                     xcArr=xcArr.splice(0, index);
                     app.addCcsqdData.xcjh=xcArr;

@@ -44,19 +44,19 @@ public class RepJcsj implements Serializable {
      */
     private String mc;
     /**
-     * 成本中心名称
+     *
      */
     private String lb;
     /**
-     * 上级编号
+     *
      */
     private String lbmc;
     /**
-     * 项目状态(0 无效，1 正常)
+     *
      */
     private String sfmrz;
     /**
-     * 是否独立预算(0 否，1 是)
+     * 顺序号
      */
     private String sxh;
     /**

@@ -77,6 +77,16 @@ Vue.mixin({
         changePageSize: function (pageSize) {
             this.ipage.size = pageSize;
             this.changePage(1);
+        },
+        getUser:function(){
+           var  _this = this;
+            $.ajax({
+                url:"/custom/repEmployee/getUser",
+                success:function(data) {
+                    debugger
+                    _this.user=data.result;
+                }
+            })
         }
     }
 });

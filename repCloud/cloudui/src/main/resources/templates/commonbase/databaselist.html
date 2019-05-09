@@ -214,9 +214,10 @@
             </i-form>
             <div slot="footer">
                 <i-button @click="cancel('savelb')" type="text">取消</i-button>
-                <i-button @click="saves('savelb')" type="primary">保存</i-button>
+                <i-button @click="savesLb('savelb')" type="primary">保存</i-button>
             </div>
         </modal>
+
         <Modal
                 v-model="md.editSjbl"
                 title="编辑数据类别"
@@ -227,26 +228,24 @@
                 :scrollable="false"
                 :closable="true"
         >
-            <i-form ref="editlb" :model="mfd" top="0" :label-width="150" :inline="false" :rules="ruleValidate"
+            <i-form ref="editlb" :model="editLbData" top="0" :label-width="150" :inline="false" :rules="ruleValidateLbEdit"
                     :show-message="true">
                 <Row>
                     <i-col :sm="24">
                         <form-item label="类别名称" :label-width="100" prop="lbmc">
-                            <i-input placeholder="请输入数据名称" :maxlength="20" clearable type="text" v-model="mfd.lbmc"
-                                     :element-id="'lbmc'"></i-input>
+                            <i-input placeholder="请输入数据名称" :maxlength="20" clearable type="text"  v-model="editLbData.lbmc"></i-input>
                         </form-item>
                     </i-col>
                     <i-col :sm="24">
                         <form-item label="类别编号" :label-width="100" prop="lb">
-                            <i-input placeholder="请输入数据编号" clearable type="text" v-model="mfd.lb"
-                                     :element-id="'lb'"></i-input>
+                            <i-input placeholder="请输入数据编号" clearable type="text"  v-model="editLbData.lb" ></i-input>
                         </form-item>
                     </i-col>
                 </Row>
             </i-form>
             <div slot="footer">
-                <i-button @click="cancel('savelb')" type="text">取消</i-button>
-                <i-button @click="saves('savelb')" type="primary">保存</i-button>
+                <i-button @click="cancel()" type="text">取消</i-button>
+                <i-button @click="editBaseLb('editlb')" type="primary">保存</i-button>
             </div>
         </modal>
     </div>

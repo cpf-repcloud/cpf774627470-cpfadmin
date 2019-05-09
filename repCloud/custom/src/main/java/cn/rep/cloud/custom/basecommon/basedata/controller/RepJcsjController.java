@@ -1,7 +1,9 @@
 package cn.rep.cloud.custom.basecommon.basedata.controller;
 
 import cn.rep.cloud.custom.basecommon.basedata.business.BasecommonSerivceImpl;
+import cn.rep.cloud.custom.basecommon.basedata.service.dto.BaseDataLbVO;
 import cn.rep.cloud.custom.basecommon.basedata.service.dto.BaseDataListDTO;
+import cn.rep.cloud.custom.basecommon.basedata.service.vo.BaseDataLbDTO;
 import cn.rep.cloud.custom.basecommon.basedata.service.vo.BaseDataListVO;
 import cn.rep.cloud.custom.coreutils.common.BaseController;
 import cn.rep.cloud.custom.coreutils.common.PageDTO;
@@ -57,10 +59,8 @@ public class RepJcsjController extends BaseController {
      * @return
      */
     @RequestMapping("queryBaseLbList")
-    public RestResponse<List<BaseDataListVO>> queryBaseLbList(@RequestBody BaseDataListDTO dto) {
-        dto.setQybh(loginUser.getQybh());
-        dto.setGsid(loginUser.getGsid());
-        List<BaseDataListVO> list = basecommonSerivce.queryBaseLbList(dto);
+    public RestResponse<List<BaseDataLbVO>> queryBaseLbList(@RequestBody BaseDataLbDTO dto) {
+        List<BaseDataLbVO> list = basecommonSerivce.queryBaseLbList(dto);
         return new RestResponse<>(list);
     }
 
@@ -103,4 +103,24 @@ public class RepJcsjController extends BaseController {
         return new RestResponse<>(isSul);
     }
 
+    /**
+     * 新增基础数据类别
+     * @param dto
+     * @return
+     */
+    @RequestMapping("addJcsjLb")
+    public RestResponse<Integer> addJcsjLb(@RequestBody BaseDataLbDTO dto) {
+        int i = basecommonSerivce.addJcsjLb(dto);
+        return new RestResponse<>(i);
+    }
+    /**
+     * 新增基础数据类别
+     * @param dto
+     * @return
+     */
+    @RequestMapping("editJcsjLb")
+    public RestResponse<Integer> editJcsjLb(@RequestBody BaseDataLbDTO dto) {
+        int i = basecommonSerivce.editJcsjLb(dto);
+        return new RestResponse<>(i);
+    }
 }

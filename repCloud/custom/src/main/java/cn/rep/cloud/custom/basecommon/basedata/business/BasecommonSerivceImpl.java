@@ -1,7 +1,10 @@
 package cn.rep.cloud.custom.basecommon.basedata.business;
 
+import cn.rep.cloud.custom.basecommon.basedata.service.BasedataLbService;
 import cn.rep.cloud.custom.basecommon.basedata.service.BasedataSerivce;
+import cn.rep.cloud.custom.basecommon.basedata.service.dto.BaseDataLbVO;
 import cn.rep.cloud.custom.basecommon.basedata.service.dto.BaseDataListDTO;
+import cn.rep.cloud.custom.basecommon.basedata.service.vo.BaseDataLbDTO;
 import cn.rep.cloud.custom.basecommon.basedata.service.vo.BaseDataListVO;
 import cn.rep.cloud.custom.coreutils.common.PageDTO;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -17,6 +20,9 @@ public class BasecommonSerivceImpl {
 
     @Autowired
     private BasedataSerivce basedataSerivce;
+
+    @Autowired
+    private BasedataLbService basedataLbService;
 
     /**
      * 查询基础数据列表
@@ -45,8 +51,8 @@ public class BasecommonSerivceImpl {
      * @param dto
      * @return
      */
-    public List<BaseDataListVO> queryBaseLbList(BaseDataListDTO dto) {
-        return basedataSerivce.getBaseDataList(dto, true, false, true, true);
+    public List<BaseDataLbVO> queryBaseLbList(BaseDataLbDTO dto) {
+        return basedataLbService.queryList(dto);
     }
 
     /**
@@ -96,6 +102,14 @@ public class BasecommonSerivceImpl {
             return Boolean.FALSE;
         }
         return Boolean.TRUE;
+    }
+
+    public int addJcsjLb(BaseDataLbDTO dto) {
+        return basedataLbService.insertLb(dto);
+    }
+
+    public int editJcsjLb(BaseDataLbDTO dto){
+        return basedataLbService.editJcsjLb(dto);
     }
 
 }
