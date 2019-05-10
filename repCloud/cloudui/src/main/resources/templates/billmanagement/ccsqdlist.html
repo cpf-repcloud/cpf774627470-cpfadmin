@@ -209,31 +209,9 @@
                 </div>
                 <div>
                     <Row>
-                        <i-col :sm="24" :md="12" :lg="8">
-                            <form-item label="出差类型" :label-width="100">
-                                <i-select filterable v-model="addCcsqdData.cclx">
-                                    <!--<Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-                                    <i-option value="1">1</i-option>
-                                    <i-option value="2">2</i-option>
-                                </i-select>
-                            </form-item>
-                        </i-col>
-                        <i-col :sm="24" :md="12" :lg="8">
-                            <form-item label="出差业务种类" :label-width="100">
-                                <i-select v-model="addCcsqdData.ccywzl" >
-                                    <!--<Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-                                    <i-option value="1">1</i-option>
-                                    <i-option value="2">2</i-option>
-                                </i-select>
-                            </form-item>
-                        </i-col>
-                        <i-col :sm="24" :md="12" :lg="8">
-                            <form-item label="事由" :label-width="100" v-model="addCcsqdData.sy">
-                                <i-select filterable multiple>
-                                    <!--<Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-                                    <i-option value="1">1</i-option>
-                                    <i-option value="2">2</i-option>
-                                </i-select>
+                        <i-col :sm="24" :md="24" :lg="24">
+                            <form-item label="出差事由" :label-width="100" v-model="addCcsqdData.ccsy">
+                                <i-input placeholder="出差事由" type="text"></i-input>
                             </form-item>
                         </i-col>
                     </Row>
@@ -245,14 +223,12 @@
                         </i-col>
 
                     </Row>
-
                     <Row>
                         <i-col :sm="24" :md="24" :lg="24">
                             <form-item label="差旅事项" :label-width="100" v-model="addCcsqdData.clsx">
                                 <i-input placeholder="差旅事项" type="textarea" :rows="4"></i-input>
                             </form-item>
                         </i-col>
-
                     </Row>
                 </div>
 
@@ -315,6 +291,14 @@
                         <span class="ml5">其他</span>
                     </div>
                     <div>
+                        <Row>
+                            <i-col :sm="24" :md="12" :lg="8">
+                                <form-item label="成本中心" :label-width="100" v-model="addCcsqdData.cfd">
+                                    <pulldown v-if="modalData.addModal" v-model="addCcsqdData.cfd" :multiple="true" class="demo-input" data-type="1" :data-source="countryList" @on-change="selectCfd"></pulldown>
+                                </form-item>
+                            </i-col>
+                        </Row>
+
                         <Row>
                             <i-col :sm="24" :md="12" :lg="12">
                                 <Upload

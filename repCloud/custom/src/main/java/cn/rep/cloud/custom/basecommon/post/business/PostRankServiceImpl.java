@@ -1,14 +1,13 @@
-package cn.rep.cloud.custom.basecommon.post.service;
+package cn.rep.cloud.custom.basecommon.post.business;
 
 
 import cn.hutool.core.collection.CollectionUtil;
-import cn.rep.cloud.custom.basecommon.post.business.RepGwServiceImpl;
 import cn.rep.cloud.custom.basecommon.post.dto.PostRankDataDTO;
 import cn.rep.cloud.custom.basecommon.post.dto.PostRankSearchDTO;
+import cn.rep.cloud.custom.basecommon.post.service.RepGwService;
 import cn.rep.cloud.custom.basecommon.post.vo.PostRankControlVO;
 import cn.rep.cloud.custom.basecommon.post.vo.PostRankDataVO;
 import cn.rep.cloud.custom.coreutils.common.IdGenerator;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +20,18 @@ import java.util.List;
  * Created by vetech on 2018/7/26.
  */
 @Service
-public class PostRankService {
+public class PostRankServiceImpl {
+
 
     /**
      * 日志
      */
-    private Logger logger = LoggerFactory.getLogger(PostRankService.class);
+    private Logger logger = LoggerFactory.getLogger(RepGwService.class);
     /**
      * 公司岗位实现类
      */
     @Autowired
-    private RepGwServiceImpl veGwService;
+    private RepGwService veGwService;
 
     /**
      * 查询岗位列表 没有分页
@@ -53,8 +53,8 @@ public class PostRankService {
      */
     public int addRank(PostRankDataDTO dataDTO) throws Exception {
         logger.info("新增岗位入参{}",dataDTO);
-        if (StringUtils.isBlank(dataDTO.getGsid())) {
-           // throw new SystemException(BaseExceptionEnum.BASE_POSTRANK_0000_04_0139);
+        if (org.apache.commons.lang3.StringUtils.isBlank(dataDTO.getGsid())) {
+            // throw new SystemException(BaseExceptionEnum.BASE_POSTRANK_0000_04_0139);
         }
         dataDTO.setId(IdGenerator.getHexId());
         return veGwService.addRank(dataDTO);
@@ -68,8 +68,8 @@ public class PostRankService {
      */
     public int editRank(PostRankDataDTO dataDTO) throws Exception {
         logger.info("编辑岗位入参{}",dataDTO);
-        if (StringUtils.isBlank(dataDTO.getGsid())) {
-           // throw new SystemException(BaseExceptionEnum.BASE_POSTRANK_0000_04_0139);
+        if (org.apache.commons.lang3.StringUtils.isBlank(dataDTO.getGsid())) {
+            // throw new SystemException(BaseExceptionEnum.BASE_POSTRANK_0000_04_0139);
         }
         return veGwService.editRank(dataDTO);
     }
@@ -106,4 +106,6 @@ public class PostRankService {
         }
         return postRankControlVOs;
     }
+
+
 }

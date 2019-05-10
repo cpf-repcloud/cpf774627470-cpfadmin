@@ -177,7 +177,6 @@ public class RepCcsqb {
      */
     private Date xgsj;
 
-
     public Date getCjsj() {
         return cjsj;
     }
@@ -465,4 +464,5 @@ public class RepCcsqb {
     public void setCcsy(String ccsy) {
         this.ccsy = ccsy;
     }
+
 }

@@ -117,6 +117,7 @@ window.onload = function () {
                 model:false,
                 employeeList:[],//员工控件数据
                 countryList:[],//城市控件数据
+
             },
             mounted: function () {
                 //this.queryPage();
@@ -138,7 +139,6 @@ window.onload = function () {
                             }
                         }
                     });
-
                     $.ajax({
                         type: "POST",
                         url: "/custom/country/getCountryList",
@@ -153,6 +153,22 @@ window.onload = function () {
 
                         }
                     });
+                    $.ajax({
+                        type: "POST",
+                        url: "/custom/basecommon/queryBaseLbList",
+                        data: JSON.stringify({}),
+                        dataType: "json",
+                        contentType: "application/json;charset=UTF-8",
+                        success: function (response) {
+                            if (response.status && response.status === "200") {
+                                app.countryList = response.result;
+                                console.log(countryList);
+                            }
+
+                        }
+
+                    })
+
                 },
                 selectCcry:function(val,data) {
 
@@ -222,8 +238,9 @@ window.onload = function () {
                     app.modalData.fjFile=fileDate;
                 }
             },
+            watch: {
 
-            watch: {}
+            }
         });
     }
 

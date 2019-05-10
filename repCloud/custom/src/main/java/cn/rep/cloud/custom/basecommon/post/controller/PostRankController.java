@@ -2,15 +2,17 @@ package cn.rep.cloud.custom.basecommon.post.controller;
 
 import cn.rep.cloud.custom.basecommon.post.dto.PostRankDataDTO;
 import cn.rep.cloud.custom.basecommon.post.dto.PostRankSearchDTO;
-import cn.rep.cloud.custom.basecommon.post.service.PostRankService;
-import cn.rep.cloud.custom.basecommon.post.vo.PostRankControlVO;
+import cn.rep.cloud.custom.basecommon.post.service.RepGwService;
 import cn.rep.cloud.custom.basecommon.post.vo.PostRankDataVO;
 import cn.rep.cloud.custom.coreutils.common.BaseController;
 import cn.rep.cloud.custom.coreutils.common.RestResponse;
 import cn.rep.cloud.custom.coreutils.utils.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -24,7 +26,7 @@ import java.util.List;
 public class PostRankController extends BaseController {
 
     @Autowired
-    private PostRankService postRankService;
+    private RepGwService repGwService;
 
 
     /**
@@ -37,7 +39,7 @@ public class PostRankController extends BaseController {
     public RestResponse postRankList(@RequestBody PostRankSearchDTO dto) {
         String qybh = loginUser.getQybh();
         dto.setQybh(qybh);
-        List<PostRankDataVO> vos = postRankService.postRankList(dto);
+        List<PostRankDataVO> vos = repGwService.postRankList(dto);
         return new RestResponse(vos);
     }
 
@@ -56,11 +58,11 @@ public class PostRankController extends BaseController {
         dataDTO.setZhxgr(loginUser.getXm());
         int num = 0;
         if (StringUtils.isNotBlank(dataDTO.getId())) {
-            num = postRankService.editRank(dataDTO);
+            num = repGwService.editRank(dataDTO);
         } else {
             dataDTO.setCjr(loginUser.getXm());
             dataDTO.setCjsj(DateUtils.getNow());
-            num = postRankService.addRank(dataDTO);
+            num = repGwService.addRank(dataDTO);
         }
         return new RestResponse(num);
     }
@@ -75,20 +77,8 @@ public class PostRankController extends BaseController {
     public RestResponse deleteRank(@RequestBody PostRankDataDTO dataDTO) {
         String qybh = loginUser.getQybh();
         dataDTO.setQybh(qybh);
-        int num = postRankService.deleteRank(dataDTO);
+        int num = repGwService.deleteRank(dataDTO);
         return new RestResponse(num);
     }
 
-    /**
-     * 岗位控件
-     * @param dataDTO 入参
-     * @return
-     */
-    @RequestMapping(value = "/control/rankControl/list",method = RequestMethod.POST)
-    public RestResponse<List<PostRankControlVO>> rankControl(PostRankSearchDTO dataDTO) {
-        String qybh = loginUser.getQybh();
-        dataDTO.setQybh(qybh);
-        List<PostRankControlVO> postRankControlVOs = postRankService.getRankControl(dataDTO);
-        return new RestResponse<>(postRankControlVOs);
-    }
 }

@@ -41,8 +41,6 @@ public class RepJcsjController extends BaseController {
         Page<BaseDataListVO> page = basecommonSerivce.queryBaseCommonList(dto);
         return new RestResponse<>(page);
     }
-
-
     /**
      * @param id
      * @return
@@ -51,7 +49,6 @@ public class RepJcsjController extends BaseController {
     public BaseDataListVO getDateBeanById(@RequestParam(value = "id") String id) {
         return basecommonSerivce.getBaseDataById(id);
     }
-
     /**
      * 查询 基础数据分组列表
      *
@@ -63,7 +60,6 @@ public class RepJcsjController extends BaseController {
         List<BaseDataLbVO> list = basecommonSerivce.queryBaseLbList(dto);
         return new RestResponse<>(list);
     }
-
     @RequestMapping("addDataBase")
     public RestResponse<Boolean> addDataBase(@RequestBody BaseDataListDTO dto) {
         dto.setQybh(loginUser.getQybh());
@@ -73,7 +69,6 @@ public class RepJcsjController extends BaseController {
         Boolean isSul = basecommonSerivce.addDataBaseLb(dto);
         return new RestResponse<>(isSul);
     }
-
     @RequestMapping("updateDataBase")
     public RestResponse<Boolean> updateDataBase(@RequestBody BaseDataListDTO dto) {
         dto.setQybh(loginUser.getQybh());
@@ -102,7 +97,6 @@ public class RepJcsjController extends BaseController {
         Boolean isSul = basecommonSerivce.checkBaseData(dto);
         return new RestResponse<>(isSul);
     }
-
     /**
      * 新增基础数据类别
      * @param dto

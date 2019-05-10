@@ -1,4 +1,4 @@
-package cn.rep.cloud.custom.basecommon.post.business;
+package cn.rep.cloud.custom.basecommon.post.service;
 
 
 import cn.rep.cloud.custom.basecommon.common.Constants;
@@ -13,7 +13,6 @@ import cn.rep.cloud.custom.basecommon.post.vo.SelectPostRankListVO;
 import cn.rep.cloud.custom.coreutils.utils.BeanMapper;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +22,7 @@ import java.util.List;
  * Created by vetech on 2018/7/26.
  */
 @Service
-public class RepGwServiceImpl {
+public class RepGwService {
 
     @Autowired
     private RepGwMapper repGwMapper;
@@ -37,13 +36,13 @@ public class RepGwServiceImpl {
     public List<PostRankDataVO> postRankList(PostRankSearchDTO dto) {
         EntityWrapper ew = new EntityWrapper();
         ew.eq("qybh", dto.getQybh());
-        if(StringUtils.isNotBlank(dto.getGsid())){
+        if(org.apache.commons.lang.StringUtils.isNotBlank(dto.getGsid())){
             ew.eq("gsid",dto.getGsid());
         }
-        if (StringUtils.isNotBlank(dto.getGwmc())) {
+        if (org.apache.commons.lang.StringUtils.isNotBlank(dto.getGwmc())) {
             ew.like("gwmc", dto.getGwmc()).or().like("gwbh", dto.getGwmc());
         }
-        if(StringUtils.isNotBlank(dto.getGwbh())){
+        if(org.apache.commons.lang.StringUtils.isNotBlank(dto.getGwbh())){
             ew.eq("gwbh",dto.getGwbh());
         }
         ew.orderBy("zhxgsj",false);
@@ -129,5 +128,4 @@ public class RepGwServiceImpl {
     public List<SelectPostRankListVO> selectPostRankList(SelectPostRankListDTO dto){
         return repGwMapper.selectPostRankList(dto) ;
     }
-
 }
