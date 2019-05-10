@@ -209,9 +209,29 @@
                 </div>
                 <div>
                     <Row>
+                        <i-col :sm="24" :md="8" :lg="8">
+                            <form-item label="出差类型" :label-width="100" >
+                                <i-select v-model="addCcsqdData.cclx">
+                                    <i-option value="2">部门出差</i-option>
+                                    <i-option value="1">项目出差</i-option>
+                                </i-select>
+                            </form-item>
+                        </i-col>
+                        <i-col :sm="24" :md="12" :lg="8">
+                            <form-item label="项目" :label-width="100" v-if="addCcsqdData.cclx=='1'">
+                                <pulldown v-if="modalData.addModal&&addCcsqdData.cclx=='1'" v-model="addCcsqdData.xmbh"  class="demo-input" data-type="1" :data-source="projectList" @on-change="selectProject"></pulldown>
+                            </form-item>
+                        </i-col>
+                        <i-col :sm="24" :md="12" :lg="8" v-if="addCcsqdData.cclx=='2'">
+                            <form-item label="成本中心" :label-width="100" >
+                                <pulldown v-if="modalData.addModal&&addCcsqdData.cclx=='2'" v-model="addCcsqdData.cbzx"  class="demo-input" data-type="1" :data-source="costcenterList" @on-change="selectCbzx"></pulldown>
+                            </form-item>
+                        </i-col>
+                    </Row>
+                    <Row>
                         <i-col :sm="24" :md="24" :lg="24">
-                            <form-item label="出差事由" :label-width="100" v-model="addCcsqdData.ccsy">
-                                <i-input placeholder="出差事由" type="text"></i-input>
+                            <form-item label="出差事由" :label-width="100" >
+                                <i-input placeholder="出差事由" type="text" v-model="addCcsqdData.ccsy"></i-input>
                             </form-item>
                         </i-col>
                     </Row>
@@ -242,20 +262,16 @@
                     </div>
                 </div>
                 <div>
-                    <div>
-                        <Row>
-                            <i-col :sm="24" :md="12" :lg="8">
-                                <form-item label="出发地" :label-width="100" v-model="addCcsqdData.cfd">
-                                    <pulldown v-if="modalData.addModal" v-model="addCcsqdData.cfd" :multiple="true" class="demo-input" data-type="1" :data-source="countryList" @on-change="selectCfd"></pulldown>
-                                </form-item>
-                            </i-col>
-                        </Row>
-                    </div>
                     <div v-for="(xc,index) in addCcsqdData.xcjh" class="whrap">
                         <Row>
                             <i-col :sm="24" :md="8" :lg="8">
-                                <form-item :label="'第'+(index+1)+'目的地'" :label-width="100">
-                                    <i-input clearable v-model="xc.mdd"/>
+                                <form-item label="出发地" :label-width="100" >
+                                    <pulldown v-if="modalData.addModal" v-model="xc.cfd" :multiple="true" class="demo-input" data-type="1" :data-source="countryList" @on-change="selectCfd()"></pulldown>
+                                </form-item>
+                            </i-col>
+                            <i-col :sm="24" :md="8" :lg="8">
+                                <form-item label="目的地" :label-width="100">
+                                    <pulldown v-if="modalData.addModal" v-model="xc.mdd" :multiple="true" class="demo-input" data-type="1" :data-source="countryList" @on-change="selectMdd()"></pulldown>
                                 </form-item>
                             </i-col>
                             <i-col :sm="24" :md="8" :lg="8">
@@ -291,14 +307,6 @@
                         <span class="ml5">其他</span>
                     </div>
                     <div>
-                        <Row>
-                            <i-col :sm="24" :md="12" :lg="8">
-                                <form-item label="成本中心" :label-width="100" v-model="addCcsqdData.cfd">
-                                    <pulldown v-if="modalData.addModal" v-model="addCcsqdData.cfd" :multiple="true" class="demo-input" data-type="1" :data-source="countryList" @on-change="selectCfd"></pulldown>
-                                </form-item>
-                            </i-col>
-                        </Row>
-
                         <Row>
                             <i-col :sm="24" :md="12" :lg="12">
                                 <Upload

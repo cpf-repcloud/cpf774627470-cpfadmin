@@ -87,6 +87,110 @@ Vue.mixin({
                     _this.user=data.result;
                 }
             })
+        },
+        // 获取员工控件信息
+        getEmployeeList:function(data){
+            var  _this = this;
+            if(!data){
+                data={};
+            }
+            $.ajax({
+                type: "POST",
+                url: "/custom/kj/employee/getEmployeeList",
+                data: JSON.stringify(data),
+                dataType: "json",
+                async: true,
+                contentType: "application/json;charset=UTF-8",
+                success: function (response) {
+                    if (response.status && response.status === "200") {
+                        var   employeeList = response.result;
+                        _this.employeeList = employeeList;
+                    }
+                }
+            })
+        },
+        // 获取城市控件数据
+        getCountryList:function(data){
+            var  _this = this;
+            if(!data){
+                data={};
+            }
+            $.ajax({
+                type: "POST",
+                url: "/custom/country/getCountryList",
+                data: JSON.stringify(data),
+                dataType: "json",
+                contentType: "application/json;charset=UTF-8",
+                success: function (response) {
+                    if (response.status && response.status === "200") {
+                        _this.countryList = response.result;
+                    }
+
+                }
+            });
+        },
+       //获取成本中心控件数据
+        getCostconterList:function(data){
+            var  _this = this;
+            if(!data){
+                data={};
+            }
+            $.ajax({
+                type: "POST",
+                url: "/custom/kj/cost/getCostconterList",
+                data: JSON.stringify(data),
+                dataType: "json",
+                contentType: "application/json;charset=UTF-8",
+                success: function (response) {
+                    if (response.status && response.status === "200") {
+                        debugger
+                        _this.costcenterList = response.result;
+                    }
+
+                }
+            });
+        },
+        ///项目控件
+        getProjectList:function(data) {
+            var  _this = this;
+            if(!data){
+                data={};
+            }
+            $.ajax({
+                type: "POST",
+                url: "/custom/kj/project/getProjectList",
+                data: JSON.stringify(data),
+                dataType: "json",
+                contentType: "application/json;charset=UTF-8",
+                success: function (response) {
+                    if (response.status && response.status === "200") {
+                        _this.projectList = response.result;
+                        console.log("projectList",_this.projectList)
+                    }
+
+                }
+            });
+        },
+        ///部门控件
+        getDeptList:function(data){
+            var  _this = this;
+            if(!data){
+                data={};
+            }
+            $.ajax({
+                type: "POST",
+                url: "custom/kj/dept/getDeptList",
+                data: JSON.stringify(data),
+                dataType: "json",
+                contentType: "application/json;charset=UTF-8",
+                success: function (response) {
+                    if (response.status && response.status === "200") {
+                        _this.deptList = response.result;
+                    }
+
+                }
+            });
         }
+
     }
 });

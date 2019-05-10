@@ -16,35 +16,46 @@ import java.io.File;
 
 @RestController
 @RequestMapping("repEmployee")
-public class RepEmployeeController extends BaseController{
+public class RepEmployeeController extends BaseController {
     @Autowired
     private RepYgServiceImpl repYgService;
 
     @RequestMapping("list")
-    public RestResponse<Page<RepYg>> list(@RequestBody PageDTO<RepYgDTO> pageDTO){//
+    public RestResponse<Page<RepYg>> list(@RequestBody PageDTO<RepYgDTO> pageDTO) {//
         Page<RepYg> pageNew = repYgService.seletPage(pageDTO);
         return new RestResponse(pageNew);
     }
 
     /**
      * 下载模板
+     *
      * @return 返回excel模板
      */
-    @RequestMapping(value = "downloadModel", method = RequestMethod.GET, produces ="application/json;charset=UTF-8")
-    public Object downloadModel(){
+    @RequestMapping(value = "downloadModel", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    public Object downloadModel() {
         return repYgService.downloadYgMb();
     }
 
     /**
      * 批量上传员工
+     *
      * @return
      */
     @RequestMapping(value = "uploadEmpBatch")
-    public RestResponse<SuccessBean> uploadEmpBatch(@RequestParam("file") MultipartFile file){
+    public RestResponse<SuccessBean> uploadEmpBatch(@RequestParam("file") MultipartFile file) {
         RepYgDTO dto = new RepYgDTO();
         dto.setQybh(loginUser.getQybh());
         dto.setCjr(loginUser.getXm());
-        SuccessBean successBean = repYgService.uploadEmpBatch(file,dto);
+        SuccessBean successBean = repYgService.uploadEmpBatch(file, dto);
         return new RestResponse(successBean);
+    }
+
+    /**
+     * 页面获取登录人信息使用
+     * @return
+     */
+    @RequestMapping(value = "getUser")
+    public RestResponse<RepYg> getUser(){
+        return new RestResponse(loginUser);
     }
 }

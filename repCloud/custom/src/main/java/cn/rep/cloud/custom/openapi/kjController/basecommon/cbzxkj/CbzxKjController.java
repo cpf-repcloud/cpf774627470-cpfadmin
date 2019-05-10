@@ -25,7 +25,7 @@ public class CbzxKjController extends BaseController {
     @Autowired
     private RepCbzxServiceImpl repCbzxService;
 
-    @RequestMapping("/getCostList")
+    @RequestMapping("/getCostconterList")
     public RestResponse<List<KjCbzxResponse>> excute() {
         CostCenterManagementDTO dto=new CostCenterManagementDTO();
         dto.setQybh(dto.getQybh());

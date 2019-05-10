@@ -104,7 +104,8 @@ window.onload = function () {
                     fjFile:[]
                 },
                 addCcsqdData:{
-                    xcjh:[{mdd:"",cfsj:"",ddsj:"",sxh:""}]
+                    xcjh:[{cfd:"",mdd:"",cfsj:"",ddsj:"",sxh:""}],
+                    cclx:"2"
                 },
                 detailCcsqdData:{}, // 出差申请单详情数据
                 pStyle: {
@@ -117,6 +118,8 @@ window.onload = function () {
                 model:false,
                 employeeList:[],//员工控件数据
                 countryList:[],//城市控件数据
+                costcenterList:[],//成本中心控件数据
+                projectList:[],//项目控件数据
 
             },
             mounted: function () {
@@ -125,56 +128,30 @@ window.onload = function () {
             },
             methods: {
                 initKj:function(){
-                    $.ajax({
-                        type: "POST",
-                        url: "/custom/kj/employee/getEmployeeList",
-                        data: JSON.stringify({}),
-                        dataType: "json",
-                        async: true,
-                        contentType: "application/json;charset=UTF-8",
-                        success: function (response) {
-                            if (response.status && response.status === "200") {
-                                employeeList = response.result;
-                                app.employeeList = employeeList;
-                            }
-                        }
-                    });
-                    $.ajax({
-                        type: "POST",
-                        url: "/custom/country/getCountryList",
-                        data: {},
-                        dataType: "json",
-                        contentType: "application/json;charset=UTF-8",
-                        success: function (response) {
-                            if (response.status && response.status === "200") {
-                                app.countryList = response.result;
-                                console.log(countryList);
-                            }
-
-                        }
-                    });
-                    $.ajax({
-                        type: "POST",
-                        url: "/custom/basecommon/queryBaseLbList",
-                        data: JSON.stringify({}),
-                        dataType: "json",
-                        contentType: "application/json;charset=UTF-8",
-                        success: function (response) {
-                            if (response.status && response.status === "200") {
-                                app.countryList = response.result;
-                                console.log(countryList);
-                            }
-
-                        }
-
-                    })
+                   this.getEmployeeList({});
+                   this.getCountryList({});
+                   this.getCostconterList({});
+                   this.getProjectList({});
 
                 },
                 selectCcry:function(val,data) {
 
                 },
-                selectCfd:function(val,data) {
+                selectCfd:function(index,val,data) {
+                    debugger
                     console.log(data);
+                },
+                selectMdd:function(index,val,data){
+                    debugger
+
+                },
+                selectCbzx:function(index,val,data){
+                    debugger
+
+                },
+                selectProject:function(val,data){
+                    debugger
+
                 },
                 search: function () {
                     this.$refs.queryForm.validate(function (flag) {
@@ -205,7 +182,7 @@ window.onload = function () {
                     var length=xcArr.length;
                     var lastXcData=xcArr[length-1];
                     // cfmrsj 出发默认时间
-                    var adddata={mdd:"",cfsj:lastXcData.ddsj,ddsj:"",sxh:"",cfmrsj:lastXcData};
+                    var adddata={cfd:"",mdd:"",cfsj:lastXcData.ddsj,ddsj:"",sxh:"",cfmrsj:lastXcData};
                     app.addCcsqdData.xcjh.push(adddata);
                 },
                 //删除行程计划

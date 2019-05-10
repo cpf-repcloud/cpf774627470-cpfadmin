@@ -26,7 +26,7 @@ public class XmKjController extends BaseController {
     @Autowired
     private RepXmServiceImpl repXmService;
 
-    @RequestMapping("getProjectList")
+    @RequestMapping("/getProjectList")
     public RestResponse<List<KjXmResponse>> excute() {
         List<RepXm> xmlist = repXmService.getXmList(loginUser.getQybh());
         List<KjXmResponse> list = new ArrayList<>();
