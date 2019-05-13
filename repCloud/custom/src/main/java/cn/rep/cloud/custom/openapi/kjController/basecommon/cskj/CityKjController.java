@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -56,9 +57,14 @@ public class CityKjController {
 
     @RequestMapping("getXlCityList")
     public RestResponse<List<RepCity>> getXlCityList(){
+        List<RepCity> repCityList = new ArrayList<>();
         byte[] citykj = redisService.getByKey(Constants.CITY_XLKJ);
-        RedisModel redisModel = (RedisModel) SerializeUtil.unSerialize(citykj);
-        List<RepCity> repCityList = redisModel.getResultLists();
+        if (null == citykj){
+            repCityList = repCityService.getXlCityKj();
+        }else{
+            RedisModel redisModel = (RedisModel) SerializeUtil.unSerialize(citykj);
+            repCityList = redisModel.getResultLists();
+        }
         return new RestResponse(repCityList);
     }
 }

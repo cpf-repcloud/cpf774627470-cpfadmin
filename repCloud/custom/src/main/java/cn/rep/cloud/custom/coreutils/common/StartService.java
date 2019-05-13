@@ -45,6 +45,7 @@ public class StartService implements ApplicationRunner {
         RedisModel redisModel = new RedisModel<>();
         List<RepCity> list = repCityService.getXlCityKj();
         redisModel.setResultLists(list);
+        logger.info("初始化城市下拉控件");
         redisService.put(Constants.CITY_XLKJ, SerializeUtil.serialize(redisModel),-1);
     }
 
