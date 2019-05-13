@@ -16,16 +16,5 @@ import java.util.List;
 @RestController
 @RequestMapping("country")
 public class RepCountryController {
-    @Autowired
-    private RepCountryServiceImpl repCountryService;
-    @Autowired
-    private RedisServiceImpl redisService;
 
-    @RequestMapping("getCountryList")
-    public RestResponse<List<RepCountryVO>> getCountryList(){
-        byte[] citykj = redisService.getByKey(Constants.CITY_LJKJ);
-        RedisModel redisModel = (RedisModel)SerializeUtil.unSerialize(citykj);
-        List<RepCountryVO> repCountryVOS = redisModel.getResultLists();
-        return new RestResponse(repCountryVOS);
-    }
 }

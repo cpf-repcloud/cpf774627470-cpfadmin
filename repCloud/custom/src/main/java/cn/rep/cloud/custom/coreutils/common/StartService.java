@@ -34,7 +34,6 @@ public class StartService implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        this.saveCountryCityKj();
         this.queryXlCityKj();
     }
 
@@ -47,16 +46,5 @@ public class StartService implements ApplicationRunner {
         redisModel.setResultLists(list);
         logger.info("初始化城市下拉控件");
         redisService.put(Constants.CITY_XLKJ, SerializeUtil.serialize(redisModel),-1);
-    }
-
-    private void saveCountryCityKj(){
-        //首先将城市连级控件缓存删除
-        redisService.removeByKey(Constants.CITY_LJKJ);
-        //再将城市连级控件缓存
-//        RedisModel redisModel = new RedisModel<>();
-//        List<RepCountryVO> repCountryVOS = repCountryService.getCountryList();
-//        redisModel.setResultLists(repCountryVOS);
-//        redisService.put(Constants.CITY_LJKJ, SerializeUtil.serialize(redisModel),-1);
-        logger.info("初始化城市连级控件");
     }
 }
