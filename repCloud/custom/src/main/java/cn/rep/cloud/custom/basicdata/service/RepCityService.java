@@ -88,4 +88,8 @@ public class RepCityService {
     public RepCityDTO getCityCountryByCsid(String csid){
         return repCityMapper.getCityCountryByCsid(csid);
     }
+
+    public List<RepCity> getXlCityKj(){
+        return repCityMapper.getXlCityKj();
+    }
 }

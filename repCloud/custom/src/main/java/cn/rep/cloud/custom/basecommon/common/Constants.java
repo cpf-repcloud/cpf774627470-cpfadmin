@@ -28,4 +28,6 @@ public class Constants {
     public static final String SFRM_N="0";
 
     public static final String CITY_LJKJ = "city_ljkj";
+
+    public static final String CITY_XLKJ = "city_xlkj";
 }

@@ -37,10 +37,10 @@ public class StartService implements ApplicationRunner {
         //首先将城市连级控件缓存删除
         redisService.removeByKey(Constants.CITY_LJKJ);
         //再将城市连级控件缓存
-        RedisModel redisModel = new RedisModel<>();
-        List<RepCountryVO> repCountryVOS = repCountryService.getCountryList();
-        redisModel.setResultLists(repCountryVOS);
-        redisService.put(Constants.CITY_LJKJ, SerializeUtil.serialize(redisModel),-1);
+//        RedisModel redisModel = new RedisModel<>();
+//        List<RepCountryVO> repCountryVOS = repCountryService.getCountryList();
+//        redisModel.setResultLists(repCountryVOS);
+//        redisService.put(Constants.CITY_LJKJ, SerializeUtil.serialize(redisModel),-1);
         logger.info("初始化城市连级控件");
     }
 }

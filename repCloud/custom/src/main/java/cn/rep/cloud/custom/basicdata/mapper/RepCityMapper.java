@@ -28,4 +28,6 @@ public interface RepCityMapper extends BaseMapper<RepCity> {
     List<RepCountryVO> getCityListBySjid(@Param("sjid") String sjid);
 
     RepCityDTO getCityCountryByCsid(@Param("id") String id);
+
+    List<RepCity> getXlCityKj();
 }

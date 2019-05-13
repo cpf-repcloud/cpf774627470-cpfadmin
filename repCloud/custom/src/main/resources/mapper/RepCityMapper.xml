@@ -44,4 +44,8 @@
         select sf.id as szsfid,sf.mc as szsf,cs.mc as mc from rep_country sf,rep_city cs
         where sf.id=cs.szsf and cs.bh = #{id}
     </select>
+
+    <select id="getXlCityKj" resultType="cn.rep.cloud.custom.basicdata.entity.RepCity">
+        select * from rep_city where szsf like ('020%') order by szsf
+    </select>
 </mapper>

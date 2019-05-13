@@ -3,7 +3,7 @@ package cn.rep.cloud.custom.openapi.kjController.basecommon.ygkj;
 import cn.rep.cloud.custom.coreutils.common.BaseController;
 import cn.rep.cloud.custom.coreutils.common.RestResponse;
 import cn.rep.cloud.custom.coreutils.utils.BeanMapper;
-import cn.rep.cloud.custom.openapi.kjController.basecommon.gskj.bean.KjGsRequest;
+import cn.rep.cloud.custom.openapi.kjController.basecommon.ygkj.Bean.KjYgRequest;
 import cn.rep.cloud.custom.openapi.kjController.basecommon.ygkj.Bean.KjYgResponse;
 import cn.rep.cloud.custom.organizationa.business.RepYgServiceImpl;
 import cn.rep.cloud.custom.organizationa.dto.RepYgDTO;
@@ -30,7 +30,7 @@ public class YgKjController extends BaseController {
      * @return
      */
     @RequestMapping("getEmployeeList")
-    public RestResponse<List<KjYgResponse>> getEmployeeList(@RequestBody KjGsRequest request){
+    public RestResponse<List<KjYgResponse>> getEmployeeList(@RequestBody KjYgRequest request){
         RepYgDTO dto = new RepYgDTO();
         BeanMapper.copy(request,dto);
         dto.setQybh(loginUser.getQybh());
