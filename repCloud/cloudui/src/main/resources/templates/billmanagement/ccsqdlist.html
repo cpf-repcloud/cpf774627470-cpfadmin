@@ -266,12 +266,13 @@
                         <Row>
                             <i-col :sm="24" :md="8" :lg="8">
                                 <form-item label="出发地" :label-width="100" >
-                                    <pulldown v-if="modalData.addModal" v-model="xc.cfd" :multiple="true" class="demo-input" data-type="1" :data-source="countryList" @on-change="selectCfd()"></pulldown>
+                                    <pulldown v-if="modalData.addModal" v-model="xc.cfdArr"
+                                              class="demo-input" data-type="1" :data-source="cityXlList" @on-change="selectCfd"></pulldown>
                                 </form-item>
                             </i-col>
                             <i-col :sm="24" :md="8" :lg="8">
                                 <form-item label="目的地" :label-width="100">
-                                    <pulldown v-if="modalData.addModal" v-model="xc.mdd" :multiple="true" class="demo-input" data-type="1" :data-source="countryList" @on-change="selectMdd()"></pulldown>
+                                    <pulldown v-if="modalData.addModal" v-model="xc.mddArr"  class="demo-input" data-type="1" :data-source="cityXlList" @on-change="selectMdd"></pulldown>
                                 </form-item>
                             </i-col>
                             <i-col :sm="24" :md="8" :lg="8">

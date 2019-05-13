@@ -99,15 +99,15 @@ window.onload = function () {
                     data: tableData,
                     columns: tableColumns
                 },
-                modalData:{
-                    addModal:false,
-                    fjFile:[]
+                modalData: {
+                    addModal: false,
+                    fjFile: []
                 },
-                addCcsqdData:{
-                    xcjh:[{cfd:"",mdd:"",cfsj:"",ddsj:"",sxh:""}],
-                    cclx:"2"
+                addCcsqdData: {
+                    xcjh: [{cfd: "", mdd: "", cfsj: "", ddsj: "", sxh: ""}],
+                    cclx: "2"
                 },
-                detailCcsqdData:{}, // 出差申请单详情数据
+                detailCcsqdData: {}, // 出差申请单详情数据
                 pStyle: {
                     fontSize: '16px',
                     color: 'rgba(0,0,0,0.85)',
@@ -115,11 +115,11 @@ window.onload = function () {
                     display: 'block',
                     marginBottom: '16px'
                 },
-                model:false,
-                employeeList:[],//员工控件数据
-                countryList:[],//城市控件数据
-                costcenterList:[],//成本中心控件数据
-                projectList:[],//项目控件数据
+                model: false,
+                employeeList: [],//员工控件数据
+                costcenterList: [],//成本中心控件数据
+                projectList: [],//项目控件数据
+                cityXlList: [], // 下拉城市控件数据
 
             },
             mounted: function () {
@@ -127,29 +127,29 @@ window.onload = function () {
                 this.initKj();
             },
             methods: {
-                initKj:function(){
-                   this.getEmployeeList({});
-                   this.getCountryList({});
-                   this.getCostconterList({});
-                   this.getProjectList({});
+                initKj: function () {
+                    this.getEmployeeList({});
+                    this.getCostconterList({});
+                    this.getProjectList({});
+                    this.getXlCityList({});
 
                 },
-                selectCcry:function(val,data) {
+                selectCcry: function (val, data) {
 
                 },
-                selectCfd:function(index,val,data) {
+                selectCfd: function (index, val, data) {
                     debugger
                     console.log(data);
                 },
-                selectMdd:function(index,val,data){
+                selectMdd: function (index, val, data) {
                     debugger
 
                 },
-                selectCbzx:function(index,val,data){
+                selectCbzx: function (index, val, data) {
                     debugger
 
                 },
-                selectProject:function(val,data){
+                selectProject: function (val, data) {
                     debugger
 
                 },
@@ -169,55 +169,85 @@ window.onload = function () {
                 },
                 addCcsqd: function () {
                     // 打开新增页面
-                    app.modalData.addModal=true;
+                    console.log(app.cityXlList);
+                    app.modalData.addModal=false;
+                    setTimeout(function(){
+                        app.modalData.addModal = true;
+                    },11)
+
 
                 },
-                okAddCcsqd:function(){
+                okAddCcsqd: function () {
+                    app.modalData.addModal = true;
+                    console.log(app.addCcsqdData);
+                    var xchj = app.addCcsqdData.xcjh;
+                    if(xchj) {
+                        $.each(xchj,function(ii,val) {
+                            if(val.cfdArr) {
+                                var cfd=val.cfdArr[0];
+                                val.cfd=cfd;
+                            }
+                            if(val.mddArr) {
+                                var mdd = val.mddArr[0];
+                                val.mdd=mdd;
+                            }
+
+                        })
+                    }
+                    var insertCcsqd;
+                    debugger
+                    $.ajax({
+                        url: "/custom/repccsqb/insertCcsqb",
+                        type: "post",
+                        data: JSON.stringify(insertCcsqd),
+                        success: function (resule) {
+                            console.log(resule)
+                        }
+                    })
 
                 },
-                cancel:function(){},
+                cancel: function () {
+                },
                 //新增行程计划
-                addXcjh:function(){
+                addXcjh: function () {
                     var xcArr = app.addCcsqdData.xcjh;
-                    var length=xcArr.length;
-                    var lastXcData=xcArr[length-1];
+                    var length = xcArr.length;
+                    var lastXcData = xcArr[length - 1];
                     // cfmrsj 出发默认时间
-                    var adddata={cfd:"",mdd:"",cfsj:lastXcData.ddsj,ddsj:"",sxh:"",cfmrsj:lastXcData};
+                    var adddata = {cfd: "", mdd: "", cfsj: lastXcData.ddsj, ddsj: "", sxh: "", cfmrsj: lastXcData};
                     app.addCcsqdData.xcjh.push(adddata);
                 },
                 //删除行程计划
-                deleteXc:function(index){
+                deleteXc: function (index) {
                     var xcArr = app.addCcsqdData.xcjh;
-                    xcArr=xcArr.splice(0, index);
-                    app.addCcsqdData.xcjh=xcArr;
+                    xcArr = xcArr.splice(0, index);
+                    app.addCcsqdData.xcjh = xcArr;
                 },
                 //文件上传成功时候回调
-                successFile:function(response,file,fileList){
+                successFile: function (response, file, fileList) {
                     console.log(response);
                     console.log(file);
                     console.log(fileList);
 
                 },
                 //文件上传失败 回调
-                errorFile:function(error,file,fileList) {
+                errorFile: function (error, file, fileList) {
                     console.log(error);
                     console.log(file);
                     console.log(fileList);
                 },
                 // 上传文件之前的钩子
-                handleUpload:function(file){
+                handleUpload: function (file) {
                     console.log(file);
                     app.modalData.fjFile.push(file);
                 },
                 //删除上传的文件
-                delFile:function(index) {
+                delFile: function (index) {
                     var fileDate = app.modalData.fjFile.splice(index, 0);
-                    app.modalData.fjFile=fileDate;
+                    app.modalData.fjFile = fileDate;
                 }
             },
-            watch: {
-
-            }
+            watch: {}
         });
     }
 

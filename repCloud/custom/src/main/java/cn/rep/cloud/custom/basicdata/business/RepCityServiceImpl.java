@@ -151,6 +151,7 @@ public class RepCityServiceImpl {
         return repCityService.getCityCountryByCsid(csid);
     }
 
+
     /**
      * 查询下拉城市控件
      * @return
@@ -158,5 +159,4 @@ public class RepCityServiceImpl {
     public List<RepCity> getXlCityKj(){
         return repCityService.getXlCityKj();
     }
-
 }

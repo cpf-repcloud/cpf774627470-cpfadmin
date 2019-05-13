@@ -440,20 +440,23 @@ window.onload = function () {
             success: function (data) {
                 //console.log(data);
                 data5 = [];
-                $.each(data.result, function (i, val) {
-                    if (val.zt == "1") {
-                        val.zt = true;
-                    } else if (val.zt == "0") {
-                        val.zt = false;
+                if(data) {
+                    $.each(data.result, function (i, val) {
+                        if (val.zt == "1") {
+                            val.zt = true;
+                        } else if (val.zt == "0") {
+                            val.zt = false;
+                        }
+                        val.gwjb = val.gwjb + "级";
+                        val.gwjbid = val.gwjb;
+                        val.bcbh = "0";
+                        data5.push(val);
+                    })
+                    if (app) {
+                        app.data5 = data5;
                     }
-                    val.gwjb = val.gwjb + "级";
-                    val.gwjbid = val.gwjb;
-                    val.bcbh = "0";
-                    data5.push(val);
-                })
-                if (app) {
-                    app.data5 = data5;
                 }
+
             },
             error: function (e) {
                 console.log(e);

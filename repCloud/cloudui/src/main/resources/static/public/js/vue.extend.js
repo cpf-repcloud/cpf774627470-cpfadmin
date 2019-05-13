@@ -27,15 +27,15 @@ Vue.mixin({
                 contentType: "application/json;charset=UTF-8",
                 success: function (response) {
                     _this.igrid.loading = false;
-                    if (response.status && response.status === "200"&&response.result) {
+                    if (response.status && response.status === "200" && response.result) {
                         _this.pagedata = response.result.records;
                         _this.ipage.total = response.result.total;
                         _this.ipage.size = response.result.size;
                         _this.ipage.current = response.result.current;
                         _this.data = response.result.records;
-                        if(_this.gridSuccsess && Object.prototype.toString.call(_this.gridSuccsess) === "[object Function]"){
+                        if (_this.gridSuccsess && Object.prototype.toString.call(_this.gridSuccsess) === "[object Function]") {
                             _this.gridSuccsess(response);
-                        }else{
+                        } else {
                             new Error("please config 'gridSuccsess' methods in your vue instance!");
                         }
                     } else {
@@ -78,21 +78,21 @@ Vue.mixin({
             this.ipage.size = pageSize;
             this.changePage(1);
         },
-        getUser:function(){
-           var  _this = this;
+        getUser: function () {
+            var _this = this;
             $.ajax({
-                url:"/custom/repEmployee/getUser",
-                success:function(data) {
+                url: "/custom/repEmployee/getUser",
+                success: function (data) {
                     debugger
-                    _this.user=data.result;
+                    _this.user = data.result;
                 }
             })
         },
         // 获取员工控件信息
-        getEmployeeList:function(data){
-            var  _this = this;
-            if(!data){
-                data={};
+        getEmployeeList: function (data) {
+            var _this = this;
+            if (!data) {
+                data = {};
             }
             $.ajax({
                 type: "POST",
@@ -103,17 +103,17 @@ Vue.mixin({
                 contentType: "application/json;charset=UTF-8",
                 success: function (response) {
                     if (response.status && response.status === "200") {
-                        var   employeeList = response.result;
+                        var employeeList = response.result;
                         _this.employeeList = employeeList;
                     }
                 }
             })
         },
         // 获取城市控件数据
-        getCountryList:function(data){
-            var  _this = this;
-            if(!data){
-                data={};
+        getCountryList: function (data) {
+            var _this = this;
+            if (!data) {
+                data = {};
             }
             $.ajax({
                 type: "POST",
@@ -129,11 +129,11 @@ Vue.mixin({
                 }
             });
         },
-       //获取成本中心控件数据
-        getCostconterList:function(data){
-            var  _this = this;
-            if(!data){
-                data={};
+        //获取成本中心控件数据
+        getCostconterList: function (data) {
+            var _this = this;
+            if (!data) {
+                data = {};
             }
             $.ajax({
                 type: "POST",
@@ -151,10 +151,10 @@ Vue.mixin({
             });
         },
         ///项目控件
-        getProjectList:function(data) {
-            var  _this = this;
-            if(!data){
-                data={};
+        getProjectList: function (data) {
+            var _this = this;
+            if (!data) {
+                data = {};
             }
             $.ajax({
                 type: "POST",
@@ -165,17 +165,17 @@ Vue.mixin({
                 success: function (response) {
                     if (response.status && response.status === "200") {
                         _this.projectList = response.result;
-                        console.log("projectList",_this.projectList)
+                        console.log("projectList", _this.projectList)
                     }
 
                 }
             });
         },
         ///部门控件
-        getDeptList:function(data){
-            var  _this = this;
-            if(!data){
-                data={};
+        getDeptList: function (data) {
+            var _this = this;
+            if (!data) {
+                data = {};
             }
             $.ajax({
                 type: "POST",
@@ -190,7 +190,30 @@ Vue.mixin({
 
                 }
             });
-        }
+        },
+        //下拉员工控件
+        getXlCityList: function (data) {
+            debugger
+            var _this = this;
+            if (!data) {
+                data = {};
+            }
+            $.ajax({
+                type: "POST",
+                url: "/custom/kj/city/getXlCityList",
+                data: JSON.stringify(data),
+                dataType: "json",
+                contentType: "application/json;charset=UTF-8",
+                success: function (response) {
+                    debugger
+                    if (response.status && response.status === "200") {
+                        debugger
+                        _this.cityXlList = response.result;
+                    }
 
+                }
+            });
+
+        }
     }
 });
