@@ -11,8 +11,6 @@ import cn.rep.cloud.custom.coreutils.jedis.RedisServiceImpl;
 import cn.rep.cloud.custom.coreutils.utils.SerializeUtil;
 import cn.rep.cloud.custom.openapi.kjController.basecommon.cskj.bean.KjCsRequest;
 import cn.rep.cloud.custom.openapi.kjController.basecommon.cskj.bean.KjCsResponse;
-import cn.rep.cloud.custom.openapi.kjController.basecommon.cskj.bean.KjCsXlResponse;
-import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import cn.rep.cloud.custom.openapi.kjController.basecommon.cskj.bean.KjXlCsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -68,22 +66,9 @@ public class CityKjController {
             RedisModel redisModel = (RedisModel) SerializeUtil.unSerialize(citykj);
             repCityList = redisModel.getResultLists();
         }
-        return new RestResponse(getXlCitys(repCityList));
+        return new RestResponse(repCityList);
     }
 
 
-    private List<KjCsXlResponse> getXlCitys(List<RepCity> repCityList){
-        List<KjCsXlResponse> responses = new ArrayList<>();
-        if (CollectionUtils.isNotEmpty(repCityList)) {
-            for (RepCity city : repCityList) {
-                KjCsXlResponse  cityxl=new KjCsXlResponse();
-                cityxl.setId(city.getBh());
-                cityxl.setValue(city.getBh());
-                cityxl.setName(city.getMc());
-                responses.add(cityxl);
-            }
 
-        }
-        return responses;
-    }
 }
