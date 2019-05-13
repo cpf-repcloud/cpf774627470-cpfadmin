@@ -9,6 +9,7 @@ import cn.rep.cloud.custom.basicdata.vo.RepCityVO;
 import cn.rep.cloud.custom.basicdata.vo.RepCountryVO;
 import cn.rep.cloud.custom.coreutils.common.PageCopyUtil;
 import cn.rep.cloud.custom.coreutils.common.PageDTO;
+import cn.rep.cloud.custom.openapi.kjController.basecommon.cskj.bean.KjXlCsResponse;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import org.apache.commons.lang.StringUtils;
@@ -89,7 +90,7 @@ public class RepCityService {
         return repCityMapper.getCityCountryByCsid(csid);
     }
 
-    public List<RepCity> getXlCityKj(){
+    public List<KjXlCsResponse> getXlCityKj(){
         return repCityMapper.getXlCityKj();
     }
 }

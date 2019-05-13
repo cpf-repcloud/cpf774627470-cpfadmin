@@ -11,6 +11,7 @@ import cn.rep.cloud.custom.coreutils.common.PageDTO;
 import cn.rep.cloud.custom.coreutils.common.VeCollectionUtils;
 import cn.rep.cloud.custom.openapi.kjController.basecommon.cskj.bean.CityBean;
 import cn.rep.cloud.custom.openapi.kjController.basecommon.cskj.bean.KjCsResponse;
+import cn.rep.cloud.custom.openapi.kjController.basecommon.cskj.bean.KjXlCsResponse;
 import com.baomidou.mybatisplus.plugins.Page;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -156,7 +157,8 @@ public class RepCityServiceImpl {
      * 查询下拉城市控件
      * @return
      */
-    public List<RepCity> getXlCityKj(){
-        return repCityService.getXlCityKj();
+    public List<KjXlCsResponse> getXlCityKj(){
+        List<KjXlCsResponse> responseList = repCityService.getXlCityKj();
+        return responseList;
     }
 }

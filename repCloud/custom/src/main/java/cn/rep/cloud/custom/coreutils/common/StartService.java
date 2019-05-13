@@ -8,6 +8,7 @@ import cn.rep.cloud.custom.basicdata.vo.RepCountryVO;
 import cn.rep.cloud.custom.coreutils.jedis.RedisModel;
 import cn.rep.cloud.custom.coreutils.jedis.RedisServiceImpl;
 import cn.rep.cloud.custom.coreutils.utils.SerializeUtil;
+import cn.rep.cloud.custom.openapi.kjController.basecommon.cskj.bean.KjXlCsResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class StartService implements ApplicationRunner {
         redisService.removeByKey(Constants.CITY_XLKJ);
         //再将城市下拉控件缓存
         RedisModel redisModel = new RedisModel<>();
-        List<RepCity> list = repCityService.getXlCityKj();
+        List<KjXlCsResponse> list = repCityService.getXlCityKj();
         redisModel.setResultLists(list);
         logger.info("初始化城市下拉控件");
         redisService.put(Constants.CITY_XLKJ, SerializeUtil.serialize(redisModel),-1);
