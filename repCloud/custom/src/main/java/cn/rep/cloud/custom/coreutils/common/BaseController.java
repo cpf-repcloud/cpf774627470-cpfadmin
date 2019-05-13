@@ -25,7 +25,10 @@ public class BaseController {
     @ModelAttribute
     public void loginUser(){
         HttpSession session = request.getSession();
-        JSONObject object = (JSONObject)SerializeUtil.unSerialize((byte[])session.getAttribute(session.getId()));
-        loginUser = JSONUtil.toBean(object,RepYg.class);
+        byte[] result = (byte[])session.getAttribute(session.getId());
+        if (null != result){
+            JSONObject object = (JSONObject)SerializeUtil.unSerialize(result);
+            loginUser = JSONUtil.toBean(object,RepYg.class);
+        }
     }
 }
