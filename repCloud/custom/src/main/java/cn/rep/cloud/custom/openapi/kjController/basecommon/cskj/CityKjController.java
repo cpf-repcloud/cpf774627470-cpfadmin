@@ -11,6 +11,7 @@ import cn.rep.cloud.custom.coreutils.jedis.RedisServiceImpl;
 import cn.rep.cloud.custom.coreutils.utils.SerializeUtil;
 import cn.rep.cloud.custom.openapi.kjController.basecommon.cskj.bean.KjCsRequest;
 import cn.rep.cloud.custom.openapi.kjController.basecommon.cskj.bean.KjCsResponse;
+import cn.rep.cloud.custom.openapi.kjController.basecommon.cskj.bean.KjXlCsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,8 +57,8 @@ public class CityKjController {
     }
 
     @RequestMapping("getXlCityList")
-    public RestResponse<List<RepCity>> getXlCityList(){
-        List<RepCity> repCityList = new ArrayList<>();
+    public RestResponse<List<KjXlCsResponse>> getXlCityList(){
+        List<KjXlCsResponse> repCityList = new ArrayList<>();
         byte[] citykj = redisService.getByKey(Constants.CITY_XLKJ);
         if (null == citykj){
             repCityList = repCityService.getXlCityKj();

@@ -1,9 +1,12 @@
 package cn.rep.cloud.custom.openapi.kjController.baseBean;
 
+
+import java.io.Serializable;
+
 /**
  * 控件基础bean
  */
-public class KjBaseResponse {
+public class KjBaseResponse implements Serializable {
     /**
      * id 用于搜索的id,可以为编号,工号等
      */

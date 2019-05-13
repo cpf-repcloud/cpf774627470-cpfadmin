@@ -45,7 +45,7 @@
         where sf.id=cs.szsf and cs.bh = #{id}
     </select>
 
-    <select id="getXlCityKj" resultType="cn.rep.cloud.custom.basicdata.entity.RepCity">
-        select * from rep_city where szsf like ('020%') order by szsf
+    <select id="getXlCityKj" resultType="cn.rep.cloud.custom.openapi.kjController.basecommon.cskj.bean.KjXlCsResponse">
+        select ct.bh as id,ct.mc as name,ct.* from rep_city ct where szsf like ('020%') order by szsf
     </select>
 </mapper>

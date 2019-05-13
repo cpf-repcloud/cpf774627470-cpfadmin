@@ -5,6 +5,7 @@ import cn.rep.cloud.custom.basicdata.entity.RepCity;
 import cn.rep.cloud.custom.basicdata.vo.BasicDataBean;
 import cn.rep.cloud.custom.basicdata.vo.RepCityVO;
 import cn.rep.cloud.custom.basicdata.vo.RepCountryVO;
+import cn.rep.cloud.custom.openapi.kjController.basecommon.cskj.bean.KjXlCsResponse;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import org.apache.ibatis.annotations.Mapper;
@@ -29,5 +30,5 @@ public interface RepCityMapper extends BaseMapper<RepCity> {
 
     RepCityDTO getCityCountryByCsid(@Param("id") String id);
 
-    List<RepCity> getXlCityKj();
+    List<KjXlCsResponse> getXlCityKj();
 }
