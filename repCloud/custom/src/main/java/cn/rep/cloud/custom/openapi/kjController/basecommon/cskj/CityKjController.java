@@ -1,19 +1,21 @@
 package cn.rep.cloud.custom.openapi.kjController.basecommon.cskj;
 
+import cn.rep.cloud.custom.basecommon.common.Constants;
 import cn.rep.cloud.custom.basicdata.business.RepCityServiceImpl;
 import cn.rep.cloud.custom.basicdata.dto.RepCityDTO;
 import cn.rep.cloud.custom.basicdata.entity.RepCity;
 import cn.rep.cloud.custom.coreutils.common.PageDTO;
 import cn.rep.cloud.custom.coreutils.common.RestResponse;
+import cn.rep.cloud.custom.coreutils.jedis.RedisModel;
+import cn.rep.cloud.custom.coreutils.jedis.RedisServiceImpl;
+import cn.rep.cloud.custom.coreutils.utils.SerializeUtil;
 import cn.rep.cloud.custom.openapi.kjController.basecommon.cskj.bean.KjCsRequest;
 import cn.rep.cloud.custom.openapi.kjController.basecommon.cskj.bean.KjCsResponse;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,6 +23,8 @@ import java.util.List;
 public class CityKjController {
     @Autowired
     private RepCityServiceImpl repCityService;
+    @Autowired
+    private RedisServiceImpl redisService;
 
     /**
      * 查询城市list
@@ -48,5 +52,13 @@ public class CityKjController {
         pageDTO.setData(dto);
         KjCsResponse response = repCityService.getSearchCity(pageDTO);
         return new RestResponse(response);
+    }
+
+    @RequestMapping("getXlCityList")
+    public RestResponse<List<RepCity>> getXlCityList(){
+        byte[] citykj = redisService.getByKey(Constants.CITY_XLKJ);
+        RedisModel redisModel = (RedisModel) SerializeUtil.unSerialize(citykj);
+        List<RepCity> repCityList = redisModel.getResultLists();
+        return new RestResponse(repCityList);
     }
 }
