@@ -30,4 +30,6 @@ public class Constants {
     public static final String CITY_LJKJ = "city_ljkj";
 
     public static final String CITY_XLKJ = "city_xlkj";
+
+    public static final String CITY_KJ = "city_kj";
 }

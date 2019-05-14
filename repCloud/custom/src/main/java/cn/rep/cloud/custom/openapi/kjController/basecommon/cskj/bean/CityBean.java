@@ -1,6 +1,8 @@
 package cn.rep.cloud.custom.openapi.kjController.basecommon.cskj.bean;
 
-public class CityBean {
+import java.io.Serializable;
+
+public class CityBean implements Serializable {
     /**
      * 城市id
      */

@@ -2,9 +2,10 @@ package cn.rep.cloud.custom.openapi.kjController.basecommon.cskj.bean;
 
 import cn.rep.cloud.custom.openapi.kjController.baseBean.KjBaseResponse;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class KjCsResponse extends KjBaseResponse {
+public class KjCsResponse extends KjBaseResponse implements Serializable{
 
     /**
      * 城市编号

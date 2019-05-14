@@ -35,9 +35,16 @@ public class CityKjController {
      */
     @RequestMapping("getCityList")
     public RestResponse<List<RepCity>> getCityList(@RequestBody KjCsRequest request){
+        List<KjCsResponse> repCityList = new ArrayList<>();
         RepCityDTO dto = new RepCityDTO();
-        List<KjCsResponse> csList = repCityService.getCityList(dto);
-        return new RestResponse(csList);
+        byte[] citykj = redisService.getByKey(Constants.CITY_KJ);
+        if (null == citykj){
+            repCityList = repCityService.getCityList(dto);
+        }else{
+            RedisModel redisModel = (RedisModel) SerializeUtil.unSerialize(citykj);
+            repCityList = redisModel.getResultLists();
+        }
+        return new RestResponse(repCityList);
     }
 
     /**
