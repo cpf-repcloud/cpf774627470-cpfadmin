@@ -1,5 +1,8 @@
 package cn.rep.cloud.custom.billmanagement.ccsqd.vo;
 
+import cn.rep.cloud.custom.coreutils.constants.CcsqdSpZtEnum;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Date;
 import java.util.List;
 
@@ -60,8 +63,6 @@ public class RepCcsqbVO {
      * 送审时间
      */
     private String sssj;
-
-
     /**
      * 审批时间
      */
@@ -89,8 +90,6 @@ public class RepCcsqbVO {
      * 报销人
      */
     private String bxr;
-
-
     /**
      * 是否送审，送审一次次数加1
      */
@@ -187,6 +186,10 @@ public class RepCcsqbVO {
      */
     private List<RepCcsqbFjbVO> fjList;
 
+
+    private String cclxMc;
+
+    private String djztMc;
 
     public List<RepCcsqbRcVO> getRcList() {
         return rcList;
@@ -498,5 +501,26 @@ public class RepCcsqbVO {
 
     public void setCcsy(String ccsy) {
         this.ccsy = ccsy;
+    }
+
+    public String getCclxMc() {
+        if (StringUtils.equals(cclx, "1")) {
+            cclxMc = "部门出差";
+        } else if (StringUtils.equals(cclx, "2")) {
+            cclxMc = "项目出差";
+        }
+        return cclxMc;
+    }
+
+    public void setCclxMc(String cclxMc) {
+        this.cclxMc = cclxMc;
+    }
+
+    public String getDjztMc() {
+        return  CcsqdSpZtEnum.getSpztName(this.djzt);
+    }
+
+    public void setDjztMc(String djztMc) {
+        this.djztMc = djztMc;
     }
 }

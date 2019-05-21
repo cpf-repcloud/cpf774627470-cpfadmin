@@ -169,9 +169,10 @@
             :scrollable="true"
             width="1000"
             height="600"
+            :loading="modalData.loading"
             class="vetech-modal"
             @on-cancel="cancel">
-        <i-form :model="addCcsqdData" ref="rankEdit" label-width="20" class="m15">
+        <i-form :model="addCcsqdData" ref="addCcsqdData" label-width="20" class="m15">
             <div>
                 <div>
                     <div class="tagClass">
@@ -183,17 +184,17 @@
                     <Row>
                         <i-col :sm="24" :md="12" :lg="8">
                             <form-item label="申请人" :label-width="100">
-                                <span>曹鹏飞/2222</span>
+                                <span>{{user.xm}}/{{user.gh}}</span>
                             </form-item>
                         </i-col>
                         <i-col :sm="24" :md="12" :lg="8">
                             <form-item label="当前部门" :label-width="100">
-                                <span>研发部</span>
+                                <span>{{user.bmmc}}</span>
                             </form-item>
                         </i-col>
                         <i-col :sm="24" :md="12" :lg="8">
                             <form-item label="申请时间" :label-width="100">
-                                <span>2018-02-12 18:52:23</span>
+                                <span>{{nowTime}}</span>
                             </form-item>
                         </i-col>
                     </Row>
@@ -217,28 +218,36 @@
                                 </i-select>
                             </form-item>
                         </i-col>
+
                         <i-col :sm="24" :md="12" :lg="8">
-                            <form-item label="项目" :label-width="100" v-if="addCcsqdData.cclx=='1'">
-                                <pulldown v-if="modalData.addModal&&addCcsqdData.cclx=='1'" v-model="addCcsqdData.xmbh"  class="demo-input" data-type="1" :data-source="projectList" @on-change="selectProject"></pulldown>
+                            <form-item label="成本中心" :label-width="100"
+                                       prop="cbzx" :rules=" { required: true,type: 'array', message: '成本中心不能为空', trigger: 'change' }">
+                                <pulldown v-if="modalData.addModal" v-model="addCcsqdData.cbzx"
+                                          class="demo-input" data-type="1" :data-source="costcenterList" @on-change="selectCbzx"></pulldown>
                             </form-item>
                         </i-col>
-                        <i-col :sm="24" :md="12" :lg="8" v-if="addCcsqdData.cclx=='2'">
-                            <form-item label="成本中心" :label-width="100" >
-                                <pulldown v-if="modalData.addModal&&addCcsqdData.cclx=='2'" v-model="addCcsqdData.cbzx"  class="demo-input" data-type="1" :data-source="costcenterList" @on-change="selectCbzx"></pulldown>
+                        <i-col :sm="24" :md="12" :lg="8">
+                            <form-item label="项目" :label-width="100" v-if="addCcsqdData.cclx=='1'"
+                                       prop="xmbh" :rules=" { required: true, type: 'array', message: '项目不能为空', trigger: 'change' }">
+                                <pulldown v-if="modalData.addModal&&addCcsqdData.cclx=='1'" v-model="addCcsqdData.xmbh"
+                                          class="demo-input" data-type="1" :data-source="projectList" @on-change="selectProject"></pulldown>
                             </form-item>
                         </i-col>
                     </Row>
                     <Row>
                         <i-col :sm="24" :md="24" :lg="24">
-                            <form-item label="出差事由" :label-width="100" >
+                            <form-item label="出差事由" :label-width="100"
+                                       prop="ccsy" :rules="{required: true,message: '出差事由不能为空', trigger: 'blur' }">
                                 <i-input placeholder="出差事由" type="text" v-model="addCcsqdData.ccsy"></i-input>
                             </form-item>
                         </i-col>
                     </Row>
                     <Row>
                         <i-col :sm="24" :md="24" :lg="24">
-                            <form-item label="出差人员" :label-width="100">
-                                <pulldown v-if="modalData.addModal" v-model="addCcsqdData.ccry" :multiple="true" class="demo-input" data-type="1" :data-source="employeeList" @on-change="selectCcry"></pulldown>
+                            <form-item label="出差人员" :label-width="100" prop="ccryStr"
+                                       :rules=" { required: true,type: 'array', message: '出差人员不能为空', trigger: 'change' }">
+                                <pulldown v-if="modalData.addModal" v-model="addCcsqdData.ccryStr" :multiple="true" class="demo-input" data-type="1"
+                                          :data-source="employeeList" @on-change="selectCcry"></pulldown>
                             </form-item>
                         </i-col>
 
@@ -265,24 +274,43 @@
                     <div v-for="(xc,index) in addCcsqdData.xcjh" class="whrap">
                         <Row>
                             <i-col :sm="24" :md="8" :lg="8">
-                                <form-item label="出发地" :label-width="100" >
-                                    <pulldown v-if="modalData.addModal" v-model="xc.cfdArr"
-                                              class="demo-input" data-type="1" :data-source="cityXlList" @on-change="selectCfd"></pulldown>
+                                <form-item label="出发地" :label-width="100" :prop="`xcjh.${index}.cfdArr`"
+                                           :rules="{ required: true, message: '出发地不能为空', trigger: 'blur' }">
+                                    <Tag :checkable="xc.jtgj=='1'" color="primary">飞机</Tag>
+                                    <Tag :checkable="xc.jtgj=='2'" color="primary">火车</Tag>
+                                    <Tag :checkable="xc.jtgj=='3'" color="primary">汽车</Tag>
+                                    <Tag :checkable="xc.jtgj=='4'" color="primary">其他</Tag>
                                 </form-item>
                             </i-col>
                             <i-col :sm="24" :md="8" :lg="8">
-                                <form-item label="目的地" :label-width="100">
-                                    <pulldown v-if="modalData.addModal" v-model="xc.mddArr"  class="demo-input" data-type="1" :data-source="cityXlList" @on-change="selectMdd"></pulldown>
+                                <form-item label="出发地" :label-width="100" :prop="`xcjh.${index}.cfdArr`"
+                                           :rules="{ required: true, message: '出发地不能为空', trigger: 'blur' }">
+                                    <ve-citycard :search="true" placeholder="search..." v-model="xc.cfdArr"
+                                                 @data-change="dataChange(index,$event,'cfd',`xcjh.${index}.cfdArr`)" search-url="/custom/kj/city/getSearchCity" slide-url="/custom/kj/city/getCityList"></ve-citycard></br>
+                                    <!--<pulldown v-if="modalData.addModal" v-model="xc.cfdArr"
+                                              class="demo-input" data-type="1" :data-source="cityXlList" @on-change="selectCfd"></pulldown>-->
                                 </form-item>
                             </i-col>
                             <i-col :sm="24" :md="8" :lg="8">
-                                <form-item label="出发时间" :label-width="100">
-                                    <Date-Picker type="date" v-model="xc.cfsj" clearable></Date-Picker>
+                                <form-item label="目的地" :label-width="100" :prop="`xcjh.${index}.mddArr`"
+                                           :rules="{required: true, message: '目的地不能为空', trigger: 'blur' }
+                                            ">
+                                    <ve-citycard :search="true" placeholder="search..." v-model="xc.mddArr" @data-change="dataChange(index,$event,'mdd',`xcjh.${index}.mddArr`)" search-url="/custom/kj/city/getSearchCity" slide-url="/custom/kj/city/getCityList"></ve-citycard></br>
+                                    <!--<pulldown v-if="modalData.addModal" v-model="xc.mddArr"  class="demo-input" data-type="1" :data-source="cityXlList" @on-change="selectMdd"></pulldown>-->
+                                </form-item>
+                            </i-col>
+                            <i-col :sm="24" :md="8" :lg="8" >
+                                <form-item label="出发时间" :label-width="100" :prop="`xcjh.${index}.cfsj`"
+                                           :rules="{required: true, message: '出发时间不能为空', trigger: 'change' }">
+                                    <Date-Picker type="date"  :options="xc.startTimeOption"
+                                                 @on-change="onStartTimeChange(index,xc.ddsj,$event)"
+                                                 v-model="xc.cfsj" clearable></Date-Picker>
                                 </form-item>
                             </i-col>
                             <i-col :sm="24" :md="8" :lg="8">
-                                <form-item label="到达时间" :label-width="100">
-                                    <Date-Picker type="date" v-model="xc.ddsj" clearable></Date-Picker>
+                                <form-item label="到达时间" :label-width="100" :prop="`xcjh.${index}.ddsj`"
+                                           :rules=" {required: true, message: '到达时间不能为空', trigger: 'change' }">
+                                    <Date-Picker type="date"  v-model="xc.ddsj"  :options="xc.endTimeOption" @on-change="onEndTimeChange(index,xc.cfsj,$event)"  clearable></Date-Picker>
                                 </form-item>
                             </i-col>
                             <div v-if="index>0" class="scxcDemo cur-pointer" @click="deleteXc(index)">
@@ -290,8 +318,8 @@
                             </div>
                         </Row>
                     </div>
-                    <div class="xzxcDemo">
-                            <span @click="addXcjh">
+                    <div class="xzxcDemo" @click="addXcjh">
+                            <span >
                                  <Icon type="ios-add-circle-outline"></Icon>
                             <span>
                                 新增行程
@@ -316,7 +344,8 @@
                                         @on-error="errorFile"
                                         type="drag"
                                         :before-upload="handleUpload"
-                                        action="">
+                                        action=""
+                                >
                                     <div style="padding: 20px 0">
                                         <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
                                         <p>上传文件</p>
@@ -324,7 +353,7 @@
                                 </Upload>
                             </i-col>
                             <i-col :sm="24" :md="12" :lg="12">
-                                <div v-for="(file, index) in modalData.fjFile">
+                                <div v-for="(file, index) in fjFile">
                                     <div class="disin fl ml20">{{file.name}}</div>
                                     <div class="disin fr mr20"><span class="cur-pointer" @click.stop="delFile(index)"><Icon type="md-close" class="" /></span></div>
                                 </div>
@@ -336,8 +365,6 @@
             </div>
         </i-form>
     </Modal>
-
-
 
     <!--出差申请单详情页面-->
         <Drawer :closable="false" width="640" v-model="model">

@@ -1,12 +1,9 @@
 package cn.rep.cloud.custom.billmanagement.ccsqd.business;
 
-import cn.rep.cloud.custom.basecommon.project.entity.RepXm;
-import cn.rep.cloud.custom.basecommon.project.service.vo.ProDataVo;
 import cn.rep.cloud.custom.billmanagement.ccsqd.dto.RepCcsqbDTO;
 import cn.rep.cloud.custom.billmanagement.ccsqd.dto.RepCcsqbRcDTO;
 import cn.rep.cloud.custom.billmanagement.ccsqd.dto.RepCcsqbRyDTO;
 import cn.rep.cloud.custom.billmanagement.ccsqd.dto.RepCcsqbFjbDTO;
-import cn.rep.cloud.custom.billmanagement.ccsqd.entity.RepCcsqbFjb;
 import cn.rep.cloud.custom.billmanagement.ccsqd.service.RepCcsqbFjbService;
 import cn.rep.cloud.custom.billmanagement.ccsqd.service.RepCcsqbRcService;
 import cn.rep.cloud.custom.billmanagement.ccsqd.service.RepCcsqbRyService;
@@ -16,19 +13,18 @@ import cn.rep.cloud.custom.billmanagement.ccsqd.vo.RepCcsqbRcVO;
 import cn.rep.cloud.custom.billmanagement.ccsqd.vo.RepCcsqbRyVO;
 import cn.rep.cloud.custom.billmanagement.ccsqd.vo.RepCcsqbVO;
 import cn.rep.cloud.custom.billmanagement.common.Constants;
-import cn.rep.cloud.custom.coreutils.common.IdGenerator;
-import cn.rep.cloud.custom.coreutils.common.PageCopyUtil;
-import cn.rep.cloud.custom.coreutils.common.PageDTO;
-import cn.rep.cloud.custom.coreutils.utils.BeanMapper;
+import cn.rep.cloud.custom.coreutils.common.*;
+import cn.rep.cloud.custom.coreutils.fileupload.FileInfoBean;
+import cn.rep.cloud.custom.coreutils.fileupload.FileUploadService;
 import cn.rep.cloud.custom.coreutils.utils.DateUtils;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.beans.Transient;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,6 +45,9 @@ public class RepCcsqbBusinessService {
 
     @Autowired
     private RepCcsqbFjbService repCcsqbFjbService;
+
+    @Autowired
+    private FileUploadService fileUploadService;
 
 
     /**
@@ -72,7 +71,7 @@ public class RepCcsqbBusinessService {
      * @return
      */
     @Transient
-    public Boolean insertCcsqd(RepCcsqbDTO dto) {
+    public Boolean insertCcsqd(RepCcsqbDTO dto,List<MultipartFile> files) {
         String sqdh = "SQ" + DateUtils.getTimeStr() + DateUtils.getNo(5);
         dto.setSqdh(sqdh);
         dto.setBxzt(Constants.BXZT_WBX_0);
@@ -81,7 +80,13 @@ public class RepCcsqbBusinessService {
         if (isFul) {
             insertRc(dto.getRcList(), sqdh);
             insertRy(dto.getRyList(), sqdh);
-            insertFj(dto.getFjList(), sqdh);
+
+        }
+        if (isFul&&CollectionUtils.isNotEmpty(files)) {
+            List<FileInfoBean> fileInfoList = fileUploadService.uploadFile(files);
+            if (CollectionUtils.isNotEmpty(fileInfoList)) {
+                insertFj( sqdh,fileInfoList,dto);
+            }
         }
         return isFul;
     }
@@ -137,11 +142,17 @@ public class RepCcsqbBusinessService {
         return Boolean.TRUE;
     }
 
-    public Boolean insertFj(List<RepCcsqbFjbDTO> fjblist, String sqdh) {
-        if (CollectionUtils.isNotEmpty(fjblist)) {
-            for (RepCcsqbFjbDTO fjb : fjblist) {
+    public Boolean insertFj( String sqdh,List<FileInfoBean> fileInfoBeans,RepCcsqbDTO dto) {
+        List<RepCcsqbFjbDTO> fjblist=null;
+        if (CollectionUtils.isNotEmpty(fileInfoBeans)) {
+            for (FileInfoBean fileBean : fileInfoBeans) {
+                RepCcsqbFjbDTO fjb=new RepCcsqbFjbDTO();
                 fjb.setSqdh(sqdh);
                 fjb.setId(IdGenerator.getHexId());
+                fjb.setFjxzdz(fileBean.getDownloadUrl());
+                fjb.setCzr(dto.getSqrxm());
+                fjb.setFjmc(fileBean.getName());
+                fjb.setFjid(fileBean.getFileId());
                 repCcsqbFjbService.insertFj(fjb);
             }
         }

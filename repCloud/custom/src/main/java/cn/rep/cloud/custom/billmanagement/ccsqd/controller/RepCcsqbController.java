@@ -1,27 +1,34 @@
 package cn.rep.cloud.custom.billmanagement.ccsqd.controller;
 
+import cn.hutool.json.JSONUtil;
 import cn.rep.cloud.custom.billmanagement.ccsqd.business.RepCcsqbBusinessService;
 import cn.rep.cloud.custom.billmanagement.ccsqd.dto.RepCcsqbDTO;
-import cn.rep.cloud.custom.billmanagement.ccsqd.service.RepCcsqbService;
 import cn.rep.cloud.custom.billmanagement.ccsqd.vo.RepCcsqbVO;
 import cn.rep.cloud.custom.coreutils.common.BaseController;
 import cn.rep.cloud.custom.coreutils.common.PageDTO;
 import cn.rep.cloud.custom.coreutils.common.RestResponse;
+import cn.rep.cloud.custom.coreutils.utils.DateUtils;
 import com.baomidou.mybatisplus.plugins.Page;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.xml.ws.Response;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 出差申请单controller
  */
-@Controller
+@RestController
 @RequestMapping("repccsqb")
 public class RepCcsqbController extends BaseController {
 
@@ -37,14 +44,25 @@ public class RepCcsqbController extends BaseController {
     /**
      * 新增出差申请单
      *
-     * @param dto
      * @return
      */
     @RequestMapping("insertCcsqb")
-    public RestResponse<Boolean> insertCcsqb(@RequestBody RepCcsqbDTO dto) {
-        dto.setQybh(loginUser.getQybh());
-        dto.setGsid(loginUser.getGsid());
-        Boolean isSul = repCcsqbBusinessService.insertCcsqd(dto);
+    public RestResponse<Boolean> insertCcsqb(HttpServletRequest request) {
+        String addCcsqbData=request.getParameter("addCcsqdData");
+        MultipartHttpServletRequest  multipartHttpServletRequest=((MultipartHttpServletRequest)request);
+        RepCcsqbDTO dto=new RepCcsqbDTO();
+        if (StringUtils.isNotBlank(addCcsqbData)) {
+             dto=   JSONUtil.toBean(addCcsqbData, RepCcsqbDTO.class);
+            dto.setQybh(loginUser.getQybh());
+            dto.setGsid(loginUser.getGsid());
+            dto.setSqrid(loginUser.getId());
+            dto.setSqrxm(loginUser.getXm());
+            dto.setSqbm(loginUser.getBmid());
+            dto.setSqsj(DateUtils.getStringDate());
+            dto.setSfss(0);
+        }
+        List<MultipartFile> files= multipartHttpServletRequest.getFiles("file");
+        Boolean isSul = repCcsqbBusinessService.insertCcsqd(dto,files);
         return new RestResponse<Boolean>(isSul);
     }
 

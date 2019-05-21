@@ -38,6 +38,8 @@ public class RepCcsqbFjb {
      */
     private Date xgsj;
 
+    /*附件下载地址*/
+    private String fjxzdz;
 
     public Date getCjsj() {
         return cjsj;
@@ -141,5 +143,13 @@ public class RepCcsqbFjb {
 
     public void setFjid(String fjid) {
         this.fjid = fjid;
+    }
+
+    public String getFjxzdz() {
+        return fjxzdz;
+    }
+
+    public void setFjxzdz(String fjxzdz) {
+        this.fjxzdz = fjxzdz;
     }
 }

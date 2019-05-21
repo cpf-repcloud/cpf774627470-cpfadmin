@@ -12,7 +12,7 @@ public class RepCcsqb {
 
 
 
-    @TableId("id")
+    @TableId("sqdh")
     private String sqdh;
 
     private String qybh;

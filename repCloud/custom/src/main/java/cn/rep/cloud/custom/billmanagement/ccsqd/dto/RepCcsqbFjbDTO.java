@@ -34,6 +34,17 @@ public class RepCcsqbFjbDTO {
      */
     private Date xgsj;
 
+    /*附件下载地址*/
+    private String fjxzdz;
+
+
+    public String getFjxzdz() {
+        return fjxzdz;
+    }
+
+    public void setFjxzdz(String fjxzdz) {
+        this.fjxzdz = fjxzdz;
+    }
 
     public Date getCjsj() {
         return cjsj;

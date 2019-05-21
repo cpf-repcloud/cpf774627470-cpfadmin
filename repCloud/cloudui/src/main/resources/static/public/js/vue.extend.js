@@ -83,7 +83,7 @@ Vue.mixin({
             $.ajax({
                 url: "/custom/repEmployee/getUser",
                 success: function (data) {
-                    debugger
+                    
                     _this.user = data.result;
                 }
             })
@@ -143,7 +143,7 @@ Vue.mixin({
                 contentType: "application/json;charset=UTF-8",
                 success: function (response) {
                     if (response.status && response.status === "200") {
-                        debugger
+                        
                         _this.costcenterList = response.result;
                     }
 
@@ -193,7 +193,7 @@ Vue.mixin({
         },
         //下拉员工控件
         getXlCityList: function (data) {
-            debugger
+            
             var _this = this;
             if (!data) {
                 data = {};
@@ -205,9 +205,9 @@ Vue.mixin({
                 dataType: "json",
                 contentType: "application/json;charset=UTF-8",
                 success: function (response) {
-                    debugger
+                    
                     if (response.status && response.status === "200") {
-                        debugger
+                        
                         _this.cityXlList = response.result;
                     }
 

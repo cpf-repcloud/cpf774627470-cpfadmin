@@ -10,6 +10,8 @@ public class RepCcsqbRcDTO {
     private String  id ;
     private String  sqdh ;
     private String  mddid ;
+    private String cfdid;
+    private String cfdmc;
     private String  mddmc ;
     /**出发时间*/
     private String  cfsj ;
@@ -28,6 +30,22 @@ public class RepCcsqbRcDTO {
      */
     private Date xgsj;
 
+
+    public String getCfdid() {
+        return cfdid;
+    }
+
+    public void setCfdid(String cfdid) {
+        this.cfdid = cfdid;
+    }
+
+    public String getCfdmc() {
+        return cfdmc;
+    }
+
+    public void setCfdmc(String cfdmc) {
+        this.cfdmc = cfdmc;
+    }
 
     public Date getCjsj() {
         return cjsj;
