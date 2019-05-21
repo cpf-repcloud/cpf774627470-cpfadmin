@@ -46,6 +46,6 @@ public class PostRankKjController extends BaseController{
             }
 
         }
-        return new RestResponse(gwlist);
+        return new RestResponse(list);
     }
 }
