@@ -53,7 +53,7 @@ public class PostRankController extends BaseController {
     public RestResponse addRank(@RequestBody PostRankDataDTO dataDTO) throws Exception{
         String qybh = loginUser.getQybh();
         dataDTO.setQybh(qybh);
-        dataDTO.setGsid(loginUser.getQybh());
+        dataDTO.setGsid(loginUser.getGsid());
         dataDTO.setZhxgsj(DateUtils.getNow());
         dataDTO.setZhxgr(loginUser.getXm());
         int num = 0;
