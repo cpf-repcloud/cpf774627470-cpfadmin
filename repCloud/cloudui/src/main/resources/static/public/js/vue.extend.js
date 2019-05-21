@@ -193,7 +193,6 @@ Vue.mixin({
         },
         //下拉员工控件
         getXlCityList: function (data) {
-            
             var _this = this;
             if (!data) {
                 data = {};
@@ -214,6 +213,24 @@ Vue.mixin({
                 }
             });
 
+        },
+        getPostRankList:function(data) {
+            var _this = this;
+            if (!data) {
+                data = {};
+            }
+            $.ajax({
+                type: "POST",
+                url: "/custom/kj/postrank/getPostrankList",
+                data: JSON.stringify(data),
+                dataType: "json",
+                contentType: "application/json;charset=UTF-8",
+                success: function (response) {
+                    if (response.status && response.status === "200") {
+                        _this.postrankList = response.result;
+                    }
+                }
+            });
         }
     }
 });
