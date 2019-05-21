@@ -10,6 +10,7 @@ import cn.rep.cloud.custom.basecommon.post.entity.RepGw;
 import cn.rep.cloud.custom.basecommon.post.mapper.RepGwMapper;
 import cn.rep.cloud.custom.basecommon.post.vo.PostRankDataVO;
 import cn.rep.cloud.custom.basecommon.post.vo.SelectPostRankListVO;
+import cn.rep.cloud.custom.coreutils.common.IdGenerator;
 import cn.rep.cloud.custom.coreutils.utils.BeanMapper;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
@@ -58,6 +59,7 @@ public class RepGwService {
      * @return
      */
     public int addRank(PostRankDataDTO dataDTO) {
+        dataDTO.setId(IdGenerator.getHexId());
         RepGw gw = BeanMapper.map(dataDTO, RepGw.class);
         return repGwMapper.insert(gw);
     }

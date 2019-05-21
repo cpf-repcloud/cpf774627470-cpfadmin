@@ -23,7 +23,6 @@ public class RepGw {
      * ID(主键)
      */
     @TableId("id")
-
     private String id;
 
     /**
