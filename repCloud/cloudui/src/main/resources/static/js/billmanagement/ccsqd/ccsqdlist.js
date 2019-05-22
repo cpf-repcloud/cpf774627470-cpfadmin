@@ -9,6 +9,7 @@ window.onload = function () {
     var datas = [];
     var app;
     var tableData = [];
+    var ccsqdDetailData;
     var tableColumns = [
         {
             title: "序号",
@@ -26,7 +27,41 @@ window.onload = function () {
             title: "申请单号",
             width: 150,
             key: 'sqdh',
-            align: 'center'
+            align: 'center',
+            render: function (h, params) {
+                var sqdh=params.row.sqdh;
+                return h('div', [h('span', {
+                    style: {
+                        color: "#2d8cf0",
+                        fontSize: "12px",
+                        cursor: "pointer"
+                    },
+                    on: {
+                        click: function () {
+                            var data = {sqdh: params.row.sqdh};
+                            $.ajax({
+                                url: "/custom/repccsqb/queryCcsqbDetail",
+                                type: "post",
+                                dataType: "json",
+                                contentType: "application/json",
+                                data: JSON.stringify(data),
+                                success: function (res) {
+                                    console.log(res);
+                                    if (res && res.status == "200") {
+                                        ccsqdDetail = res.result;
+                                        app.ccsqdDetail = ccsqdDetail;
+                                    }
+
+                                    app.ccsqdDetailModel.detailModel = true;
+                                }
+                            })
+
+
+                        }
+                    }
+                }, sqdh)]);
+            },
+
         },
         {
             title: "单据状态",
@@ -66,9 +101,29 @@ window.onload = function () {
         },
 
     ];
+
+    var addCcsqdData=  {
+        ccryStr:[],
+        cbzx:[],
+        xmbh:[],
+        ccsy:"",
+        xcjh: [{
+            cfd: "", mdd: "", cfsj: "", ddsj: "", sxh: "",
+            cfdArr:"",mddArr:"",jtgj:"1",qtjtgj:"",dcwf:"1",
+            startTimeOption: {
+                disabledDate: function (dataTime) {
+            return dataTime < new Date(getTimeStr());
+            }
+            },
+            endTimeOption: {
+                disabledDate: function (dataTime) {
+                return dataTime < new Date(getTimeStr());
+            }
+            }
+            }],
+        cclx: "2"
+    }
     initVue();
-
-
     function initVue() {
         app = new Vue({
             el: "#app",
@@ -82,32 +137,16 @@ window.onload = function () {
                     datas: tableData,
                     columns: tableColumns
                 },
+                addCcsqdData:addCcsqdData,
                 modalData: {
                     addModal: false,
                     loading: true,
                 },
-                addCcsqdData: {
-                    ccryStr:[],
-                    cbzx:[],
-                    xmbh:[],
-                    ccsy:"",
-                    xcjh: [{
-                        cfd: "", mdd: "", cfsj: "", ddsj: "", sxh: "",
-                        cfdArr:"",mddArr:"",jtgj:"1",
-                        startTimeOption: {
-                            disabledDate: function (dataTime) {
-                                return dataTime < new Date(getTimeStr());
-                            }
-                        },
-                        endTimeOption: {
-                            disabledDate: function (dataTime) {
-                                return dataTime < new Date(getTimeStr());
-                            }
-                        }
-                    }],
-                    cclx: "2"
+                ccsqdDetailModel:{
+                    detailModel: false,
+                    detailtabValue:"1"
                 },
-                detailCcsqdData: {}, // 出差申请单详情数据
+                ccsqdDetailData: ccsqdDetailData, // 出差申请单详情数据
                 pStyle: {
                     fontSize: '16px',
                     color: 'rgba(0,0,0,0.85)',
@@ -115,7 +154,7 @@ window.onload = function () {
                     display: 'block',
                     marginBottom: '16px'
                 },
-                model: false,
+
                 fjFile: [],
                 employeeList: [],//员工控件数据
                 costcenterList: [],//成本中心控件数据
@@ -150,6 +189,7 @@ window.onload = function () {
                     this.getCostconterList({});
                     this.getProjectList({});
                     this.getUser();
+                    this.getPostRankList({});
                 },
                 timeFormate: function () {
                     var data = new Date();
@@ -328,8 +368,16 @@ window.onload = function () {
                                 dataType: 'json',
                                 processData: false,
                                 contentType: false,
-                                success: function (resule) {
-                                    console.log(resule);
+                                success: function (result) {
+                                    if (result&&result.status == 200) {
+                                        app.$Message.success("新增成功");
+                                        app.addCcsqdData = addCcsqdData;
+                                        app.modalData.loading = false;
+                                        app.modalData.addModal = false;
+                                    } else {
+                                        app.$Message.error("新增失败");
+                                    }
+                                    app.queryPage();
                                 }
                             })
                         }else {
@@ -368,7 +416,7 @@ window.onload = function () {
                         // cfmrsj 出发默认时间
                         var adddata = {
                             cfd: "", mdd: "", cfsj: "", ddsj: "", sxh: "", cfmrsj: "",
-                            cfdArr:"",mddArr:"",ccsy:"",
+                            cfdArr:"",mddArr:"",ccsy:"",jtgj:"1",qtjtgj:"",dcwf:"1",
                             startTimeOption: {
                                 disabledDate: function (dataTime) {
                                     return dataTime < new Date(getTimeStr()) ||  (lastXcData ? dataTime < new Date(app.formatTime(lastXcData)) :false);
@@ -432,6 +480,13 @@ window.onload = function () {
                     console.log(fileList);
 
                 },
+
+                changeJtgj:function(index,jtgj) {
+                    app.addCcsqdData.xcjh[index].jtgj=jtgj;
+                },
+                changeDcwf:function(index,dcwf) {
+                    app.addCcsqdData.xcjh[index].dcwf=dcwf;
+                },
                 //文件上传失败 回调
                 errorFile: function (error, file, fileList) {
                     console.log(error);
@@ -446,8 +501,8 @@ window.onload = function () {
                 },
                 //删除上传的文件
                 delFile: function (index) {
-                    var fileDate = app.fjFile.splice(index, 0);
-                    app.fjFile = fileDate;
+                    app.fjFile.splice(index, 1);
+
                 },
                 uploadFile: function (file) {
                     debugger

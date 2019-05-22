@@ -139,7 +139,6 @@
                 <i-col :sm="24" :md="12" :lg="6">
                     <form-item label="审批状态" :label-width="150">
                         <i-button type="primary" icon="md-add" @click="addCcsqd">新建</i-button>
-                        <i-button type="primary" icon="md-add" @click="model=true">新建1</i-button>
                     </form-item>
                 </i-col>
             </Row>
@@ -274,14 +273,30 @@
                     <div v-for="(xc,index) in addCcsqdData.xcjh" class="whrap">
                         <Row>
                             <i-col :sm="24" :md="8" :lg="8">
-                                <form-item label="出发地" :label-width="100" :prop="`xcjh.${index}.cfdArr`"
-                                           :rules="{ required: true, message: '出发地不能为空', trigger: 'blur' }">
-                                    <Tag :checkable="xc.jtgj=='1'" color="primary">飞机</Tag>
-                                    <Tag :checkable="xc.jtgj=='2'" color="primary">火车</Tag>
-                                    <Tag :checkable="xc.jtgj=='3'" color="primary">汽车</Tag>
-                                    <Tag :checkable="xc.jtgj=='4'" color="primary">其他</Tag>
+                                <form-item label="交通工具" :label-width="100" :prop="`xcjh.${index}.jtgj`"
+                                           :rules="{required: true, message: '出发地不能为空', trigger: 'blur' }">
+                                    <Tag :checkable="xc.jtgj=='1' ? false : true" :checked="xc.jtgj=='1' ? true : false" :type="xc.jtgj=='1' ? '' : 'border'" @on-change="changeJtgj(index,'1')" :color="xc.jtgj=='1' ? 'primary' : 'default'">飞机</Tag>
+                                    <Tag :checkable="xc.jtgj=='2' ? false : true" :checked="xc.jtgj=='2' ? true : false" :type="xc.jtgj=='2' ? '' : 'border'" @on-change="changeJtgj(index,'2')" :color="xc.jtgj=='2' ? 'primary' : 'default'">火车</Tag>
+                                    <Tag :checkable="xc.jtgj=='3' ? false : true" :checked="xc.jtgj=='3' ? true : false" :type="xc.jtgj=='3' ? '' : 'border'" @on-change="changeJtgj(index,'3')" :color="xc.jtgj=='3' ? 'primary' : 'default'">汽车</Tag>
+                                    <Tag :checkable="xc.jtgj=='4' ? false : true" :checked="xc.jtgj=='4' ? true : false" :type="xc.jtgj=='4' ? '' : 'border'" @on-change="changeJtgj(index,'4')" :color="xc.jtgj=='4' ? 'primary' : 'default'">其他</Tag>
                                 </form-item>
                             </i-col>
+                            <i-col :sm="24" :md="8" :lg="8" v-if="xc.jtgj=='4'">
+                                <form-item label="交通工具" :label-width="100" :prop="`xcjh.${index}.qtjtgj`"
+                                           :rules="{ required: true, message: '交通工具名称不能为空', trigger: 'blur' }">
+                                    <i-input placeholder="请填写交通工具名称" type="text" v-model="xc.qtjtgj"></i-input>
+                                    <!--<pulldown v-if="modalData.addModal" v-model="xc.cfdArr"
+                                              class="demo-input" data-type="1" :data-source="cityXlList" @on-change="selectCfd"></pulldown>-->
+                                </form-item>
+                            </i-col>
+                            <i-col :sm="24" :md="8" :lg="8">
+                                <form-item label="单程往返" :label-width="100" :prop="`xcjh.${index}.jtgj`"
+                                           :rules="{required: true, message: '出发地不能为空', trigger: 'blur' }">
+                                    <Tag :checkable="xc.dcwf=='1' ? false : true" :checked="xc.dcwf=='1' ? true : false" :type="xc.dcwf=='1' ? '' : 'border'" @on-change="changeDcwf(index,'1')" :color="xc.dcwf=='1' ? 'primary' : 'default'">单程</Tag>
+                                    <Tag :checkable="xc.dcwf=='2' ? false : true" :checked="xc.dcwf=='2' ? true : false" :type="xc.dcwf=='2' ? '' : 'border'" @on-change="changeDcwf(index,'2')" :color="xc.dcwf=='2' ? 'primary' : 'default'">往返</Tag>
+                                </form-item>
+                            </i-col>
+
                             <i-col :sm="24" :md="8" :lg="8">
                                 <form-item label="出发地" :label-width="100" :prop="`xcjh.${index}.cfdArr`"
                                            :rules="{ required: true, message: '出发地不能为空', trigger: 'blur' }">
@@ -330,36 +345,37 @@
 
             </div>
             <div>
+                <div class="tagClass">
+                    <Icon type="md-apps"></Icon>
+                    <span class="ml5">其他</span>
+                </div>
                 <div>
-                    <div class="tagClass">
-                        <Icon type="md-apps"></Icon>
-                        <span class="ml5">其他</span>
+                    <div style="width: 35%;display: inline-block;float: left; margin-left: 20px;">
+                        <Upload
+                                multiple
+                                @on-success="successFile"
+                                @on-error="errorFile"
+                                type="drag"
+                                :before-upload="handleUpload"
+                                action=""
+                        >
+                            <div style="padding: 20px 0">
+                                <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
+                                <p>上传文件</p>
+                            </div>
+                        </Upload>
                     </div>
-                    <div>
-                        <Row>
-                            <i-col :sm="24" :md="12" :lg="12">
-                                <Upload
-                                        multiple
-                                        @on-success="successFile"
-                                        @on-error="errorFile"
-                                        type="drag"
-                                        :before-upload="handleUpload"
-                                        action=""
-                                >
-                                    <div style="padding: 20px 0">
-                                        <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-                                        <p>上传文件</p>
-                                    </div>
-                                </Upload>
-                            </i-col>
-                            <i-col :sm="24" :md="12" :lg="12">
-                                <div v-for="(file, index) in fjFile">
-                                    <div class="disin fl ml20">{{file.name}}</div>
-                                    <div class="disin fr mr20"><span class="cur-pointer" @click.stop="delFile(index)"><Icon type="md-close" class="" /></span></div>
+                    <div style="width: 55%;display: inline-block;float: right; margin-right: 20px;">
+                        <div v-for="(file, index) in fjFile" class="disin" style="width: 100%;overflow: hidden; white-space: nowrap">
+                            <div>
+                                <div class="disin fl ml20">{{file.name}}</div>
+                                <div class="disin fr mr20">
+                                    <span class="cur-pointer" @click.stop="delFile(index)">
+                                         <Icon type="md-close" class="" />
+                                    </span>
                                 </div>
-                            </i-col>
-                        </Row>
-
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -367,69 +383,77 @@
     </Modal>
 
     <!--出差申请单详情页面-->
-        <Drawer :closable="false" width="640" v-model="model">
+        <Drawer :closable="false" width="640" v-model="ccsqdDetailModel.detailModel">
             <p :style="pStyle">出差申请单详情</p>
-            <p :style="pStyle">Personal</p>
-            <div class="demo-drawer-profile">
-                <Row>
-                    <i-col span="12">
-                    申请人: 曹鹏飞
-                    </i-col>
-                    <i-col span="12">
-                    部门: 研发部
-                    </i-col>
-                </Row>
-                <Row>
-                    <i-col span="12">
-                    申请时间: 2018-09-11 15:45:23
-                    </i-col>
-                    <i-col span="12">
-                    出差类型: 123456
-                    </i-col>
-                </Row>
-                <Row>
-                    <i-col span="12">
-                    出差业务类型: 出差234
-                    </i-col>
-                    <i-col span="12">
-                     事由: 事由哦234234
-                    </i-col>
-                </Row>
-            </div>
-            <Divider />
-            <div class="demo-drawer-profile">
-                <Row>
-                    <i-col span="12">
-                    出差人员: 曹鹏飞 耿海元
-                    </i-col>
-                </Row>
-                <Row>
-                    <i-col span="12">
-                    成本中心: 车呢本你
-                    </i-col>
-                </Row>
-                <Row>
-                    <i-col span="24">
-                    差旅事项: Map visualization
-                    </i-col>
-                </Row>
-            </div>
-            <Divider />
-            <div class="demo-drawer-profile">
-                <Row>
-                    <i-col span="24">
-                    出发地: 武汉
-                    </i-col>
-                    <i-col span="12">
-                    Phone Number: +86 18888888888
-                    </i-col>
-                </Row>
-                <Row>
-                    <i-col span="12">
-                    GitHub: <a href="https://github.com/iview/iview" target="_blank">https://github.com/iview/iview</a>
-                    </i-col>
-                </Row>
-            </div>
+            <Tabs :value="ccsqdDetailModel.detailtabValue" style="margin-top: 20px;margin-left: 5px;" >
+                <Tab-Pane label="申请单详情" name="1">
+                    <div class="demo-drawer-profile">
+                        <Row>
+                            <i-col span="12">
+                                申请人: 曹鹏飞
+                            </i-col>
+                            <i-col span="12">
+                                部门: 研发部
+                            </i-col>
+                        </Row>
+                        <Row>
+                            <i-col span="12">
+                                申请时间: 2018-09-11 15:45:23
+                            </i-col>
+                            <i-col span="12">
+                                出差类型: 123456
+                            </i-col>
+                        </Row>
+                        <Row>
+                            <i-col span="12">
+                                出差业务类型: 出差234
+                            </i-col>
+                            <i-col span="12">
+                                事由: 事由哦234234
+                            </i-col>
+                        </Row>
+                    </div>
+                    <Divider />
+                    <div class="demo-drawer-profile">
+                        <Row>
+                            <i-col span="12">
+                                出差人员: 曹鹏飞 耿海元
+                            </i-col>
+                        </Row>
+                        <Row>
+                            <i-col span="12">
+                                成本中心: 车呢本你
+                            </i-col>
+                        </Row>
+                        <Row>
+                            <i-col span="24">
+                                差旅事项: Map visualization
+                            </i-col>
+                        </Row>
+                    </div>
+                    <Divider />
+                    <div class="demo-drawer-profile">
+                        <Row>
+                            <i-col span="24">
+                                出发地: 武汉
+                            </i-col>
+                            <i-col span="12">
+                                Phone Number: +86 18888888888
+                            </i-col>
+                        </Row>
+                        <Row>
+                            <i-col span="12">
+                                GitHub: <a href="https://github.com/iview/iview" target="_blank">https://github.com/iview/iview</a>
+                            </i-col>
+                        </Row>
+                    </div>
+                </Tab-Pane>
+                <Tab-Pane label="审批信息" name="2">
+                </Tab-Pane>
+                <Tab-Pane label="关联订单" name="3">
+                </Tab-Pane>
+            </Tabs>
+
         </Drawer>
 
 </div>

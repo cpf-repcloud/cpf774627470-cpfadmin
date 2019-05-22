@@ -30,6 +30,19 @@ public class RepCcsqbRcDTO {
      */
     private Date xgsj;
 
+    /**
+     * 交通工具名称
+     * 1飞机
+     2火车
+     3汽车
+     4其他
+     */
+    private String jtgj;
+    /*** 单程往返*/
+    private String dcwf;
+
+    /*其他交通工具名称*/
+    private String qtjtgj;
 
     public String getCfdid() {
         return cfdid;
@@ -116,5 +129,29 @@ public class RepCcsqbRcDTO {
 
     public void setSxh(Integer sxh) {
         this.sxh = sxh;
+    }
+
+    public String getJtgj() {
+        return jtgj;
+    }
+
+    public void setJtgj(String jtgj) {
+        this.jtgj = jtgj;
+    }
+
+    public String getDcwf() {
+        return dcwf;
+    }
+
+    public void setDcwf(String dcwf) {
+        this.dcwf = dcwf;
+    }
+
+    public String getQtjtgj() {
+        return qtjtgj;
+    }
+
+    public void setQtjtgj(String qtjtgj) {
+        this.qtjtgj = qtjtgj;
     }
 }

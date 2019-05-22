@@ -85,6 +85,7 @@ public class FileUploadService {
                         FileUploadResponse responseBO = JSONUtil.toBean(result, FileUploadResponse.class);
                         if (null != responseBO) {
                             FileInfoBean fileInfoBean = responseBO.getData();
+                            fileInfoBean.setDownloadUrl(downloadFileUrl+"?fileId="+fileInfoBean.getFileId());
                             fileInfoBeanList.add(fileInfoBean);
                         }
                     }

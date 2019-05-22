@@ -227,6 +227,7 @@ Vue.mixin({
                 contentType: "application/json;charset=UTF-8",
                 success: function (response) {
                     if (response.status && response.status === "200") {
+                        debugger
                         _this.postrankList = response.result;
                     }
                 }
