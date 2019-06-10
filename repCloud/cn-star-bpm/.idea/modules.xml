@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/cn-star-bpm.iml" filepath="$PROJECT_DIR$/cn-star-bpm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cn-star-bpm-api/cn-star-bpm-api.iml" filepath="$PROJECT_DIR$/cn-star-bpm-api/cn-star-bpm-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cn-star-bpm-rest/cn-star-bpm-rest.iml" filepath="$PROJECT_DIR$/cn-star-bpm-rest/cn-star-bpm-rest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cn-star-bpm-server/cn-star-bpm-server.iml" filepath="$PROJECT_DIR$/cn-star-bpm-server/cn-star-bpm-server.iml" />
+    </modules>
+  </component>
+</project>
