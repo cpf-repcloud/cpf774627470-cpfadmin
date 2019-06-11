@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/repCloud/businessline/businessline.iml" filepath="$PROJECT_DIR$/repCloud/businessline/businessline.iml" />
+      <module fileurl="file://$PROJECT_DIR$/repCloud/cloud/cloud.iml" filepath="$PROJECT_DIR$/repCloud/cloud/cloud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/repCloud/cloudui/cloudui.iml" filepath="$PROJECT_DIR$/repCloud/cloudui/cloudui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/repCloud/cn-star-bpm/cn-star-bpm.iml" filepath="$PROJECT_DIR$/repCloud/cn-star-bpm/cn-star-bpm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/repCloud/cn-star-bpm/cn-star-bpm-api/cn-star-bpm-api.iml" filepath="$PROJECT_DIR$/repCloud/cn-star-bpm/cn-star-bpm-api/cn-star-bpm-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/repCloud/cn-star-bpm/cn-star-bpm-common/cn-star-bpm-common.iml" filepath="$PROJECT_DIR$/repCloud/cn-star-bpm/cn-star-bpm-common/cn-star-bpm-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/repCloud/cn-star-bpm/cn-star-bpm-rest/cn-star-bpm-rest.iml" filepath="$PROJECT_DIR$/repCloud/cn-star-bpm/cn-star-bpm-rest/cn-star-bpm-rest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/repCloud/cn-star-bpm/cn-star-bpm-server/cn-star-bpm-server.iml" filepath="$PROJECT_DIR$/repCloud/cn-star-bpm/cn-star-bpm-server/cn-star-bpm-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/cpf774627470-cpfadmin.iml" filepath="$PROJECT_DIR$/.idea/cpf774627470-cpfadmin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/repCloud/custom/custom.iml" filepath="$PROJECT_DIR$/repCloud/custom/custom.iml" />
+      <module fileurl="file://$PROJECT_DIR$/repCloud/framework/framework.iml" filepath="$PROJECT_DIR$/repCloud/framework/framework.iml" />
+    </modules>
+  </component>
+</project>

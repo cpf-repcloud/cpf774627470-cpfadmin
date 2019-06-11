@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/repCloud/businessline/pom.xml" />
+        <option value="$PROJECT_DIR$/repCloud/cloud/pom.xml" />
+        <option value="$PROJECT_DIR$/repCloud/cloudui/pom.xml" />
+        <option value="$PROJECT_DIR$/repCloud/cn-star-bpm/pom.xml" />
+        <option value="$PROJECT_DIR$/repCloud/custom/pom.xml" />
+        <option value="$PROJECT_DIR$/repCloud/framework/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="SvnBranchConfigurationManager">
+    <option name="mySupportsUserInfoFilter" value="true" />
+  </component>
+</project>

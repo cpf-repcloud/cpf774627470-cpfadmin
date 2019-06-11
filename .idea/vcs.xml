@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/repCloud/businessline" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/repCloud/cloud" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/repCloud/cloudui" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/repCloud/cn-star-bpm" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/repCloud/custom" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/repCloud/framework" vcs="svn" />
+  </component>
+</project>

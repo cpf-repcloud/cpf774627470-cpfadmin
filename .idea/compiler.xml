@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="businessline" />
+        <module name="cloud" />
+        <module name="cloudui" />
+        <module name="cn-star-bpm-api" />
+        <module name="cn-star-bpm-common" />
+        <module name="cn-star-bpm-rest" />
+        <module name="cn-star-bpm-server" />
+        <module name="custom" />
+        <module name="framework" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="businessline" target="1.8" />
+      <module name="cloud" target="1.8" />
+      <module name="cloudui" target="1.8" />
+      <module name="cn-star-bpm" target="1.8" />
+      <module name="cn-star-bpm-api" target="1.7" />
+      <module name="cn-star-bpm-common" target="1.7" />
+      <module name="cn-star-bpm-rest" target="1.7" />
+      <module name="cn-star-bpm-server" target="1.7" />
+      <module name="custom" target="1.8" />
+      <module name="framework" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/repCloud/businessline" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/repCloud/cloud" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/repCloud/cloudui" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/repCloud/cn-star-bpm" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/repCloud/cn-star-bpm/cn-star-bpm-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/repCloud/cn-star-bpm/cn-star-bpm-common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/repCloud/cn-star-bpm/cn-star-bpm-rest" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/repCloud/cn-star-bpm/cn-star-bpm-server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/repCloud/custom" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/repCloud/framework" charset="UTF-8" />
+  </component>
+</project>
